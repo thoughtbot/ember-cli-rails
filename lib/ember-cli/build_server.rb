@@ -9,9 +9,8 @@ module EmberCLI
     def start
       symlink_to_assets_root
 
-      @pid = spawn(command).tap do |pid|
-        at_exit{ stop }
-      end
+      @pid = spawn(command)
+      at_exit{ stop }
     end
 
     def stop
