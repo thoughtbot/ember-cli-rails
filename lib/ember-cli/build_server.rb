@@ -8,7 +8,7 @@ module EmberCLI
 
     def start
       symlink_to_assets_root
-
+      add_assets_to_precompile_list
       @pid = spawn(command)
       at_exit{ stop }
     end
@@ -20,6 +20,14 @@ module EmberCLI
 
     private
 
+    def symlink_to_assets_root
+      assets_path.join(name).make_symlink dist_path.join("assets")
+    end
+
+    def add_assets_to_precompile_list
+      Rails.configuration.assets.precompile << /(?:\/|\A)#{name}\//
+    end
+
     def command
       <<-CMD.squish
         cd #{app_path};
@@ -29,10 +37,6 @@ module EmberCLI
 
     def app_path
       options.fetch(:path){ Rails.root.join("app", name) }
-    end
-
-    def symlink_to_assets_root
-      assets_path.join(name).make_symlink dist_path.join("assets")
     end
 
     def dist_path
