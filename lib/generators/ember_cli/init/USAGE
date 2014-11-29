@@ -1,0 +1,8 @@
+Description:
+  Generates ember cli initializer.  The initializer sets up where the EmberCli application will live (by default in app/frontend)
+
+Example:
+    rails generate ember_cli:init
+
+    This will create:
+        config/initializers/ember-cli-rails.rb
