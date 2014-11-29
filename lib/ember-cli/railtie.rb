@@ -4,6 +4,10 @@ module EmberCLI
       EmberCLI.prepare! if development_mode?
     end
 
+    initializer "ember-cli-rails.view_helpers" do
+      ActionView::Base.send :include, ViewHelpers
+    end
+
     def development_mode?
       !Rails.env.production? && Rails.configuration.consider_all_requests_local
     end
