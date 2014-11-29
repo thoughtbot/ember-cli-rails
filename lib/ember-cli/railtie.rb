@@ -5,7 +5,7 @@ module EmberCLI
     end
 
     initializer "ember-cli-rails.view_helpers" do
-      ActionView::Base.send :include, ViewHelpers
+      ActionView::Base.include ViewHelpers
     end
 
     def development_mode?
