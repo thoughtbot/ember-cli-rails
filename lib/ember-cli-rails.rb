@@ -6,6 +6,7 @@ module EmberCLI
   autoload :BuildServer,   "ember-cli/build_server"
   autoload :Configuration, "ember-cli/configuration"
   autoload :RackServer,    "ember-cli/rack_server"
+  autoload :ViewHelpers,   "ember-cli/view_helpers"
 
   def configure
     yield configuration
