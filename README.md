@@ -30,7 +30,7 @@ EmberCLI.configure do |c|
 end
 ```
 
-### options
+##### options
 
 - app - this represents the name of the ember cli application.  The presumed path of which would be `Rails.root.join('app', <your-appname>)`
 
