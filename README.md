@@ -16,7 +16,7 @@ Firstly, you'll have to include the gem in your `Gemfile` and `bundle install`
 gem 'ember-cli-rails'
 ```
 
-Then you'll want to configure your installation by add an `ember-cli-rails.rb` initializer.  There is a generator to guide you, run:
+Then you'll want to configure your installation by adding an `ember-cli-rails.rb` initializer.  There is a generator to guide you, run:
 
 ```shell
 rake ember_cli:init
