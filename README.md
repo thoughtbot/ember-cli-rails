@@ -16,17 +16,17 @@ Firstly, you'll have to include the gem in your `Gemfile` and `bundle install`
 gem 'ember-cli-rails'
 ```
 
-Then you'll want to configure your installation by adding an `ember-cli-rails.rb` initializer.  There is a generator to guide you, run:
+Then you'll want to configure your installation by adding an `ember.rb` initializer.  There is a generator to guide you, run:
 
 ```shell
-rake ember_cli:init
+rake ember-cli:init
 ```
 
 This will generate an initializer that looks like the following:
 
 ```ruby
 EmberCLI.configure do |c|
-  c.app 'frontend'
+  c.app :frontend
 end
 ```
 
@@ -38,7 +38,7 @@ end
 
 ```ruby
 EmberCLI.configure do |c|
-  c.app 'frontend', path: "/path/to/your/ember-cli-app/on/disk"
+  c.app :frontend, path: "/path/to/your/ember-cli-app/on/disk"
 end
 ```
 
@@ -62,8 +62,8 @@ In the initializer you may specify multiple EmberCLI apps, each of which can be 
 
 ```ruby
 EmberCLI.configure do |c|
-  c.app 'frontend'
-  c.app 'admin_panel', path: '/somewhere/else'
+  c.app :frontend
+  c.app :admin_panel, path: '/somewhere/else'
 end
 ```
 
@@ -72,7 +72,7 @@ end
 In order to load your EmberCLI generated app you need only include the javscript tags on the page you'd like the Ember app to appear:
 
 ```erb
-<%= ember_cli_script_tags('frontend') %>
+<%= ember_cli_script_tags :frontend %>
 ```
 
 Your Ember application will be served now.
@@ -83,7 +83,7 @@ EmberCLI Rails runs `ember build` with the `--output-path` and `--watch` flags o
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/ember-cli-rails/fork )
+1. Fork it (https://github.com/rwz/ember-cli-rails/fork)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
