@@ -13,7 +13,7 @@ For example, end-to-end tests with frameworks like Cucumber should just work.  Y
 Firstly, you'll have to include the gem in your `Gemfile` and `bundle install`
 
 ```ruby
-gem 'ember-cli-rails'
+gem "ember-cli-rails"
 ```
 
 Then you'll want to configure your installation by adding an `ember.rb` initializer.  There is a generator to guide you, run:
@@ -63,7 +63,7 @@ In the initializer you may specify multiple EmberCLI apps, each of which can be 
 ```ruby
 EmberCLI.configure do |c|
   c.app :frontend
-  c.app :admin_panel, path: '/somewhere/else'
+  c.app :admin_panel, path: "/somewhere/else"
 end
 ```
 
