@@ -3,8 +3,8 @@ require_relative "./lib/ember-cli/version"
 Gem::Specification.new do |spec|
   spec.name     = "ember-cli-rails"
   spec.version  = EmberCLI::VERSION
-  spec.authors  = ["Pavel Pravosud"]
-  spec.email    = ["pavel@pravosud.com"]
+  spec.authors  = ["Pavel Pravosud", "Jonathan Jackson"]
+  spec.email    = ["pavel@pravosud.com", "jonathan.jackson1@me.com"]
   spec.summary  = "Helps integrate EmberCLI with Rails"
   spec.homepage = "https://github.com/rwz/ember-cli-rails"
   spec.license  = "MIT"
