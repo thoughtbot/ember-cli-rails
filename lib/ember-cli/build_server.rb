@@ -9,7 +9,7 @@ module EmberCLI
     def start
       symlink_to_assets_root
       add_assets_to_precompile_list
-      @pid = spawn(command)
+      @pid = spawn(command, chdir: app_path, err: :out)
       at_exit{ stop }
     end
 
@@ -29,14 +29,15 @@ module EmberCLI
     end
 
     def command
-      <<-CMD.squish
-        cd #{app_path};
-        ember build --watch --output-path #{dist_path}
-      CMD
+      "ember build --watch --output-path #{dist_path} | tee -a #{log_path}"
     end
 
     def app_path
       options.fetch(:path){ Rails.root.join("app", name) }
+    end
+
+    def log_path
+      Rails.root.join("log", "ember-#{name}.#{Rails.env}.log")
     end
 
     def dist_path
