@@ -29,7 +29,11 @@ module EmberCLI
     end
 
     def command
-      "ember build --watch --output-path #{dist_path} | tee -a #{log_path}"
+      "ember build --watch --output-path #{dist_path} #{tee_command}"
+    end
+
+    def tee_command
+      "| tee -a #{log_path}" if Helpers.which('tee')
     end
 
     def app_path
