@@ -8,6 +8,12 @@ module EmberCLI
       ActionView::Base.include ViewHelpers
     end
 
+    initializer "ember-cli-rails.inflector" do
+      ActiveSupport::Inflector.inflections(:en) do |inflect|
+        inflect.acronym "CLI"
+      end
+    end
+
     def development_mode?
       !Rails.env.production? && Rails.configuration.consider_all_requests_local
     end

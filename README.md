@@ -19,7 +19,7 @@ gem "ember-cli-rails"
 Then you'll want to configure your installation by adding an `ember.rb` initializer.  There is a generator to guide you, run:
 
 ```shell
-rails generate ember-cli:init
+rails generate ember_cli:init
 ```
 
 This will generate an initializer that looks like the following:
