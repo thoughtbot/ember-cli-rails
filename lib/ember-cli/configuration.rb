@@ -11,5 +11,18 @@ module EmberCLI
     def app_list
       @app_list ||= []
     end
+
+    def tee_path
+      return @tee_path if defined?(@tee_path)
+      @tee_path = Helpers.which("tee")
+    end
+
+    def ember_path
+      @ember_path ||= Helpers.which("ember").tap do |path|
+        fail "ember-cli executable could not be found" unless path
+      end
+    end
+
+    attr_writer :ember_path
   end
 end

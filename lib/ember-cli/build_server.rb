@@ -20,6 +20,10 @@ module EmberCLI
 
     private
 
+    delegate :ember_path, to: :configuration
+    delegate :tee_path, to: :configuration
+    delegate :configuration, to: :EmberCLI
+
     def symlink_to_assets_root
       assets_path.join(name).make_symlink dist_path.join("assets")
     end
@@ -29,11 +33,11 @@ module EmberCLI
     end
 
     def command
-      "ember build --watch --output-path #{dist_path} #{tee_command}"
+      "#{ember_path} build --watch --output-path #{dist_path} #{log_pipe}"
     end
 
-    def tee_command
-      "| tee -a #{log_path}" if Helpers.which('tee')
+    def log_pipe
+      "| #{tee_path} -a #{log_path}" if tee_path
     end
 
     def app_path
