@@ -72,7 +72,7 @@ end
 In order to load your EmberCLI generated app you need only include the javscript tags on the page you'd like the Ember app to appear:
 
 ```erb
-<%= ember_cli_script_tags :frontend %>
+<%= include_ember_script_tags :frontend %>
 ```
 
 Your Ember application will be served now.
