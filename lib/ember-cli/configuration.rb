@@ -5,11 +5,11 @@ module EmberCLI
     include Singleton
 
     def app(name, **options)
-      app_list << BuildServer.new(name, options)
+      apps.store name, BuildServer.new(name, **options)
     end
 
-    def app_list
-      @app_list ||= []
+    def apps
+      @apps ||= HashWithIndifferentAccess.new
     end
 
     def tee_path

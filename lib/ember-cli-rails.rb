@@ -24,11 +24,11 @@ module EmberCLI
   end
 
   def start!
-    configuration.app_list.each(&:start)
+    configuration.apps.values.each(&:start)
   end
 
   def stop!
-    configuration.app_list.each(&:stop)
+    configuration.apps.values.each(&:stop)
   end
 
   def root
