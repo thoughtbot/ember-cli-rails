@@ -18,6 +18,10 @@ module EmberCLI
       @pid = nil
     end
 
+    def exposed_js_assets
+      %W[#{name}/vendor #{name}/#{ember_app_name}]
+    end
+
     private
 
     delegate :ember_path, to: :configuration
@@ -38,6 +42,12 @@ module EmberCLI
 
     def log_pipe
       "| #{tee_path} -a #{log_path}" if tee_path
+    end
+
+    def ember_app_name
+      @ember_app_name ||= options.fetch(:name) do
+        JSON.parse(app_path.join("package.json").read).fetch("name")
+      end
     end
 
     def app_path
