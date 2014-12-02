@@ -5,7 +5,7 @@ Gem::Specification.new do |spec|
   spec.version  = EmberCLI::VERSION
   spec.authors  = ["Pavel Pravosud", "Jonathan Jackson"]
   spec.email    = ["pavel@pravosud.com", "jonathan.jackson1@me.com"]
-  spec.summary  = "Helps integrate EmberCLI with Rails"
+  spec.summary  = "Integration between Ember CLI and Rails"
   spec.homepage = "https://github.com/rwz/ember-cli-rails"
   spec.license  = "MIT"
   spec.files    = Dir["README.md", "LICENSE.txt", "lib/**/*"]
