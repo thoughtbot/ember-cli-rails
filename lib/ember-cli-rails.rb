@@ -18,7 +18,7 @@ module EmberCLI
   end
 
   def prepare!
-    Rack::Server.prepend RackServer
+    Rack::Server.send :prepend, RackServer
     Rails.configuration.assets.paths << root.join("assets").to_s
     at_exit{ cleanup }
   end

@@ -5,7 +5,7 @@ module EmberCLI
     end
 
     initializer "ember-cli-rails.view_helpers" do
-      ActionView::Base.include ViewHelpers
+      ActionView::Base.send :include, ViewHelpers
     end
 
     initializer "ember-cli-rails.inflector" do
