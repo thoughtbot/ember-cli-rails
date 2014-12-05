@@ -6,10 +6,17 @@ module EmberCLI
       @name, @options = name.to_s, options
     end
 
-    def start
+    def compile
       symlink_to_assets_root
       add_assets_to_precompile_list
-      @pid = spawn(command, chdir: app_path, err: :out)
+      silence_stream STDOUT do
+        system command, chdir: app_path, err: :out
+      end
+    end
+
+    def run
+      compile
+      @pid = spawn(command(watch: true), chdir: app_path, err: :out)
       at_exit{ stop }
     end
 
@@ -36,8 +43,9 @@ module EmberCLI
       Rails.configuration.assets.precompile << /(?:\/|\A)#{name}\//
     end
 
-    def command
-      "#{ember_path} build --watch --output-path #{dist_path} #{log_pipe}"
+    def command(watch: nil)
+      watch = "--watch" if watch
+      "#{ember_path} build #{watch} --environment #{environment} --output-path #{dist_path} #{log_pipe}"
     end
 
     def log_pipe
@@ -64,6 +72,10 @@ module EmberCLI
 
     def assets_path
       @assets_path ||= EmberCLI.root.join("assets").tap(&:mkpath)
+    end
+
+    def environment
+      Rails.env.in?(%w[development test]) ? Rails.env : "production"
     end
   end
 end

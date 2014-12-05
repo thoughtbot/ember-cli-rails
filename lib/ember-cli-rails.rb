@@ -18,17 +18,33 @@ module EmberCLI
   end
 
   def prepare!
-    Rack::Server.send :prepend, RackServer
-    Rails.configuration.assets.paths << root.join("assets").to_s
-    at_exit{ cleanup }
+    @prepared ||= begin
+      Rails.configuration.assets.paths << root.join("assets").to_s
+      at_exit{ cleanup }
+      true
+    end
   end
 
-  def start!
-    configuration.apps.values.each(&:start)
+  def enable!
+    if Rails.env.development?
+      prepare!
+      Rack::Server.send :prepend, RackServer
+    else
+      compile!
+    end
+  end
+
+  def run!
+    each_app &:run
+  end
+
+  def compile!
+    prepare!
+    each_app &:compile
   end
 
   def stop!
-    configuration.apps.values.each(&:stop)
+    each_app &:stop
   end
 
   def root
@@ -43,5 +59,9 @@ module EmberCLI
 
   def cleanup
     root.rmtree if root.exist?
+  end
+
+  def each_app
+    configuration.apps.values.each{ |a| yield a }
   end
 end

@@ -1,9 +1,5 @@
 module EmberCLI
   class Railtie < Rails::Railtie
-    initializer "ember-cli-rails.rack-server" do
-      EmberCLI.prepare! if development_mode?
-    end
-
     initializer "ember-cli-rails.view_helpers" do
       ActionView::Base.send :include, ViewHelpers
     end
@@ -14,7 +10,11 @@ module EmberCLI
       end
     end
 
-    def development_mode?
+    initializer "ember-cli-rails.rack-server" do
+      EmberCLI.enable! if non_production?
+    end
+
+    def non_production?
       !Rails.env.production? && Rails.configuration.consider_all_requests_local
     end
   end
