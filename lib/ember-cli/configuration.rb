@@ -5,7 +5,7 @@ module EmberCLI
     include Singleton
 
     def app(name, **options)
-      apps.store name, BuildServer.new(name, **options)
+      apps.store name, App.new(name, **options)
     end
 
     def apps

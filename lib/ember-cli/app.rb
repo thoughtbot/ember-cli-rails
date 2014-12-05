@@ -1,5 +1,5 @@
 module EmberCLI
-  class BuildServer
+  class App
     attr_reader :name, :options, :pid
 
     def initialize(name, **options)

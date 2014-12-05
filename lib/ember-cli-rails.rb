@@ -3,7 +3,7 @@ require "ember-cli/railtie" if defined?(Rails)
 module EmberCLI
   extend self
 
-  autoload :BuildServer,   "ember-cli/build_server"
+  autoload :App,           "ember-cli/app"
   autoload :Configuration, "ember-cli/configuration"
   autoload :RackServer,    "ember-cli/rack_server"
   autoload :ViewHelpers,   "ember-cli/view_helpers"
