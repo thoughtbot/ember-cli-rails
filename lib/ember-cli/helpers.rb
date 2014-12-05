@@ -14,5 +14,15 @@ module EmberCLI
 
       nil
     end
+
+    def override_assets_precompile_task!
+      Rake.application.instance_eval do
+        @tasks["assets:precompile:original"] = @tasks.delete("assets:precompile")
+        Rake::Task.define_task "assets:precompile", %i[assets precompile] => :environment do
+          EmberCLI.compile!
+          Rake::Task["assets:precompile:original"].execute
+        end
+      end
+    end
   end
 end

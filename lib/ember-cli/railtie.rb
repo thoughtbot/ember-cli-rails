@@ -14,6 +14,10 @@ module EmberCLI
       EmberCLI.enable! if non_production?
     end
 
+    rake_tasks do
+      require "ember-cli/rake_task"
+    end
+
     def non_production?
       !Rails.env.production? && Rails.configuration.consider_all_requests_local
     end
