@@ -62,6 +62,6 @@ module EmberCLI
   end
 
   def each_app
-    configuration.apps.values.each{ |a| yield a }
+    configuration.apps.each{ |name, app| yield app }
   end
 end
