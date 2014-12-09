@@ -15,7 +15,8 @@ module EmberCLI
     end
 
     rake_tasks do
-      require "ember-cli/rake_task"
+      require "sprockets/rails/task"
+      EmberCLI::Helpers.override_assets_precompile_task!
     end
 
     def non_production?
