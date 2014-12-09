@@ -1,7 +1,7 @@
 module EmberCLI
   module RackServer
     def start
-      EmberCLI.run! if defined?(Rails.application) && app == Rails.application
+      EmberCLI.run! if defined?(Rails.application)
       super
     ensure
       EmberCLI.stop!
