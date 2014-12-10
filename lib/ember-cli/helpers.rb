@@ -15,6 +15,10 @@ module EmberCLI
       nil
     end
 
+    def non_production?
+      !Rails.env.production? && Rails.configuration.consider_all_requests_local
+    end
+
     def override_assets_precompile_task!
       Rake.application.instance_eval do
         @tasks["assets:precompile:original"] = @tasks.delete("assets:precompile")

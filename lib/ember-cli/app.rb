@@ -82,7 +82,7 @@ module EmberCLI
     end
 
     def environment
-      Rails.env.in?(%w[development test]) ? Rails.env : "production"
+      Helpers.non_production?? "development" : "production"
     end
   end
 end

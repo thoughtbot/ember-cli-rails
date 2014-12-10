@@ -11,7 +11,7 @@ module EmberCLI
     end
 
     initializer "ember-cli-rails.enable" do
-      EmberCLI.enable! if non_production?
+      EmberCLI.enable! if EmberCLI::Helpers.non_production?
     end
 
     rake_tasks do
@@ -19,8 +19,5 @@ module EmberCLI
       EmberCLI::Helpers.override_assets_precompile_task!
     end
 
-    def non_production?
-      !Rails.env.production? && Rails.configuration.consider_all_requests_local
-    end
   end
 end
