@@ -5,7 +5,6 @@ module EmberCLI
 
   autoload :App,           "ember-cli/app"
   autoload :Configuration, "ember-cli/configuration"
-  autoload :RackServer,    "ember-cli/rack_server"
   autoload :ViewHelpers,   "ember-cli/view_helpers"
   autoload :Helpers,       "ember-cli/helpers"
 
@@ -26,15 +25,27 @@ module EmberCLI
   end
 
   def enable!
-    if Rails.env.development?
-      prepare!
-      Rack::Server.send :prepend, RackServer
-    else
-      compile!
+    prepare!
+
+    Rails.application.instance_eval do
+      singleton_class.instance_eval do
+        alias_method :call_without_ember_cli, :call
+      end
+
+      def call(env)
+        @_ember_cli_enabled ||= begin
+          EmberCLI.compile!
+          EmberCLI.run! if Rails.env.development?
+          true
+        end
+
+        call_without_ember_cli(env)
+      end
     end
   end
 
   def run!
+    prepare!
     each_app &:run
   end
 

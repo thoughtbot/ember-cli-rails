@@ -10,7 +10,7 @@ module EmberCLI
       end
     end
 
-    initializer "ember-cli-rails.rack-server" do
+    initializer "ember-cli-rails.enable" do
       EmberCLI.enable! if non_production?
     end
 

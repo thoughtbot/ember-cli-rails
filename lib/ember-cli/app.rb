@@ -7,15 +7,14 @@ module EmberCLI
     end
 
     def compile
-      symlink_to_assets_root
-      add_assets_to_precompile_list
+      prepare
       silence_stream STDOUT do
         system command, chdir: app_path, err: :out
       end
     end
 
     def run
-      compile
+      prepare
       @pid = spawn(command(watch: true), chdir: app_path, err: :out)
       at_exit{ stop }
     end
@@ -34,6 +33,14 @@ module EmberCLI
     delegate :ember_path, to: :configuration
     delegate :tee_path, to: :configuration
     delegate :configuration, to: :EmberCLI
+
+    def prepare
+      @prepared ||= begin
+        symlink_to_assets_root
+        add_assets_to_precompile_list
+        true
+      end
+    end
 
     def symlink_to_assets_root
       assets_path.join(name).make_symlink dist_path.join("assets")
