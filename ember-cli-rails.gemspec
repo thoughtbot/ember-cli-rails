@@ -11,5 +11,7 @@ Gem::Specification.new do |spec|
   spec.files    = Dir["README.md", "LICENSE.txt", "lib/**/*"]
 
   spec.required_ruby_version = ">= 1.9.3"
-  spec.add_dependency "railties", "~> 4.0"
+
+  spec.add_dependency "railties",        "~> 4.0"
+  spec.add_dependency "sprockets-rails", "~> 2.0"
 end
