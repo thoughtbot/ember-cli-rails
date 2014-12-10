@@ -2,7 +2,7 @@ module EmberCLI
   class App
     attr_reader :name, :options, :pid
 
-    def initialize(name, **options)
+    def initialize(name, options={})
       @name, @options = name.to_s, options
     end
 
@@ -50,8 +50,8 @@ module EmberCLI
       Rails.configuration.assets.precompile << /(?:\/|\A)#{name}\//
     end
 
-    def command(watch: nil)
-      watch = "--watch" if watch
+    def command(options={})
+      watch = options[:watch] ? "--watch" : ""
       "#{ember_path} build #{watch} --environment #{environment} --output-path #{dist_path} #{log_pipe}"
     end
 

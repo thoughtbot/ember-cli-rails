@@ -1,4 +1,4 @@
-require_relative "./lib/ember-cli/version"
+require File.expand_path("../lib/ember-cli/version", __FILE__)
 
 Gem::Specification.new do |spec|
   spec.name     = "ember-cli-rails"
@@ -10,6 +10,6 @@ Gem::Specification.new do |spec|
   spec.license  = "MIT"
   spec.files    = Dir["README.md", "LICENSE.txt", "lib/**/*"]
 
-  spec.required_ruby_version = "~> 2.0"
+  spec.required_ruby_version = ">= 1.9.3"
   spec.add_dependency "railties", "~> 4.0"
 end
