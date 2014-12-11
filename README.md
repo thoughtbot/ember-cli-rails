@@ -95,6 +95,12 @@ javscript tags on the page you'd like the Ember app to appear:
 <%= include_ember_script_tags :frontend %>
 ```
 
+Stylesheets are also available by calling:
+
+```erb
+<%= include_ember_stylesheet_tags :frontend %>
+```
+
 Your Ember application will be served now.
 
 ## Additional Information
