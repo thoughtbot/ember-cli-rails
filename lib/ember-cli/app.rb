@@ -43,7 +43,10 @@ module EmberCLI
     end
 
     def symlink_to_assets_root
-      assets_path.join(name).make_symlink dist_path.join("assets")
+      begin
+        assets_path.join(name).make_symlink dist_path.join("assets")
+      rescue Errno::EEXIST => e
+      end
     end
 
     def add_assets_to_precompile_list
