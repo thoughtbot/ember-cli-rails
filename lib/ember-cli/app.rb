@@ -28,6 +28,10 @@ module EmberCLI
       %W[#{name}/vendor #{name}/#{ember_app_name}]
     end
 
+    def exposed_css_assets
+      %W[#{name}/vendor #{name}/#{ember_app_name}]
+    end
+
     private
 
     delegate :ember_path, to: :configuration
