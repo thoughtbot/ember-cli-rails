@@ -27,10 +27,8 @@ module EmberCLI
   def enable!
     prepare!
 
-    Rails.application.instance_eval do
-      singleton_class.instance_eval do
-        alias_method :call_without_ember_cli, :call
-      end
+    Rails.application.singleton_class.class_eval do
+      alias_method :call_without_ember_cli, :call
 
       def call(env)
         @_ember_cli_enabled ||= begin
