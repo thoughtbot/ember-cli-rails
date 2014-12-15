@@ -71,7 +71,10 @@ module EmberCLI
     end
 
     def app_path
-      options.fetch(:path){ Rails.root.join("app", name) }
+      @app_path ||= begin
+        path = options.fetch(:path){ Rails.root.join("app", name) }
+        Pathname.new(path)
+      end
     end
 
     def log_path
