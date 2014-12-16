@@ -32,7 +32,26 @@ module EmberCLI
       %W[#{name}/vendor #{name}/#{ember_app_name}]
     end
 
+    def lock
+      require 'timeout'
+      Timeout::timeout(TIMEOUT) do
+        while File.file?(pre_lockfile) && !File.file?(post_lockfile)
+          sleep 0.1
+        end
+      end
+    rescue
+      stop
+    end
+
     private
+
+    def pre_lockfile
+      File.join(assets_path, 'preBuild.lock')
+    end
+
+    def post_lockfile
+      File.join(assets_path, 'postBuild.lock')
+    end
 
     delegate :ember_path, to: :configuration
     delegate :tee_path, to: :configuration

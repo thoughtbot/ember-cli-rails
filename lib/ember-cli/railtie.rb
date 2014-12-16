@@ -4,6 +4,10 @@ module EmberCLI
       ActionView::Base.send :include, ViewHelpers
     end
 
+    initializer "ember-cli-rails.insert_middleware" do |app|
+      app.config.middleware.use "EmberCLI::Middleware"
+    end
+
     initializer "ember-cli-rails.inflector" do
       ActiveSupport::Inflector.inflections :en do |inflect|
         inflect.acronym "CLI"

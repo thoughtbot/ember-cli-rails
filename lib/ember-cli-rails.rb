@@ -2,11 +2,13 @@ require "ember-cli/railtie" if defined?(Rails)
 
 module EmberCLI
   extend self
+  TIMEOUT = 5
 
   autoload :App,           "ember-cli/app"
   autoload :Configuration, "ember-cli/configuration"
   autoload :ViewHelpers,   "ember-cli/view_helpers"
   autoload :Helpers,       "ember-cli/helpers"
+  autoload :Middleware,    "ember-cli/middleware"
 
   def configure
     yield configuration
