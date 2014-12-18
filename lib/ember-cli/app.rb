@@ -40,18 +40,45 @@ module EmberCLI
       Timeout.timeout(build_timeout) do
         sleep 0.1 while lockfile.exist?
       end
+    rescue Timeout::Error
+      suggested_timeout = build_timeout + 5
+
+      warn <<-MSG.strip_heredoc
+        ============================= WARNING! =============================
+
+          Seems like Ember #{name} application takes more than #{build_timeout}
+          seconds to compile.
+
+          To prevent race conditions consider adjusting build timeout
+          configuration in your ember initializer:
+
+            EmberCLI.configure do |config|
+              config.build_timeout = #{suggested_timeout} # in seconds
+            end
+
+          Alternatively, you can set build timeout per application like this:
+
+            EmberCLI.configure do |config|
+              config.app :#{name}, build_timeout: #{suggested_timeout}
+            end
+
+        ============================= WARNING! =============================
+      MSG
     end
 
     private
 
+    delegate :ember_path, to: :configuration
+    delegate :tee_path, to: :configuration
+    delegate :configuration, to: :EmberCLI
+
+    def build_timeout
+      options.fetch(:build_timeout){ configuration.build_timeout }
+    end
+
     def lockfile
       app_path.join("tmp", "build.lock")
     end
-
-    delegate :ember_path, to: :configuration
-    delegate :build_timeout, to: :configuration
-    delegate :tee_path, to: :configuration
-    delegate :configuration, to: :EmberCLI
 
     def prepare
       @prepared ||= begin
