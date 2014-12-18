@@ -5,14 +5,24 @@ module EmberCLI
     end
 
     def call(env)
-      apps.map(&:lock)
+      enable_ember_cli
+      EmberCLI.wait!
+
       @app.call(env)
     end
 
     private
 
-    def apps
-      EmberCLI.configuration.apps.values
+    def enable_ember_cli
+      @enabled ||= begin
+        if Rails.env.development?
+          EmberCLI.run!
+        else
+          EmberCLI.compile!
+        end
+
+        true
+      end
     end
   end
 end
