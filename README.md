@@ -58,7 +58,8 @@ EmberCLI.configure do |c|
 end
 ```
 
-Once you've updated your initializer to taste, you need to install the [ember-cli-rails-addon](https://github.com/rondale-sc/ember-cli-rails-addon).
+Once you've updated your initializer to taste, you need to install the
+[ember-cli-rails-addon](https://github.com/rondale-sc/ember-cli-rails-addon).
 
 For each of your EmberCLI applications install the addon with:
 
