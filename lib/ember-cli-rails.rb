@@ -7,6 +7,7 @@ module EmberCLI
   autoload :Configuration, "ember-cli/configuration"
   autoload :ViewHelpers,   "ember-cli/view_helpers"
   autoload :Helpers,       "ember-cli/helpers"
+  autoload :Middleware,    "ember-cli/middleware"
 
   def configure
     yield configuration
@@ -26,20 +27,7 @@ module EmberCLI
 
   def enable!
     prepare!
-
-    Rails.application.singleton_class.class_eval do
-      alias_method :call_without_ember_cli, :call
-
-      def call(env)
-        @_ember_cli_enabled ||= begin
-          EmberCLI.compile!
-          EmberCLI.run! if Rails.env.development?
-          true
-        end
-
-        call_without_ember_cli(env)
-      end
-    end
+    Rails.configuration.middleware.use Middleware
   end
 
   def run!
@@ -54,6 +42,10 @@ module EmberCLI
 
   def stop!
     each_app &:stop
+  end
+
+  def wait!
+    each_app &:wait
   end
 
   def root

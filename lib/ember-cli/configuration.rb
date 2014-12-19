@@ -23,6 +23,10 @@ module EmberCLI
       end
     end
 
-    attr_writer :ember_path
+    def build_timeout
+      @build_timeout ||= 5
+    end
+
+    attr_writer :ember_path, :build_timeout
   end
 end

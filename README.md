@@ -58,18 +58,13 @@ EmberCLI.configure do |c|
 end
 ```
 
-Once you've updated your initializer to taste, you need to tell EmberCLI that
-you want the meta tag to be served in your javascript. Open up your
-`Brocfile.js` inside your EmberCLI app and add `{storeConfigInMeta: false}`.
+Once you've updated your initializer to taste, you need to install the
+[ember-cli-rails-addon](https://github.com/rondale-sc/ember-cli-rails-addon).
 
-It should look something like this (if you've left it unchanged):
+For each of your EmberCLI applications install the addon with:
 
-```javascript
-var EmberApp = require('ember-cli/lib/broccoli/ember-app');
-
-var app = new EmberApp({storeConfigInMeta: false});
-
-// etc...
+```sh
+npm install --save-dev ember-cli-rails-addon@0.0.3
 ```
 
 And that's it!
