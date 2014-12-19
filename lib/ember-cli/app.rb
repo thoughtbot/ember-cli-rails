@@ -78,7 +78,7 @@ module EmberCLI
     end
 
     def lockfile
-      app_path.join("tmp", "build.lock")
+      tmp_path.join("build.lock")
     end
 
     def prepare
@@ -149,6 +149,14 @@ module EmberCLI
       @app_path ||= begin
         path = options.fetch(:path){ Rails.root.join("app", name) }
         Pathname.new(path)
+      end
+    end
+
+    def tmp_path
+      @tmp_path ||= begin
+        path = app_path.join("tmp")
+        path.mkdir unless path.exist?
+        path
       end
     end
 
