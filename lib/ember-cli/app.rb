@@ -3,6 +3,7 @@ require "timeout"
 module EmberCLI
   class App
     ADDON_VERSION = "0.0.3"
+    EMBER_CLI_VERSION = "~> 0.1.3"
 
     attr_reader :name, :options, :pid
 
@@ -83,6 +84,7 @@ module EmberCLI
     def prepare
       @prepared ||= begin
         check_addon!
+        check_ember_cli_version!
         FileUtils.touch lockfile
         symlink_to_assets_root
         add_assets_to_precompile_list
@@ -90,10 +92,25 @@ module EmberCLI
       end
     end
 
-    def check_addon!
-      dependencies = package_json.fetch("devDependencies", {})
+    def check_ember_cli_version!
+      version = dev_dependencies.fetch("ember-cli").split("-").first
+      version = Gem::Version.new(version)
+      requirement = Gem::Requirement.new(EMBER_CLI_VERSION)
 
-      unless dependencies["ember-cli-rails-addon"] == ADDON_VERSION
+      unless requirement.satisfied_by?(version)
+        fail <<-MSG.strip_heredoc
+          EmberCLI Rails require ember-cli NPM package version to be
+          #{requirement} to work properly. Please update your package.json
+          accordingly and run:
+
+            $ npm install
+
+        MSG
+      end
+    end
+
+    def check_addon!
+      unless dev_dependencies["ember-cli-rails-addon"] == ADDON_VERSION
         fail <<-MSG.strip_heredoc
           EmberCLI Rails requires your Ember app to have an addon.
 
@@ -153,6 +170,10 @@ module EmberCLI
 
     def package_json
       @package_json ||= JSON.parse(app_path.join("package.json").read).with_indifferent_access
+    end
+
+    def dev_dependencies
+      package_json.fetch("devDependencies", {})
     end
   end
 end
