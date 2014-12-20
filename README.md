@@ -83,20 +83,35 @@ end
 
 ## Usage
 
-In order to load your EmberCLI generated app you need only include the
-javscript tags on the page you'd like the Ember app to appear:
+You render your Ember CLI app by including the corresponding JS/CSS tags in whichever
+Rails view you'd like the Ember app to appear.
 
-```erb
-<%= include_ember_script_tags :frontend %>
+For example, if you had the following Rails app
+
+```rb
+# /config/routes.rb
+Rails.application.routes.draw do
+  root 'application#index'
+end
+
+# /app/controllers/application_controller.rb
+class ApplicationController < ActionController::Base
+  def index
+    render :index
+  end
+end
 ```
 
-Stylesheets are also available by calling:
+and if you had created an Ember app `:frontend` in your initializer, then you
+could render your app at the `/` route with the following view:
 
 ```erb
+<!-- /app/views/application/index.html.erb -->
+<%= include_ember_script_tags :frontend %>
 <%= include_ember_stylesheet_tags :frontend %>
 ```
 
-Your Ember application will be served now.
+Your Ember application will now be served at the `/` route.
 
 ## Additional Information
 
