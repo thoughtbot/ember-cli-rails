@@ -1,3 +1,8 @@
+0.0.11
+------
+
+* Fix locking feature by bumping addon version to 0.0.5 [#31](https://github.com/rwz/ember-cli-rails/issues/31)
+
 0.0.10
 ------
 
