@@ -116,7 +116,7 @@ module EmberCLI
 
           Please run:
 
-            $ npm install --save-dev ember-cli-rails-addon@#{ADDON_VERSION}`
+            $ npm install --save-dev ember-cli-rails-addon@#{ADDON_VERSION}
 
           in you Ember application root: #{app_path}
         MSG
