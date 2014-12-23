@@ -1,3 +1,8 @@
+0.0.12
+------
+
+* Make sure ember-cli-dependency-checker is present [#35](https://github.com/rwz/ember-cli-rails/issues/35)
+
 0.0.11
 ------
 
