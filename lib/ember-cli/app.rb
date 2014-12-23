@@ -100,8 +100,8 @@ module EmberCLI
       unless requirement.satisfied_by?(version)
         fail <<-MSG.strip_heredoc
           EmberCLI Rails require ember-cli NPM package version to be
-          #{requirement} to work properly. Please update your package.json
-          accordingly and run:
+        #{requirement} to work properly. From within your EmberCLI directory
+        please update your package.json accordingly and run:
 
             $ npm install
 
@@ -114,7 +114,7 @@ module EmberCLI
         fail <<-MSG.strip_heredoc
           EmberCLI Rails requires your Ember app to have an addon.
 
-          Please run:
+          From within your EmberCLI directory please run:
 
             $ npm install --save-dev ember-cli-rails-addon@#{ADDON_VERSION}
 
