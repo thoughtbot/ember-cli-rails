@@ -110,7 +110,7 @@ module EmberCLI
     end
 
     def check_addon!
-      unless dev_dependencies["ember-cli-rails-addon"] == ADDON_VERSION
+      unless addon_present?
         fail <<-MSG.strip_heredoc
           EmberCLI Rails requires your Ember app to have an addon.
 
@@ -182,6 +182,11 @@ module EmberCLI
 
     def dev_dependencies
       package_json.fetch("devDependencies", {})
+    end
+
+    def addon_present?
+      dev_dependencies["ember-cli-rails-addon"] == ADDON_VERSION &&
+        app_path.join('node_modules', 'ember-cli-rails-addon', 'package.json').exist?
     end
   end
 end
