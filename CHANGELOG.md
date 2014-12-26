@@ -1,3 +1,8 @@
+0.0.13
+------
+
+* Fix assets:precompile in production environment. [#38](https://github.com/rwz/ember-cli-rails/issues/38)
+
 0.0.12
 ------
 
