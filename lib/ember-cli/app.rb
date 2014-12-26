@@ -2,7 +2,7 @@ require "timeout"
 
 module EmberCLI
   class App
-    ADDON_VERSION = "0.0.6"
+    ADDON_VERSION = "0.0.7"
     EMBER_CLI_VERSION = "~> 0.1.3"
 
     attr_reader :name, :options, :pid
@@ -14,13 +14,13 @@ module EmberCLI
     def compile
       prepare
       silence_stream STDOUT do
-        system command, chdir: app_path, err: :out
+        system(environment_variables, command, chdir: app_path, err: :out)
       end
     end
 
     def run
       prepare
-      @pid = spawn(command(watch: true), chdir: app_path, err: :out)
+      @pid = spawn(environment_variables, command(watch: true), chdir: app_path, err: :out)
       at_exit{ stop }
     end
 
@@ -187,6 +187,12 @@ module EmberCLI
     def addon_present?
       dev_dependencies["ember-cli-rails-addon"] == ADDON_VERSION &&
         app_path.join('node_modules', 'ember-cli-rails-addon', 'package.json').exist?
+    end
+
+    def environment_variables
+      {}.tap do |vars|
+        vars.store("DISABLE_FINGERPRINTING", 'true') unless Helpers.non_production?
+      end
     end
   end
 end
