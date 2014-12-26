@@ -14,13 +14,13 @@ module EmberCLI
     def compile
       prepare
       silence_stream STDOUT do
-        system(environment_variables, command, chdir: app_path, err: :out)
+        system(env_hash, command, chdir: app_path, err: :out)
       end
     end
 
     def run
       prepare
-      @pid = spawn(environment_variables, command(watch: true), chdir: app_path, err: :out)
+      @pid = spawn(env_hash, command(watch: true), chdir: app_path, err: :out)
       at_exit{ stop }
     end
 
@@ -189,9 +189,9 @@ module EmberCLI
         app_path.join('node_modules', 'ember-cli-rails-addon', 'package.json').exist?
     end
 
-    def environment_variables
-      {}.tap do |vars|
-        vars.store("DISABLE_FINGERPRINTING", 'true') unless Helpers.non_production?
+    def env_hash
+      ENV.clone.tap do |vars|
+        vars.store "DISABLE_FINGERPRINTING", "true"
       end
     end
   end
