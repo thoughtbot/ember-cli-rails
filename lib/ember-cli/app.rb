@@ -4,6 +4,7 @@ module EmberCLI
   class App
     ADDON_VERSION = "0.0.7"
     EMBER_CLI_VERSION = "~> 0.1.3"
+    JQUERY_VERSIONS = ["~> 1.7", "~> 2.1"].freeze
 
     attr_reader :name, :options, :pid
 
@@ -90,6 +91,13 @@ module EmberCLI
         add_assets_to_precompile_list
         true
       end
+    end
+
+    def suppress_jquery?
+      return false unless defined?(Jquery::Rails::JQUERY_VERSION)
+
+      version = Gem::Version.new(Jquery::Rails::JQUERY_VERSION)
+      JQUERY_VERSIONS.map { |v| Gem::Requirement.new(v).satisfied_by?(version) }.any?
     end
 
     def check_ember_cli_version!
@@ -192,6 +200,7 @@ module EmberCLI
     def env_hash
       ENV.clone.tap do |vars|
         vars.store "DISABLE_FINGERPRINTING", "true"
+        vars.store "SUPPRESS_JQUERY", "true" if suppress_jquery?
       end
     end
   end
