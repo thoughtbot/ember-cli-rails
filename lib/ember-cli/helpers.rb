@@ -2,6 +2,12 @@ module EmberCLI
   module Helpers
     extend self
 
+    def match_version?(version, requirement)
+      version = Gem::Version.new(version)
+      requirement = Gem::Requirement.new(requirement)
+      requirement.satisfied_by?(version)
+    end
+
     def which(cmd)
       exts = ENV.fetch("PATHEXT", ?;).split(?;, -1).uniq
 

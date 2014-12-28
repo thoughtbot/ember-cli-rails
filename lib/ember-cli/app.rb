@@ -71,6 +71,7 @@ module EmberCLI
     private
 
     delegate :ember_path, to: :configuration
+    delegate :match_version?, :non_production?, to: Helpers
     delegate :tee_path, to: :configuration
     delegate :configuration, to: :EmberCLI
 
@@ -96,16 +97,15 @@ module EmberCLI
     def suppress_jquery?
       return false unless defined?(Jquery::Rails::JQUERY_VERSION)
 
-      version = Gem::Version.new(Jquery::Rails::JQUERY_VERSION)
-      JQUERY_VERSIONS.map { |v| Gem::Requirement.new(v).satisfied_by?(version) }.any?
+      JQUERY_VERSIONS.any? do |requirement|
+        match_version?(Jquery::Rails::JQUERY_VERSION, requirement)
+      end
     end
 
     def check_ember_cli_version!
       version = dev_dependencies.fetch("ember-cli").split("-").first
-      version = Gem::Version.new(version)
-      requirement = Gem::Requirement.new(EMBER_CLI_VERSION)
 
-      unless requirement.satisfied_by?(version)
+      unless match_version?(version, EMBER_CLI_VERSION)
         fail <<-MSG.strip_heredoc
           EmberCLI Rails require ember-cli NPM package version to be
           #{requirement} to work properly. From within your EmberCLI directory
@@ -181,7 +181,7 @@ module EmberCLI
     end
 
     def environment
-      Helpers.non_production?? "development" : "production"
+      non_production?? "development" : "production"
     end
 
     def package_json
