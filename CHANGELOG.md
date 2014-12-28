@@ -1,3 +1,8 @@
+0.0.14
+------
+
+* Do not include jQuery into vendor.js when jquery-rails is available [#32](https://github.com/rwz/ember-cli-rails/issues/32)
+
 0.0.13
 ------
 
