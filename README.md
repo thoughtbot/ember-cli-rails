@@ -115,11 +115,10 @@ Your Ember application will now be served at the `/` route.
 
 ## Additional Information
 
-EmberCLI Rails runs `ember build` with the `--output-path` and `--watch` flags
-on. The `--watch` flag sets tells EmberCLI to watch for file system events and
-rebuild when an EmberCLI file is changed. The `--output-path` flag specifies
-where the distribution files will be put. EmberCLI Rails does some fancy stuff
-to get it into your asset path without polluting your git history.
+EmberCLI Rails runs `ember build` with the `--output-path` flag on. The `--output-path` 
+flag specifies where the distribution files will be put. EmberCLI Rails does some fancy 
+stuff to get it into your asset path without polluting your git history. In non-production 
+environments when you have `config.consider_all_requests_local = true` in your environment initializer (which is the default setting for development), it also uses the The `--watch` flag. The `--watch` flag tells EmberCLI to watch for file system events and rebuild when an EmberCLI file is changed. 
 
 ## Contributing
 
