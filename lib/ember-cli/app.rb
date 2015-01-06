@@ -132,8 +132,10 @@ module EmberCLI
     end
 
     def symlink_to_assets_root
-      symlink_path = dist_path.join("assets")
-      assets_path.join(name).make_symlink symlink_path unless symlink_path.exist?
+      assets_path.join(name).make_symlink dist_path.join("assets")
+    rescue Errno::EEXIST
+      # Sometimes happens when starting multiple Unicorn workers.
+      # Ignoring...
     end
 
     def add_assets_to_precompile_list
