@@ -1,3 +1,9 @@
+0.0.15
+------
+
+* Fix NameError when addon version doesn't match. [#47](https://github.com/rwz/ember-cli-rails/pull/47)
+* Fix race condition in symlink creation when run multiple workers (again). [#22](https://github.com/rwz/ember-cli-rails/pull/22)
+
 0.0.14
 ------
 
