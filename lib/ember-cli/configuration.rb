@@ -17,16 +17,10 @@ module EmberCLI
       @tee_path = Helpers.which("tee")
     end
 
-    def ember_path
-      @ember_path ||= Helpers.which("ember").tap do |path|
-        fail "ember-cli executable could not be found" unless path
-      end
-    end
-
     def build_timeout
       @build_timeout ||= 5
     end
 
-    attr_writer :ember_path, :build_timeout
+    attr_writer :build_timeout
   end
 end

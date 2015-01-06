@@ -68,9 +68,19 @@ module EmberCLI
       MSG
     end
 
+    def ember_path
+      @ember_path ||= begin
+        local_path = app_path.join('node_modules', '.bin', 'ember')
+        if File.exist?(local_path) && File.executable?(local_path)
+          local_path
+        else
+          fail "No local ember executable found. You should run `npm install` inside the #{@app} app located at #{app_path}"
+        end
+      end
+    end
+
     private
 
-    delegate :ember_path, to: :configuration
     delegate :match_version?, :non_production?, to: Helpers
     delegate :tee_path, to: :configuration
     delegate :configuration, to: :EmberCLI
