@@ -113,6 +113,19 @@ could render your app at the `/` route with the following view:
 
 Your Ember application will now be served at the `/` route.
 
+## Enabling LiveReload
+In order to get LiveReload correctly up and running for EmberCLI Rails, you can install the [guard](https://github.com/guard/guard) and [guard-livereload](https://github.com/guard/guard-livereload) gems and then run `guard init`and adding the following line to your `Guardfile`
+
+```
+guard 'livereload' do
+  ...
+  watch(%r{(app/{<your-appname>/\w+/(.+\.(js|hbs|html)))})
+  ...
+end
+```
+
+This tells Guard to watch your EmberCLI app directory for any Javascript, Handlebars, or HTML changes and reloading the browser on any file changes.
+
 ## Additional Information
 
 When running in the development environment, EmberCLI Rails runs `ember build` 
@@ -124,6 +137,7 @@ polluting your git history. Note that for this to work, you must have
 `config.consider_all_requests_local = true` set in
 `config/environments/development.rb`, otherwise the middleware responsible for
 building Ember CLI will not be enabled.
+
 
 ## Contributing
 
