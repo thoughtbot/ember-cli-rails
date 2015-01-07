@@ -15,7 +15,9 @@ module EmberCLI
     def compile
       prepare
       silence_stream STDOUT do
-        system(env_hash, command, chdir: app_path, err: :out)
+        Dir.chdir app_path do
+          system(env_hash, command, err: :out)
+        end
       end
     end
 
