@@ -119,12 +119,12 @@ In order to get LiveReload correctly up and running for EmberCLI Rails, you can 
 ```
 guard 'livereload' do
   ...
-  watch(%r{(app/{<your-appname>/\w+/(.+\.(js|hbs|html)))})
+  watch(%r{(app/{<your-appname>/\w+/(.+\.(js|hbs|html|css|<other-extensions>)))})
   ...
 end
 ```
 
-This tells Guard to watch your EmberCLI app directory for any Javascript, Handlebars, or HTML changes and reloading the browser on any file changes.
+This tells Guard to watch your EmberCLI app for any changes to the JavaScript, Handlebars, HTML, or CSS files. Take note that other extensions can be added to the line (such as `coffee` for CoffeeScript) to watch them for changes as well.
 
 ## Additional Information
 
