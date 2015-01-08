@@ -114,10 +114,11 @@ could render your app at the `/` route with the following view:
 Your Ember application will now be served at the `/` route.
 
 ## Enabling LiveReload
-In order to get LiveReload correctly up and running for EmberCLI Rails, you can
-install the [guard](https://github.com/guard/guard) and
-[guard-livereload](https://github.com/guard/guard-livereload) gems and then run
-`guard init`and adding the following line to your `Guardfile`
+
+In order to get LiveReload up and running with EmberCLI Rails, you can install
+[guard](https://github.com/guard/guard) and
+[guard-livereload](https://github.com/guard/guard-livereload) gems, run `guard
+init` and then add the following to your `Guardfile`.
 
 ```ruby
 guard "livereload" do
