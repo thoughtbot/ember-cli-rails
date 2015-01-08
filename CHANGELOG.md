@@ -1,3 +1,12 @@
+0.0.16
+------
+
+* Use local executable for ember-cli instead of global one. [commit](https://github.com/rwz/ember-cli-rails/commit/4aeee53f048f0445645fbc478770417fdb66cace)
+* Use `Dir.chdir` instead of passing `chdir` to `system`/`spawn`.
+
+  It seems like JRuby doesn't yet support `chdir` option for these methods.
+  [commits: [1](https://github.com/rwz/ember-cli-rails/commit/3bb149941f206153003726f1c18264dc62197f51), [2](https://github.com/rwz/ember-cli-rails/commit/82a39f6e523ad35ecdd595fb6e49a04cb54f9c6f)]
+
 0.0.15
 ------
 
