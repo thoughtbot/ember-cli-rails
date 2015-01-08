@@ -38,7 +38,7 @@ module EmberCLI
             ember_fonts_path = [EmberCLI.root, 'apps', name, 'fonts'].join('/')
             rails_assets_path = [Rails.root, 'public', 'assets'].join('/')
             FileUtils.cp_r(ember_assets_path, rails_assets_path)
-            FileUtils.cp_r(ember_fonts_path, rails_assets_path)
+            FileUtils.cp_r(ember_fonts_path, [Rails.root, 'public'].join('/'))
 
             fingerprinted_app_js = nil
             fingerprinted_app_css = nil
