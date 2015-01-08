@@ -119,7 +119,7 @@ install the [guard](https://github.com/guard/guard) and
 [guard-livereload](https://github.com/guard/guard-livereload) gems and then run
 `guard init`and adding the following line to your `Guardfile`
 
-```
+```ruby
 guard "livereload" do
   # ...
   watch %r{app/<your-appname>/\w+/.+\.(js|hbs|html|css|<other-extensions>)}
