@@ -71,13 +71,11 @@ module EmberCLI
     end
 
     def ember_path
-      @ember_path ||= begin
-        local_path = app_path.join('node_modules', '.bin', 'ember')
-        if File.exist?(local_path) && File.executable?(local_path)
-          local_path
-        else
-          fail "No local ember executable found. You should run `npm install` inside the #{@app} app located at #{app_path}"
-        end
+      @ember_path ||= app_path.join("node_modules", ".bin", "ember").tap do |path|
+        fail <<-MSG.strip_heredoc unless path.executable?
+          No local ember executable found. You should run `npm install`
+          inside the #{name} app located at #{app_path}
+        MSG
       end
     end
 
