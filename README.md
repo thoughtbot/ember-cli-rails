@@ -23,11 +23,15 @@ EmberCLI addons too! Without further ado, let's get in there!
 
 ## Installation
 
-Firstly, you'll have to include the gem in your `Gemfile` and `bundle install`
+Firstly, you'll have to include the gem in your `Gemfile`
 
 ```ruby
 gem "ember-cli-rails"
 ```
+
+Next, remove `jquery-rails` from your `Gemfile`. If you want to keep jquery-rails
+around for other JavaScript bundles, Ember CLI will detect jquery-rails in your
+gemfile and exclude it from the Ember apps' builds if you leave it in the `Gemfile`.
 
 Then you'll want to configure your installation by adding an `ember.rb`
 initializer. There is a generator to guide you, run:
