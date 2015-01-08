@@ -76,6 +76,19 @@ module EmberCLI
       end
     end
 
+    def dist_path
+      @dist_path ||= EmberCLI.root.join("apps", name).tap(&:mkpath)
+    end
+
+    def assets_path
+      @assets_path ||= EmberCLI.root.join("assets").tap(&:mkpath)
+    end
+
+    def ember_app_name
+      @ember_app_name ||= options.fetch(:name){ package_json.fetch(:name) }
+    end
+
+
     private
 
     delegate :match_version?, :non_production?, to: Helpers
@@ -158,9 +171,6 @@ module EmberCLI
       "| #{tee_path} -a #{log_path}" if tee_path
     end
 
-    def ember_app_name
-      @ember_app_name ||= options.fetch(:name){ package_json.fetch(:name) }
-    end
 
     def app_path
       @app_path ||= begin
@@ -181,13 +191,7 @@ module EmberCLI
       Rails.root.join("log", "ember-#{name}.#{Rails.env}.log")
     end
 
-    def dist_path
-      @dist_path ||= EmberCLI.root.join("apps", name).tap(&:mkpath)
-    end
 
-    def assets_path
-      @assets_path ||= EmberCLI.root.join("assets").tap(&:mkpath)
-    end
 
     def environment
       non_production?? "development" : "production"
@@ -208,8 +212,8 @@ module EmberCLI
 
     def env_hash
       ENV.clone.tap do |vars|
-        vars.store "DISABLE_FINGERPRINTING", "true"
-        vars.store "SUPPRESS_JQUERY", "true" if suppress_jquery?
+        # vars.store "DISABLE_FINGERPRINTING", "true"
+        # vars.store "SUPPRESS_JQUERY", "true" if suppress_jquery?
       end
     end
 
