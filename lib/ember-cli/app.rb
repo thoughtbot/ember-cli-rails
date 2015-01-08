@@ -203,7 +203,7 @@ module EmberCLI
 
     def addon_present?
       dev_dependencies["ember-cli-rails-addon"] == ADDON_VERSION &&
-        app_path.join('node_modules', 'ember-cli-rails-addon', 'package.json').exist?
+        app_path.join("node_modules", "ember-cli-rails-addon", "package.json").exist?
     end
 
     def env_hash
