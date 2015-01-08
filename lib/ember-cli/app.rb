@@ -14,16 +14,13 @@ module EmberCLI
 
     def compile
       prepare
-      silence_stream STDOUT do
-        Dir.chdir app_path do
-          system(env_hash, command, err: :out)
-        end
-      end
+      silence_stream(STDOUT){ exec command }
     end
 
     def run
       prepare
-      @pid = spawn(env_hash, command(watch: true), chdir: app_path, err: :out)
+      cmd = command(watch: true)
+      @pid = exec(cmd, method: :spawn)
       at_exit{ stop }
     end
 
@@ -213,6 +210,14 @@ module EmberCLI
       ENV.clone.tap do |vars|
         vars.store "DISABLE_FINGERPRINTING", "true"
         vars.store "SUPPRESS_JQUERY", "true" if suppress_jquery?
+      end
+    end
+
+    def exec(cmd, options={})
+      method_name = options.fetch(:method, :system)
+
+      Dir.chdir app_path do
+        Kernel.public_send(method_name, env_hash, cmd, err: :out)
       end
     end
   end
