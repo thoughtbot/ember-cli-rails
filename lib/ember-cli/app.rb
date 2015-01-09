@@ -2,9 +2,8 @@ require "timeout"
 
 module EmberCLI
   class App
-    ADDON_VERSION = "0.0.7"
-    EMBER_CLI_VERSION = "~> 0.1.3"
-    JQUERY_VERSIONS = ["~> 1.7", "~> 2.1"].freeze
+    ADDON_VERSION = "0.0.8"
+    EMBER_CLI_VERSION = "~> 0.1.5"
 
     attr_reader :name, :options, :pid
 
@@ -98,14 +97,6 @@ module EmberCLI
         symlink_to_assets_root
         add_assets_to_precompile_list
         true
-      end
-    end
-
-    def suppress_jquery?
-      return false unless defined?(Jquery::Rails::JQUERY_VERSION)
-
-      JQUERY_VERSIONS.any? do |requirement|
-        match_version?(Jquery::Rails::JQUERY_VERSION, requirement)
       end
     end
 
@@ -206,10 +197,14 @@ module EmberCLI
         app_path.join("node_modules", "ember-cli-rails-addon", "package.json").exist?
     end
 
+    def excluded_ember_deps
+      Array.wrap(options[:exclude_ember_deps]).join(",")
+    end
+
     def env_hash
       ENV.clone.tap do |vars|
         vars.store "DISABLE_FINGERPRINTING", "true"
-        vars.store "SUPPRESS_JQUERY", "true" if suppress_jquery?
+        vars.store "EXCLUDE_EMBER_ASSETS", excluded_ember_deps
       end
     end
 

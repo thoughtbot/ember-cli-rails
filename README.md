@@ -64,7 +64,7 @@ Once you've updated your initializer to taste, you need to install the
 For each of your EmberCLI applications install the addon with:
 
 ```sh
-npm install --save-dev ember-cli-rails-addon@0.0.7
+npm install --save-dev ember-cli-rails-addon@0.0.8
 ```
 
 And that's it!
@@ -144,6 +144,23 @@ polluting your git history. Note that for this to work, you must have
 `config/environments/development.rb`, otherwise the middleware responsible for
 building Ember CLI will not be enabled.
 
+
+#### Ember Depdencies
+
+Ember has several dependencies. Some of these dependencies might already be
+present in your asset list. For example jQuery is bundled in `jquery-rails` gem.
+If you have the jQuery assets included on your page you may want to exclude them
+from the Ember distribution. You can do so by setting the `exclude_ember_deps`
+option like so:
+
+```ruby
+EmberCLI.configure do |c|
+  c.app :frontend, exclude_ember_deps: "jquery"
+  c.app :admin_panel, exclude_ember_deps: ["jquery", "handlebars"]
+end
+```
+
+jQuery and Handlebars are the main use cases for this flag.
 
 ## Contributing
 
