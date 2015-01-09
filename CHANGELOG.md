@@ -1,3 +1,9 @@
+0.0.18
+------
+
+* Remove suppress jQuery feature [#49](https://github.com/rwz/ember-cli-rails/issues/49)
+* Add option to manually suppress Ember dependencies [#55](https://github.com/rwz/ember-cli-rails/pull/55)
+
 0.0.17
 ------
 
