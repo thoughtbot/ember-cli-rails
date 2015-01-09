@@ -4,7 +4,6 @@ module EmberCLI
   class App
     ADDON_VERSION = "0.0.7"
     EMBER_CLI_VERSION = "~> 0.1.3"
-    JQUERY_VERSIONS = ["~> 1.7", "~> 2.1"].freeze
 
     attr_reader :name, :options, :pid
 
@@ -86,10 +85,6 @@ module EmberCLI
       options.fetch(:build_timeout){ configuration.build_timeout }
     end
 
-    def suppress_jquery_flag
-      !!options.fetch(:suppress_jquery, false)
-    end
-
     def lockfile
       tmp_path.join("build.lock")
     end
@@ -102,14 +97,6 @@ module EmberCLI
         symlink_to_assets_root
         add_assets_to_precompile_list
         true
-      end
-    end
-
-    def suppress_jquery?
-      return false unless suppress_jquery_flag && defined?(Jquery::Rails::JQUERY_VERSION)
-
-      JQUERY_VERSIONS.any? do |requirement|
-        match_version?(Jquery::Rails::JQUERY_VERSION, requirement)
       end
     end
 
@@ -213,7 +200,6 @@ module EmberCLI
     def env_hash
       ENV.clone.tap do |vars|
         vars.store "DISABLE_FINGERPRINTING", "true"
-        vars.store "SUPPRESS_JQUERY", "true" if suppress_jquery?
       end
     end
 
