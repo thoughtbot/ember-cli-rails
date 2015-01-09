@@ -1,3 +1,8 @@
+0.0.17
+------
+
+* Only precompile assets that start with <ember-app-name> [#53](https://github.com/rwz/ember-cli-rails/pull/53)
+
 0.0.16
 ------
 

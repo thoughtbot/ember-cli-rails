@@ -1,3 +1,3 @@
 module EmberCLI
-  VERSION = "0.0.16".freeze
+  VERSION = "0.0.17".freeze
 end
