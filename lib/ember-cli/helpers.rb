@@ -29,8 +29,9 @@ module EmberCLI
       Rake.application.instance_eval do
         @tasks["assets:precompile:original"] = @tasks.delete("assets:precompile")
         Rake::Task.define_task "assets:precompile", [:assets, :precompile] => :environment do
-          EmberCLI.compile!
+          Rake::Task["assets:clobber"].execute
           Rake::Task["assets:precompile:original"].execute
+          EmberCLI.compile!
         end
       end
     end

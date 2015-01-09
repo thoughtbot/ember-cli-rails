@@ -15,17 +15,22 @@ module EmberCLI
     def compile
       prepare
       silence_stream(STDOUT){ exec command }
+      copy_ember_assets_to_rails
+      add_fingerprinted_ember_assets_to_manifest unless Helpers.non_production?
     end
 
     def run
       prepare
-      cmd = command(watch: true)
-      @pid = exec(cmd, method: :spawn)
+      # cmd = command(watch: true)
+      # @pid = exec(cmd, method: :spawn)
+      @pid = exec command
+      copy_ember_assets_to_rails
+      add_fingerprinted_ember_assets_to_manifest unless Helpers.non_production?
       at_exit{ stop }
     end
 
     def stop
-      Process.kill "INT", pid if pid
+      Process.kill "INT", pid if pid && pid.is_a?(Integer)
       @pid = nil
     end
 
@@ -154,6 +159,51 @@ module EmberCLI
       "#{ember_path} build #{watch} --environment #{environment} --output-path #{dist_path} #{log_pipe}"
     end
 
+    def copy_ember_assets_to_rails
+
+      ember_assets_path = [EmberCLI.root, 'apps', name, 'assets', '.'].join('/')
+      ember_fonts_path = [EmberCLI.root, 'apps', name, 'fonts'].join('/')
+      rails_assets_path = [Rails.root, 'public', 'assets'].join('/')
+      rails_fonts_path = [Rails.root, 'public'].join('/')
+
+      puts "Copying Ember dist/assets into rails public/assets..."
+      puts "#{ember_assets_path} \n--> #{rails_assets_path}"
+      FileUtils.cp_r(ember_assets_path, rails_assets_path)
+
+      if File.directory?(ember_fonts_path)
+        puts "Copying Ember dist/fonts into rails public/fonts..."
+        puts "#{ember_fonts_path} \n--> #{rails_fonts_path}"
+        FileUtils.cp_r(ember_fonts_path, rails_fonts_path)
+      end
+    end
+
+    def add_fingerprinted_ember_assets_to_manifest
+      rails_assets_path = [Rails.root, 'public', 'assets'].join('/')
+
+      fingerprints = {}
+      Dir["#{rails_assets_path}/*"].map{|path| File.basename(path)}.each do |fn|
+        fingerprints[:app_js] = fn if fn.index("#{ember_app_name}-") == 0 && File.extname(fn) == '.js'
+        fingerprints[:app_css] = fn if fn.index("#{ember_app_name}-") == 0 && File.extname(fn) == '.css'
+        fingerprints[:vendor_js] = fn if fn.index("vendor-") == 0 && File.extname(fn) == '.js'
+        fingerprints[:vendor_css] = fn if fn.index("vendor-") == 0 && File.extname(fn) == '.css'
+        fingerprints[:manifest_json] = fn if fn.index("manifest-") == 0 && File.extname(fn) == '.json'
+      end
+      fingerprints[:manifest_json_path] = [rails_assets_path, fingerprints[:manifest_json]].join('/')
+      manifest = JSON.parse(File.open(fingerprints[:manifest_json_path]).read)
+
+      manifest['assets']["#{name}/#{ember_app_name}.js"] = fingerprints[:app_js]
+      manifest['assets']["#{name}/#{ember_app_name}.css"] = fingerprints[:app_css]
+      manifest['assets']["#{name}/vendor.js"] = fingerprints[:vendor_js]
+      manifest['assets']["#{name}/vendor.css"] = fingerprints[:vendor_css]
+
+      puts "Updating manifest.json with fingerprints:"
+      puts "#{fingerprints.to_json}"
+
+      File.open(fingerprints[:manifest_json_path],"w") do |f|
+        f.write(manifest.to_json)
+      end
+    end
+
     def log_pipe
       "| #{tee_path} -a #{log_path}" if tee_path
     end
@@ -208,8 +258,8 @@ module EmberCLI
 
     def env_hash
       ENV.clone.tap do |vars|
-        vars.store "DISABLE_FINGERPRINTING", "true"
-        vars.store "SUPPRESS_JQUERY", "true" if suppress_jquery?
+        # vars.store "DISABLE_FINGERPRINTING", "true"
+        # vars.store "SUPPRESS_JQUERY", "true" if suppress_jquery?
       end
     end
 
