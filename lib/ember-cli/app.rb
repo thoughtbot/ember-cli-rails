@@ -146,7 +146,7 @@ module EmberCLI
     end
 
     def add_assets_to_precompile_list
-      Rails.configuration.assets.precompile << /(?:\/|\A)#{name}\//
+      Rails.configuration.assets.precompile << /\A#{name}\//
     end
 
     def command(options={})
