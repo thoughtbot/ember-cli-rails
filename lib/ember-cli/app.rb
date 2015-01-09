@@ -86,6 +86,10 @@ module EmberCLI
       options.fetch(:build_timeout){ configuration.build_timeout }
     end
 
+    def suppress_jquery_flag
+      !!options.fetch(:suppress_jquery, false)
+    end
+
     def lockfile
       tmp_path.join("build.lock")
     end
@@ -102,7 +106,7 @@ module EmberCLI
     end
 
     def suppress_jquery?
-      return false unless defined?(Jquery::Rails::JQUERY_VERSION)
+      return false unless suppress_jquery_flag && defined?(Jquery::Rails::JQUERY_VERSION)
 
       JQUERY_VERSIONS.any? do |requirement|
         match_version?(Jquery::Rails::JQUERY_VERSION, requirement)

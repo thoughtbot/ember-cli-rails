@@ -145,6 +145,26 @@ polluting your git history. Note that for this to work, you must have
 building Ember CLI will not be enabled.
 
 
+#### jQuery
+
+If you have the `jquery-rails` gem installed into your rails app and included it
+onto the page you ember app is rendered to it might be beneficial to prevent
+EmberCLI from packaging its own jquery.  This can reduce the size of your Ember
+related files.
+
+In order to do this simply set `suppress_jquery: true` in your initializer:
+
+```ruby
+EmberCLI.configure do |c|
+  c.app :frontend, suppress_jquery: true
+end
+```
+
+This is on a per application basis, it is perfectly justifiable to enable it for
+none, one, or more of your EmberCLI applications.  This will also perform checks
+to ensure that the jQuery version `jquery-rails` includes is suitable for use
+with Ember.
+
 ## Contributing
 
 1. Fork it (https://github.com/rwz/ember-cli-rails/fork)
