@@ -197,9 +197,14 @@ module EmberCLI
         app_path.join("node_modules", "ember-cli-rails-addon", "package.json").exist?
     end
 
+    def excluded_ember_deps
+      Array.wrap(options[:exclude_ember_deps]).join(",")
+    end
+
     def env_hash
       ENV.clone.tap do |vars|
         vars.store "DISABLE_FINGERPRINTING", "true"
+        vars.store "EXCLUDE_EMBER_ASSETS", excluded_ember_deps
       end
     end
 

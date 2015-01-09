@@ -145,25 +145,22 @@ polluting your git history. Note that for this to work, you must have
 building Ember CLI will not be enabled.
 
 
-#### jQuery
+#### Ember Depdencies
 
-If you have the `jquery-rails` gem installed into your rails app and included it
-onto the page you ember app is rendered to it might be beneficial to prevent
-EmberCLI from packaging its own jquery.  This can reduce the size of your Ember
-related files.
-
-In order to do this simply set `suppress_jquery: true` in your initializer:
+Ember has several dependencies. Some of these dependencies might already be
+present in your asset list. For example jQuery is bundled in `jquery-rails` gem.
+If you have the jQuery assets included on your page you may want to exclude them
+from the Ember distribution. You can do so by setting the `exclude_ember_deps`
+option like so:
 
 ```ruby
 EmberCLI.configure do |c|
-  c.app :frontend, suppress_jquery: true
+  c.app :frontend, exclude_ember_deps: "jquery"
+  c.app :admin_panel, exclude_ember_deps: ["jquery", "handlebars"]
 end
 ```
 
-This is on a per application basis, it is perfectly justifiable to enable it for
-none, one, or more of your EmberCLI applications.  This will also perform checks
-to ensure that the jQuery version `jquery-rails` includes is suitable for use
-with Ember.
+jQuery and Handlebars are the main use cases for this flag.
 
 ## Contributing
 
