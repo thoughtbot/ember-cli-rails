@@ -145,7 +145,7 @@ polluting your git history. Note that for this to work, you must have
 building Ember CLI will not be enabled.
 
 
-#### Ember Depdencies
+#### Ember Dependencies
 
 Ember has several dependencies. Some of these dependencies might already be
 present in your asset list. For example jQuery is bundled in `jquery-rails` gem.
