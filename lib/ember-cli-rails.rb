@@ -33,6 +33,11 @@ module EmberCLI
     end
   end
 
+  def install_dependencies!
+    prepare!
+    each_app &:install_dependencies
+  end
+
   def run!
     prepare!
     each_app &:run

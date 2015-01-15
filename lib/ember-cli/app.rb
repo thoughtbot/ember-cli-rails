@@ -16,6 +16,10 @@ module EmberCLI
       silence_stream(STDOUT){ exec command }
     end
 
+    def install_dependencies
+      exec "npm install"
+    end
+
     def run
       prepare
       cmd = command(watch: true)
