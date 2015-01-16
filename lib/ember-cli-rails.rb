@@ -43,6 +43,11 @@ module EmberCLI
     each_app &:run
   end
 
+  def run_tests!
+    prepare!
+    each_app &:run_tests
+  end
+
   def compile!
     prepare!
     each_app &:compile
