@@ -28,7 +28,7 @@ module EmberCLI
     def override_assets_precompile_task!
       Rake.application.instance_eval do
         @tasks["assets:precompile:original"] = @tasks.delete("assets:precompile")
-        Rake::Task.define_task "assets:precompile", [:assets, :precompile] => :environment do
+        Rake::Task.define_task "assets:precompile", [:assets, :precompile] => "ember-cli:install_dependencies" do
           EmberCLI.compile!
           Rake::Task["assets:precompile:original"].execute
         end

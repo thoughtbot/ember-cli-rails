@@ -16,6 +16,7 @@ module EmberCLI
 
     rake_tasks do
       require "sprockets/rails/task"
+      load "tasks/ember-cli.rake"
       Helpers.override_assets_precompile_task!
     end
   end

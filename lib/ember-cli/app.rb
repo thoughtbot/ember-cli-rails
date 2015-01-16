@@ -16,6 +16,10 @@ module EmberCLI
       silence_stream(STDOUT){ exec command }
     end
 
+    def install_dependencies
+      exec "#{npm_path} install"
+    end
+
     def run
       prepare
       cmd = command(watch: true)
@@ -78,7 +82,7 @@ module EmberCLI
     private
 
     delegate :match_version?, :non_production?, to: Helpers
-    delegate :tee_path, to: :configuration
+    delegate :tee_path, :npm_path, to: :configuration
     delegate :configuration, to: :EmberCLI
 
     def build_timeout
