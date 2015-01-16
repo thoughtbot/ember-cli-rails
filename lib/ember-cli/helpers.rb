@@ -25,14 +25,6 @@ module EmberCLI
       !Rails.env.production? && Rails.configuration.consider_all_requests_local
     end
 
-    def inject_install_dependencies_task!
-      Rake.application.instance_eval do
-        Rake::Task.define_task "ember-cli:install_dependencies" => :environment do
-          EmberCLI.install_dependencies!
-        end
-      end
-    end
-
     def override_assets_precompile_task!
       Rake.application.instance_eval do
         @tasks["assets:precompile:original"] = @tasks.delete("assets:precompile")
