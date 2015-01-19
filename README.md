@@ -64,7 +64,7 @@ Once you've updated your initializer to taste, you need to install the
 For each of your EmberCLI applications install the addon with:
 
 ```sh
-npm install --save-dev ember-cli-rails-addon@0.0.8
+npm install --save-dev ember-cli-rails-addon@0.0.9
 ```
 
 And that's it!

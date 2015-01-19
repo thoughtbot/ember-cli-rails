@@ -2,7 +2,7 @@ require "timeout"
 
 module EmberCLI
   class App
-    ADDON_VERSION = "0.0.8"
+    ADDON_VERSION = "0.0.9"
     EMBER_CLI_VERSION = "~> 0.1.5"
 
     attr_reader :name, :options, :pid
