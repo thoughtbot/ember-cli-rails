@@ -5,6 +5,8 @@ module EmberCLI
     ADDON_VERSION = "0.0.9"
     EMBER_CLI_VERSION = "~> 0.1.5"
 
+    class BuildError < StandardError; end
+
     attr_reader :name, :options, :pid
 
     def initialize(name, options={})
@@ -14,6 +16,7 @@ module EmberCLI
     def compile
       prepare
       silence_stream(STDOUT){ exec command }
+      check_for_build_error!
     end
 
     def install_dependencies
@@ -42,7 +45,7 @@ module EmberCLI
 
     def wait
       Timeout.timeout(build_timeout) do
-        sleep 0.1 while lockfile.exist?
+        wait_for_build_complete_or_error
       end
     rescue Timeout::Error
       suggested_timeout = build_timeout + 5
@@ -93,10 +96,33 @@ module EmberCLI
       tmp_path.join("build.lock")
     end
 
+    def check_for_build_error!
+      raise_build_error! if build_error_file.exist?
+    end
+
+    def build_error_file
+      tmp_path.join("error.txt")
+    end
+
+    def reset_build_error!
+      build_error_file.delete if build_error?
+    end
+
+    def build_error?
+      build_error_file.exist?
+    end
+
+    def raise_build_error!
+      error = BuildError.new("EmberCLI app #{name.inspect} has failed to build")
+      error.set_backtrace build_error_file.read.split(?\n)
+      fail error
+    end
+
     def prepare
       @prepared ||= begin
         check_addon!
         check_ember_cli_version!
+        reset_build_error!
         FileUtils.touch lockfile
         symlink_to_assets_root
         add_assets_to_precompile_list
@@ -217,6 +243,14 @@ module EmberCLI
 
       Dir.chdir app_path do
         Kernel.public_send(method_name, env_hash, cmd, err: :out)
+      end
+    end
+
+    def wait_for_build_complete_or_error
+      loop do
+        check_for_build_error!
+        break unless lockfile.exist?
+        sleep 0.1
       end
     end
   end
