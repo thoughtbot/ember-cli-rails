@@ -68,6 +68,8 @@ module EmberCLI
 
         ============================= WARNING! =============================
       MSG
+
+      raise "Seems like Ember #{name} application takes more than #{build_timeout} seconds to compile. Please check the logs."
     end
 
     def ember_path
