@@ -1,3 +1,9 @@
+0.1.0
+-----
+
+* Expose rake task for `npm install` [#59](https://github.com/rwz/ember-cli-rails/pull/59)
+* Detect and raise EmberCLI build errors [#23](https://github.com/rwz/ember-cli-rails/pull/23)
+
 0.0.18
 ------
 
