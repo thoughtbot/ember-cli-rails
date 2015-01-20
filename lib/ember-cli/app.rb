@@ -32,7 +32,7 @@ module EmberCLI
 
     def run_tests
       prepare
-      tests_pass = exec "#{ember_path} test"
+      tests_pass = exec("#{ember_path} test")
       exit 1 unless tests_pass
     end
 
