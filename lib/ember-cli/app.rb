@@ -30,6 +30,12 @@ module EmberCLI
       at_exit{ stop }
     end
 
+    def run_tests
+      prepare
+      tests_pass = exec "#{ember_path} test"
+      exit 1 unless tests_pass
+    end
+
     def stop
       Process.kill "INT", pid if pid
       @pid = nil
