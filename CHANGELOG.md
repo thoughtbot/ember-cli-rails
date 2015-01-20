@@ -1,3 +1,8 @@
+0.1.1
+-----
+
+* Add ember-cli:test take task [#60](https://github.com/rwz/ember-cli-rails/pull/60)
+
 0.1.0
 -----
 
