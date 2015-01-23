@@ -22,7 +22,16 @@ module EmberCLI
     end
 
     def non_production?
-      !Rails.env.production? && Rails.configuration.consider_all_requests_local
+      rails_config_for(:use_ember_middleware) ||
+      (!Rails.env.production? && rails_config_for(:consider_all_requests_local))
+    end
+
+    def live_recompilation?
+      rails_config_for(:use_ember_live_recompilation) || Rails.env.development?
+    end
+
+    def rails_config_for(key)
+      Rails.configuration.respond_to?(key) and Rails.configuration.send(key)
     end
 
     def override_assets_precompile_task!

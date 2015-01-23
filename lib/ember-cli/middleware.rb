@@ -15,7 +15,7 @@ module EmberCLI
 
     def enable_ember_cli
       @enabled ||= begin
-        if Rails.env.development?
+        if Helpers.live_recompilation?
           EmberCLI.run!
         else
           EmberCLI.compile!
