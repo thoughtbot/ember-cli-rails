@@ -99,15 +99,15 @@ module EmberCLI
     end
 
     def lockfile
-      tmp_path.join("build.lock")
+      @lockfile ||= tmp_path.join("build.lock")
     end
 
     def check_for_build_error!
-      raise_build_error! if build_error_file.exist?
+      raise_build_error! if build_error?
     end
 
     def build_error_file
-      tmp_path.join("error.txt")
+      @build_error_file ||= tmp_path.join("error.txt")
     end
 
     def reset_build_error!
