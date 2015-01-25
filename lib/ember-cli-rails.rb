@@ -28,7 +28,7 @@ module EmberCLI
   def enable!
     prepare!
 
-    if Helpers.non_production?
+    if Helpers.use_middleware?
       Rails.configuration.middleware.use Middleware
     end
   end
