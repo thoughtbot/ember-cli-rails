@@ -2,7 +2,7 @@ require "timeout"
 
 module EmberCLI
   class App
-    ADDON_VERSION = "0.0.9"
+    ADDON_VERSION = "0.0.11"
     EMBER_CLI_VERSION = "~> 0.1.5"
 
     class BuildError < StandardError; end
