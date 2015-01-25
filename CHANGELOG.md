@@ -1,3 +1,9 @@
+0.1.2
+-----
+
+* Bump addon version to prevent missing tmp folder error [ember-cli-rails-addon#8](https://github.com/rondale-sc/ember-cli-rails-addon/pull/8)
+* Add configuration to control Middleware and live recompilation [#64](https://github.com/rwz/ember-cli-rails/issues/64)
+
 0.1.1
 -----
 
