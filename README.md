@@ -132,6 +132,58 @@ This tells Guard to watch your EmberCLI app for any changes to the JavaScript,
 Handlebars, HTML, or CSS files. Take note that other extensions can be added to
 the line (such as `coffee` for CoffeeScript) to watch them for changes as well.
 
+## Heroku
+
+In order to deploy EmberCLI Rails app to Heroku you need to follow the steps
+below:
+
+First, enable Heroku Multi Buildpack by running the following command:
+
+```sh
+heroku config:add BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-multi
+```
+
+Next, check in `.buildpacks` file to specify which buildpacks to use:
+
+```
+https://github.com/heroku/heroku-buildpack-nodejs
+https://github.com/heroku/heroku-buildpack-ruby
+```
+
+Add `rails_12factor` gem to your production group in Gemfile, then run `bundle
+install`:
+
+```ruby
+gem "rails_12factor", group: :production
+```
+
+Add a `package.json` to the root of your Rails project. This is to make sure
+it'll be detected by the NodeJS buildpack.
+
+```javascript
+{
+  "dependencies": {
+    "bower": "*"
+  }
+}
+```
+
+Add a `postinstall` task to your EmberCLI app's `package.json`. This will
+ensure that during the deployment process, Heroku will install all dependencies
+found in both `node_modules` and `bower_components`.
+
+```javascript
+{
+  # ...
+  "scripts": {
+    # ...
+    "postinstall": "../../node_modules/bower/bin/bower install"
+  }
+}
+```
+
+Now you should be ready to deploy.
+
 ## Additional Information
 
 When running in the development environment, EmberCLI Rails runs `ember build`
