@@ -123,14 +123,15 @@ init` and then add the following to your `Guardfile`.
 ```ruby
 guard "livereload" do
   # ...
-  watch %r{app/<your-appname>/\w+/.+\.(js|hbs|html|css|<other-extensions>)}
+  watch %r{app/<your-appname>/app/\w+/.+\.(js|hbs|html|css|<other-extensions>)}
   # ...
 end
 ```
 
 This tells Guard to watch your EmberCLI app for any changes to the JavaScript,
-Handlebars, HTML, or CSS files. Take note that other extensions can be added to
-the line (such as `coffee` for CoffeeScript) to watch them for changes as well.
+Handlebars, HTML, or CSS files within `app` path. Take note that other
+extensions can be added to the line (such as `coffee` for CoffeeScript) to
+watch them for changes as well.
 
 ## Additional Information
 
