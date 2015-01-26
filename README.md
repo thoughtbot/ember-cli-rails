@@ -83,7 +83,7 @@ end
 
 ## Usage
 
-You render your Ember CLI app by including the corresponding JS/CSS tags in whichever
+You render your EmberCLI app by including the corresponding JS/CSS tags in whichever
 Rails view you'd like the Ember app to appear.
 
 For example, if you had the following Rails app
@@ -142,7 +142,7 @@ be put. EmberCLI Rails does some fancy stuff to get it into your asset path
 without polluting your git history. Note that for this to work, you must have
 `config.consider_all_requests_local = true` set in
 `config/environments/development.rb`, otherwise the middleware responsible for
-building Ember CLI will not be enabled.
+building EmberCLI will not be enabled.
 
 Alternatively, if you want to override the default behavior in any given Rails
 environment, you can manually set the `config.use_ember_middleware` and
