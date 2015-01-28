@@ -1,3 +1,8 @@
+0.1.3
+-----
+
+* Make sure setting optional config parameters override defaults [#70](https://github.com/rwz/ember-cli-rails/issues/70)
+
 0.1.2
 -----
 
