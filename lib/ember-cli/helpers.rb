@@ -26,16 +26,16 @@ module EmberCLI
     end
 
     def use_middleware?
-      rails_config_for(:use_ember_middleware) || non_production?
+      rails_config_for(:use_ember_middleware, non_production?)
     end
 
     def use_live_recompilation?
-      rails_config_for(:use_ember_live_recompilation) || Rails.env.development?
+      rails_config_for(:use_ember_live_recompilation, Rails.env.development?)
     end
 
-    def rails_config_for(key)
+    def rails_config_for(key, default=false)
       config = Rails.configuration
-      config.respond_to?(key) && config.public_send(key)
+      config.respond_to?(key) ? config.public_send(key) : default
     end
 
     def override_assets_precompile_task!
