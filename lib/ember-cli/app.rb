@@ -91,8 +91,8 @@ module EmberCLI
     private
 
     delegate :match_version?, :non_production?, to: Helpers
+    delegate :configuration, to: EmberCLI
     delegate :tee_path, :npm_path, to: :configuration
-    delegate :configuration, to: :EmberCLI
 
     def build_timeout
       options.fetch(:build_timeout){ configuration.build_timeout }
