@@ -1,3 +1,8 @@
+0.1.4
+-----
+
+* Expose `ember-cli:compile` rake task [#73](https://github.com/rwz/ember-cli-rails/pull/73)
+
 0.1.3
 -----
 
