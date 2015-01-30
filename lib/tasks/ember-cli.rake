@@ -1,4 +1,9 @@
 namespace "ember-cli" do
+  desc "Runs `ember build` for each App"
+  task compile: :environment do
+    EmberCLI.compile!
+  end
+
   desc "Runs `ember test` for each App"
   task test: :environment do
     EmberCLI.run_tests!
