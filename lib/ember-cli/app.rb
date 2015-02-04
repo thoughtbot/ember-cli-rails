@@ -80,12 +80,7 @@ module EmberCLI
     end
 
     def ember_path
-      @ember_path ||= app_path.join("node_modules", ".bin", "ember").tap do |path|
-        fail <<-MSG.strip_heredoc unless path.executable?
-          No local ember executable found. You should run `npm install`
-          inside the #{name} app located at #{app_path}
-        MSG
-      end
+      @ember_path ||= Pathname.new("node_modules/.bin/ember")
     end
 
     private
