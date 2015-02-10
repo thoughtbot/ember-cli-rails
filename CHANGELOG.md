@@ -1,3 +1,8 @@
+0.1.5
+-----
+
+* Compilation and dependencies Rake tasks improved [#79](https://github.com/rwz/ember-cli-rails/pull/79)
+
 0.1.4
 -----
 
