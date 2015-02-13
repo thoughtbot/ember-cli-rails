@@ -20,6 +20,7 @@ module EmberCLI
     end
 
     def install_dependencies
+      exec "bundle install" if gemfile_path.exist?
       exec "#{npm_path} install"
     end
 
@@ -241,7 +242,12 @@ module EmberCLI
       ENV.clone.tap do |vars|
         vars.store "DISABLE_FINGERPRINTING", "true"
         vars.store "EXCLUDE_EMBER_ASSETS", excluded_ember_deps
+        vars.store "BUNDLE_GEMFILE", gemfile_path
       end
+    end
+
+    def gemfile_path
+      app_path.join('Gemfile')
     end
 
     def exec(cmd, options={})
