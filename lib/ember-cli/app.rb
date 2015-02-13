@@ -242,7 +242,7 @@ module EmberCLI
       ENV.clone.tap do |vars|
         vars.store "DISABLE_FINGERPRINTING", "true"
         vars.store "EXCLUDE_EMBER_ASSETS", excluded_ember_deps
-        vars.store "BUNDLE_GEMFILE", gemfile_path
+        vars.store "BUNDLE_GEMFILE", gemfile_path.to_s
       end
     end
 
