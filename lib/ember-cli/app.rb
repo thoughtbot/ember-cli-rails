@@ -15,7 +15,7 @@ module EmberCLI
 
     def compile
       prepare
-      silence_stream(STDOUT){ exec command }
+      silence_build { exec command }
       check_for_build_error!
     end
 
@@ -94,6 +94,14 @@ module EmberCLI
     delegate :match_version?, :non_production?, to: Helpers
     delegate :configuration, to: EmberCLI
     delegate :tee_path, :npm_path, :bundler_path, to: :configuration
+
+    def silence_build(&block)
+      if ENV.fetch("EMBER_CLI_RAILS_VERBOSE"){ !Helpers.non_production? }
+        yield
+      else
+        silence_stream(STDOUT, &block)
+      end
+    end
 
     def build_timeout
       options.fetch(:build_timeout){ configuration.build_timeout }
