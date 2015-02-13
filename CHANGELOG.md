@@ -1,3 +1,11 @@
+0.1.6
+-----
+
+* Support Gemfile in EmberCLI app [#84](https://github.com/rwz/ember-cli-rails/commit/652cf12c0a196b4719f6517f2fea308d8d556a5f) [@sevos](https://github.com/sevos)
+* Allow relative path to be set via initializer [#72](https://github.com/rwz/ember-cli-rails/issues/74)
+* Conditionally silence build output [#82](https://github.com/rwz/ember-cli-rails/issues/82)
+* [DEPRECATION] Default EmberCLI application in Rails' app path [#66](https://github.com/rwz/ember-cli-rails/issues/66) [@jesenko](https://github.com/jesenko)
+
 0.1.5
 -----
 

@@ -46,14 +46,14 @@ end
 
 ##### options
 
-- app - this represents the name of the ember cli application.  The presumed
-  path of which would be `Rails.root.join('app', <your-appname>)`
+- app - this represents the name of the EmberCLI application.
 
-- path - used if you need to override the default path (mentioned above).
-  Example usage:
+- path - the path, where your EmberCLI applications is located. The default
+  value is the name of your app in the Rails root.
 
 ```ruby
 EmberCLI.configure do |c|
+  c.app :adminpanel # path is "<your-rails-root>/adminpanel"
   c.app :frontend, path: "/path/to/your/ember-cli-app/on/disk"
 end
 ```
