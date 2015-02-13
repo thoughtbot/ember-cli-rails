@@ -95,6 +95,25 @@ module EmberCLI
     delegate :configuration, to: EmberCLI
     delegate :tee_path, :npm_path, :bundler_path, to: :configuration
 
+    def default_app_path
+      path = Rails.root.join("app", name)
+
+      return name unless path.directory?
+
+      ActiveSupport::Deprecation.warn <<-MSG.strip_heredoc
+        We have found that placing your EmberCLI
+        application inside Rails' app has negative performance implications.
+
+        Please see, https://github.com/rwz/ember-cli-rails/issues/66 for more
+        detailed information.
+
+        It is now reccomended to place your EmberCLI application into the Rails
+        root path.
+      MSG
+
+      path
+    end
+
     def silence_build(&block)
       if ENV.fetch("EMBER_CLI_RAILS_VERBOSE"){ !Helpers.non_production? }
         yield
@@ -200,9 +219,9 @@ module EmberCLI
 
     def app_path
       @app_path ||= begin
-        path = options.fetch(:path){ "app/#{name}" }
+        path = options.fetch(:path){ default_app_path }
         pathname = Pathname.new(path)
-        pathname.absolute?? pathname : Rails.root.join(path)
+        app_path = pathname.absolute?? pathname : Rails.root.join(path)
       end
     end
 
