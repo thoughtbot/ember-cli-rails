@@ -20,7 +20,7 @@ module EmberCLI
     end
 
     def install_dependencies
-      exec "bundle install" if gemfile_path.exist?
+      exec "#{bundler_path} install" if gemfile_path.exist?
       exec "#{npm_path} install"
     end
 
@@ -93,7 +93,7 @@ module EmberCLI
 
     delegate :match_version?, :non_production?, to: Helpers
     delegate :configuration, to: EmberCLI
-    delegate :tee_path, :npm_path, to: :configuration
+    delegate :tee_path, :npm_path, :bundler_path, to: :configuration
 
     def build_timeout
       options.fetch(:build_timeout){ configuration.build_timeout }
@@ -247,7 +247,7 @@ module EmberCLI
     end
 
     def gemfile_path
-      app_path.join('Gemfile')
+      app_path.join("Gemfile")
     end
 
     def exec(cmd, options={})
