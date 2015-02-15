@@ -165,7 +165,7 @@ module EmberCLI
     end
 
     def check_ember_cli_version!
-      version = dev_dependencies.fetch("ember-cli").split("-").first
+      version = dev_dependencies.fetch("ember-cli").split(?-).first
 
       unless match_version?(version, EMBER_CLI_VERSION)
         fail <<-MSG.strip_heredoc
@@ -221,16 +221,12 @@ module EmberCLI
       @app_path ||= begin
         path = options.fetch(:path){ default_app_path }
         pathname = Pathname.new(path)
-        app_path = pathname.absolute?? pathname : Rails.root.join(path)
+        pathname.absolute?? pathname : Rails.root.join(path)
       end
     end
 
     def tmp_path
-      @tmp_path ||= begin
-        path = app_path.join("tmp")
-        path.mkdir unless path.exist?
-        path
-      end
+      @tmp_path ||= app_path.join("tmp").tap(&:mkpath)
     end
 
     def log_path
@@ -263,7 +259,7 @@ module EmberCLI
     end
 
     def excluded_ember_deps
-      Array.wrap(options[:exclude_ember_deps]).join(",")
+      Array.wrap(options[:exclude_ember_deps]).join(?,)
     end
 
     def env_hash
