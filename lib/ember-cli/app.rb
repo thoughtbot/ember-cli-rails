@@ -107,7 +107,7 @@ module EmberCLI
         Please see, https://github.com/rwz/ember-cli-rails/issues/66 for more
         detailed information.
 
-        It is now reccomended to place your EmberCLI application into the Rails
+        It is now recommended to place your EmberCLI application into the Rails
         root path.
       MSG
 
