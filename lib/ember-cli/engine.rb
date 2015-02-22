@@ -1,5 +1,5 @@
 module EmberCLI
-  class Railtie < Rails::Railtie
+  class Engine < Rails::Engine
     initializer "ember-cli-rails.view_helpers" do
       ActionView::Base.send :include, ViewHelpers
     end

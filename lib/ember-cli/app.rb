@@ -13,6 +13,10 @@ module EmberCLI
       @name, @options = name.to_s, options
     end
 
+    def tests_path
+      dist_path.join("tests")
+    end
+
     def compile
       prepare
       silence_build { exec command }
