@@ -1,3 +1,3 @@
 EmberCLI::Engine.routes.draw do
-  get ":app" => "ember_tests#index", format: false, as: false
+  get ":app_name", to: "ember_tests#index", format: false
 end

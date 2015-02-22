@@ -22,6 +22,6 @@ class EmberTestsController < ActionController::Base
   end
 
   def app_name
-    params[:app]
+    params.fetch(:app_name)
   end
 end
