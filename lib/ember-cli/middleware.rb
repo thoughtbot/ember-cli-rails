@@ -8,7 +8,11 @@ module EmberCLI
       enable_ember_cli
       EmberCLI.wait!
 
-      @app.call(env)
+      if env["PATH_INFO"] == "/testem.js"
+        [ 200, { "Content-Type" => "text/javascript" }, [""] ]
+      else
+        @app.call(env)
+      end
     end
 
     private
