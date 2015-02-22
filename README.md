@@ -121,19 +121,17 @@ To run an Ember app's tests in a browser, mount the `EmberCLI::Engine`:
 # config/routes.rb
 
 Rails.application.routes.draw do
-  unless Rails.env.production?
-    mount EmberCLI::Rails => 'tests'
-  end
+  mount EmberCLI::Engine => "ember-tests" if Rails.env.development?
 
-  root 'application#index'
+  root "application#index"
 end
 ```
 
 Ember tests are served based on the route you mount the Engine on (in this
-example, `/tests`) and the name of the Ember app.
+example, `/ember-tests`) and the name of the Ember app.
 
-For example, to view tests in `app/frontend`,
-visit `http://localhost:3000/tests/frontend`.
+For example, to view tests of the `frontend` app, visit
+`http://localhost:3000/ember-tests/frontend`.
 
 ## Enabling LiveReload
 
