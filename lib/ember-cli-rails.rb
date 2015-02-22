@@ -1,4 +1,4 @@
-require "ember-cli/railtie" if defined?(Rails)
+require "ember-cli/engine" if defined?(Rails)
 
 module EmberCLI
   extend self
@@ -15,6 +15,10 @@ module EmberCLI
 
   def configuration
     Configuration.instance
+  end
+
+  def get_app(name)
+    configuration.apps[name]
   end
 
   def prepare!

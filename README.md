@@ -113,6 +113,28 @@ could render your app at the `/` route with the following view:
 
 Your Ember application will now be served at the `/` route.
 
+## Ember Test Suite
+
+To run an Ember app's tests in a browser, mount the `EmberCLI::Engine`:
+
+```ruby
+# config/routes.rb
+
+Rails.application.routes.draw do
+  unless Rails.env.production?
+    mount EmberCLI::Rails => 'tests'
+  end
+
+  root 'application#index'
+end
+```
+
+Ember tests are served based on the route you mount the Engine on (in this
+example, `/tests`) and the name of the Ember app.
+
+For example, to view tests in `app/frontend`,
+visit `http://localhost:3000/tests/frontend`.
+
 ## Enabling LiveReload
 
 In order to get LiveReload up and running with EmberCLI Rails, you can install
