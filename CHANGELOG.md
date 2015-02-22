@@ -1,3 +1,8 @@
+0.1.7
+-----
+
+* Serve EmberCLI tests as mountable engine [#90](https://github.com/rwz/ember-cli-rails/pull/90) [@seanpdoyle](https://github.com/seanpdoyle)
+
 0.1.6
 -----
 
