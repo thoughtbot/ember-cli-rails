@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.summary  = "Integration between Ember CLI and Rails"
   spec.homepage = "https://github.com/rwz/ember-cli-rails"
   spec.license  = "MIT"
-  spec.files    = Dir["README.md", "CHANGELOG.md", "LICENSE.txt", "lib/**/*"]
+  spec.files    = Dir["README.md", "CHANGELOG.md", "LICENSE.txt", "lib/**/*", "app/**/*", "config/**/*"]
 
   spec.required_ruby_version = ">= 1.9.3"
 
