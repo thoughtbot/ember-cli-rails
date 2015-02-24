@@ -1,3 +1,8 @@
+0.1.8
+-----
+
+* Include engine file into gemspec [#91](https://github.com/rwz/ember-cli-rails/pull/91) [@jesenko](https://github.com/jesenko)
+
 0.1.7
 -----
 
