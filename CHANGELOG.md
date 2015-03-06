@@ -1,3 +1,8 @@
+0.1.10
+------
+
+* Support ember-cli 0.2.\* [1bf8d2c](https://github.com/rwz/ember-cli-rails/commit/1bf8d2c5fb43e369b76819ffd5bd2bbcfb0fe14e)
+
 0.1.9
 -----
 
