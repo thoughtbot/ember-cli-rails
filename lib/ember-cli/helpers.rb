@@ -2,10 +2,13 @@ module EmberCLI
   module Helpers
     extend self
 
-    def match_version?(version, requirement)
+    def match_version?(version, requirements)
       version = Gem::Version.new(version)
-      requirement = Gem::Requirement.new(requirement)
-      requirement.satisfied_by?(version)
+
+      Array.wrap(requirements).any? do |requirement|
+        requirement = Gem::Requirement.new(requirement)
+        requirement.satisfied_by?(version)
+      end
     end
 
     def which(cmd)
