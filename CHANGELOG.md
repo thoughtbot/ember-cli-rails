@@ -1,3 +1,11 @@
+0.1.9
+-----
+
+* Only set `BUNDLE_GEMFILE` to shell environment if it exists [#92](https://github.com/rwz/ember-cli-rails/issues/92) [@seanpdoyle](https://twitter.com/seanpdoyle)
+* Add Support for Rails 3.1 [#99](https://github.com/rwz/ember-cli-rails/pull/99) [@seanpdoyle](https://twitter.com/seanpdoyle)
+* Use Rails' configured asset prefix in tests [#104](https://github.com/rwz/ember-cli-rails/pull/104) [@seanpdoyle](https://twitter.com/seanpdoyle)
+
+
 0.1.8
 -----
 
