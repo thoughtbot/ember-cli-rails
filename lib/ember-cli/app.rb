@@ -119,7 +119,7 @@ module EmberCLI
     end
 
     def silence_build(&block)
-      if ENV.fetch("EMBER_CLI_RAILS_VERBOSE"){ !Helpers.non_production? }
+      if ENV.fetch("EMBER_CLI_RAILS_VERBOSE"){ !non_production? }
         yield
       else
         silence_stream(STDOUT, &block)
