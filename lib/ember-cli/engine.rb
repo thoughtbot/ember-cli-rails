@@ -15,9 +15,5 @@ module EmberCLI
     initializer "ember-cli-rails.enable" do
       EmberCLI.enable! unless ENV["SKIP_EMBER"]
     end
-
-    rake_tasks do
-      load "tasks/ember-cli.rake"
-    end
   end
 end
