@@ -113,6 +113,35 @@ could render your app at the `/` route with the following view:
 
 Your Ember application will now be served at the `/` route.
 
+## CSRF Tokens
+
+Your Rails controllers, by default, are expecting a valid authenticity token to be submitted with non-`GET` requests.
+Without it you'll receive a `422 Unprocessable Entity` error, specifically: `ActionController::InvalidAuthenticityToken`.
+
+In order to add that token to your requests, you need to add into your template:
+
+```erb
+<!-- /app/views/application/index.html.erb -->
+# ... your ember script and stylesheet includes ...
+<%= csrf_meta_tags %>
+```
+
+This will add the tokens to your page.
+
+You can then override the application `DS.RESTAdapter` (or whatever flavor of adapter you're using) to send that token with the requests:
+
+```js
+// path/to/your/ember-cli-app/app/adapters/application.js
+import DS from 'ember-data';
+import $ from 'jquery';
+
+export default DS.RESTAdapter.extend({
+  headers: {
+    "X-CSRF-Token": $('meta[name="csrf-token"]').attr('content')
+  }
+});
+```
+
 ## Ember Test Suite
 
 To run an Ember app's tests in a browser, mount the `EmberCLI::Engine`:
