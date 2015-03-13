@@ -1,3 +1,8 @@
+0.1.11
+------
+
+* Do not include rake tasks twice [#110](https://github.com/rwz/ember-cli-rails/pull/110) [BlakeWilliams](https://github.com/BlakeWilliams)
+
 0.1.10
 ------
 
