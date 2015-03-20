@@ -1,3 +1,8 @@
+0.1.12
+------
+
+* Fix inflector initializer for older Rails [#115](https://github.com/rwz/ember-cli-rails/pull/115) [#117](https://github.com/rwz/ember-cli-rails/pull/117)
+
 0.1.11
 ------
 
