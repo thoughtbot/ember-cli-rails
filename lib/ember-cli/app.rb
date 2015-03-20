@@ -4,6 +4,7 @@ module EmberCLI
   class App
     ADDON_VERSION = "0.0.11"
     EMBER_CLI_VERSION = "~> 0.1.5", "~> 0.2.0"
+    RAILS_ASSET_EXTENSIONS = %w(.jpg .png .jpeg .gif)
 
     class BuildError < StandardError; end
 
@@ -93,6 +94,10 @@ module EmberCLI
       end
     end
 
+    def rails_asset_extensions
+      options.fetch(:rails_asset_extensions, RAILS_ASSET_EXTENSIONS)
+    end
+
     private
 
     delegate :match_version?, :non_production?, to: Helpers
@@ -128,6 +133,10 @@ module EmberCLI
 
     def build_timeout
       options.fetch(:build_timeout){ configuration.build_timeout }
+    end
+
+    def asset_extensions
+      options.fetch(:asset_extensions) { configure.asset_extensions }
     end
 
     def lockfile
