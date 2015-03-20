@@ -5,10 +5,8 @@ module EmberCLI
     end
 
     initializer "ember-cli-rails.inflector" do
-      if Rails.version > "3.2"
-        ActiveSupport::Inflector.inflections :en do |inflect|
-          inflect.acronym "CLI"
-        end
+      ActiveSupport::Inflector.inflections do |inflect|
+        inflect.acronym "CLI" if inflect.respond_to?(:acronym)
       end
     end
 
