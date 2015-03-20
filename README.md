@@ -192,7 +192,7 @@ watch them for changes as well.
 
 ```ruby
 # also add directories that need to be watched by other guard plugins
-directories %w(app config lib spec your-appname/app)
+directories %w[app config lib spec your-appname/app]
 ```
 
 ## Heroku
