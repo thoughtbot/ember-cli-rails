@@ -172,7 +172,7 @@ init` and then add the following to your `Guardfile`.
 ```ruby
 guard "livereload" do
   # ...
-  watch %r{app/<your-appname>/app/\w+/.+\.(js|hbs|html|css|<other-extensions>)}
+  watch %r{your-appname/app/\w+/.+\.(js|hbs|html|css|<other-extensions>)}
   # ...
 end
 ```
@@ -181,6 +181,19 @@ This tells Guard to watch your EmberCLI app for any changes to the JavaScript,
 Handlebars, HTML, or CSS files within `app` path. Take note that other
 extensions can be added to the line (such as `coffee` for CoffeeScript) to
 watch them for changes as well.
+
+*NOTE:* EmberCLI creates symlinks in `your-appname/tmp` directory, which cannot
+ be handled properly by Guard. This might lead to performance issues on some
+ platforms (most notably on OSX), as well as warnings being printed by latest
+ versions of Guard. As a work-around, one might use
+ [`directories`](https://github.com/guard/guard/wiki/Guardfile-DSL---Configuring-Guard#directories)
+ option, explicitly specifying directories to watch, e.g. adding the following
+ to the `Guardfile`.
+
+```ruby
+# also add directories that need to be watched by other guard plugins
+directories %w(app config lib spec your-appname/app)
+```
 
 ## Heroku
 
