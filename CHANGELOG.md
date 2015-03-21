@@ -1,3 +1,8 @@
+0.1.13
+------
+
+* Don't Compile Assets if `SKIP_EMBER` set [#122](https://github.com/rwz/ember-cli-rails/pull/122) [@seanpdoyle](https://twitter.com/seanpdoyle)
+
 0.1.12
 ------
 
