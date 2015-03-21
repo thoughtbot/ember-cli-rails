@@ -11,7 +11,7 @@ module EmberCLI
     end
 
     initializer "ember-cli-rails.enable" do
-      EmberCLI.enable! unless ENV["SKIP_EMBER"]
+      EmberCLI.enable! unless EmberCLI.skip?
     end
   end
 end
