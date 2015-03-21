@@ -21,6 +21,10 @@ module EmberCLI
     configuration.apps[name]
   end
 
+  def skip?
+    ENV["SKIP_EMBER"]
+  end
+
   def prepare!
     @prepared ||= begin
       Rails.configuration.assets.paths << root.join("assets").to_s
