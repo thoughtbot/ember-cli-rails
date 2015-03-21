@@ -354,6 +354,39 @@ The reason build/deploy times were slow is because ember uglified the JS and
 then added the files to the asset pipeline. Rails would then try and uglify
 the JS again, and this would be considerably slower than normal.
 
+See also the note on [Javascript minification](#javascript-minification)
+
+## JavaScript minification
+
+When pre-compiling assets in production, you will want to
+ensure that you are not minifying your JavaScript twice: once with EmberCLI's
+build tools and once with the Asset Pipeline. Repeated minification is wasteful
+and can increase deployment times exponentially.
+
+You can either disable minification in your EmberCLI application's
+`ember-cli-build.js`:
+
+```javascript
+/* global require, module */
+var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+
+module.exports = function(defaults) {
+  var app = new EmberApp({
+    minifyJS: false,
+  });
+
+  // ...
+};
+```
+
+or in your Rails application's `config/environments/production.rb`:
+
+```ruby
+Rails.application.configure do
+  config.assets.js_compressor = nil
+end
+```
+
 ## Additional Information
 
 When running in the development environment, Ember CLI Rails runs `ember build`
