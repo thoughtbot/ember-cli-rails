@@ -247,6 +247,22 @@ found in both `node_modules` and `bower_components`.
 
 Now you should be ready to deploy.
 
+See also the note on [Javascript minification](#javascript-minification)
+
+## Javascript minification
+
+When precompiling assets in production, you will probably want to
+ensure that you are not minifying your javascript twice, in EmberCLI
+and in Rails. This can slow down assets precompilation considerably.
+You will probably want to disable minification in Rails by setting:
+
+```ruby
+  config.assets.js_compressor = nil
+```
+
+in your `config/environments/production.rb` file.
+
+
 ## Additional Information
 
 When running in the development environment, EmberCLI Rails runs `ember build`
