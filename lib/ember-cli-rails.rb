@@ -5,7 +5,6 @@ module EmberCLI
 
   autoload :App,           "ember-cli/app"
   autoload :Configuration, "ember-cli/configuration"
-  autoload :ViewHelpers,   "ember-cli/view_helpers"
   autoload :Helpers,       "ember-cli/helpers"
   autoload :Middleware,    "ember-cli/middleware"
 
