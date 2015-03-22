@@ -100,14 +100,13 @@ module EmberCLI
 
     private
 
-    delegate :match_version?, :non_production?, to: Helpers
     def supported_path_method(original)
       path_method = original.to_s[/\A(.+)_path\z/, 1]
       path_method if path_method && paths.respond_to?(path_method)
     end
 
     def silence_build(&block)
-      if ENV.fetch("EMBER_CLI_RAILS_VERBOSE"){ !non_production? }
+      if ENV.fetch("EMBER_CLI_RAILS_VERBOSE"){ EmberCLI.env.production? }
         yield
       else
         silence_stream STDOUT, &block
@@ -151,7 +150,7 @@ module EmberCLI
     def check_ember_cli_version!
       version = dev_dependencies.fetch("ember-cli").split(?-).first
 
-      unless match_version?(version, EMBER_CLI_VERSION)
+      unless Helpers.match_version?(version, EMBER_CLI_VERSION)
         fail <<-MSG.strip_heredoc
           EmberCLI Rails require ember-cli NPM package version to be
           #{EMBER_CLI_VERSION} to work properly. From within your EmberCLI directory
@@ -202,7 +201,7 @@ module EmberCLI
     end
 
     def environment
-      non_production?? "development" : "production"
+      EmberCLI.env.production?? "production" : "development"
     end
 
     def package_json

@@ -39,10 +39,7 @@ module EmberCLI
 
   def enable!
     prepare!
-
-    if Helpers.use_middleware?
-      Rails.configuration.middleware.use Middleware
-    end
+    append_middleware unless env.production?
   end
 
   def install_dependencies!
@@ -77,6 +74,10 @@ module EmberCLI
     @root ||= Rails.root.join("tmp", "ember-cli-#{uid}")
   end
 
+  def env
+    @env ||= Helpers.current_environment.inquiry
+  end
+
   delegate :apps, to: :configuration
 
   private
@@ -91,5 +92,9 @@ module EmberCLI
 
   def each_app
     apps.each{ |name, app| yield app }
+  end
+
+  def append_middleware
+    Rails.configuration.middleware.use Middleware
   end
 end

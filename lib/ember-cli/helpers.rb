@@ -24,21 +24,25 @@ module EmberCLI
       nil
     end
 
-    def non_production?
-      !Rails.env.production? && rails_config_for(:consider_all_requests_local)
+    def current_environment
+      rails_config_for(:ember_cli_rails_mode){ default_environment }.to_s
     end
 
-    def use_middleware?
-      rails_config_for(:use_ember_middleware, non_production?)
+    private
+
+    def default_environment
+      if Rails.env.test?
+        "test"
+      elsif Rails.env.production? || !rails_config_for(:consider_all_requests_local)
+        "production"
+      else
+        "development"
+      end
     end
 
-    def use_live_recompilation?
-      rails_config_for(:use_ember_live_recompilation, Rails.env.development?)
-    end
-
-    def rails_config_for(key, default=false)
+    def rails_config_for(key)
       config = Rails.configuration
-      config.respond_to?(key) ? config.public_send(key) : default
+      config.respond_to?(key) ? config.public_send(key) : yield
     end
   end
 end
