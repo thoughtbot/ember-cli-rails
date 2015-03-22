@@ -110,7 +110,7 @@ module EmberCLI
       if ENV.fetch("EMBER_CLI_RAILS_VERBOSE"){ !non_production? }
         yield
       else
-        silence_stream(STDOUT, &block)
+        silence_stream STDOUT, &block
       end
     end
 
