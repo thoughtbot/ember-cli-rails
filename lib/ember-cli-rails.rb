@@ -26,7 +26,7 @@ module EmberCLI
   alias_method :[], :app
 
   def skip?
-    ENV["SKIP_EMBER"]
+    ENV["SKIP_EMBER"].present?
   end
 
   def prepare!
