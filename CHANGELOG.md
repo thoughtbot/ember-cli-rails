@@ -1,3 +1,12 @@
+0.2.0
+-----
+
+* Rename rake namespace from ember-cli to ember [commit](https://github.com/rwz/ember-cli-rails/commit/3f5463835f05d21a34b5f8a9dfeb482b0501d8d4)
+* Allow helpers to take optons for ember assets [commit](https://github.com/rwz/ember-cli-rails/commit/335d117a5bf4d3520730c9c421a25aee5274c2b3)
+* Make EmberCLI.skip? predicate return boolean [commit](https://github.com/rwz/ember-cli-rails/commit/6f7cd58010aaf584e0810c44568008654bd1a764)
+* Introduce EmberCLI.env and ember\_cli\_rails\_mode config option [commit](https://github.com/rwz/ember-cli-rails/commit/4ff9ea1a1a152bee9f909e4379f6f469650891b5)
+* Rename EmberCLI.get\_app to .app and add .[] alias [commit](https://github.com/rwz/ember-cli-rails/commit/71b4c5cc97d9a410e2ef7acc536994e5d71175c6)
+
 0.1.13
 ------
 
