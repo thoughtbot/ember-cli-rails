@@ -7,6 +7,7 @@ module EmberCLI
   autoload :Configuration, "ember-cli/configuration"
   autoload :Helpers,       "ember-cli/helpers"
   autoload :Middleware,    "ember-cli/middleware"
+  autoload :PathSet,       "ember-cli/path_set"
 
   def configure
     yield configuration

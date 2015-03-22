@@ -7,14 +7,13 @@ module EmberCLI
 
     class BuildError < StandardError; end
 
-    attr_reader :name, :options, :pid
+    attr_reader :name, :options, :paths, :pid
+
+    delegate :root, to: :paths
 
     def initialize(name, options={})
       @name, @options = name.to_s, options
-    end
-
-    def tests_path
-      dist_path.join("tests")
+      @paths = PathSet.new(self)
     end
 
     def compile
@@ -37,8 +36,7 @@ module EmberCLI
 
     def run_tests
       prepare
-      tests_pass = exec("#{ember_path} test")
-      exit 1 unless tests_pass
+      exit 1 unless exec("#{ember_path} test")
     end
 
     def stop
@@ -84,38 +82,28 @@ module EmberCLI
       MSG
     end
 
-    def ember_path
-      @ember_path ||= app_path.join("node_modules", ".bin", "ember").tap do |path|
-        fail <<-MSG.strip_heredoc unless path.executable?
-          No local ember executable found. You should run `npm install`
-          inside the #{name} app located at #{app_path}
-        MSG
+    def method_missing(method_name, *)
+      if path_method = supported_path_method(method_name)
+        paths.public_send(path_method)
+      else
+        super
+      end
+    end
+
+    def respond_to_missing?(method_name, *)
+      if supported_path_method(method_name)
+        true
+      else
+        super
       end
     end
 
     private
 
     delegate :match_version?, :non_production?, to: Helpers
-    delegate :configuration, to: EmberCLI
-    delegate :tee_path, :npm_path, :bundler_path, to: :configuration
-
-    def default_app_path
-      path = Rails.root.join("app", name)
-
-      return name unless path.directory?
-
-      ActiveSupport::Deprecation.warn <<-MSG.strip_heredoc
-        We have found that placing your EmberCLI
-        application inside Rails' app has negative performance implications.
-
-        Please see, https://github.com/rwz/ember-cli-rails/issues/66 for more
-        detailed information.
-
-        It is now recommended to place your EmberCLI application into the Rails
-        root path.
-      MSG
-
-      path
+    def supported_path_method(original)
+      path_method = original.to_s[/\A(.+)_path\z/, 1]
+      path_method if path_method && paths.respond_to?(path_method)
     end
 
     def silence_build(&block)
@@ -130,29 +118,21 @@ module EmberCLI
       options.fetch(:build_timeout){ configuration.build_timeout }
     end
 
-    def lockfile
-      @lockfile ||= tmp_path.join("build.lock")
-    end
-
     def check_for_build_error!
       raise_build_error! if build_error?
     end
 
-    def build_error_file
-      @build_error_file ||= tmp_path.join("error.txt")
-    end
-
     def reset_build_error!
-      build_error_file.delete if build_error?
+      build_error_file_path.delete if build_error?
     end
 
     def build_error?
-      build_error_file.exist?
+      build_error_file_path.exist?
     end
 
     def raise_build_error!
       error = BuildError.new("EmberCLI app #{name.inspect} has failed to build")
-      error.set_backtrace build_error_file.read.split(?\n)
+      error.set_backtrace build_error_file_path.read.split(?\n)
       fail error
     end
 
@@ -161,7 +141,7 @@ module EmberCLI
         check_addon!
         check_ember_cli_version!
         reset_build_error!
-        FileUtils.touch lockfile
+        FileUtils.touch lockfile_path
         symlink_to_assets_root
         add_assets_to_precompile_list
         true
@@ -192,7 +172,7 @@ module EmberCLI
 
             $ npm install --save-dev ember-cli-rails-addon@#{ADDON_VERSION}
 
-          in you Ember application root: #{app_path}
+          in you Ember application root: #{root}
         MSG
       end
     end
@@ -221,36 +201,12 @@ module EmberCLI
       @ember_app_name ||= options.fetch(:name){ package_json.fetch(:name) }
     end
 
-    def app_path
-      @app_path ||= begin
-        path = options.fetch(:path){ default_app_path }
-        pathname = Pathname.new(path)
-        pathname.absolute?? pathname : Rails.root.join(path)
-      end
-    end
-
-    def tmp_path
-      @tmp_path ||= app_path.join("tmp").tap(&:mkpath)
-    end
-
-    def log_path
-      Rails.root.join("log", "ember-#{name}.#{Rails.env}.log")
-    end
-
-    def dist_path
-      @dist_path ||= EmberCLI.root.join("apps", name).tap(&:mkpath)
-    end
-
-    def assets_path
-      @assets_path ||= EmberCLI.root.join("assets").tap(&:mkpath)
-    end
-
     def environment
       non_production?? "development" : "production"
     end
 
     def package_json
-      @package_json ||= JSON.parse(app_path.join("package.json").read).with_indifferent_access
+      @package_json ||= JSON.parse(package_json_file_path.read).with_indifferent_access
     end
 
     def dev_dependencies
@@ -259,7 +215,7 @@ module EmberCLI
 
     def addon_present?
       dev_dependencies["ember-cli-rails-addon"] == ADDON_VERSION &&
-        app_path.join("node_modules", "ember-cli-rails-addon", "package.json").exist?
+        addon_package_json_file_path.exist?
     end
 
     def excluded_ember_deps
@@ -274,14 +230,10 @@ module EmberCLI
       end
     end
 
-    def gemfile_path
-      app_path.join("Gemfile")
-    end
-
     def exec(cmd, options={})
       method_name = options.fetch(:method, :system)
 
-      Dir.chdir app_path do
+      Dir.chdir root do
         Kernel.public_send(method_name, env_hash, cmd, err: :out)
       end
     end
@@ -289,7 +241,7 @@ module EmberCLI
     def wait_for_build_complete_or_error
       loop do
         check_for_build_error!
-        break unless lockfile.exist?
+        break unless lockfile_path.exist?
         sleep 0.1
       end
     end
