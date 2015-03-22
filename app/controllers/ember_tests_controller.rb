@@ -18,7 +18,7 @@ class EmberTestsController < ActionController::Base
   end
 
   def app
-    EmberCLI.get_app(app_name)
+    EmberCLI[app_name]
   end
 
   def app_name

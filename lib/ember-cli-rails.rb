@@ -17,9 +17,13 @@ module EmberCLI
     Configuration.instance
   end
 
-  def get_app(name)
-    configuration.apps[name]
+  def app(name)
+    apps.fetch(name) do
+      fail KeyError, "#{name.inspect} app is not defined"
+    end
   end
+
+  alias_method :[], :app
 
   def skip?
     ENV["SKIP_EMBER"]
@@ -73,6 +77,8 @@ module EmberCLI
     @root ||= Rails.root.join("tmp", "ember-cli-#{uid}")
   end
 
+  delegate :apps, to: :configuration
+
   private
 
   def uid
@@ -84,6 +90,6 @@ module EmberCLI
   end
 
   def each_app
-    configuration.apps.each{ |name, app| yield app }
+    apps.each{ |name, app| yield app }
   end
 end
