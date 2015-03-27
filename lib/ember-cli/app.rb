@@ -1,4 +1,5 @@
 require "timeout"
+require "json"
 
 module EmberCLI
   class App
@@ -18,8 +19,12 @@ module EmberCLI
     end
 
     def compile
-      prepare
+      prepare( env: :compile )
       silence_build { exec command }
+      if use_ember_fingerprints
+        copy_fingerprinted_assets
+        fixup_asset_manifest
+      end
       check_for_build_error!
     end
 
@@ -29,14 +34,14 @@ module EmberCLI
     end
 
     def run
-      prepare
+      prepare( env: :run )
       cmd = command(watch: true)
       @pid = exec(cmd, method: :spawn)
       at_exit{ stop }
     end
 
     def run_tests
-      prepare
+      prepare( env: :test )
       tests_pass = exec("#{ember_path} test")
       exit 1 unless tests_pass
     end
@@ -156,15 +161,62 @@ module EmberCLI
       fail error
     end
 
-    def prepare
+    def prepare(params={})
       @prepared ||= begin
         check_addon!
         check_ember_cli_version!
         reset_build_error!
         FileUtils.touch lockfile
-        symlink_to_assets_root
-        add_assets_to_precompile_list
+        unless use_ember_fingerprints && params[:env] && params[:env] == :compile
+          symlink_to_assets_root
+          add_assets_to_precompile_list
+        end
         true
+      end
+    end
+
+    def copy_fingerprinted_assets
+      FileUtils.mkdir_p "#{Rails.root}/public/assets/#{name}"
+      FileUtils.cp_r Dir["#{dist_path.join("assets")}/*"], "#{Rails.root}/public/assets/#{name}/"
+    end
+
+    def fixup_asset_manifest
+      # Add the app name to the file & asset paths (e.g. /frontend/vendor-12345.js)
+      app_manifest_file = Dir["#{Rails.root.join('public/assets').join(name)}/manifest*.json"].first
+      app_manifest = JSON.parse( File.read( app_manifest_file ) )
+
+      app_manifest["files"] = app_manifest["files"].inject({}) do |new_files, pair|
+        file,info = pair
+        info = info.merge( "logical_path" => "#{name}/#{info['logical_path']}" )
+        new_files["#{name}/#{file}"] = info
+        new_files
+      end
+
+      app_manifest["assets"] = app_manifest["assets"].inject({}) do |new_assets, pair|
+        file,fingerprinted_file = pair
+        new_assets["#{name}/#{file}"] = "#{name}/#{fingerprinted_file}"
+        new_assets
+      end
+
+      merge_asset_manifest( app_manifest )
+    end
+
+    def merge_asset_manifest( app_manifest )
+      # Merge with the manifest file in the root for the case of multiple apps
+      main_manifest_file = "#{Rails.root}/public/assets/manifest.json"
+
+      if File.exists? main_manifest_file
+        main_manifest = JSON.parse( File.read( main_manifest_file ) )
+        ["files","assets"].each do |mapping|
+          main_manifest[mapping] = main_manifest[mapping].merge( app_manifest[mapping] )
+        end
+      else
+        main_manifest = app_manifest
+      end
+
+      # Write manifest file to the root where Rails will pick it up and merge with it
+      File.open( main_manifest_file, "w" ) do |file|
+        file.write( main_manifest.to_json )
       end
     end
 
@@ -266,9 +318,13 @@ module EmberCLI
       Array.wrap(options[:exclude_ember_deps]).join(?,)
     end
 
+    def use_ember_fingerprints
+      options.fetch(:use_ember_fingerprints){ false }
+    end
+
     def env_hash
       ENV.clone.tap do |vars|
-        vars.store "DISABLE_FINGERPRINTING", "true"
+        vars.store "DISABLE_FINGERPRINTING", (!use_ember_fingerprints).to_s
         vars.store "EXCLUDE_EMBER_ASSETS", excluded_ember_deps
         vars.store "BUNDLE_GEMFILE", gemfile_path.to_s if gemfile_path.exist?
       end
