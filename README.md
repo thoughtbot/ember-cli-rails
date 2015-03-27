@@ -220,16 +220,10 @@ install`:
 gem "rails_12factor", group: :production
 ```
 
-Add a `package.json` to the root of your Rails project. This is to make sure
-it'll be detected by the NodeJS buildpack.
+Add a `package.json` file containing `{}` to the root of your Rails project.
+This is to make sure it'll be detected by the NodeJS buildpack.
 
-```javascript
-{
-  "dependencies": {
-    "bower": "*"
-  }
-}
-```
+Make sure you have `bower` in the dependencies list of your app.
 
 Add a `postinstall` task to your EmberCLI app's `package.json`. This will
 ensure that during the deployment process, Heroku will install all dependencies
@@ -240,7 +234,7 @@ found in both `node_modules` and `bower_components`.
   # ...
   "scripts": {
     # ...
-    "postinstall": "../../node_modules/bower/bin/bower install"
+    "postinstall": "node_modules/bower/bin/bower install"¬
   }
 }
 ```
