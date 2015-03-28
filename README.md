@@ -1,7 +1,7 @@
 # EmberCLI Rails
 
 EmberCLI Rails is an integration story between (surprise suprise) EmberCLI and
-Rails. It is designed to provide an easy way to organize your Rails backed
+Rails 3.1 and up. It is designed to provide an easy way to organize your Rails backed
 EmberCLI application with a specific focus on upgradeability. Rails and Ember
 [slash EmberCLI] are maintained by different teams with different goals. As
 such, we believe that it is important to ensure smooth upgrading of both
