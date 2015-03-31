@@ -197,8 +197,7 @@ directories %w[app config lib spec your-appname/app]
 
 ## Heroku
 
-In order to deploy EmberCLI Rails app to Heroku you need to follow the steps
-below:
+In order to deploy EmberCLI Rails app to Heroku:
 
 First, enable Heroku Multi Buildpack by running the following command:
 
@@ -206,7 +205,7 @@ First, enable Heroku Multi Buildpack by running the following command:
 heroku config:add BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-multi
 ```
 
-Next, check in `.buildpacks` file to specify which buildpacks to use:
+Next, specify which buildpacks to use by creating a `.buildpacks` file in the project root containing:
 
 ```
 https://github.com/heroku/heroku-buildpack-nodejs
@@ -223,7 +222,7 @@ gem "rails_12factor", group: :production
 Add a `package.json` file containing `{}` to the root of your Rails project.
 This is to make sure it'll be detected by the NodeJS buildpack.
 
-Make sure you have `bower` in the dependencies list of your app.
+Make sure you have `bower` as a npm dependency of your ember-cli app.
 
 Add a `postinstall` task to your EmberCLI app's `package.json`. This will
 ensure that during the deployment process, Heroku will install all dependencies
@@ -239,7 +238,9 @@ found in both `node_modules` and `bower_components`.
 }
 ```
 
-Now you should be ready to deploy.
+ember-cli-rails adds your ember apps' build process to the rails asset compilation process.
+
+Now you should be ready to deploy. 
 
 ## Additional Information
 
