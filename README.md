@@ -113,6 +113,69 @@ could render your app at the `/` route with the following view:
 
 Your Ember application will now be served at the `/` route.
 
+### Other routes
+
+Rendering Ember applications at routes other than `/` requires additional setup to avoid an Ember `UnrecognizedURLError`. 
+
+For instance, if you had Ember applications named  `:frontend` and `:admin_panel` and you wanted to serve them at `/frontend` and `/admin_panel`, you would set up the following Rails routes:
+
+```rb
+# /config/routes.rb
+Rails.application.routes.draw do
+  root 'application#index'
+  get  'frontend'    => 'frontend#index'
+  get  'admin_panel' => 'admin_panel#index'
+end
+
+# /app/controllers/frontend_controller.rb
+class FrontendController < ActionController::Base
+  def index
+    render :index
+  end
+end
+
+# /app/controllers/admin_panel_controller.rb
+class AdminPanelController < ActionController::Base
+  def index
+    render :index
+  end
+end
+```
+
+Additionally, you would have to modify each Ember app's `baseURL` to point to the correct route:
+
+```javascript
+/* /app/frontend/config/environment.js */
+module.exports = function(environment) {
+  var ENV = {
+    modulePrefix: 'frontend',
+    environment: environment,
+    baseURL: '/frontend', // originally '/'
+    ...
+  }
+}
+
+/* /app/admin_panel/config/environment.js */
+module.exports = function(environment) {
+  var ENV = {
+    modulePrefix: 'admin_panel',
+    environment: environment,
+    baseURL: '/admin_panel',  // originally '/'
+    ...
+  }
+}
+```
+Lastly, you would configure each app's `router.js` file so that `rootURL` points to the `baseURL` you just created:
+
+```javascript
+/* app/frontend/app/router.js */
+var Router = Ember.Router.extend({
+  rootURL:  config.baseURL, // add this line
+  location: config.locationType
+});
+```
+Repeat for `app/admin_panel/app/router.js`. Now your Ember apps will render properly at the alternative routes.
+
 ## CSRF Tokens
 
 Your Rails controllers, by default, are expecting a valid authenticity token to be submitted with non-`GET` requests.
