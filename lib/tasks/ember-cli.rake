@@ -1,6 +1,6 @@
-namespace "ember-cli" do
+namespace :ember do
   desc "Runs `ember build` for each App"
-  task compile: :install_dependencies do
+  task compile: :install do
     EmberCLI.compile!
   end
 
@@ -10,9 +10,9 @@ namespace "ember-cli" do
   end
 
   desc "Installs each EmberCLI app's dependencies"
-  task install_dependencies: :environment do
+  task install: :environment do
     EmberCLI.install_dependencies!
   end
 end
 
-task "assets:precompile" => "ember-cli:compile" unless EmberCLI.skip?
+task "assets:precompile" => "ember:compile" unless EmberCLI.skip?
