@@ -5,8 +5,10 @@ module EmberCLI
     end
 
     def call(env)
-      enable_ember_cli
-      EmberCLI.wait!
+      unless skip_middleware?
+        enable_ember_cli
+        EmberCLI.wait!
+      end
 
       if env["PATH_INFO"] == "/testem.js"
         [ 200, { "Content-Type" => "text/javascript" }, [""] ]
@@ -16,6 +18,10 @@ module EmberCLI
     end
 
     private
+
+    def skip_middleware?
+      %r{/api/}.match(env["REQUEST_URI"])
+    end
 
     def enable_ember_cli
       @enabled ||= begin
