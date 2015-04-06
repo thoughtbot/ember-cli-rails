@@ -1,3 +1,8 @@
+0.3.1
+-----
+
+* Fix `assets:precompile` missing EmberCLI.compile! method
+
 0.3.0
 -----
 
