@@ -51,10 +51,15 @@ end
 - path - the path, where your EmberCLI applications is located. The default
   value is the name of your app in the Rails root.
 
+- enable - a lambda that accepts each requests' path. The default value is a
+  lambda that returns `true`.
+
 ```ruby
 EmberCLI.configure do |c|
   c.app :adminpanel # path is "<your-rails-root>/adminpanel"
-  c.app :frontend, path: "/path/to/your/ember-cli-app/on/disk"
+  c.app :frontend,
+    path: "/path/to/your/ember-cli-app/on/disk",
+    enable: -> path { path.starts_with?("/app/") }
 end
 ```
 
@@ -240,7 +245,7 @@ found in both `node_modules` and `bower_components`.
 
 ember-cli-rails adds your ember apps' build process to the rails asset compilation process.
 
-Now you should be ready to deploy. 
+Now you should be ready to deploy.
 
 ## Additional Information
 

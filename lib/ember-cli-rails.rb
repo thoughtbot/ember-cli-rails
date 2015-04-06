@@ -8,6 +8,7 @@ module EmberCLI
   autoload :Helpers,       "ember-cli/helpers"
   autoload :Middleware,    "ember-cli/middleware"
   autoload :PathSet,       "ember-cli/path_set"
+  autoload :Runner,        "ember-cli/runner"
 
   def configure
     yield configuration
@@ -47,27 +48,13 @@ module EmberCLI
     each_app &:install_dependencies
   end
 
-  def run!
-    prepare!
-    each_app &:run
-  end
-
   def run_tests!
     prepare!
     each_app &:run_tests
   end
 
-  def compile!
-    prepare!
-    each_app &:compile
-  end
-
-  def stop!
-    each_app &:stop
-  end
-
-  def wait!
-    each_app &:wait
+  def process_path(path)
+    each_app{ |app| Runner.new(app, path).process }
   end
 
   def root
