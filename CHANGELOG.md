@@ -1,3 +1,8 @@
+0.2.1
+-----
+
+* Fix missing App#configuration method [#141](https://github.com/rwz/ember-cli-rails/issues/141)
+
 0.2.0
 -----
 
