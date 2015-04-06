@@ -114,7 +114,7 @@ module EmberCLI
     end
 
     def build_timeout
-      options.fetch(:build_timeout){ configuration.build_timeout }
+      options.fetch(:build_timeout){ EmberCLI.configuration.build_timeout }
     end
 
     def check_for_build_error!
