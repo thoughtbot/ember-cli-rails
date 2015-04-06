@@ -1,3 +1,8 @@
+0.2.3
+-----
+
+* Handle Legacy Rails' lack of acronym support [#144](https://github.com/rwz/ember-cli-rails/pull/144)
+
 0.2.2
 -----
 
