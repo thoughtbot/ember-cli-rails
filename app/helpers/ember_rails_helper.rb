@@ -1,4 +1,4 @@
-module EmberCLIRailsHelper
+module EmberRailsHelper
   def include_ember_script_tags(name, options={})
     javascript_include_tag *EmberCLI[name].exposed_js_assets, options
   end
