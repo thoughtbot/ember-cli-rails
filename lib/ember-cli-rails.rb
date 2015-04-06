@@ -53,6 +53,11 @@ module EmberCLI
     each_app &:run_tests
   end
 
+  def compile!
+    prepare!
+    each_app &:compile
+  end
+
   def process_path(path)
     each_app{ |app| Runner.new(app, path).process }
   end
