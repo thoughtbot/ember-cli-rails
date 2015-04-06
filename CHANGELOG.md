@@ -1,3 +1,9 @@
+0.3.0
+-----
+
+* Add enable option to speficy what paths should have ember compiled [#145](https://github.com/rwz/ember-cli-rails/pull/145)
+* Add Runner class to monitor ember deamon failures in development [#145](https://github.com/rwz/ember-cli-rails/pull/145)
+
 0.2.3
 -----
 
