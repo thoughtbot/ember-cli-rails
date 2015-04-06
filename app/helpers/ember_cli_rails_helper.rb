@@ -7,3 +7,5 @@ module EmberCLIRailsHelper
     stylesheet_link_tag *EmberCLI[name].exposed_css_assets, options
   end
 end
+
+EmberCliRailsHelper = EmberCLIRailsHelper

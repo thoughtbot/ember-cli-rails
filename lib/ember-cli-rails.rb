@@ -98,3 +98,5 @@ module EmberCLI
     Rails.configuration.middleware.use Middleware
   end
 end
+
+EmberCli = EmberCLI
