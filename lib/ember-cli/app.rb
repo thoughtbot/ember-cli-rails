@@ -17,9 +17,12 @@ module EmberCLI
     end
 
     def compile
-      prepare
-      silence_build { exec command }
-      check_for_build_error!
+      @compiled ||= begin
+        prepare
+        silence_build{ exec command }
+        check_for_build_error!
+        true
+      end
     end
 
     def install_dependencies
@@ -29,9 +32,11 @@ module EmberCLI
 
     def run
       prepare
+      FileUtils.touch lockfile_path
       cmd = command(watch: true)
       @pid = exec(cmd, method: :spawn)
-      at_exit{ stop }
+      Process.detach pid
+      set_on_exit_callback
     end
 
     def run_tests
@@ -40,7 +45,7 @@ module EmberCLI
     end
 
     def stop
-      Process.kill "INT", pid if pid
+      Process.kill :INT, pid if pid
       @pid = nil
     end
 
@@ -100,6 +105,10 @@ module EmberCLI
 
     private
 
+    def set_on_exit_callback
+      @on_exit_callback ||= at_exit{ stop }
+    end
+
     def supported_path_method(original)
       path_method = original.to_s[/\A(.+)_path\z/, 1]
       path_method if path_method && paths.respond_to?(path_method)
@@ -140,7 +149,6 @@ module EmberCLI
         check_addon!
         check_ember_cli_version!
         reset_build_error!
-        FileUtils.touch lockfile_path
         symlink_to_assets_root
         add_assets_to_precompile_list
         true
