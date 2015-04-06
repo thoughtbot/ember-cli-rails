@@ -1,3 +1,8 @@
+0.2.2
+-----
+
+* Don't use frozen version string in gemspec [#142](https://github.com/rwz/ember-cli-rails/pull/142)
+
 0.2.1
 -----
 
