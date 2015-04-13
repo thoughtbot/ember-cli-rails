@@ -29,6 +29,11 @@ module EmberCLI
       @build_timeout ||= 5
     end
 
-    attr_writer :build_timeout
+    def disable_fingerprints
+      return @disable_fingerprints if defined? @disable_fingerprints
+      @disable_fingerprints = true
+    end
+
+    attr_writer :build_timeout, :disable_fingerprints
   end
 end
