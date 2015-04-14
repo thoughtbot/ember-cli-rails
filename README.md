@@ -1,16 +1,16 @@
-# EmberCLI Rails
+# Ember CLI Rails
 
-EmberCLI Rails is an integration story between (surprise suprise) EmberCLI and
+Ember CLI Rails is an integration story between (surprise suprise) Ember CLI and
 Rails 3.1 and up. It is designed to provide an easy way to organize your Rails backed
-EmberCLI application with a specific focus on upgradeability. Rails and Ember
-[slash EmberCLI] are maintained by different teams with different goals. As
+Ember CLI application with a specific focus on upgradeability. Rails and Ember
+[slash Ember CLI] are maintained by different teams with different goals. As
 such, we believe that it is important to ensure smooth upgrading of both
 aspects of your application.
 
 A large contingent of Ember developers use Rails. And Rails is awesome. With
 the upcoming changes to Ember 2.0 and the Ember community's desire to unify
-around EmberCLI it is now more important than ever to ensure that Rails and
-EmberCLI can coexist and development still be fun!
+around Ember CLI it is now more important than ever to ensure that Rails and
+Ember CLI can coexist and development still be fun!
 
 To this end we have created a minimum set of features (which we will outline
 below) to allow you keep your Rails workflow while minimizing the risk of
@@ -19,7 +19,7 @@ upgrade pain with your Ember build tools.
 For example, end-to-end tests with frameworks like Cucumber should just work.
 You should still be able leverage the asset pipeline, and all the conveniences
 that Rails offers. And you should get all the new goodies like ES6 modules and
-EmberCLI addons too! Without further ado, let's get in there!
+Ember CLI addons too! Without further ado, let's get in there!
 
 ## Installation
 
@@ -46,9 +46,9 @@ end
 
 ##### options
 
-- app - this represents the name of the EmberCLI application.
+- app - this represents the name of the Ember CLI application.
 
-- path - the path, where your EmberCLI applications is located. The default
+- path - the path, where your Ember CLI applications is located. The default
   value is the name of your app in the Rails root.
 
 - enable - a lambda that accepts each requests' path. The default value is a
@@ -63,24 +63,24 @@ EmberCLI.configure do |c|
 end
 ```
 
-Once you've updated your initializer to taste, install EmberCLI if it is not already installed, and use it to generate your EmberCLI app in the location/s specified in the initializer. For example:
+Once you've updated your initializer to taste, install Ember CLI if it is not already installed, and use it to generate your Ember CLI app in the location/s specified in the initializer. For example:
 
 ```sh
 cd frontend
 ember init
 ```
 
-You will also need to install the [ember-cli-rails-addon](https://github.com/rondale-sc/ember-cli-rails-addon). For each of your EmberCLI applications, run:
+You will also need to install the [ember-cli-rails-addon](https://github.com/rondale-sc/ember-cli-rails-addon). For each of your Ember CLI applications, run:
 
 ```sh
 npm install --save-dev ember-cli-rails-addon@0.0.11
 ```
 
-And that's it! You should now be able to start up your Rails server and see your EmberCLI app.
+And that's it! You should now be able to start up your Rails server and see your Ember CLI app.
 
-### Multiple EmberCLI apps
+### Multiple Ember CLI apps
 
-In the initializer you may specify multiple EmberCLI apps, each of which can be
+In the initializer you may specify multiple Ember CLI apps, each of which can be
 referenced with the view helper independently. You'd accomplish this like so:
 
 ```ruby
@@ -92,7 +92,7 @@ end
 
 ## Usage
 
-You render your EmberCLI app by including the corresponding JS/CSS tags in whichever
+You render your Ember CLI app by including the corresponding JS/CSS tags in whichever
 Rails view you'd like the Ember app to appear.
 
 For example, if you had the following Rails app
@@ -173,7 +173,7 @@ For example, to view tests of the `frontend` app, visit
 
 ## Enabling LiveReload
 
-In order to get LiveReload up and running with EmberCLI Rails, you can install
+In order to get LiveReload up and running with Ember CLI Rails, you can install
 [guard](https://github.com/guard/guard) and
 [guard-livereload](https://github.com/guard/guard-livereload) gems, run `guard
 init` and then add the following to your `Guardfile`.
@@ -186,12 +186,12 @@ guard "livereload" do
 end
 ```
 
-This tells Guard to watch your EmberCLI app for any changes to the JavaScript,
+This tells Guard to watch your Ember CLI app for any changes to the JavaScript,
 Handlebars, HTML, or CSS files within `app` path. Take note that other
 extensions can be added to the line (such as `coffee` for CoffeeScript) to
 watch them for changes as well.
 
-*NOTE:* EmberCLI creates symlinks in `your-appname/tmp` directory, which cannot
+*NOTE:* Ember CLI creates symlinks in `your-appname/tmp` directory, which cannot
  be handled properly by Guard. This might lead to performance issues on some
  platforms (most notably on OSX), as well as warnings being printed by latest
  versions of Guard. As a work-around, one might use
@@ -206,7 +206,7 @@ directories %w[app config lib spec your-appname/app]
 
 ## Heroku
 
-In order to deploy EmberCLI Rails app to Heroku:
+In order to deploy Ember CLI Rails app to Heroku:
 
 First, enable Heroku Multi Buildpack by running the following command:
 
@@ -233,7 +233,7 @@ This is to make sure it'll be detected by the NodeJS buildpack.
 
 Make sure you have `bower` as a npm dependency of your ember-cli app.
 
-Add a `postinstall` task to your EmberCLI app's `package.json`. This will
+Add a `postinstall` task to your Ember CLI app's `package.json`. This will
 ensure that during the deployment process, Heroku will install all dependencies
 found in both `node_modules` and `bower_components`.
 
@@ -253,15 +253,15 @@ Now you should be ready to deploy.
 
 ## Additional Information
 
-When running in the development environment, EmberCLI Rails runs `ember build`
+When running in the development environment, Ember CLI Rails runs `ember build`
 with the `--output-path` and `--watch` flags on. The `--watch` flag tells
-EmberCLI to watch for file system events and rebuild when an EmberCLI file is
+Ember CLI to watch for file system events and rebuild when an Ember CLI file is
 changed. The `--output-path` flag specifies where the distribution files will
-be put. EmberCLI Rails does some fancy stuff to get it into your asset path
+be put. Ember CLI Rails does some fancy stuff to get it into your asset path
 without polluting your git history. Note that for this to work, you must have
 `config.consider_all_requests_local = true` set in
 `config/environments/development.rb`, otherwise the middleware responsible for
-building EmberCLI will not be enabled.
+building Ember CLI will not be enabled.
 
 Alternatively, if you want to override the default behavior in any given Rails
 environment, you can manually set the `config.use_ember_middleware` and
