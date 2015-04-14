@@ -12,7 +12,7 @@ module EmberCLI
 
     initializer "ember-cli-rails.helpers" do
       config.to_prepare do
-        ActionController::Base.send :helper, EmberRailsHelper
+        ActionController::Base.helper EmberRailsHelper
       end
     end
   end
