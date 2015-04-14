@@ -197,7 +197,8 @@ module EmberCLI
 
     def command(options={})
       watch = options[:watch] ? "--watch" : ""
-      "#{ember_path} build #{watch} --environment #{environment} --output-path #{dist_path} #{log_pipe}"
+      watcher = options[:watcher] ? "--watcher " +  options[:watcher] : ""
+      "#{ember_path} build #{watch} #{watcher} --environment #{environment} --output-path #{dist_path} #{log_pipe}"      
     end
 
     def log_pipe
