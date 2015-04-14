@@ -63,16 +63,20 @@ EmberCLI.configure do |c|
 end
 ```
 
-Once you've updated your initializer to taste, you need to install the
-[ember-cli-rails-addon](https://github.com/rondale-sc/ember-cli-rails-addon).
+Once you've updated your initializer to taste, install EmberCLI if it is not already installed, and use it to generate your EmberCLI app in the location/s specified in the initializer. For example:
 
-For each of your EmberCLI applications install the addon with:
+```sh
+cd frontend
+ember init
+```
+
+You will also need to install the [ember-cli-rails-addon](https://github.com/rondale-sc/ember-cli-rails-addon). For each of your EmberCLI applications, run:
 
 ```sh
 npm install --save-dev ember-cli-rails-addon@0.0.11
 ```
 
-And that's it!
+And that's it! You should now be able to start up your Rails server and see your EmberCLI app.
 
 ### Multiple EmberCLI apps
 
