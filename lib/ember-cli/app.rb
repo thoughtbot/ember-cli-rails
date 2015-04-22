@@ -26,8 +26,8 @@ module EmberCLI
     end
 
     def install_dependencies
-      exec "#{bundler_path} install" if gemfile_path.exist?
-      exec "#{npm_path} install"
+      exec ["#{bundler_path}", "install"] if gemfile_path.exist?
+      exec ["#{npm_path}", "install"]
     end
 
     def run
@@ -41,7 +41,7 @@ module EmberCLI
 
     def run_tests
       prepare
-      exit 1 unless exec("#{ember_path} test")
+      exit 1 unless exec(["#{ember_path}", "test"])
     end
 
     def stop
@@ -197,11 +197,11 @@ module EmberCLI
 
     def command(options={})
       watch = options[:watch] ? "--watch" : ""
-      "#{ember_path} build #{watch} --environment #{environment} --output-path #{dist_path} #{log_pipe}"
-    end
 
-    def log_pipe
-      "| #{tee_path} -a #{log_path}" if tee_path
+      command_args = ["#{ember_path}", "build", "#{watch}", "--environment", "#{environment}", "--output-path", "#{dist_path}"]
+
+      # command_args = command_args + ["|", "#{tee_path}", "-a", "#{log_path}"] if tee_path
+      command_args
     end
 
     def ember_app_name
@@ -241,7 +241,7 @@ module EmberCLI
       method_name = options.fetch(:method, :system)
 
       Dir.chdir root do
-        Kernel.public_send(method_name, env_hash, cmd, err: :out)
+        Kernel.public_send(method_name, env_hash, *cmd, err: :out)
       end
     end
 
