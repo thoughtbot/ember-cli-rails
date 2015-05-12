@@ -207,7 +207,7 @@ In order to deploy EmberCLI Rails app to Heroku:
 First, enable Heroku Multi Buildpack by running the following command:
 
 ```sh
-heroku config:add BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-multi
+heroku buildpacks:set https://github.com/heroku/heroku-buildpack-multi
 ```
 
 Next, specify which buildpacks to use by creating a `.buildpacks` file in the project root containing:
