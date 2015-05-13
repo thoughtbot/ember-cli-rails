@@ -229,9 +229,13 @@ module EmberCLI
       Array.wrap(options[:exclude_ember_deps]).join(?,)
     end
 
+    def disable_fingerprints?
+      EmberCLI.configuration.disable_fingerprints
+    end
+
     def env_hash
       ENV.clone.tap do |vars|
-        vars.store "DISABLE_FINGERPRINTING", "true"
+        vars.store "DISABLE_FINGERPRINTING", disable_fingerprints?.to_s
         vars.store "EXCLUDE_EMBER_ASSETS", excluded_ember_deps
         vars.store "BUNDLE_GEMFILE", gemfile_path.to_s if gemfile_path.exist?
       end
