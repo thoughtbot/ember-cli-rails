@@ -264,7 +264,9 @@ environment, you can manually set the `config.use_ember_middleware` and
 `config.use_ember_live_recompilation` flags in the environment-specific config
 file.
 
-Additionally, while being managed by EmberCLI Rails, EmberCLI process will have
+### `RAILS_ENV`
+
+While being managed by EmberCLI Rails, EmberCLI process will have
 access to the `RAILS_ENV` environment variable. This can be helpful to detect
 the Rails environment from within the EmberCLI process.
 
