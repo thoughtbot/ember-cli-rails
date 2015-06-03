@@ -264,6 +264,30 @@ environment, you can manually set the `config.use_ember_middleware` and
 `config.use_ember_live_recompilation` flags in the environment-specific config
 file.
 
+Additionally, while being managed by EmberCLI Rails, EmberCLI process will have
+access to the `RAILS_ENV` environment variable. This can be helpful to detect
+the Rails environment from within the EmberCLI process.
+
+This can be useful to determine whether or not EmberCLI is running in its own
+standalone process or being managed by Rails.
+
+For example, to enable [ember-cli-mirage][ember-cli-mirage] API responses in
+`development` while being run outside of Rails (while run by `ember serve`),
+check for the absence of the `RAILS_ENV` environment variable:
+
+```js
+// config/environment.js
+if (environment === 'development') {
+  ENV['ember-cli-mirage'] = {
+    enabled: typeof process.env.RAILS_ENV === 'undefined',
+  }
+}
+```
+
+`RAILS_ENV` will be absent in production builds.
+
+[ember-cli-mirage]: http://ember-cli-mirage.com/docs/latest/
+
 #### Ember Dependencies
 
 Ember has several dependencies. Some of these dependencies might already be
