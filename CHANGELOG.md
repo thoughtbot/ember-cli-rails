@@ -1,3 +1,8 @@
+0.3.2
+-----
+
+* Inject `RAILS_ENV` into `ember build` process [#168][https://github.com/rwz/ember-cli-rails/pull/168]
+
 0.3.1
 -----
 
