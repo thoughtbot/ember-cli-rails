@@ -200,6 +200,93 @@ watch them for changes as well.
 directories %w[app config lib spec your-appname/app]
 ```
 
+## Integrating with `ember-cli-deploy`
+
+The EmberCLI community recently unified the various deployment techniques into a
+single, core-team supported project: [ember-cli-deploy][ember-cli-deploy].
+
+This project attempts to streamline the process of pushing and serving
+EmberCLI-built static assets.
+
+To integrate with `ember-cli-deploy`'s ["Lightning Fast Deploys"][lightning]
+(using the Redis adapter), instantiate an `EmberCLI::Deploy` in your controller:
+
+```ruby
+require "ember-cli/deploy"
+
+class ApplicationController < ActionController::Base
+  def index
+    @deploy = EmberCLI::Deploy.new(namespace: "frontend")
+
+    render text: @deploy.html, layout: false
+  end
+end
+```
+
+`EmberCLI::Deploy` takes a `namespace` (the name of your app declared in your
+initializer) and handles all interaction with the Redis instance.
+
+This is great for `staging` and `production` deploys, but introduces an extra
+step in the feedback loop during development.
+
+Luckily, `EmberCLI::Deploy` also accepts an `index_html` override, which will
+replace the call to the Redis instance. This allows integration with the normal
+`ember-cli-rails` workflow:
+
+```ruby
+require "ember-cli/deploy"
+
+class ApplicationController < ActionController::Base
+  def index
+    @deploy = EmberCLI::Deploy.new(
+      namespace: "frontend",
+      index_html: index_html,
+    )
+
+    render text: @deploy.html, layout: false
+  end
+
+  private
+
+  def index_html
+    if serve_with_ember_cli_rails?
+      render_to_string(:index)
+    end
+  end
+
+  def serve_with_ember_cli_rails?
+    ! %w[production staging].include?(Rails.env)
+  end
+end
+```
+
+Additionally, having access to the outbound HTML beforehand also enables
+controllers to inject additional markup, such as metadata, CSRF tokens, or
+analytics tags:
+
+
+```ruby
+require "ember-cli/deploy"
+
+class ApplicationController < ActionController::Base
+  def index
+    @deploy = EmberCLI::Deploy.new(
+      namespace: "frontend",
+      index_html: index_html,
+    )
+
+    @deploy.append_to_head(render_to_string(partial: "my_csrf_and_metadata")
+    @deploy.append_to_body(render_to_string(partial: "my_analytics")
+
+    render text: @deploy.html, layout: false
+  end
+  # ...
+end
+```
+
+[ember-cli-deploy]: https://github.com/ember-cli/ember-cli-deploy
+[lightning]: https://github.com/ember-cli/ember-cli-deploy#lightning-approach-workflow
+
 ## Heroku
 
 In order to deploy EmberCLI Rails app to Heroku:
