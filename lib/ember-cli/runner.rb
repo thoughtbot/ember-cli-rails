@@ -11,7 +11,7 @@ module EmberCLI
     def process
       return if skip?
 
-      if EmberCLI.env.development?
+      if EmberCLI.env.development? || EmberCLI.env.test?
         start_or_restart!
       else
         compile!

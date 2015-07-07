@@ -1,0 +1,16 @@
+{
+  "assets" : {
+    "frontend.js" : "frontend-123.js",
+    "vendor.css" : "vendor-345.css"
+  },
+  "files" : {
+    "frontend.js" : {
+      "logical_path" : "frontend.js",
+      "digest" : "123"
+    },
+    "vendor.css" : {
+      "logical_path" : "vendor.css",
+      "digest" : "345"
+    }
+  }
+}
