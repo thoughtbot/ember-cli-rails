@@ -3,7 +3,7 @@ require "timeout"
 module EmberCLI
   class App
     ADDON_VERSION = "0.0.11"
-    EMBER_CLI_VERSION = "~> 0.1.5", "~> 0.2.0"
+    EMBER_CLI_VERSION = "~> 0.1.5", "~> 0.2.0", "~> 1.13.0"
 
     class BuildError < StandardError; end
 
@@ -161,8 +161,9 @@ module EmberCLI
       unless Helpers.match_version?(version, EMBER_CLI_VERSION)
         fail <<-MSG.strip_heredoc
           EmberCLI Rails require ember-cli NPM package version to be
-          #{EMBER_CLI_VERSION} to work properly. From within your EmberCLI directory
-          please update your package.json accordingly and run:
+          #{EMBER_CLI_VERSION} to work properly (you have #{version}). From
+          within your EmberCLI directory please update your package.json
+          accordingly and run:
 
             $ npm install
 
