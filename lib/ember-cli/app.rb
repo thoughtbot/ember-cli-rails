@@ -126,6 +126,10 @@ module EmberCLI
       options.fetch(:build_timeout){ EmberCLI.configuration.build_timeout }
     end
 
+    def watcher
+      options.fetch(:watcher){ EmberCLI.configuration.watcher }
+    end
+
     def check_for_build_error!
       raise_build_error! if build_error?
     end
@@ -197,7 +201,12 @@ module EmberCLI
     end
 
     def command(options={})
-      watch = options[:watch] ? "--watch" : ""
+      watch = ""
+      if options[:watch]
+        watch = "--watch"
+        watch += " --watcher #{watcher}" if watcher
+      end
+
       "#{ember_path} build #{watch} --environment #{environment} --output-path #{dist_path} #{log_pipe}"
     end
 
