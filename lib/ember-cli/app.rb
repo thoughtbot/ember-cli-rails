@@ -150,6 +150,7 @@ module EmberCLI
 
     def prepare
       @prepared ||= begin
+        check_dependencies!
         check_addon!
         check_ember_cli_version!
         reset_build_error!
@@ -185,6 +186,19 @@ module EmberCLI
             $ npm install --save-dev ember-cli-rails-addon@#{ADDON_VERSION}
 
           in your Ember application root: #{root}
+        MSG
+      end
+    end
+
+    def check_dependencies!
+      unless node_modules_present?
+        fail <<-MSG.strip_heredoc
+          EmberCLI app dependencies are not installed. From your Rails application root please run:
+
+            $ bundle exec rake ember:install
+
+          If you do not require Ember at this URL, you can restrict this check using the `enable`
+          option in the EmberCLI initializer.
         MSG
       end
     end
@@ -233,6 +247,10 @@ module EmberCLI
     def addon_present?
       dev_dependencies["ember-cli-rails-addon"] == ADDON_VERSION &&
         addon_package_json_file_path.exist?
+    end
+
+    def node_modules_present?
+      node_modules_path.exist?
     end
 
     def excluded_ember_deps
