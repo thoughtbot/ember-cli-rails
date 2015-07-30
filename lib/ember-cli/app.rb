@@ -184,7 +184,7 @@ module EmberCLI
 
             $ npm install --save-dev ember-cli-rails-addon@#{ADDON_VERSION}
 
-          in you Ember application root: #{root}
+          in your Ember application root: #{root}
         MSG
       end
     end
