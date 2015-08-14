@@ -1,15 +1,16 @@
+require "ember-cli/build_constraint"
+
 module EmberCli
   class Runner
-    TRUE_PROC = ->(*){ true }
+    attr_reader :app, :request
 
-    attr_reader :app, :path
-
-    def initialize(app, path)
-      @app, @path = app, path
+    def initialize(app, request)
+      @app = app
+      @request = request
     end
 
     def process
-      return if skip?
+      return unless build.enabled?
 
       if EmberCli.env.development?
         start_or_restart!
@@ -22,9 +23,11 @@ module EmberCli
 
     private
 
-    def skip?
-      invoker = app.options.fetch(:enable, TRUE_PROC)
-      !invoker.call(path)
+    def build
+      BuildConstraint.new(
+        request: request,
+        block: app.options[:enabled],
+      )
     end
 
     def start_or_restart!

@@ -1,6 +1,8 @@
 master
 ------
 
+* Modify the `enable` configuration lambda to optionally accepts each requests'
+  `Rack::Request`. [#217]
 * Disable JS minification when generating Heroku setup [#238]
 * `BuildError#message` includes first line of backtrace. [#256]
 * Exposes `build_timeout` configuration as `ENV["EMBER_BUILD_TIMEOUT"]`.
@@ -10,6 +12,7 @@ master
 * `manifest.json`. Since we now defer to EmberCLI, we no longer need to
   manually resolve asset URLs. [#250]
 
+[#217]: https://github.com/thoughtbot/ember-cli-rails/pull/217
 [#238]: https://github.com/thoughtbot/ember-cli-rails/pull/238
 [#256]: https://github.com/thoughtbot/ember-cli-rails/pull/256
 [#250]: https://github.com/thoughtbot/ember-cli-rails/pull/250
