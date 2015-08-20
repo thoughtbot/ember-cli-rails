@@ -247,6 +247,15 @@ ember-cli-rails adds your ember apps' build process to the rails asset compilati
 
 Now you should be ready to deploy.
 
+## Experiencing Slow Build/Deploy Times?
+Remove `ember-cli-uglify` from your `package.json` file, and run
+`npm remove ember-cli-uglify`. This will improve your build/deploy
+time by about 10 minutes.
+
+The reason build/deploy times were slow is because ember uglified the JS and
+then added the files to the asset pipeline. Rails would then try and uglify
+the JS again, and this would be considerable slower than normal.
+
 ## Additional Information
 
 When running in the development environment, EmberCLI Rails runs `ember build`
