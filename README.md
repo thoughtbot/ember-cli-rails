@@ -299,6 +299,17 @@ if (environment === 'development') {
 
 [ember-cli-mirage]: http://ember-cli-mirage.com/docs/latest/
 
+### `SKIP_EMBER`
+
+To disable asset compilation entirely, set an environment variable
+`SKIP_EMBER=1`.
+
+This can be useful when an application's frontend is developed locally with
+EmberCLI-Rails, but deployed separately (for example, with
+[ember-cli-deploy][ember-cli-deploy]).
+
+[ember-cli-deploy]: https://github.com/ember-cli/ember-cli-deploy
+
 #### Ember Dependencies
 
 Ember has several dependencies. Some of these dependencies might already be
