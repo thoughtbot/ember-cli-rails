@@ -73,7 +73,7 @@ ember init
 You will also need to install the [ember-cli-rails-addon](https://github.com/rondale-sc/ember-cli-rails-addon). For each of your Ember CLI applications, run:
 
 ```sh
-npm install --save-dev ember-cli-rails-addon@0.0.11
+npm install --save-dev ember-cli-rails-addon@0.0.12
 ```
 
 And that's it! You should now be able to start up your Rails server and see your Ember CLI app.
