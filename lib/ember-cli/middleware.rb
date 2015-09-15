@@ -10,7 +10,7 @@ module EmberCLI
       if path == "/testem.js"
         [ 200, { "Content-Type" => "text/javascript" }, [""] ]
       else
-        EmberCLI.process_path path
+        EmberCLI.process_request env
         @app.call(env)
       end
     end
