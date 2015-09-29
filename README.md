@@ -51,7 +51,7 @@ end
 - path - the path where your Ember CLI application is located. The default
   value is the name of your app in the Rails root.
 
-- enable - a lambda that accepts each requests' path. The default value is a
+- enable - a lambda that accepts each request's path. The default value is a
   lambda that returns `true`.
 
 ```ruby
@@ -321,7 +321,7 @@ time by about 10 minutes.
 
 The reason build/deploy times were slow is because ember uglified the JS and
 then added the files to the asset pipeline. Rails would then try and uglify
-the JS again, and this would be considerable slower than normal.
+the JS again, and this would be considerably slower than normal.
 
 ## Additional Information
 
