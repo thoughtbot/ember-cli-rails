@@ -48,7 +48,7 @@ end
 
 - app - this represents the name of the Ember CLI application.
 
-- path - the path, where your Ember CLI applications is located. The default
+- path - the path where your Ember CLI application is located. The default
   value is the name of your app in the Rails root.
 
 - enable - a lambda that accepts each requests' path. The default value is a
