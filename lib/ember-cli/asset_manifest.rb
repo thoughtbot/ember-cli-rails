@@ -61,7 +61,7 @@ module EmberCLI
         file_path,info = pair
         info = info.merge( "logical_path" => "#{name}/#{info['logical_path']}" )
         files["#{name}/#{file_path}"] = info
-        new_files
+        files
       end
     end
 
