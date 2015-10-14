@@ -48,6 +48,7 @@ module EmberCLI
       end
     end
 
+
     def exported_assets
       @data[ASSETS_KEY].inject({}) do |assets, pair|
         asset_path,digest_path = pair
@@ -57,10 +58,12 @@ module EmberCLI
     end
 
     def exported_files
+      @file_index = _file_index(@data[ASSETS_KEY])
       @data[FILES_KEY].inject({}) do |files, pair|
         file_path,info = pair
+        digest_path = @file_index[file_path] || file_path
         info = info.merge( "logical_path" => "#{name}/#{info['logical_path']}" )
-        files["#{name}/#{file_path}"] = info
+        files["#{name}/#{digest_path}"] = info
         files
       end
     end
@@ -71,6 +74,13 @@ module EmberCLI
     end
 
     private
+    def _file_index(asset_data)
+      asset_data.inject({}) do | assets, pair|
+        asset_path,digest_path = pair
+        assets[asset_path] = digest_path
+        assets
+      end
+    end
     def _empty_manifest_data
       { ASSETS_KEY => {}, FILES_KEY => {} }
     end
