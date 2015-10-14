@@ -2,7 +2,7 @@ require "timeout"
 
 module EmberCLI
   class App
-    ADDON_VERSION = "0.0.11"
+    ADDON_VERSION = "0.0.12"
     EMBER_CLI_VERSIONS = [ "~> 0.1.5", "~> 0.2.0", "~> 1.13" ]
 
     class BuildError < StandardError; end
@@ -130,6 +130,10 @@ module EmberCLI
       options.fetch(:build_timeout){ EmberCLI.configuration.build_timeout }
     end
 
+    def watcher
+      options.fetch(:watcher){ EmberCLI.configuration.watcher }
+    end
+
     def check_for_build_error!
       raise_build_error! if build_error?
     end
@@ -194,7 +198,7 @@ module EmberCLI
 
             $ npm install --save-dev ember-cli-rails-addon@#{ADDON_VERSION}
 
-          in you Ember application root: #{root}
+          in your Ember application root: #{root}
         MSG
       end
     end
@@ -211,7 +215,12 @@ module EmberCLI
     end
 
     def command(options={})
-      watch = options[:watch] ? "--watch" : ""
+      watch = ""
+      if options[:watch]
+        watch = "--watch"
+        watch += " --watcher #{watcher}" if watcher
+      end
+
       "#{ember_path} build #{watch} --environment #{environment} --output-path #{dist_path} #{log_pipe}"
     end
 
@@ -249,11 +258,11 @@ module EmberCLI
     end
 
     def env_hash
-      ENV.clone.tap do |vars|
-        vars.store "RAILS_ENV", Rails.env
-        vars.store "DISABLE_FINGERPRINTING", (!bypass_rails_asset_digests).to_s
-        vars.store "EXCLUDE_EMBER_ASSETS", excluded_ember_deps
-        vars.store "BUNDLE_GEMFILE", gemfile_path.to_s if gemfile_path.exist?
+      ENV.to_h.tap do |vars|
+        vars["RAILS_ENV"] = Rails.env
+        vars["DISABLE_FINGERPRINTING"] = (!bypass_rails_asset_digests).to_s
+        vars["EXCLUDE_EMBER_ASSETS"] = excluded_ember_deps
+        vars["BUNDLE_GEMFILE"] = gemfile_path.to_s if gemfile_path.exist?
       end
     end
 

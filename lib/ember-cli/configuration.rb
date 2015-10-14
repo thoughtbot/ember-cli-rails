@@ -30,5 +30,6 @@ module EmberCLI
     end
 
     attr_writer :build_timeout
+    attr_accessor :watcher
   end
 end

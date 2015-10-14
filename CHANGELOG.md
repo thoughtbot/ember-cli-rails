@@ -1,3 +1,13 @@
+0.3.5
+-----
+
+* Update addon to 0.0.12
+
+0.3.4
+-----
+
+* Add `watcher` option
+
 0.3.3
 -----
 
