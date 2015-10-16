@@ -124,7 +124,7 @@ Your Ember application will now be served at the `/` route.
 
 ### Other routes
 
-Rendering Ember applications at routes other than `/` requires additional setup to avoid an Ember `UnrecognizedURLError`. 
+Rendering Ember applications at routes other than `/` requires additional setup to avoid an Ember `UnrecognizedURLError`.
 
 For instance, if you had Ember applications named  `:frontend` and `:admin_panel` and you wanted to serve them at `/frontend` and `/admin_panel`, you would set up the following Rails routes:
 
@@ -396,8 +396,30 @@ jQuery and Handlebars are the main use cases for this flag.
 
 ## Contributing
 
-1. Fork it (https://github.com/rwz/ember-cli-rails/fork)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+See the [CONTRIBUTING] document.
+Thank you, [contributors]!
+
+  [CONTRIBUTING]: CONTRIBUTING.md
+  [contributors]: https://github.com/thoughtbot/ember-cli-rails/graphs/contributors
+
+## License
+
+Open source templates are Copyright (c) 2015 thoughtbot, inc.
+It contains free software that may be redistributed
+under the terms specified in the [LICENSE] file.
+
+[LICENSE]: /LICENSE.txt
+
+## About
+
+![thoughtbot](https://thoughtbot.com/logo.png)
+
+Templates are maintained and funded by thoughtbot, inc.
+The names and logos for thoughtbot are trademarks of thoughtbot, inc.
+
+We love open source software!
+See [our other projects][community]
+or [hire us][hire] to help build your product.
+
+  [community]: https://thoughtbot.com/community?utm_source=github
+  [hire]: https://thoughtbot.com/hire-us?utm_source=github
