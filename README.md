@@ -412,9 +412,20 @@ under the terms specified in the [LICENSE] file.
 
 ## About
 
+ember-cli-rails was originally created by
+[Pavel Pravosud][rwz] and
+[Jonathan Jackson][rondale-sc].
+
+ember-cli-rails is maintained by [Sean Doyle][seanpdoyle] and [Jonathan
+Jackson][rondale-sc].
+
+[rwz]: https://github.com/rwz
+[rondale-sc]: https://github.com/rondale-sc
+[seanpdoyle]: https://github.com/seanpdoyle
+
 ![thoughtbot](https://thoughtbot.com/logo.png)
 
-Templates are maintained and funded by thoughtbot, inc.
+ember-cli-rails is maintained and funded by thoughtbot, inc.
 The names and logos for thoughtbot are trademarks of thoughtbot, inc.
 
 We love open source software!
