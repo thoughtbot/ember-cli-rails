@@ -1,6 +1,6 @@
 # Ember CLI Rails
 
-Ember CLI Rails is an integration story between (surprise suprise) Ember CLI and
+Ember CLI Rails is an integration story between (surprise surprise) Ember CLI and
 Rails 3.1 and up. It is designed to provide an easy way to organize your Rails backed
 Ember CLI application with a specific focus on upgradeability. Rails and Ember
 [slash Ember CLI] are maintained by different teams with different goals. As
