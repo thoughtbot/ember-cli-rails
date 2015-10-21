@@ -323,7 +323,7 @@ Change the package.json in the root of your Rails project from `{}` to something
 ```javascript
 {
   "scripts": {
-    "postinstall": "cd frontend && npm install"
+    "postinstall": "cd frontend && npm prune && npm install && node_modules/bower/bin/bower prune"
   },
   "cacheDirectories": ["frontend/node_modules", "frontend/bower_components"]
 }
