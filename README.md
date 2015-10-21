@@ -345,6 +345,13 @@ The reason build/deploy times were slow is because ember uglified the JS and
 then added the files to the asset pipeline. Rails would then try and uglify
 the JS again, and this would be considerably slower than normal.
 
+you might then see some errors like `ExecJS::ProgramError: Unexpected token: punc (:) (line: 1, col: 10, pos: 10)` which are caused by the Rails trying to compile `.js.map` files. You can prevent this by adding the following to your `config/initializers/assets.rb` for instance:
+
+```
+# workaround for asset pipeline trying to compile .map files
+Rack::Mime::MIME_TYPES.merge!({".map" => "text/plain"})
+```
+
 ## Additional Information
 
 When running in the development environment, Ember CLI Rails runs `ember build`
