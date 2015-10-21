@@ -234,6 +234,18 @@ example, `/ember-tests`) and the name of the Ember app.
 For example, to view tests of the `frontend` app, visit
 `http://localhost:3000/ember-tests/frontend`.
 
+## Serving from multi-process servers in development
+
+If you're using a multi-process server ([Puma], [Unicorn], etc.) in development,
+make sure it's configured to run a single worker process.
+
+Without restricting the server to a single process, [it is possible for multiple
+EmberCLI runners to clobber each others' work][#94].
+
+[Puma]: https://github.com/puma/puma
+[Unicorn]: https://rubygems.org/gems/unicorn
+[#94]: https://github.com/thoughtbot/ember-cli-rails/issues/94#issuecomment-77627453
+
 ## Enabling LiveReload
 
 In order to get LiveReload up and running with Ember CLI Rails, you can install
