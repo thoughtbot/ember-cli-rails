@@ -314,6 +314,28 @@ ember-cli-rails adds your ember apps' build process to the rails asset compilati
 
 Now you should be ready to deploy.
 
+### Taking advantage of module caching on Heroku
+
+To take advantage of caching for npm modules and bower components to speed up your deploy, you'll need to do the following:
+
+Change the package.json in the root of your Rails project from `{}` to something like the following:
+
+```javascript
+{
+  "scripts": {
+    "postinstall": "cd frontend && npm install"
+  },
+  "cacheDirectories": ["frontend/node_modules", "frontend/bower_components"]
+}
+```
+
+Adjust the ```frontend``` path to match your ember-cli app name.
+
+Then, you'll need to run ```heroku config:set NPM_CONFIG_PRODUCTION=false``` on your Heroku app once. This is because Heroku's nodejs buildpack by default will only install production dependencies. But for building the ember-cli app, we need the development dependencies as well.
+
+With this, Heroku will now cache all installed npm modules and bower components, which should drastically improve your deployment time.
+
+
 ## Experiencing Slow Build/Deploy Times?
 Remove `ember-cli-uglify` from your `package.json` file, and run
 `npm remove ember-cli-uglify`. This will improve your build/deploy
