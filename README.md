@@ -332,6 +332,13 @@ In order to deploy EmberCLI Rails app using Capistrano:
 
 Make sure you have bower as a npm dependency of your ember-cli app.
 
+```json
+{
+  "devDependencies": {
+    "bower": "*"
+  }
+}
+
 ember-cli-rails adds your ember apps' build process to the rails asset compilation process.
 
 Now you should be ready to deploy.
