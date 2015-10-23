@@ -326,6 +326,24 @@ ember-cli-rails adds your ember apps' build process to the rails asset compilati
 
 Now you should be ready to deploy.
 
+## Capistrano
+
+In order to deploy EmberCLI Rails app using Capistrano:
+
+Make sure that your root level `package.json` contains `"bower"` as a development dependency:
+
+```json
+{
+  "devDependencies": {
+    "bower": "*"
+  }
+}
+```
+
+ember-cli-rails adds your ember apps' build process to the rails asset compilation process.
+
+Now you should be ready to deploy.
+
 ## Experiencing Slow Build/Deploy Times?
 Remove `ember-cli-uglify` from your `package.json` file, and run
 `npm remove ember-cli-uglify`. This will improve your build/deploy
