@@ -15,4 +15,11 @@ namespace :ember do
   end
 end
 
-task "assets:precompile" => "ember:compile" unless EmberCLI.skip?
+unless EmberCLI.skip?
+  # Hook into assets:precompile:all for Rails 3.1+
+  if Gem::Version.new(Rails::VERSION::STRING) < Gem::Version.new("4.0.0")
+    task "assets:precompile:all" => "ember:compile"
+  else
+    task "assets:precompile" => "ember:compile"
+  end
+end
