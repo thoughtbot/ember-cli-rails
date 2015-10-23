@@ -203,6 +203,19 @@ module EmberCLI
       end
     end
 
+    def check_dependencies!
+      unless node_modules_present?
+        fail <<-MSG.strip_heredoc
+          EmberCLI app dependencies are not installed. From your Rails application root please run:
+
+            $ bundle exec rake ember:install
+
+          If you do not require Ember at this URL, you can restrict this check using the `enable`
+          option in the EmberCLI initializer.
+        MSG
+      end
+    end
+
     def symlink_to_assets_root
       assets_path.join(name).make_symlink dist_path.join("assets")
     rescue Errno::EEXIST
