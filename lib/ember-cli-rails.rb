@@ -4,6 +4,7 @@ module EmberCLI
   extend self
 
   autoload :App,           "ember-cli/app"
+  autoload :AssetManifest, "ember-cli/asset_manifest"
   autoload :Configuration, "ember-cli/configuration"
   autoload :Helpers,       "ember-cli/helpers"
   autoload :Middleware,    "ember-cli/middleware"

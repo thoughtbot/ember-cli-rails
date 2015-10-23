@@ -7,19 +7,23 @@ module EmberCLI
 
     class BuildError < StandardError; end
 
-    attr_reader :name, :options, :paths, :pid
+    attr_reader :name, :options, :paths, :pid, :logger, :manifest
 
     delegate :root, to: :paths
 
     def initialize(name, options={})
       @name, @options = name.to_s, options
       @paths = PathSet.new(self)
+      @logger = Logger.new($stderr)
+      @manifest = AssetManifest.new(name, Rails.application)
     end
 
     def compile
       @compiled ||= begin
-        prepare
-        silence_build{ exec command }
+        logger.warn "Compiling assets for EmberCLI app: #{name}"
+        prepare( env: :compile )
+        silence_build { exec command }
+        copy_fingerprinted_assets if bypass_rails_asset_digests
         check_for_build_error!
         true
       end
@@ -31,7 +35,7 @@ module EmberCLI
     end
 
     def run
-      prepare
+      prepare( env: :run )
       FileUtils.touch lockfile_path
       cmd = command(watch: true)
       @pid = exec(cmd, method: :spawn)
@@ -40,7 +44,7 @@ module EmberCLI
     end
 
     def run_tests
-      prepare
+      prepare( env: :test )
       exit 1 unless exec("#{ember_path} test")
     end
 
@@ -148,16 +152,26 @@ module EmberCLI
       fail error
     end
 
-    def prepare
+    def prepare(params={})
       @prepared ||= begin
         check_dependencies!
         check_addon!
         check_ember_cli_version!
         reset_build_error!
-        symlink_to_assets_root
-        add_assets_to_precompile_list
+
+        unless bypass_rails_asset_digests && params[:env] && params[:env] == :compile
+          logger.warn "Adding ember-cli build (#{name}) to rails asset pipeline…"
+          symlink_to_assets_root
+          add_assets_to_precompile_list
+        end
         true
       end
+    end
+
+    def copy_fingerprinted_assets
+      logger.warn "Copying assets to #{manifest.asset_dist_path}"
+      FileUtils.mkdir_p manifest.asset_dist_path
+      FileUtils.cp_r Dir["#{dist_path.join("assets")}/*"], manifest.asset_dist_path
     end
 
     def check_ember_cli_version!
@@ -257,10 +271,14 @@ module EmberCLI
       Array.wrap(options[:exclude_ember_deps]).join(?,)
     end
 
+    def bypass_rails_asset_digests
+      options.fetch(:bypass_rails_asset_digests){ false }
+    end
+
     def env_hash
       ENV.to_h.tap do |vars|
         vars["RAILS_ENV"] = Rails.env
-        vars["DISABLE_FINGERPRINTING"] = "true"
+        vars["DISABLE_FINGERPRINTING"] = (!bypass_rails_asset_digests).to_s
         vars["EXCLUDE_EMBER_ASSETS"] = excluded_ember_deps
         vars["BUNDLE_GEMFILE"] = gemfile_path.to_s if gemfile_path.exist?
       end

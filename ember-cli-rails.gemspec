@@ -14,4 +14,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "railties", ">= 3.1", "< 5"
   spec.add_dependency "sprockets", ">= 2.0"
+  spec.add_dependency "json", "~> 1.7"
 end

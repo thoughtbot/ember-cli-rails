@@ -15,5 +15,13 @@ module EmberCLI
         ActionController::Base.helper EmberRailsHelper
       end
     end
+
+    initializer "ember-clie-rails.asset-manifest-setup",
+      :after => "sprockets.environment" do
+        #TODO: only append manifest only if in bypass mode
+        EmberCLI.configuration.apps.keys.each { |name|
+          EmberCLI::AssetManifest.new(name).inject_manifest
+        }
+    end
   end
 end
