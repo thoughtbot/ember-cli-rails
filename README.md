@@ -326,6 +326,28 @@ ember-cli-rails adds your ember apps' build process to the rails asset compilati
 
 Now you should be ready to deploy.
 
+### Taking advantage of module caching on Heroku
+
+To take advantage of caching for npm modules and bower components to speed up your deploy, you'll need to do the following:
+
+Change the package.json in the root of your Rails project from `{}` to something like the following:
+
+```javascript
+{
+  "scripts": {
+    "postinstall": "cd frontend && npm prune && npm install && node_modules/bower/bin/bower prune"
+  },
+  "cacheDirectories": ["frontend/node_modules", "frontend/bower_components"]
+}
+```
+
+Adjust the ```frontend``` path to match your ember-cli app name.
+
+Then, you'll need to run ```heroku config:set NPM_CONFIG_PRODUCTION=false``` on your Heroku app once. This is because Heroku's nodejs buildpack by default will only install production dependencies. But for building the ember-cli app, we need the development dependencies as well.
+
+With this, Heroku will now cache all installed npm modules and bower components, which should drastically improve your deployment time.
+
+
 ## Experiencing Slow Build/Deploy Times?
 Remove `ember-cli-uglify` from your `package.json` file, and run
 `npm remove ember-cli-uglify`. This will improve your build/deploy
@@ -334,6 +356,13 @@ time by about 10 minutes.
 The reason build/deploy times were slow is because ember uglified the JS and
 then added the files to the asset pipeline. Rails would then try and uglify
 the JS again, and this would be considerably slower than normal.
+
+you might then see some errors like `ExecJS::ProgramError: Unexpected token: punc (:) (line: 1, col: 10, pos: 10)` which are caused by the Rails trying to compile `.js.map` files. You can prevent this by adding the following to your `config/initializers/assets.rb` for instance:
+
+```
+# workaround for asset pipeline trying to compile .map files
+Rack::Mime::MIME_TYPES.merge!({".map" => "text/plain"})
+```
 
 ## Additional Information
 
