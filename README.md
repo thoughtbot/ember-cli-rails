@@ -338,6 +338,7 @@ Make sure you have bower as a npm dependency of your ember-cli app.
     "bower": "*"
   }
 }
+```
 
 ember-cli-rails adds your ember apps' build process to the rails asset compilation process.
 
