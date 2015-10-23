@@ -49,6 +49,10 @@ module EmberCLI
       root.join("package.json")
     end
 
+    define_path :node_modules do
+      root.join("node_modules")
+    end
+
     define_path :ember do
       root.join("node_modules", ".bin", "ember").tap do |path|
         fail <<-MSG.strip_heredoc unless path.executable?

@@ -2,7 +2,7 @@ require "timeout"
 
 module EmberCLI
   class App
-    ADDON_VERSION = "0.0.11"
+    ADDON_VERSION = "0.0.12"
     EMBER_CLI_VERSIONS = [ "~> 0.1.5", "~> 0.2.0", "~> 1.13" ]
 
     class BuildError < StandardError; end
@@ -150,6 +150,7 @@ module EmberCLI
 
     def prepare
       @prepared ||= begin
+        check_dependencies!
         check_addon!
         check_ember_cli_version!
         reset_build_error!
@@ -184,7 +185,20 @@ module EmberCLI
 
             $ npm install --save-dev ember-cli-rails-addon@#{ADDON_VERSION}
 
-          in you Ember application root: #{root}
+          in your Ember application root: #{root}
+        MSG
+      end
+    end
+
+    def check_dependencies!
+      unless node_modules_present?
+        fail <<-MSG.strip_heredoc
+          EmberCLI app dependencies are not installed. From your Rails application root please run:
+
+            $ bundle exec rake ember:install
+
+          If you do not require Ember at this URL, you can restrict this check using the `enable`
+          option in the EmberCLI initializer.
         MSG
       end
     end
@@ -235,16 +249,20 @@ module EmberCLI
         addon_package_json_file_path.exist?
     end
 
+    def node_modules_present?
+      node_modules_path.exist?
+    end
+
     def excluded_ember_deps
       Array.wrap(options[:exclude_ember_deps]).join(?,)
     end
 
     def env_hash
-      ENV.clone.tap do |vars|
-        vars.store "RAILS_ENV", Rails.env
-        vars.store "DISABLE_FINGERPRINTING", "true"
-        vars.store "EXCLUDE_EMBER_ASSETS", excluded_ember_deps
-        vars.store "BUNDLE_GEMFILE", gemfile_path.to_s if gemfile_path.exist?
+      ENV.to_h.tap do |vars|
+        vars["RAILS_ENV"] = Rails.env
+        vars["DISABLE_FINGERPRINTING"] = "true"
+        vars["EXCLUDE_EMBER_ASSETS"] = excluded_ember_deps
+        vars["BUNDLE_GEMFILE"] = gemfile_path.to_s if gemfile_path.exist?
       end
     end
 
