@@ -1,8 +1,10 @@
 require "timeout"
+require "ember-cli/html_page"
+require "ember-cli/asset_resolver"
 
 module EmberCLI
   class App
-    ADDON_VERSION = "0.0.12"
+    ADDON_VERSION = "0.0.13"
     EMBER_CLI_VERSIONS = [ "~> 0.1.5", "~> 0.2.0", "~> 1.13" ]
 
     class BuildError < StandardError; end
@@ -21,6 +23,7 @@ module EmberCLI
         prepare
         silence_build{ exec command }
         check_for_build_error!
+        copy_index_html_file
         true
       end
     end
@@ -36,6 +39,7 @@ module EmberCLI
       cmd = command(watch: true)
       @pid = exec(cmd, method: :spawn)
       Process.detach pid
+      copy_index_html_file
       set_on_exit_callback
     end
 
@@ -49,12 +53,30 @@ module EmberCLI
       @pid = nil
     end
 
-    def exposed_js_assets
-      %W[#{name}/vendor #{name}/#{ember_app_name}]
+    def index_html(sprockets)
+      asset_resolver = AssetResolver.new(
+        app: self,
+        sprockets: sprockets,
+      )
+      html_page = HtmlPage.new(
+        asset_resolver: asset_resolver,
+        content: index_file.read,
+      )
+
+      html_page.render
     end
 
-    def exposed_css_assets
-      %W[#{name}/vendor #{name}/#{ember_app_name}]
+    def exposed_js_assets
+      [vendor_assets, application_assets]
+    end
+    alias exposed_css_assets exposed_js_assets
+
+    def vendor_assets
+      "#{name}/vendor"
+    end
+
+    def application_assets
+      "#{name}/#{ember_app_name}"
     end
 
     def wait
@@ -203,8 +225,26 @@ module EmberCLI
       end
     end
 
+    def assets_path
+      paths.assets.join(name)
+    end
+
+    def copy_index_html_file
+      if environment == "production"
+        FileUtils.cp(assets_path.join("index.html"), index_file)
+      end
+    end
+
+    def index_file
+      if environment == "production"
+        applications_path.join("#{name}.html")
+      else
+        dist_path.join("index.html")
+      end
+    end
+
     def symlink_to_assets_root
-      assets_path.join(name).make_symlink dist_path.join("assets")
+      assets_path.make_symlink dist_path.join("assets")
     rescue Errno::EEXIST
       # Sometimes happens when starting multiple Unicorn workers.
       # Ignoring...
@@ -237,7 +277,17 @@ module EmberCLI
     end
 
     def package_json
-      @package_json ||= JSON.parse(package_json_file_path.read).with_indifferent_access
+      @package_json ||=
+        JSON.parse(package_json_file_path.read).with_indifferent_access
+    end
+
+    def addon_package_json
+      @addon_package_json ||=
+        JSON.parse(addon_package_json_file_path.read).with_indifferent_access
+    end
+
+    def addon_version
+      addon_package_json.fetch("version")
     end
 
     def dev_dependencies
@@ -245,8 +295,8 @@ module EmberCLI
     end
 
     def addon_present?
-      dev_dependencies["ember-cli-rails-addon"] == ADDON_VERSION &&
-        addon_package_json_file_path.exist?
+      addon_package_json_file_path.exist? &&
+        addon_version == ADDON_VERSION
     end
 
     def node_modules_present?

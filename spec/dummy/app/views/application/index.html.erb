@@ -1,2 +1,6 @@
-<%= include_ember_script_tags "my-app" %>
-<%= include_ember_stylesheet_tags "my-app" %>
+<% if params[:index_html] %>
+  <%= include_ember_index_html "my-app" %>
+<% else %>
+  <%= include_ember_script_tags "my-app" %>
+  <%= include_ember_stylesheet_tags "my-app" %>
+<% end %>

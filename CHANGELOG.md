@@ -1,3 +1,8 @@
+master
+------
+
+* Introduce `include_ember_index_html` helper
+
 0.3.5
 -----
 

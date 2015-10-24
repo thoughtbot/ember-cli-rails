@@ -46,12 +46,15 @@ end
 
 ##### options
 
-- app - this represents the name of the Ember CLI application.
+- `app` - this represents the name of the Ember CLI application.
 
-- path - the path where your Ember CLI application is located. The default
+- `build_timeout` - seconds to allow Ember to build the application before
+  timing out
+
+- `path` - the path where your Ember CLI application is located. The default
   value is the name of your app in the Rails root.
 
-- enable - a lambda that accepts each request's path. The default value is a
+- `enable` - a lambda that accepts each request's path. The default value is a
   lambda that returns `true`.
 
 ```ruby
@@ -73,7 +76,7 @@ ember init
 You will also need to install the [ember-cli-rails-addon](https://github.com/rondale-sc/ember-cli-rails-addon). For each of your Ember CLI applications, run:
 
 ```sh
-npm install --save-dev ember-cli-rails-addon@0.0.12
+npm install --save-dev ember-cli-rails-addon@0.0.13
 ```
 
 And that's it! You should now be able to start up your Rails server and see your Ember CLI app.
@@ -121,6 +124,23 @@ could render your app at the `/` route with the following view:
 ```
 
 Your Ember application will now be served at the `/` route.
+
+### Rendering the Ember index.html
+
+To render the EmberCLI generated `index.html` instead of using `javascript` and
+`stylesheet` tags, use `include_ember_index_html` (note, the asset paths will be
+replaced with asset pipeline generated paths):
+
+*NOTE* - Unlike using the asset tag helpers, this helper **requires** that the
+`index.html` file exists.
+
+To prevent race conditions, increase your `build_timeout` to ensure that the
+build finishes before your request is processed.
+
+```erb
+<!-- /app/views/application/index.html.erb -->
+<%= include_ember_index_html :frontend %>
+```
 
 ### Other routes
 
