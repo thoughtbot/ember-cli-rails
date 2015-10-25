@@ -12,3 +12,5 @@
 *.o
 *.a
 mkmf.log
+/log/
+spec/dummy/my-app/

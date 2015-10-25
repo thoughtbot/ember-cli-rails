@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -e
+
+# Set up Ruby dependencies via Bundler
+gem install bundler --conservative
+bundle check || bundle install
+
+# Add binstubs to PATH via export PATH=".git/safe/../../bin:$PATH" in ~/.zshenv
+mkdir -p .git/safe
+
+if ! command -v bower > /dev/null; then
+  npm install -g bower
+fi
+
+if ! [ -d spec/dummy/my-app ]; then
+  git clone https://github.com/kellyselden/ember-cli-output.git spec/dummy/my-app
+fi
+
+root="$(pwd)"
+
+cd ${root}/spec/dummy/my-app &&
+  npm install --save-dev ember-cli-rails-addon &&
+  bower install
+
+cd ${root}/spec/dummy && bundle exec rake ember:install

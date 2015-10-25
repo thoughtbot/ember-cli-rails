@@ -1,0 +1,20 @@
+language: ruby
+sudo: false
+cache: bundler
+
+notifications:
+  email: false
+
+rvm:
+- 2.2.0
+- 2.1.0
+- 2.0.0
+
+before_install:
+  - qmake -version
+  - "echo '--colour' > ~/.rspec"
+  - "echo 'gem: --no-document' > ~/.gemrc"
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+before_script: bin/setup
+script: xvfb-run -a bin/rspec
