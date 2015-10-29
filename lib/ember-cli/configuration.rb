@@ -4,7 +4,7 @@ module EmberCLI
   class Configuration
     include Singleton
 
-    def app(name, options={})
+    def app(name, **options)
       apps.store name, App.new(name, options)
     end
 
