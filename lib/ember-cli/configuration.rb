@@ -5,7 +5,11 @@ module EmberCLI
     include Singleton
 
     def app(name, options={})
-      apps.store name, App.new(name, options)
+      if RUBY_PLATFORM =~ /mswin32|cygwin|mingw|bccwin/
+        apps.store name, AppWin.new(name, options)
+      else
+        apps.store name, App.new(name, options)
+      end
     end
 
     def apps
