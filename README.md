@@ -137,9 +137,36 @@ replaced with asset pipeline generated paths):
 To prevent race conditions, increase your `build_timeout` to ensure that the
 build finishes before your request is processed.
 
+First, specify in your controller that you don't want to render the layout
+(since EmberCLI's `index.html` is a fully-formed HTML document):
+
+```rb
+# app/controllers/application.rb
+
+class ApplicationController < ActionController::Base
+  def index
+    render layout: false
+  end
+end
+```
+
+Then, use the helper in your view:
+
 ```erb
 <!-- /app/views/application/index.html.erb -->
 <%= include_ember_index_html :frontend %>
+```
+
+To inject markup into page, pass in a block that accepts the `head`, and
+(optionally) the `body`:
+
+```erb
+<!-- /app/views/application/index.html.erb -->
+<%= include_ember_index_html :frontend do |head| %>
+  <%= head.append do %>
+    <%= csrf_meta_tags %>
+  <% end %>
+<% end %>
 ```
 
 ### Other routes

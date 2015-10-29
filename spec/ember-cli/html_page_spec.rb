@@ -1,19 +1,67 @@
 describe EmberCLI::HtmlPage do
   describe "#render" do
-    it "resolves the Sprockets URLs in the content" do
-      asset_resolver = double("EmberCLI::AssetResolver")
-      html_page = EmberCLI::HtmlPage.new(
-        asset_resolver: asset_resolver,
-        content: :markup,
-      )
-      allow(asset_resolver).
+    context "when <head> is present" do
+      it "injects into the <head>" do
+        content = valid_content
+        html_page = EmberCLI::HtmlPage.new(
+          asset_resolver: build_asset_resolver(content),
+          content: content,
+          head: "injected!",
+        )
+
+        rendered = html_page.render
+
+        expect(rendered).to eq(
+          "<html><head><title></title>injected!</head><body><h1></h1></body></html>",
+        )
+      end
+    end
+
+    context "when <body> is present" do
+      it "injects into the <body>" do
+        content = valid_content
+        html_page = EmberCLI::HtmlPage.new(
+          asset_resolver: build_asset_resolver(content),
+          content: content,
+          body: "injected!",
+        )
+
+        rendered = html_page.render
+
+        expect(rendered).to eq(
+          "<html><head><title></title></head><body><h1></h1>injected!</body></html>",
+        )
+      end
+    end
+
+    context "when the page isn't valid" do
+      it "does nothing" do
+        content = "<html></html>"
+        html_page = EmberCLI::HtmlPage.new(
+          asset_resolver: build_asset_resolver(content),
+          content: content,
+          head: "injected!",
+          body: "injected!",
+        )
+
+        rendered = html_page.render
+
+        expect(rendered).to eq("<html></html>")
+      end
+    end
+
+    def build_asset_resolver(content)
+      resolver = double("EmberCLI::AssetResolver")
+      allow(resolver).
         to receive(:resolve_urls).
-        with(:markup).
-        and_return(:delegated)
+        with(content).
+        and_return(content)
 
-      rendered = html_page.render
+      resolver
+    end
 
-      expect(rendered).to be :delegated
+    def valid_content
+      "<html><head><title></title></head><body><h1></h1></body></html>"
     end
   end
 end

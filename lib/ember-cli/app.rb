@@ -68,7 +68,7 @@ module EmberCLI
       @pid = nil
     end
 
-    def index_html(sprockets)
+    def index_html(sprockets:, head:, body:)
       asset_resolver = AssetResolver.new(
         app: self,
         sprockets: sprockets,
@@ -76,6 +76,8 @@ module EmberCLI
       html_page = HtmlPage.new(
         asset_resolver: asset_resolver,
         content: index_file.read,
+        head: head,
+        body: body,
       )
 
       html_page.render
