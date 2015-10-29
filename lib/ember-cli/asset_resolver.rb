@@ -1,8 +1,8 @@
 module EmberCLI
   class AssetResolver
-    def initialize(options)
-      @app = options.fetch(:app)
-      @sprockets = options.fetch(:sprockets)
+    def initialize(app:, sprockets:)
+      @app = app
+      @sprockets = sprockets
     end
 
     def resolve_urls(html_content)

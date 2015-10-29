@@ -1,8 +1,8 @@
 module EmberCLI
   class HtmlPage
-    def initialize(options)
-      @content = options.fetch(:content)
-      @asset_resolver = options.fetch(:asset_resolver)
+    def initialize(content:, asset_resolver:)
+      @content = content
+      @asset_resolver = asset_resolver
     end
 
     def render
