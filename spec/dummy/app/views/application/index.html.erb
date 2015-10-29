@@ -1,5 +1,22 @@
 <% if params[:index_html] %>
-  <%= include_ember_index_html "my-app" %>
+  <% if params[:empty_block] %>
+    <%= include_ember_index_html "my-app" do %>
+      <%= csrf_meta_tags %>
+    <% end %>
+  <% elsif params[:head_and_body] %>
+    <%= include_ember_index_html "my-app" do |head, body| %>
+      <%= head.append do %>
+        <%= csrf_meta_tags %>
+      <% end %>
+
+      <%= body.append do %>
+        <p>Hello from Rails</p>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= include_ember_index_html "my-app" %>
+  <% end %>
+
 <% else %>
   <%= include_ember_script_tags "my-app" %>
   <%= include_ember_stylesheet_tags "my-app" %>

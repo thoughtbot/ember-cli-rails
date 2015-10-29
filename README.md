@@ -95,51 +95,60 @@ end
 
 ## Usage
 
-You render your Ember CLI app by including the corresponding JS/CSS tags in whichever
-Rails view you'd like the Ember app to appear.
-
-For example, if you had the following Rails app
+First, specify in your controller that you don't want to render the layout
+(since EmberCLI's `index.html` is a fully-formed HTML document):
 
 ```rb
-# /config/routes.rb
-Rails.application.routes.draw do
-  root 'application#index'
-end
-
-# /app/controllers/application_controller.rb
+# app/controllers/application.rb
 class ApplicationController < ActionController::Base
   def index
-    render :index
+    render layout: false
   end
 end
 ```
 
-and if you had created an Ember app `:frontend` in your initializer, then you
-could render your app at the `/` route with the following view:
+To render the EmberCLI generated `index.html` into the view,
+use the `include_ember_index_html` helper:
+
+
+```erb
+<!-- /app/views/application/index.html.erb -->
+<%= include_ember_index_html :frontend %>
+```
+
+To inject markup into page, pass in a block that accepts the `head`, and
+(optionally) the `body`:
+
+```erb
+<!-- /app/views/application/index.html.erb -->
+<%= include_ember_index_html :frontend do |head| %>
+  <%= head.append do %>
+    <%= csrf_meta_tags %>
+  <% end %>
+<% end %>
+```
+
+The asset paths will be replaced with asset pipeline generated paths.
+
+*NOTE*
+
+This helper **requires** that the `index.html` file exists.
+
+If you see `Errno::ENOENT` errors in development, your requests are timing out
+before EmberCLI finishes compiling the application.
+
+To prevent race conditions, increase your `build_timeout` to ensure that the
+build finishes before your request is processed.
+
+### Rendering the EmberCLI generated JS and CSS
+
+In addition to rendering the EmberCLI generated `index.html`, you can inject the
+`<script>` and `<link>` tags into your Rails generated views:
 
 ```erb
 <!-- /app/views/application/index.html.erb -->
 <%= include_ember_script_tags :frontend %>
 <%= include_ember_stylesheet_tags :frontend %>
-```
-
-Your Ember application will now be served at the `/` route.
-
-### Rendering the Ember index.html
-
-To render the EmberCLI generated `index.html` instead of using `javascript` and
-`stylesheet` tags, use `include_ember_index_html` (note, the asset paths will be
-replaced with asset pipeline generated paths):
-
-*NOTE* - Unlike using the asset tag helpers, this helper **requires** that the
-`index.html` file exists.
-
-To prevent race conditions, increase your `build_timeout` to ensure that the
-build finishes before your request is processed.
-
-```erb
-<!-- /app/views/application/index.html.erb -->
-<%= include_ember_index_html :frontend %>
 ```
 
 ### Other routes
