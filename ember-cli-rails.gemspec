@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.license  = "MIT"
   spec.files    = Dir["README.md", "CHANGELOG.md", "LICENSE.txt", "{lib,app,config}/**/*"]
 
-  spec.required_ruby_version = ">= 1.9.3"
+  spec.required_ruby_version = ">= 2.1.0"
 
-  spec.add_dependency "railties", ">= 3.1", "< 5"
+  spec.add_dependency "railties", ">= 3.2", "< 5"
   spec.add_dependency "sprockets", ">= 2.0"
 end

@@ -13,7 +13,7 @@ module EmberCLI
 
     delegate :root, to: :paths
 
-    def initialize(name, options={})
+    def initialize(name, **options)
       @name, @options = name.to_s, options
       @paths = PathSet.new(self)
     end
@@ -254,14 +254,18 @@ module EmberCLI
       Rails.configuration.assets.precompile << /\A#{name}\//
     end
 
-    def command(options={})
-      watch = ""
-      if options[:watch]
-        watch = "--watch"
-        watch += " --watcher #{watcher}" if watcher
+    def command(watch: false)
+      watch_flag = ""
+
+      if watch
+        watch_flag = "--watch"
+
+        if watcher
+          watch_flag += " --watcher #{watcher}"
+        end
       end
 
-      "#{ember_path} build #{watch} --environment #{environment} --output-path #{dist_path} #{log_pipe}"
+      "#{ember_path} build #{watch_flag} --environment #{environment} --output-path #{dist_path} #{log_pipe}"
     end
 
     def log_pipe
@@ -316,11 +320,9 @@ module EmberCLI
       end
     end
 
-    def exec(cmd, options={})
-      method_name = options.fetch(:method, :system)
-
+    def exec(cmd, method: :system)
       Dir.chdir root do
-        Kernel.public_send(method_name, env_hash, cmd, err: :out)
+        Kernel.public_send(method, env_hash, cmd, err: :out)
       end
     end
 

@@ -1,6 +1,7 @@
 master
 ------
 
+* Drop support for Ruby `< 2.1.0` and Rails `4.0.0, < 3.2.0`
 * Introduce `include_ember_index_html` helper
 
 0.3.5

@@ -440,6 +440,17 @@ end
 
 jQuery and Handlebars are the main use cases for this flag.
 
+## Ruby and Rails support
+
+This project supports:
+
+* Ruby versions `>= 2.1.0`
+* Rails `3.2.x` and `>=4.1.x`.
+
+To learn more about supported versions and upgrades, read the [upgrading guide].
+
+[upgrading guide]: /UPGRADING.md
+
 ## Contributing
 
 See the [CONTRIBUTING] document.
