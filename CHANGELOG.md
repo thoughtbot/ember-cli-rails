@@ -1,6 +1,9 @@
 master
 ------
 
+0.4.0
+-----
+
 * Extend `include_ember_index_html` helper to accept a block. The contents of
   the block will be injected into the page
 * Drop support for Ruby `< 2.1.0` and Rails `4.0.0, < 3.2.0`
