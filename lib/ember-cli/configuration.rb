@@ -17,6 +17,10 @@ module EmberCLI
       @tee_path = Helpers.which("tee")
     end
 
+    def bower_path
+      @bower_path ||= Helpers.which("bower")
+    end
+
     def npm_path
       @npm_path ||= Helpers.which("npm")
     end

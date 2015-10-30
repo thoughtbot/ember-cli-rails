@@ -1,0 +1,17 @@
+Description:
+    Configures a project for deploying to Heroku.
+
+    Once the generator is complete, execute the following:
+
+        heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-nodejs
+        heroku config:set NPM_CONFIG_PRODUCTION=false
+
+Example:
+    rails generate ember-cli:heroku
+
+    This will install the following gems:
+        rails_12factor
+
+    This will create:
+        bin/heroku_install
+        package.json

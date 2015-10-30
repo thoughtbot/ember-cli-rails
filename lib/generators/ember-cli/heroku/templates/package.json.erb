@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "postinstall": "./bin/heroku_install"
+  },
+  "devDependencies": {
+    "bower": "*"
+  },
+  "cacheDirectories": [
+    <%- app_paths.each do |app_path| -%>
+    "<%= app_path %>/node_modules",
+    "<%= app_path %>/bower_components",
+    <%- end -%>
+    "node_modules"
+  ]
+}

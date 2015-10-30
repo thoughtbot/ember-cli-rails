@@ -29,8 +29,23 @@ module EmberCLI
     end
 
     def install_dependencies
-      exec "#{bundler_path} install" if gemfile_path.exist?
-      exec "#{npm_path} install"
+      if gemfile_path.exist?
+        exec "#{bundler_path} install"
+      end
+
+      exec "#{npm_path} prune && #{npm_path} install"
+
+      if bower_path.nil?
+        fail <<-FAIL
+          Bower is required by EmberCLI.
+
+          Install it with:
+
+              $ npm install -g bower
+        FAIL
+      else
+        exec "#{bower_path} prune && #{bower_path} install"
+      end
     end
 
     def run

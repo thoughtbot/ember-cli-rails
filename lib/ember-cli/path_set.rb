@@ -78,6 +78,10 @@ module EmberCLI
       app_options.fetch(:tee_path){ configuration.tee_path }
     end
 
+    define_path :bower do
+      app_options.fetch(:bower_path) { configuration.bower_path }
+    end
+
     define_path :npm do
       app_options.fetch(:npm_path){ configuration.npm_path }
     end

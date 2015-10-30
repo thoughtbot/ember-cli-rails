@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+set -e
+
+bower="$(pwd)/node_modules/.bin/bower"
+
+for app in <%= app_paths.map { |app_path| %{"#{app_path}"} }.join(" ") -%>; do
+  cd $app &&
+    npm prune &&
+    npm install &&
+    $bower prune &&
+    $bower install
+done

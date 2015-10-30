@@ -301,50 +301,23 @@ directories %w[app config lib spec your-appname/app]
 
 ## Heroku
 
-In order to deploy Ember CLI Rails app to Heroku:
+To configure your Ember CLI Rails app to be ready to deploy on Heroku:
 
-First, enable Heroku Multi Buildpack by running the following command:
+1. Run `rails g ember-cli:heroku` generator
+1. [Add the NodeJS buildpack][buildpack] and configure NPM to include the
+   `bower` dependency's executable file.
 
 ```sh
-heroku buildpacks:set https://github.com/heroku/heroku-buildpack-multi
+heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-nodejs
+heroku config:set NPM_CONFIG_PRODUCTION=false
 ```
 
-Next, specify which buildpacks to use by creating a `.buildpacks` file in the project root containing:
+You should be ready to deploy.
 
-```
-https://github.com/heroku/heroku-buildpack-nodejs
-https://github.com/heroku/heroku-buildpack-ruby
-```
+**NOTE** Run the generator each time you introduce additional EmberCLI
+applications into the project.
 
-Add `rails_12factor` gem to your production group in Gemfile, then run `bundle
-install`:
-
-```ruby
-gem "rails_12factor", group: :production
-```
-
-Add a `package.json` file containing `{}` to the root of your Rails project.
-This is to make sure it'll be detected by the NodeJS buildpack.
-
-Make sure you have `bower` as a npm dependency of your ember-cli app.
-
-Add a `postinstall` task to your Ember CLI app's `package.json`. This will
-ensure that during the deployment process, Heroku will install all dependencies
-found in both `node_modules` and `bower_components`.
-
-```javascript
-{
-  # ...
-  "scripts": {
-    # ...
-    "postinstall": "node_modules/bower/bin/bower install"¬
-  }
-}
-```
-
-ember-cli-rails adds your ember apps' build process to the rails asset compilation process.
-
-Now you should be ready to deploy.
+[buildpack]: https://devcenter.heroku.com/articles/using-multiple-buildpacks-for-an-app#adding-a-buildpack
 
 ## Capistrano
 
