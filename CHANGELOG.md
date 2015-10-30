@@ -5,11 +5,16 @@ master
 -----
 
 * Extend `include_ember_index_html` helper to accept a block. The contents of
-  the block will be injected into the page
-* Drop support for Ruby `< 2.1.0` and Rails `4.0.0, < 3.2.0`
+  the block will be injected into the page [#228]
+* Drop support for Ruby `< 2.1.0` and Rails `4.0.0, < 3.2.0` [#227]
 * Introduce `rails g ember-cli:heroku` generator to configure a project for
-  deploying to Heroku
-* Introduce `include_ember_index_html` helper
+  deploying to Heroku [#230]
+* Introduce `include_ember_index_html` helper [#226]
+
+[#226]: https://github.com/thoughtbot/ember-cli-rails/pull/226
+[#227]: https://github.com/thoughtbot/ember-cli-rails/pull/227
+[#228]: https://github.com/thoughtbot/ember-cli-rails/pull/228
+[#230]: https://github.com/thoughtbot/ember-cli-rails/pull/230
 
 0.3.5
 -----
