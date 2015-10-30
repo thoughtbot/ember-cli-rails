@@ -301,26 +301,13 @@ directories %w[app config lib spec your-appname/app]
 
 ## Heroku
 
-In order to deploy Ember CLI Rails app to Heroku:
+To configure your Ember CLI Rails app to be ready to deploy on Heroku:
 
-First, enable Heroku Multi Buildpack by running the following command:
+1. Run `rails g ember-cli:heroku` generator
+1. Enable Heroku Multi Buildpack by running the following command:
 
 ```sh
 heroku buildpacks:set https://github.com/heroku/heroku-buildpack-multi
-```
-
-Next, specify which buildpacks to use by creating a `.buildpacks` file in the project root containing:
-
-```
-https://github.com/heroku/heroku-buildpack-nodejs
-https://github.com/heroku/heroku-buildpack-ruby
-```
-
-Add `rails_12factor` gem to your production group in Gemfile, then run `bundle
-install`:
-
-```ruby
-gem "rails_12factor", group: :production
 ```
 
 Add a `package.json` file containing `{}` to the root of your Rails project.

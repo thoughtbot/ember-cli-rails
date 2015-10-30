@@ -1,0 +1,9 @@
+Description:
+  Generates files necessary to deploy the project to Heroku
+
+Example:
+    rails generate ember-cli:heroku
+
+    This will create:
+        .buildpacks
+        package.json

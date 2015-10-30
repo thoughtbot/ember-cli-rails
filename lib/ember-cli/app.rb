@@ -30,7 +30,8 @@ module EmberCLI
 
     def install_dependencies
       exec "#{bundler_path} install" if gemfile_path.exist?
-      exec "#{npm_path} install"
+      exec "#{npm_path} prune && #{npm_path} install"
+      exec "#{bower_path} && #{bower_path} install"
     end
 
     def run
