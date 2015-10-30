@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "postinstall": "bundle exec rake ember:install"
+  },
+  "devDependencies": {
+    "bower": "*"
+  },
+  "cacheDirectories": [
+    <% apps.each do |app| %>
+    "<%= app %>/node_modules",
+    "<%= app %>/bower_components",
+    <% end %>
+    "node_modules"
+  ]
+}
