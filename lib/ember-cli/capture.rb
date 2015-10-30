@@ -1,4 +1,6 @@
 module EmberCLI
+  SKIP_CAPTURE = ["", ""].freeze
+
   class Capture
     def initialize(sprockets:, &block)
       @sprockets = sprockets
@@ -7,13 +9,9 @@ module EmberCLI
 
     def capture
       if block.present?
-        if block.arity == 0
-          capture_block
-        else
-          captured_head_and_body
-        end
+        capture_block
       else
-        ["", ""]
+        SKIP_CAPTURE
       end
     end
 
@@ -21,16 +19,16 @@ module EmberCLI
 
     attr_reader :block, :sprockets
 
-    def captured_head_and_body
-      arguments = [captured_head, captured_body].first(block.arity)
-
-      block.call(*arguments)
+    def capture_block
+      if block.arity > 0
+        block.call(*block_arguments)
+      end
 
       [captured_head.content, captured_body.content]
     end
 
-    def capture_block
-      [sprockets.capture(&block), ""]
+    def block_arguments
+      [captured_head, captured_body].first(block.arity)
     end
 
     def captured_body
@@ -38,8 +36,26 @@ module EmberCLI
     end
 
     def captured_head
-      @captured_head ||= Block.new(sprockets)
+      @captured_head ||= begin
+        if block.arity < 1
+          BlockWithoutArguments.new(sprockets, &block)
+        else
+          Block.new(sprockets)
+        end
+      end
     end
+
+    class BlockWithoutArguments
+      def initialize(sprockets, &block)
+        @sprockets = sprockets
+        @block = block
+      end
+
+      def content
+        @sprockets.capture(&@block)
+      end
+    end
+    private_constant :BlockWithoutArguments
 
     class Block
       def initialize(sprockets)

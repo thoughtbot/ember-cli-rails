@@ -2,7 +2,7 @@ master
 ------
 
 * Extend `include_ember_index_html` helper to accept a block. The contents of
-  the block will be injected into the page's `<head>` tag.
+  the block will be injected into the page
 * Drop support for Ruby `< 2.1.0` and Rails `4.0.0, < 3.2.0`
 * Introduce `rails g ember-cli:heroku` generator to configure a project for
   deploying to Heroku
