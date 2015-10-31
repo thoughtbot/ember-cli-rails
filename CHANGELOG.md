@@ -1,6 +1,9 @@
 master
 ------
 
+0.4.1
+-----
+
 * `<%= head.append do %>` will now return `nil` so that accidentally using
   `<%= %>` variety of ERB tags won't render the contents of the capture [#231]
 
