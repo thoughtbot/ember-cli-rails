@@ -5,11 +5,11 @@
     <% end %>
   <% elsif params[:head_and_body] %>
     <%= include_ember_index_html "my-app" do |head, body| %>
-      <%= head.append do %>
+      <% head.append do %>
         <%= csrf_meta_tags %>
       <% end %>
 
-      <%= body.append do %>
+      <% body.append do %>
         <p>Hello from Rails</p>
       <% end %>
     <% end %>

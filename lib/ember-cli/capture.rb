@@ -9,7 +9,7 @@ module EmberCLI
 
     def capture
       if block.present?
-        capture_block
+        capture_content
       else
         SKIP_CAPTURE
       end
@@ -19,24 +19,24 @@ module EmberCLI
 
     attr_reader :block, :sprockets
 
-    def capture_block
+    def capture_content
       if block.arity > 0
         block.call(*block_arguments)
       end
 
-      [captured_head.content, captured_body.content]
+      [head.content, body.content]
     end
 
     def block_arguments
-      [captured_head, captured_body].first(block.arity)
+      [head, body].first(block.arity)
     end
 
-    def captured_body
-      @captured_body ||= Block.new(sprockets)
+    def body
+      @body ||= Block.new(sprockets)
     end
 
-    def captured_head
-      @captured_head ||= begin
+    def head
+      @head ||= begin
         if block.arity < 1
           BlockWithoutArguments.new(sprockets, &block)
         else
@@ -52,7 +52,7 @@ module EmberCLI
       end
 
       def content
-        @sprockets.capture(&@block)
+        @sprockets.with_output_buffer(&@block)
       end
     end
     private_constant :BlockWithoutArguments
@@ -64,7 +64,8 @@ module EmberCLI
       end
 
       def append(&block)
-        @content.push(@sprockets.capture(&block))
+        @content.push(@sprockets.with_output_buffer(&block))
+        nil
       end
 
       def content

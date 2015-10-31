@@ -122,7 +122,7 @@ To inject markup into page, pass in a block that accepts the `head`, and
 ```erb
 <!-- /app/views/application/index.html.erb -->
 <%= include_ember_index_html :frontend do |head| %>
-  <%= head.append do %>
+  <% head.append do %>
     <%= csrf_meta_tags %>
   <% end %>
 <% end %>
