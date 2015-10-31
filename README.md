@@ -317,8 +317,11 @@ To configure your Ember CLI Rails app to be ready to deploy on Heroku:
    `bower` dependency's executable file.
 
 ```sh
-heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-nodejs
-heroku config:set NPM_CONFIG_PRODUCTION=false
+$ heroku buildpacks:clear
+$ heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-nodejs
+$ heroku buildpacks:add --index 2 https://github.com/heroku/heroku-buildpack-ruby
+$ heroku config:set NPM_CONFIG_PRODUCTION=false
+$ heroku config:unset SKIP_EMBER
 ```
 
 You should be ready to deploy.
