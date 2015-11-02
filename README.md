@@ -48,7 +48,7 @@ end
 
 - `app` - this represents the name of the Ember CLI application.
 
-- `build_timeout` - seconds to allow Ember to build the application before
+- `build_timeout` - milliseconds to allow Ember to build the application before
   timing out
 
 - `path` - the path where your Ember CLI application is located. The default
