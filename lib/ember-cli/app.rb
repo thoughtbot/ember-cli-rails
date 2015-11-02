@@ -2,7 +2,7 @@ require "timeout"
 require "ember-cli/html_page"
 require "ember-cli/asset_resolver"
 
-module EmberCLI
+module EmberCli
   class App
     ADDON_VERSION = "0.0.13"
     EMBER_CLI_VERSIONS = [ "~> 0.1.5", "~> 0.2.0", "~> 1.13" ]
@@ -37,7 +37,7 @@ module EmberCLI
 
       if bower_path.nil?
         fail <<-FAIL
-          Bower is required by EmberCLI.
+          Bower is required by EmberCLI
 
           Install it with:
 
@@ -154,7 +154,7 @@ module EmberCLI
     end
 
     def silence_build(&block)
-      if ENV.fetch("EMBER_CLI_RAILS_VERBOSE"){ EmberCLI.env.production? }
+      if ENV.fetch("EMBER_CLI_RAILS_VERBOSE") { EmberCli.env.production? }
         yield
       else
         silence_stream STDOUT, &block
@@ -162,11 +162,11 @@ module EmberCLI
     end
 
     def build_timeout
-      options.fetch(:build_timeout){ EmberCLI.configuration.build_timeout }
+      options.fetch(:build_timeout) { EmberCli.configuration.build_timeout }
     end
 
     def watcher
-      options.fetch(:watcher){ EmberCLI.configuration.watcher }
+      options.fetch(:watcher) { EmberCli.configuration.watcher }
     end
 
     def check_for_build_error!
@@ -294,7 +294,7 @@ module EmberCLI
     end
 
     def environment
-      EmberCLI.env.production?? "production" : "development"
+      EmberCli.env.production? ? "production" : "development"
     end
 
     def package_json

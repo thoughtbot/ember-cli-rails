@@ -1,4 +1,4 @@
-module EmberCLI
+module EmberCli
   module Helpers
     extend self
 

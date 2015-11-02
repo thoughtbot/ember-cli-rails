@@ -1,6 +1,6 @@
 require "singleton"
 
-module EmberCLI
+module EmberCli
   class Configuration
     include Singleton
 

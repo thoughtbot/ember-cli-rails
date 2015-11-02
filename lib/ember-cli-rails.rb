@@ -1,6 +1,6 @@
 require "ember-cli/engine" if defined?(Rails)
 
-module EmberCLI
+module EmberCli
   extend self
 
   autoload :App,           "ember-cli/app"
@@ -90,3 +90,5 @@ module EmberCLI
     Rails.configuration.middleware.use Middleware
   end
 end
+
+EmberCLI = EmberCli

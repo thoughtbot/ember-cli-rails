@@ -1,6 +1,6 @@
 require "ember-cli/asset_resolver"
 
-describe EmberCLI::AssetResolver do
+describe EmberCli::AssetResolver do
   describe "#resolve_urls" do
     context "substitues asset pipeline paths" do
       it "for application javascript" do
@@ -10,7 +10,7 @@ describe EmberCLI::AssetResolver do
           vendor_assets: ["vendor", "asset"],
         )
         sprockets = SprocketsMock.new
-        asset_resolver = EmberCLI::AssetResolver.new(
+        asset_resolver = EmberCli::AssetResolver.new(
           app: app,
           sprockets: sprockets,
         )

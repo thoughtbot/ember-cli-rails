@@ -1,4 +1,4 @@
-module EmberCLI
+module EmberCli
   SKIP_CAPTURE = ["", ""].freeze
 
   class Capture

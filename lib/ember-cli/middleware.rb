@@ -1,4 +1,4 @@
-module EmberCLI
+module EmberCli
   class Middleware
     def initialize(app)
       @app = app
@@ -10,7 +10,7 @@ module EmberCLI
       if path == "/testem.js"
         [ 200, { "Content-Type" => "text/javascript" }, [""] ]
       else
-        EmberCLI.process_path path
+        EmberCli.process_path path
         @app.call(env)
       end
     end

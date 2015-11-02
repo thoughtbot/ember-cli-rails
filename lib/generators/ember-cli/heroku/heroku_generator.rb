@@ -1,4 +1,4 @@
-module EmberCLI
+module EmberCli
   class HerokuGenerator < Rails::Generators::Base
     source_root File.expand_path("../templates", __FILE__)
 
@@ -18,7 +18,7 @@ module EmberCLI
     end
 
     def app_paths
-      EmberCLI.apps.values.map do |app|
+      EmberCli.apps.values.map do |app|
         app.root.relative_path_from(Rails.root)
       end
     end

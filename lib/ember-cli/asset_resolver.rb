@@ -1,4 +1,4 @@
-module EmberCLI
+module EmberCli
   class AssetResolver
     def initialize(app:, sprockets:)
       @app = app

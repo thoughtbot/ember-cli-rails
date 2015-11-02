@@ -1,4 +1,4 @@
-module EmberCLI
+module EmberCli
   class Runner
     TRUE_PROC = ->(*){ true }
 
@@ -11,7 +11,7 @@ module EmberCLI
     def process
       return if skip?
 
-      if EmberCLI.env.development?
+      if EmberCli.env.development?
         start_or_restart!
       else
         compile!

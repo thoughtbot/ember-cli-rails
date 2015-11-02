@@ -1,4 +1,4 @@
-module EmberCLI
+module EmberCli
   class PathSet
     def self.define_path(name, &definition)
       define_method name do
@@ -30,11 +30,11 @@ module EmberCLI
     end
 
     define_path :dist do
-      EmberCLI.root.join("apps", app_name).tap(&:mkpath)
+      EmberCli.root.join("apps", app_name).tap(&:mkpath)
     end
 
     define_path :assets do
-      EmberCLI.root.join("assets").tap(&:mkpath)
+      EmberCli.root.join("assets").tap(&:mkpath)
     end
 
     define_path :applications do
@@ -99,7 +99,7 @@ module EmberCLI
     attr_reader :app
 
     delegate :name, :options, to: :app, prefix: true
-    delegate :configuration, to: EmberCLI
+    delegate :configuration, to: EmberCli
 
     def default_root
       Rails.root.join(app_name)

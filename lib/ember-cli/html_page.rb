@@ -1,4 +1,4 @@
-module EmberCLI
+module EmberCli
   class HtmlPage
     def initialize(content:, asset_resolver:, head: "", body: "")
       @content = content
