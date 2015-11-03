@@ -60,7 +60,8 @@ module EmberCli
 
     def run_tests
       prepare
-      exit 1 unless exec("#{ember_path} test")
+
+      exec("#{ember_path} test")
     end
 
     def stop
@@ -343,7 +344,7 @@ module EmberCli
 
     def exec(cmd, method: :system)
       Dir.chdir root do
-        Kernel.public_send(method, env_hash, cmd, err: :out)
+        Kernel.public_send(method, env_hash, cmd, err: :out) || exit(1)
       end
     end
 

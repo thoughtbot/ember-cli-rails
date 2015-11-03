@@ -1,9 +1,12 @@
 master
 ------
 
+* Failures in `{bundle,npm,bower} install` will now fail the host process with a
+  non-zero exit status. [#236]
 * Improve error reporting:
   Redirect `ember build` from `$STDERR` to the build error file. [#245]
 
+[#236]: https://github.com/thoughtbot/ember-cli-rails/pull/236
 [#245]: https://github.com/thoughtbot/ember-cli-rails/pull/245
 
 0.4.2
