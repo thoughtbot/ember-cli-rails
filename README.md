@@ -341,6 +341,21 @@ $ heroku config:unset SKIP_EMBER
 
 You should be ready to deploy.
 
+The generator will disable Rails' JavaScript compression by declaring:
+
+```rb
+config.assets.js_compressor = nil
+```
+
+This is recommended, but might not work for projects that have both Asset
+Pipeline and EmberCLI generated JavaScript.
+
+To reverse this change, reconfigure Sprockets to use the `uglifier` gem:
+
+```rb
+config.assets.js_compressor = :uglifier
+```
+
 **NOTE** Run the generator each time you introduce additional EmberCLI
 applications into the project.
 
