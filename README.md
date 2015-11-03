@@ -387,6 +387,35 @@ Rails.application.configure do
 end
 ```
 
+See also the note on [Javascript minification](#javascript-minification)
+
+## Javascript minification
+
+When precompiling assets in production, you will probably want to
+ensure that you are not minifying your javascript twice, in EmberCLI
+and in Rails. This can slow down assets precompilation considerably.
+
+There are two ways to do this. You can disable minification in Ember
+by modifying your `ember-cli-build.js` as follows:
+
+```javascript
+  var app = new EmberApp({
+    ...
+    minifyJS: false,
+    ...
+  }
+```
+
+or you can disable minification in Rails by setting:
+
+```ruby
+  config.assets.js_compressor = nil
+```
+
+in your `config/environments/production.rb` file. Either method has
+trade-offs, but you do not want to do both.
+
+
 ## Additional Information
 
 When running in the development environment, Ember CLI Rails runs `ember build`
