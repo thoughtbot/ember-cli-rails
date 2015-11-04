@@ -1,6 +1,12 @@
 master
 ------
 
+0.4.2
+-----
+
+* use the `EmberCli` module in implementation. Ensure backward compatibility by
+  aliasing the `EmberCli` to `EmberCLI`.
+
 0.4.1
 -----
 
