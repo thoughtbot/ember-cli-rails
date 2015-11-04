@@ -1,6 +1,14 @@
 master
 ------
 
+0.4.2
+-----
+
+* Use the `EmberCli` module in implementation. Ensure backward compatibility by
+  aliasing the `EmberCli` to `EmberCLI`. [#233]
+
+[#233]: https://github.com/thoughtbot/ember-cli-rails/pull/233
+
 0.4.1
 -----
 
