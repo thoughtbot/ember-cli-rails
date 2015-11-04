@@ -1,0 +1,25 @@
+.navigation {
+  @include position(absolute, 0.5rem 1.5rem null null);
+
+  a {
+    color: $white;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  img {
+    vertical-align: middle;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  ul {
+    padding: 0;
+  }
+}
+
+.navigation__icon {
+  @include margin(null 0.25rem 0.25rem null);
+}

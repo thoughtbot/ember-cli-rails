@@ -1,11 +1,14 @@
 ---
 ---
 
+// Dependant on load order
 @import "bourbon";
 @import "variables";
 
+// Base styles
 @import "base";
 @import "typography";
 
 // Components
 @import "hero";
+@import "navigation";

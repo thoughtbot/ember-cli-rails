@@ -1,26 +1,35 @@
 .hero {
   @include size(100vw 100vh);
   align-items: center;
-  background-color: $ember-orange;
+  background-image: image-url("hero-background-triangles.svg");
+  background-position: center center;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+
+  &::after {
+    @include position(absolute, 0 0 0 0);
+    background: linear-gradient(135deg, $ember-orange, $ruby-red);
+    content: "";
+    z-index: -1;
+  }
+}
+
+.hero__heading {
+  color: rgba($white, 0.7);
+  font-weight: 300;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
 .hero__code {
-  background-color: $navy;
+  background-color: rgba($navy, 0.3);
   border-radius: 4px;
-  padding: 1.25rem 3rem;
+  padding: 1.5rem 3rem;
 
   code {
     font-size: 1.25rem;
-  }
-
-  .aqua {
-    color: $aqua;
-  }
-
-  .lime {
-    color: $lime;
   }
 }
