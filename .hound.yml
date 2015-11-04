@@ -1,0 +1,4 @@
+scss_files: "**/*.scss"
+linters:
+  NameFormat:
+    enabled: false
