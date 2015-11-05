@@ -343,7 +343,7 @@ module EmberCli
 
     def exec(cmd, method: :system)
       Dir.chdir root do
-        Kernel.public_send(method, env_hash, cmd, err: :out)
+        Kernel.public_send(method, env_hash, cmd)
       end
     end
 
