@@ -74,6 +74,10 @@ module EmberCli
       tmp.join("error.txt")
     end
 
+    define_path :ember_stderr_file do
+      tmp.join("stderr.txt")
+    end
+
     define_path :tee do
       app_options.fetch(:tee_path){ configuration.tee_path }
     end
