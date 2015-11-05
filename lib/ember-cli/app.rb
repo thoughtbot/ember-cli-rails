@@ -8,6 +8,7 @@ module EmberCli
     EMBER_CLI_VERSIONS = [ "~> 0.1.5", "~> 0.2.0", "~> 1.13" ]
 
     class BuildError < StandardError; end
+    class ProcessDeathError < StandardError; end
 
     attr_reader :name, :options, :paths, :pid
 
@@ -169,6 +170,33 @@ module EmberCli
       options.fetch(:watcher) { EmberCli.configuration.watcher }
     end
 
+    def check_for_process_death!
+      if process_death?
+        raise_process_death_error!
+      end
+    end
+
+    def process_death?
+      Process.getpgid(pid || -1)
+      false
+    rescue Errno::ESRCH
+      true
+    end
+
+    def raise_process_death_error!
+      backtrace = ember_stderr_file_path.readlines
+      error = ProcessDeathError.new("EmberCLI app #{name.inspect} has died")
+      error.set_backtrace(backtrace)
+
+      fail error
+    end
+
+    def reset_process_death!
+      if process_death? && ember_stderr_file_path.exist?
+        ember_stderr_file_path.delete
+      end
+    end
+
     def check_for_build_error!
       raise_build_error! if build_error?
     end
@@ -183,7 +211,7 @@ module EmberCli
 
     def raise_build_error!
       error = BuildError.new("EmberCLI app #{name.inspect} has failed to build")
-      error.set_backtrace build_error_file_path.read.split(?\n)
+      error.set_backtrace build_error_file_path.readlines
       fail error
     end
 
@@ -193,6 +221,7 @@ module EmberCli
         check_addon!
         check_ember_cli_version!
         reset_build_error!
+        reset_process_death!
         symlink_to_assets_root
         add_assets_to_precompile_list
         true
@@ -272,8 +301,6 @@ module EmberCli
     end
 
     def command(watch: false)
-      watch_flag = ""
-
       if watch
         watch_flag = "--watch"
 
@@ -282,11 +309,17 @@ module EmberCli
         end
       end
 
-      "#{ember_path} build #{watch_flag} --environment #{environment} --output-path #{dist_path} #{log_pipe}"
+      "#{ember_path} build #{watch_flag} --environment #{environment} --output-path #{dist_path} #{redirect_errors} #{log_pipe}"
+    end
+
+    def redirect_errors
+      "2> #{ember_stderr_file_path}"
     end
 
     def log_pipe
-      "| #{tee_path} -a #{log_path}" if tee_path
+      if tee_path
+        "| #{tee_path} -a #{log_path}"
+      end
     end
 
     def ember_app_name
@@ -346,6 +379,7 @@ module EmberCli
     def wait_for_build_complete_or_error
       loop do
         check_for_build_error!
+        check_for_process_death!
         break unless lockfile_path.exist?
         sleep 0.1
       end
