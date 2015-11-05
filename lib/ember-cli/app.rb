@@ -178,12 +178,12 @@ module EmberCli
     end
 
     def build_error?
-      build_error_file_path.exist?
+      build_error_file_path.exist? && build_error_file_path.size?
     end
 
     def raise_build_error!
       error = BuildError.new("EmberCLI app #{name.inspect} has failed to build")
-      error.set_backtrace build_error_file_path.read.split(?\n)
+      error.set_backtrace build_error_file_path.readlines
       fail error
     end
 
@@ -282,7 +282,11 @@ module EmberCli
         end
       end
 
-      "#{ember_path} build #{watch_flag} --environment #{environment} --output-path #{dist_path} #{log_pipe}"
+      "#{ember_path} build #{watch_flag} --environment #{environment} --output-path #{dist_path} #{redirect_errors} #{log_pipe}"
+    end
+
+    def redirect_errors
+      "2> #{build_error_file_path}"
     end
 
     def log_pipe

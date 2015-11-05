@@ -1,6 +1,11 @@
 master
 ------
 
+* Improve error reporting:
+  Redirect `ember build` from `$STDERR` to the build error file. [#245]
+
+[#245]: https://github.com/thoughtbot/ember-cli-rails/pull/245
+
 0.4.2
 -----
 
