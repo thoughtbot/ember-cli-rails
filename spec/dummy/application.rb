@@ -25,7 +25,6 @@ module Dummy
     config.active_support.deprecation = :stderr
 
     config.assets.enabled = true
-    config.assets.debug = true
     config.assets.digest = true
     config.assets.raise_runtime_errors = true
     config.assets.version = "1.0"

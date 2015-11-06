@@ -1,6 +1,10 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 set -e
+
+function makeEmberAppAcceptAllRoutes() {
+  sed -i -e 's/auto/hash/' spec/dummy/my-app/config/environment.js
+}
 
 # Set up Ruby dependencies via Bundler
 gem install bundler --conservative
@@ -15,6 +19,8 @@ fi
 
 if ! [ -d spec/dummy/my-app ]; then
   git clone https://github.com/kellyselden/ember-cli-output.git spec/dummy/my-app
+
+  makeEmberAppAcceptAllRoutes
 fi
 
 root="$(pwd)"
