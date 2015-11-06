@@ -1,5 +1,6 @@
 .navigation {
   @include position(absolute, 0.5rem 1.5rem null null);
+  z-index: 1;
 
   a {
     color: $white;
