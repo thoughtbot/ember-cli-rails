@@ -1,1 +1,1 @@
-gems: [bourbon]
+gems: [bourbon, jekyll, jekyll-watch]
