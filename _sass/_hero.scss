@@ -1,7 +1,7 @@
 .hero {
   @include size(100vw 100vh);
   align-items: center;
-  background-image: image-url("hero-background-triangles.svg");
+  background-image: url("/images/hero-background-triangles.svg");
   background-position: center center;
   background-size: cover;
   display: flex;

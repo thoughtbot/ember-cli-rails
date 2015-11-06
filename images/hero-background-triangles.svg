@@ -2,9 +2,9 @@
 <svg width="1800px" height="1200px" viewBox="0 0 1800 1200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs></defs>
     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g transform="translate(-598.000000, -52.000000)">
-            <path d="M402.234375,644.140625 L2776.54688,1291.29688 L2830.5,0.078125 L402.234375,644.140625 Z" opacity="0.21" fill="#C82B2B" transform="translate(1616.367188, 645.687500) scale(-1, 1) translate(-1616.367188, -645.687500) "></path>
-            <path d="M0.90625,691.375 L2510.60938,1279 L2588.40625,3.7578125 L0.90625,691.375 Z" opacity="0.199999988" fill="#CA3921"></path>
+        <g>
+            <path d="M0,478.299519 L0,709.500365 L1800,1200 L1800,0 L0,478.299519 Z" opacity="0.239999995" fill="#C82B2B" transform="translate(900.000000, 600.000000) scale(-1, 1) translate(-900.000000, -600.000000) "></path>
+            <path d="M0,479.570007 L0,743 L1800,1200 L1800,0 L0,479.570007 Z" opacity="0.24000001" fill="#CA3921"></path>
         </g>
     </g>
 </svg>
