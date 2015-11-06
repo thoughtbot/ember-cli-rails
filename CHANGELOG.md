@@ -1,6 +1,9 @@
 master
 ------
 
+0.4.3
+-----
+
 * Failures in `{bundle,npm,bower} install` will now fail the host process with a
   non-zero exit status. [#236]
 * Improve error reporting:
