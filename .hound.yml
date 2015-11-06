@@ -1,5 +1,4 @@
 scss_files: "**/*.scss"
 linters:
   SelectorFormat:
-    enabled: true
-    convention: hyphenated_BEM
+    enabled: false
