@@ -15,7 +15,13 @@ module EmberCli
 
     def initialize(name, **options)
       @name, @options = name.to_s, options
-      @paths = PathSet.new(self)
+      @paths = PathSet.new(
+        app: self,
+        configuration: EmberCli.configuration,
+        environment: Rails.env,
+        rails_root: Rails.root,
+        ember_cli_root: EmberCli.root,
+      )
     end
 
     def compile
