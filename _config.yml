@@ -1,10 +1,13 @@
 sass:
-    sass_dir: _sass
-    style: :compressed
+  sass_dir: _sass
+  style: :compressed
 
+baseurl: /ember-cli-rails
 gems: [bourbon]
 
 exclude:
   - README
   - Gemfile
   - Gemfile.lock
+
+markdown: kramdown
