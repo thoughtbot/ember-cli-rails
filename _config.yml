@@ -1,1 +1,10 @@
+sass:
+    sass_dir: _sass
+    style: :compressed
+
 gems: [bourbon]
+
+exclude:
+  - README
+  - Gemfile
+  - Gemfile.lock
