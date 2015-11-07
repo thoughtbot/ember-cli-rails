@@ -1,6 +1,6 @@
 require "timeout"
+require "non-stupid-digest-assets"
 require "ember-cli/html_page"
-require "ember-cli/asset_resolver"
 
 module EmberCli
   class App
@@ -76,12 +76,7 @@ module EmberCli
     end
 
     def index_html(sprockets:, head:, body:)
-      asset_resolver = AssetResolver.new(
-        app: self,
-        sprockets: sprockets,
-      )
       html_page = HtmlPage.new(
-        asset_resolver: asset_resolver,
         content: index_file.read,
         head: head,
         body: body,
@@ -96,11 +91,11 @@ module EmberCli
     alias exposed_css_assets exposed_js_assets
 
     def vendor_assets
-      "#{name}/vendor"
+      "#{name}/assets/vendor"
     end
 
     def application_assets
-      "#{name}/#{ember_app_name}"
+      "#{name}/assets/#{ember_app_name}"
     end
 
     def wait
@@ -268,14 +263,17 @@ module EmberCli
     end
 
     def symlink_to_assets_root
-      assets_path.make_symlink dist_path.join("assets")
+      assets_path.make_symlink dist_path
     rescue Errno::EEXIST
       # Sometimes happens when starting multiple Unicorn workers.
       # Ignoring...
     end
 
     def add_assets_to_precompile_list
-      Rails.configuration.assets.precompile << /\A#{name}\//
+      assets = %r{\A#{name}/}
+
+      Rails.configuration.assets.precompile << assets
+      NonStupidDigestAssets.whitelist << assets
     end
 
     def command(watch: false)
@@ -342,7 +340,6 @@ module EmberCli
     def env_hash
       ENV.to_h.tap do |vars|
         vars["RAILS_ENV"] = Rails.env
-        vars["DISABLE_FINGERPRINTING"] = "true"
         vars["EXCLUDE_EMBER_ASSETS"] = excluded_ember_deps
         vars["BUNDLE_GEMFILE"] = gemfile_path.to_s if gemfile_path.exist?
       end

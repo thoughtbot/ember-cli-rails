@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+# make router catchall routes
+sed -i -e 's/auto/hash/' spec/dummy/my-app/config/environment.js
+
+# add an image to a template
+echo '<img src="assets/logo.png">' >> spec/dummy/my-app/app/templates/application.hbs
+mkdir -p spec/dummy/my-app/public/assets
+cp spec/fixtures/logo.png spec/dummy/my-app/public/assets

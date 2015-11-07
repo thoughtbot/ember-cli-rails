@@ -1,8 +1,7 @@
 module EmberCli
   class HtmlPage
-    def initialize(content:, asset_resolver:, head: "", body: "")
+    def initialize(content:, head: "", body: "")
       @content = content
-      @asset_resolver = asset_resolver
       @head = head
       @body = body
     end
@@ -16,10 +15,12 @@ module EmberCli
         insert_body_content
       end
 
-      html
+      content
     end
 
     private
+
+    attr_reader :content
 
     def has_head_tag?
       head_tag_index >= 0
@@ -30,27 +31,19 @@ module EmberCli
     end
 
     def insert_head_content
-      html.insert(head_tag_index, @head.to_s)
+      content.insert(head_tag_index, @head.to_s)
     end
 
     def insert_body_content
-      html.insert(body_tag_index, @body.to_s)
-    end
-
-    def html
-      @html ||= resolved_html
+      content.insert(body_tag_index, @body.to_s)
     end
 
     def head_tag_index
-      html.index("</head") || -1
+      content.index("</head") || -1
     end
 
     def body_tag_index
-      html.index("</body") || -1
-    end
-
-    def resolved_html
-      @asset_resolver.resolve_urls(@content)
+      content.index("</body") || -1
     end
   end
 end

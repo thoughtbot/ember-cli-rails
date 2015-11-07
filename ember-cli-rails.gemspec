@@ -13,5 +13,6 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 2.1.0"
 
   spec.add_dependency "railties", ">= 3.2", "< 5"
+  spec.add_dependency "non-stupid-digest-assets", "~> 1.0.0"
   spec.add_dependency "sprockets", ">= 2.0"
 end

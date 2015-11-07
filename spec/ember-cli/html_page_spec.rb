@@ -4,7 +4,6 @@ describe EmberCli::HtmlPage do
       it "injects into the <head>" do
         content = valid_content
         html_page = EmberCli::HtmlPage.new(
-          asset_resolver: build_asset_resolver(content),
           content: content,
           head: "injected!",
         )
@@ -21,7 +20,6 @@ describe EmberCli::HtmlPage do
       it "injects into the <body>" do
         content = valid_content
         html_page = EmberCli::HtmlPage.new(
-          asset_resolver: build_asset_resolver(content),
           content: content,
           body: "injected!",
         )
@@ -38,7 +36,6 @@ describe EmberCli::HtmlPage do
       it "does nothing" do
         content = "<html></html>"
         html_page = EmberCli::HtmlPage.new(
-          asset_resolver: build_asset_resolver(content),
           content: content,
           head: "injected!",
           body: "injected!",
@@ -48,16 +45,6 @@ describe EmberCli::HtmlPage do
 
         expect(rendered).to eq("<html></html>")
       end
-    end
-
-    def build_asset_resolver(content)
-      resolver = double("EmberCli::AssetResolver")
-      allow(resolver).
-        to receive(:resolve_urls).
-        with(content).
-        and_return(content)
-
-      resolver
     end
 
     def valid_content

@@ -1,6 +1,13 @@
 master
 ------
 
+* Symlink `dist/` directly to Asset Pipeline [#250]
+* Merge EmberCLI-generated `manifest.json` into Sprocket's [#250]
+* `manifest.json`. Since we now defer to EmberCLI, we no longer need to
+  manually resolve asset URLs. [#250]
+
+[#250]: https://github.com/thoughtbot/ember-cli-rails/pull/250
+
 0.4.3
 -----
 

@@ -2,12 +2,14 @@ feature "User views ember app", :js do
   scenario "with asset helpers" do
     visit page_path("embedded")
 
+    expect(page).to have_client_side_asset
     expect(page).to have_javascript_rendered_text
   end
 
   scenario "with index helper" do
     visit page_path("include_index")
 
+    expect(page).to have_client_side_asset
     expect(page).to have_javascript_rendered_text
     expect(page).to have_no_csrf_tags
 
@@ -21,6 +23,10 @@ feature "User views ember app", :js do
     expect(page).to have_javascript_rendered_text
     expect(page).to have_csrf_tags
     expect(page).to have_rails_injected_text
+  end
+
+  def have_client_side_asset
+    have_css %{img[src*="logo.png"]}
   end
 
   def have_rails_injected_text
