@@ -275,7 +275,7 @@ module EmberCli
     end
 
     def add_assets_to_precompile_list
-      Rails.configuration.assets.precompile << /\A#{name}\//
+      Rails.configuration.assets.precompile << options.fetch(:precompile, /\A#{name}\//)
     end
 
     def command(watch: false)
