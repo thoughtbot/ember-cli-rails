@@ -1,0 +1,12 @@
+.button {
+  background-color: $base-button-background-color;
+  border-radius: 40px;
+  color: $base-button-color;
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  transition: background-color 250ms;
+
+  &:hover {
+    background-color: $base-button-hover-background-color;
+  }
+}

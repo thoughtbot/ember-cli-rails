@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="75px" height="60px" viewBox="0 0 75 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g transform="translate(-652.000000, -573.000000)" stroke-width="2" stroke="#E14A30" fill="#FFFFFF">
+            <g transform="translate(194.000000, 570.570312)">
+                <g transform="translate(0.500000, 0.000000)">
+                    <g transform="translate(343.142578, 1.902344)">
+                        <g transform="translate(113.857422, 0.027344)">
+                            <path d="M20.5004437,49.5030248 L59.2984465,49.5030248 C59.2984465,49.5030248 68.0439595,49.7730827 67.7594541,38.3947198 C67.4749487,27.016357 56.4370291,26.1198514 56.4370291,26.1198514 C56.4370291,26.1198514 53.5264058,11.2878032 39.4934003,11.8860795 C25.4603948,12.4843558 23.3128979,24.2731769 23.3128979,24.2731769 C23.3128979,24.2731769 9.70146417,24.0764681 9.01983671,37.0833279 C8.33820924,50.0901876 20.5004437,49.5030248 20.5004437,49.5030248 Z"></path>
+                            <path d="M48.8127831,26.0967742 L56.3611702,26.0967742"></path>
+                            <path d="M60.1353638,41.1935484 L67.6837509,41.1935484"></path>
+                            <path d="M56.3611702,33.6451613 L66.4256863,33.6451613"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

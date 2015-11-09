@@ -1,8 +1,48 @@
 .content {
   margin: 0 auto;
   max-width: $medium-screen;
+
+  .content + & {
+    margin-top: 2rem;
+  }
 }
 
 .content--centered {
   text-align: center;
+}
+
+.content--grid {
+  @include padding(null 1rem);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.content--grid__item {
+  flex-basis: 100%;
+  flex-grow: 1;
+  flex-shrink: 0;
+  padding: 1rem;
+  transition: padding 250ms;
+
+  @media (min-width: $medium-screen) {
+    @include padding(null 1.5rem);
+    flex-basis: 50%;
+  }
+
+  @media (min-width: $large-screen) {
+    padding: 2rem 2.5rem;
+  }
+}
+
+.content--large {
+  max-width: $large-screen;
+}
+
+.content__footer {
+  @include margin(1rem null);
+  width: 100%;
+
+  @media (min-width: $medium-screen) {
+    @include padding(3rem null);
+  }
 }

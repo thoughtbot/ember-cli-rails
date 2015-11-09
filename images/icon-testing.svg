@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="75px" height="60px" viewBox="0 0 75 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g transform="translate(-319.000000, -739.000000)" stroke-width="2" stroke="#E14A30" fill="#FFFFFF">
+            <g transform="translate(194.000000, 570.570312)">
+                <g transform="translate(0.500000, 0.000000)">
+                    <g transform="translate(0.625000, 168.429688)">
+                        <g transform="translate(123.875000, 0.000000)">
+                            <path d="M18.5202234,47.3216493 C21.2211108,42.9675173 32.9074055,24.6329523 32.9074055,24.6329523 L32.9074055,12.6671079 L28.9578729,12.6671079 L28.9578729,5 L46.1919047,5 L46.1919047,12.6671079 L41.996715,12.6671079 L41.996715,24.6329523 C41.996715,24.6329523 53.6349818,42.9118532 56.3838972,47.3216493 C59.1328125,51.7314453 53.9273269,54.773885 53.9273269,54.773885 L20.9767937,54.773885 C20.9767937,54.773885 15.8193359,51.6757812 18.5202234,47.3216493 Z"></path>
+                            <path d="M45.3511866,41 L52.3511866,41"></path>
+                            <path d="M41.3511866,34 L47.3511866,34"></path>
+                            <path d="M48.3511866,48 L56.3511866,48"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

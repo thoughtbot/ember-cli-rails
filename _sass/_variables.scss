@@ -14,8 +14,15 @@ $outer-space: #2d383a;
 $ruby-red: #ac1c2c;
 $white: #fff;
 
+// Buttons
+$base-button-background-color: $ember-orange;
+$base-button-hover-background-color: $ruby-red;
+$base-button-color: $white;
+
 // Layout
 $base-layout-vertical-padding: 4rem;
 
 // Screen Sizes
+$small-screen: 420px;
 $medium-screen: 640px;
+$large-screen: 880px;
