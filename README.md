@@ -263,6 +263,20 @@ example, `/ember-tests`) and the name of the Ember app.
 For example, to view tests of the `frontend` app, visit
 `http://localhost:3000/ember-tests/frontend`.
 
+### Integrating with Rake
+
+EmberCLI Rails exposes the `ember:test` Rake task to execute Ember's test suite.
+
+If you're using Rake to run your test suite, make sure to configure your test
+task to depend on `ember:test`.
+
+For example, to configure a bare `rake` command to run both RSpec and Ember test
+suites, configure the `default` task to depend on both `spec` and `ember:test`.
+
+```rb
+task default: [:spec, "ember:test"]
+```
+
 ## Serving from multi-process servers in development
 
 If you're using a multi-process server ([Puma], [Unicorn], etc.) in development,
