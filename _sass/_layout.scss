@@ -1,0 +1,17 @@
+.layout {
+  background-color: $white;
+  padding: $base-layout-vertical-padding 1rem;
+}
+
+.layout--light {
+  background-color: $alabaster;
+}
+
+.layout--dark {
+  background-color: $outer-space;
+  color: $celeste;
+
+  a {
+    color: $white;
+  }
+}
