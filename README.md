@@ -49,7 +49,8 @@ end
 - `app` - this represents the name of the Ember CLI application.
 
 - `build_timeout` - seconds to allow Ember to build the application before
-  timing out
+  timing out. Defaults to `ENV["EMBER_BUILD_TIMEOUT"]`, which falls back to
+  `15`.
 
 - `path` - the path where your Ember CLI application is located. The default
   value is the name of your app in the Rails root.
@@ -443,6 +444,13 @@ if (environment === 'development') {
 `RAILS_ENV` will be absent in production builds.
 
 [ember-cli-mirage]: http://ember-cli-mirage.com/docs/latest/
+
+### `EMBER_BUILD_TIMEOUT`
+
+Number of seconds to wait before timing out a local build.
+
+If the environment variable isn't declared, the `build_timeout` will default to
+`15`.
 
 ### `SKIP_EMBER`
 

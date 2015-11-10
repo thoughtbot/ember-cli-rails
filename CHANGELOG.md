@@ -1,6 +1,8 @@
 master
 ------
 
+* Exposes `build_timeout` configuration as `ENV["EMBER_BUILD_TIMEOUT"]`.
+* Change default `build_timeout` to `15` seconds.
 * Symlink `dist/` directly to Asset Pipeline [#250]
 * Merge EmberCLI-generated `manifest.json` into Sprocket's [#250]
 * `manifest.json`. Since we now defer to EmberCLI, we no longer need to

@@ -30,7 +30,7 @@ module EmberCli
     end
 
     def build_timeout
-      @build_timeout ||= 5
+      @build_timeout ||= ENV.fetch("EMBER_BUILD_TIMEOUT", 15).to_i
     end
 
     attr_writer :build_timeout
