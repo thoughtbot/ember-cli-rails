@@ -10,19 +10,23 @@ We expect everyone to follow the code of conduct
 anywhere in thoughtbot's project codebases,
 issue trackers, chatrooms, and mailing lists.
 
-    $ bundle install
+## Setup
 
-Fork the repo.
+After cloning the repository, execute the setup script:
+
+    $ bin/setup
 
 Make sure the tests pass:
 
-    $ bundle exec rake
+    $ bin/rake
 
 Make your change, with new passing tests. Follow the [style guide][style].
 
   [style]: https://github.com/thoughtbot/guides/tree/master/style
 
-Push to your fork. Write a [good commit message][commit]. Submit a pull request.
+Fork the repository and push your changes to your fork.
+
+Write a [good commit message][commit]. Submit a pull request.
 
   [commit]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
 
