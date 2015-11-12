@@ -184,8 +184,12 @@ module EmberCli
     end
 
     def raise_build_error!
-      error = BuildError.new("EmberCLI app #{name.inspect} has failed to build")
-      error.set_backtrace build_error_file_path.readlines
+      backtrace = build_error_file_path.readlines.reject(&:blank?)
+      message = "#{name.inspect} has failed to build: #{backtrace.first}"
+
+      error = BuildError.new(message)
+      error.set_backtrace(backtrace)
+
       fail error
     end
 

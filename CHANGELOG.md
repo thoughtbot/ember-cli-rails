@@ -1,6 +1,7 @@
 master
 ------
 
+* `BuildError#message` includes first line of backtrace. [#256]
 * Exposes `build_timeout` configuration as `ENV["EMBER_BUILD_TIMEOUT"]`.
 * Change default `build_timeout` to `15` seconds.
 * Symlink `dist/` directly to Asset Pipeline [#250]
@@ -8,6 +9,7 @@ master
 * `manifest.json`. Since we now defer to EmberCLI, we no longer need to
   manually resolve asset URLs. [#250]
 
+[#256]: https://github.com/thoughtbot/ember-cli-rails/pull/256
 [#250]: https://github.com/thoughtbot/ember-cli-rails/pull/250
 
 0.4.3
