@@ -48,10 +48,6 @@ end
 
 - `app` - this represents the name of the Ember CLI application.
 
-- `build_timeout` - seconds to allow Ember to build the application before
-  timing out. Defaults to `ENV["EMBER_BUILD_TIMEOUT"]`, which falls back to
-  `15`.
-
 - `path` - the path where your Ember CLI application is located. The default
   value is the name of your app in the Rails root.
 
@@ -130,16 +126,6 @@ To inject markup into page, pass in a block that accepts the `head`, and
 ```
 
 The asset paths will be replaced with asset pipeline generated paths.
-
-*NOTE*
-
-This helper **requires** that the `index.html` file exists.
-
-If you see `Errno::ENOENT` errors in development, your requests are timing out
-before EmberCLI finishes compiling the application.
-
-To prevent race conditions, increase your `build_timeout` to ensure that the
-build finishes before your request is processed.
 
 ### Rendering the EmberCLI generated JS and CSS
 
@@ -474,13 +460,6 @@ if (environment === 'development') {
 `RAILS_ENV` will be absent in production builds.
 
 [ember-cli-mirage]: http://ember-cli-mirage.com/docs/latest/
-
-### `EMBER_BUILD_TIMEOUT`
-
-Number of seconds to wait before timing out a local build.
-
-If the environment variable isn't declared, the `build_timeout` will default to
-`15`.
 
 ### `SKIP_EMBER`
 

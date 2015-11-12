@@ -5,6 +5,10 @@ module EmberCli
     include Singleton
 
     def app(name, **options)
+      if options.has_key? :build_timeout
+        deprecate_timeout
+      end
+
       apps.store name, App.new(name, options)
     end
 
@@ -29,11 +33,23 @@ module EmberCli
       @bundler_path ||= Helpers.which("bundler")
     end
 
-    def build_timeout
-      @build_timeout ||= ENV.fetch("EMBER_BUILD_TIMEOUT", 15).to_i
+    def build_timeout=(*)
+      deprecate_timeout
     end
 
-    attr_writer :build_timeout
     attr_accessor :watcher
+
+    private
+
+    def deprecate_timeout
+      warn <<-WARN.strip_heredoc
+
+      The `build_timeout` configuration has been removed.
+
+      Please read https://github.com/thoughtbot/ember-cli-rails/pull/259 for
+      details.
+
+      WARN
+    end
   end
 end

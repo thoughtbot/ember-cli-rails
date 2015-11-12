@@ -1,4 +1,3 @@
-require "timeout"
 require "non-stupid-digest-assets"
 require "ember-cli/html_page"
 
@@ -99,33 +98,7 @@ module EmberCli
     end
 
     def wait
-      Timeout.timeout(build_timeout) do
-        wait_for_build_complete_or_error
-      end
-    rescue Timeout::Error
-      suggested_timeout = build_timeout + 5
-
-      warn <<-MSG.strip_heredoc
-        ============================= WARNING! =============================
-
-          Seems like Ember #{name} application takes more than #{build_timeout}
-          seconds to compile.
-
-          To prevent race conditions consider adjusting build timeout
-          configuration in your ember initializer:
-
-            EmberCLI.configure do |config|
-              config.build_timeout = #{suggested_timeout} # in seconds
-            end
-
-          Alternatively, you can set build timeout per application like this:
-
-            EmberCLI.configure do |config|
-              config.app :#{name}, build_timeout: #{suggested_timeout}
-            end
-
-        ============================= WARNING! =============================
-      MSG
+      wait_for_build_complete_or_error
     end
 
     def method_missing(method_name, *)
@@ -161,10 +134,6 @@ module EmberCli
       else
         silence_stream STDOUT, &block
       end
-    end
-
-    def build_timeout
-      options.fetch(:build_timeout) { EmberCli.configuration.build_timeout }
     end
 
     def watcher
