@@ -419,6 +419,21 @@ environment, you can manually set the `config.use_ember_middleware` and
 `config.use_ember_live_recompilation` flags in the environment-specific config
 file.
 
+### `ASSET_HOST`
+
+Used by [the addon] during finerprinting.
+
+When compiling an Ember app named `"frontend"` from within Rails,
+[the addon] will prepend the generated asset paths with:
+
+      ${ASSET_HOST}/assets/frontend/
+
+[the addon]: https://github.com/rondale-sc/ember-cli-rails-addon/
+
+### `CDN_HOST`
+
+Behaves the same way as `ASSET_HOST`, acting as a fallback.
+
 ### `RAILS_ENV`
 
 While being managed by EmberCLI Rails, EmberCLI process will have
