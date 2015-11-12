@@ -5,12 +5,12 @@ module EmberCli
     end
 
     def call(env)
-      path = env["PATH_INFO"].to_s
+      request = Rack::Request.new(env)
 
-      if path == "/testem.js"
+      if request.path_info == "/testem.js"
         [ 200, { "Content-Type" => "text/javascript" }, [""] ]
       else
-        EmberCli.process_path path
+        EmberCLI.process_request(request)
         @app.call(env)
       end
     end
