@@ -1,28 +1,32 @@
 feature "User views ember app", :js do
-  scenario "with asset helpers" do
-    visit page_path("embedded")
+  scenario "using route helper" do
+    visit default_path
 
     expect(page).to have_client_side_asset
     expect(page).to have_javascript_rendered_text
+    expect(page).to have_csrf_tags
   end
 
-  scenario "with index helper" do
-    visit page_path("include_index")
+  context "using custom controller" do
+    scenario "rendering with asset helpers" do
+      visit embedded_path
 
-    expect(page).to have_client_side_asset
-    expect(page).to have_javascript_rendered_text
-    expect(page).to have_no_csrf_tags
+      expect(page).to have_client_side_asset
+      expect(page).to have_javascript_rendered_text
+    end
 
-    visit page_path("include_index_empty_block")
+    scenario "rendering with index helper" do
+      visit include_index_empty_block_path
 
-    expect(page).to have_javascript_rendered_text
-    expect(page).to have_csrf_tags
+      expect(page).to have_javascript_rendered_text
+      expect(page).to have_csrf_tags
 
-    visit page_path("include_index_head_and_body")
+      visit include_index_head_and_body_path
 
-    expect(page).to have_javascript_rendered_text
-    expect(page).to have_csrf_tags
-    expect(page).to have_rails_injected_text
+      expect(page).to have_javascript_rendered_text
+      expect(page).to have_csrf_tags
+      expect(page).to have_rails_injected_text
+    end
   end
 
   def have_client_side_asset

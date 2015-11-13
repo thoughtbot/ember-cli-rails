@@ -23,77 +23,142 @@ Ember CLI addons too! Without further ado, let's get in there!
 
 ## Installation
 
-Firstly, you'll have to include the gem in your `Gemfile` and `bundle install`
+Add the following to your `Gemfile`:
 
 ```ruby
 gem "ember-cli-rails"
 ```
 
-Then you'll want to configure your installation by adding an `ember.rb`
-initializer. There is a generator to guide you, run:
+Then run `bundle install`:
 
-```shell
-rails generate ember-cli:init
-```
-
-This will generate an initializer that looks like the following:
-
-```ruby
-EmberCli.configure do |c|
-  c.app :frontend
-end
-```
-
-##### options
-
-- `app` - this represents the name of the Ember CLI application.
-
-- `path` - the path where your Ember CLI application is located. The default
-  value is the name of your app in the Rails root.
-
-- `enable` - a lambda that accepts each request's path. The default value is a
-  lambda that returns `true`.
-
-```ruby
-EmberCli.configure do |c|
-  c.app :adminpanel # path is "<your-rails-root>/adminpanel"
-  c.app :frontend,
-    path: "/path/to/your/ember-cli-app/on/disk",
-    enable: -> path { path.starts_with?("/app/") }
-end
-```
-
-Once you've updated your initializer to taste, install Ember CLI if it is not already installed, and use it to generate your Ember CLI app in the location/s specified in the initializer. For example:
-
-```sh
-cd frontend
-ember init
-```
-
-You will also need to install the [ember-cli-rails-addon](https://github.com/rondale-sc/ember-cli-rails-addon). For each of your Ember CLI applications, run:
-
-```sh
-npm install --save-dev ember-cli-rails-addon@0.0.13
-```
-
-And that's it! You should now be able to start up your Rails server and see your Ember CLI app.
-
-### Multiple Ember CLI apps
-
-In the initializer you may specify multiple Ember CLI apps, each of which can be
-referenced with the view helper independently. You'd accomplish this like so:
-
-```ruby
-EmberCli.configure do |c|
-  c.app :frontend
-  c.app :admin_panel, path: "/somewhere/else"
-end
+```bash
+$ bundle install
 ```
 
 ## Usage
 
-First, specify in your controller that you don't want to render the layout
-(since EmberCLI's `index.html` is a fully-formed HTML document):
+First, generate the gem's initializer:
+
+```bash
+$ rails generate ember-cli:init
+```
+
+This will create the following initializer:
+
+```ruby
+# config/initializers/ember.rb
+
+EmberCli.configure do |c|
+  c.app :frontend
+end
+```
+
+The initializer assumes that your Ember application exists in
+`Rails.root.join("frontend")`.
+
+If this is not the case, you could
+
+* move your existing Ember application into `Rails.root.join("frontend")`
+* configure `frontend` to look for the Ember application in its current
+  directory:
+
+```rb
+c.app :frontend, path: "~/projects/my-ember-app"
+```
+
+* generate a new Ember project:
+
+```bash
+$ ember new frontend
+```
+
+**Initializer options**
+
+- `name` - this represents the name of the Ember CLI application.
+
+- `path` - the path where your Ember CLI application is located. The default
+  value is the name of your app in the Rails root.
+
+```ruby
+EmberCli.configure do |c|
+  c.app :adminpanel # path defaults to `Rails.root.join("adminpanel")`
+  c.app :frontend,
+    path: "/path/to/your/ember-cli-app/on/disk"
+end
+```
+
+Next, install the [ember-cli-rails-addon][addon]:
+
+```bash
+$ cd path/to/frontend
+$ npm install --save-dev ember-cli-rails-addon
+```
+
+[addon]: https://github.com/rondale-sc/ember-cli-rails-addon/
+
+Next, configure Rails to route requests to the `frontend` Ember application:
+
+```rb
+# config/routes.rb
+
+Rails.application.routes.draw do
+  mount_ember_app :frontend, to: "/"
+end
+```
+
+Ember requests will be set `params[:ember_app]` to the name of the application.
+In the above example, `params[:ember_app] == :frontend`.
+
+**Routing options**
+
+* `to` - The path to handle as an Ember application. This will only apply to
+  `format: :html` requests. Additionally, this will handle child routes as well.
+  For instance, mounting `mount_ember_app :frontend, to: "/frontend"` will handle a
+  `format: :html` request to `/frontend/posts`.
+* `controller` - Defaults to `"ember_cli/ember"`
+* `action` - Defaults to `"index"`
+
+You should now be able to boot your Rails application, navigate to the `root`
+route, and see your EmberCLI app!
+
+## Configuring the Ember controller
+
+By default, routes defined by `ember_app` will be rendered with the internal
+`EmberCli::EmberController`. The `EmberCli::EmberController` renders the Ember
+application's `index.html` and injects the Rails-generated CSRF tags into the
+`<head>`.
+
+To override this behavior, specify the `controller` and `action` options:
+
+```rb
+# config/routes
+
+Rails.application.routes.draw do
+  mount_ember_app :frontend, to: "/", controller: "application", action: "index"
+end
+```
+
+To serve the EmberCLI generated `index.html`, use the `include_ember_index_html`
+helper in your view:
+
+```erb
+<!-- app/views/application/index.html.erb -->
+<%= include_ember_index_html :frontend %>
+```
+
+To inject markup into page, pass in a block that accepts the `head`, and
+(optionally) the `body`:
+
+```erb
+<!-- app/views/application/index.html.erb -->
+<%= include_ember_index_html :frontend do |head| %>
+  <% head.append do %>
+    <%= csrf_meta_tags %>
+  <% end %>
+<% end %>
+```
+
+When serving the EmberCLI generated `index.html`, don't use Rails' layout HTML:
 
 ```rb
 # app/controllers/application.rb
@@ -104,73 +169,49 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-To render the EmberCLI generated `index.html` into the view,
-use the `include_ember_index_html` helper:
-
-
-```erb
-<!-- /app/views/application/index.html.erb -->
-<%= include_ember_index_html :frontend %>
-```
-
-To inject markup into page, pass in a block that accepts the `head`, and
-(optionally) the `body`:
-
-```erb
-<!-- /app/views/application/index.html.erb -->
-<%= include_ember_index_html :frontend do |head| %>
-  <% head.append do %>
-    <%= csrf_meta_tags %>
-  <% end %>
-<% end %>
-```
-
-The asset paths will be replaced with asset pipeline generated paths.
-
 ### Rendering the EmberCLI generated JS and CSS
 
 In addition to rendering the EmberCLI generated `index.html`, you can inject the
 `<script>` and `<link>` tags into your Rails generated views:
 
 ```erb
-<!-- /app/views/application/index.html.erb -->
+<!-- app/views/application/index.html.erb -->
 <%= include_ember_script_tags :frontend %>
 <%= include_ember_stylesheet_tags :frontend %>
 ```
 
-### Other routes
+### Multiple Ember CLI apps
 
-Rendering Ember applications at routes other than `/` requires additional setup to avoid an Ember `UnrecognizedURLError`.
+In the initializer you may specify multiple Ember CLI apps, each of which can be
+referenced with the view helper independently. You'd accomplish this like so:
 
-For instance, if you had Ember applications named  `:frontend` and `:admin_panel` and you wanted to serve them at `/frontend` and `/admin_panel`, you would set up the following Rails routes:
+```ruby
+EmberCLI.configure do |c|
+  c.app :frontend
+  c.app :admin_panel, path: "/somewhere/else"
+end
+```
+
+Rendering Ember applications at routes other than `/` requires additional setup
+to avoid an Ember `UnrecognizedURLError`.
+
+For instance, if you had Ember applications named  `:frontend` and
+`:admin_panel` and you wanted to serve them at `/frontend` and `/admin_panel`,
+you would set up the following Rails routes:
 
 ```rb
 # /config/routes.rb
 Rails.application.routes.draw do
-  root 'application#index'
-  get  'frontend'    => 'frontend#index'
-  get  'admin_panel' => 'admin_panel#index'
-end
-
-# /app/controllers/frontend_controller.rb
-class FrontendController < ActionController::Base
-  def index
-    render :index
-  end
-end
-
-# /app/controllers/admin_panel_controller.rb
-class AdminPanelController < ActionController::Base
-  def index
-    render :index
-  end
+  mount_ember_app :frontend, to: "/frontend"
+  mount_ember_app :admin_panel, to: "/admin_panel"
 end
 ```
 
-Additionally, you would have to modify each Ember app's `baseURL` to point to the correct route:
+You must modify each Ember app's `baseURL` to point to the correct route:
 
 ```javascript
-/* /app/frontend/config/environment.js */
+// app/frontend/config/environment.js
+
 module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'frontend',
@@ -180,7 +221,8 @@ module.exports = function(environment) {
   }
 }
 
-/* /app/admin_panel/config/environment.js */
+// app/admin_panel/config/environment.js
+
 module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'admin_panel',
@@ -190,7 +232,9 @@ module.exports = function(environment) {
   }
 }
 ```
-Lastly, you would configure each app's `router.js` file so that `rootURL` points to the `baseURL` you just created:
+
+Finally, configure each app's `router.js` file so that `rootURL` refers to the
+new `baseURL`:
 
 ```javascript
 /* app/frontend/app/router.js */
@@ -199,7 +243,8 @@ var Router = Ember.Router.extend({
   location: config.locationType
 });
 ```
-Repeat for `app/admin_panel/app/router.js`. Now your Ember apps will render properly at the alternative routes.
+
+Repeat the process for `admin_panel/app/router.js`.
 
 ## CSRF Tokens
 
@@ -208,27 +253,17 @@ Without it you'll receive a `422 Unprocessable Entity` error, specifically: `Act
 
 In order to add that token to your requests, you need to add into your template:
 
-```erb
-<!-- /app/views/application/index.html.erb -->
-# ... your ember script and stylesheet includes ...
-<%= csrf_meta_tags %>
+<!-- app/views/application/index.html.erb -->
+<%= include_ember_index_html :frontend do |head| %>
+  <% head.append do %>
+    <%= csrf_meta_tags %>
+  <% end %>
+<% end %>
 ```
 
-This will add the tokens to your page.
-
-You can then override the application `DS.RESTAdapter` (or whatever flavor of adapter you're using) to send that token with the requests:
-
-```js
-// path/to/your/ember-cli-app/app/adapters/application.js
-import DS from 'ember-data';
-import $ from 'jquery';
-
-export default DS.RESTAdapter.extend({
-  headers: {
-    "X-CSRF-Token": $('meta[name="csrf-token"]').attr('content')
-  }
-});
-```
+The [ember-cli-rails-addon][addon] addon will inject an initializer into your
+app to set outgoing requests' `X-CSRF-TOKEN` header to the value injected by
+Rails.
 
 ### Integrating with Rake
 
@@ -402,14 +437,12 @@ file.
 
 ### `ASSET_HOST`
 
-Used by [the addon] during finerprinting.
+Used by [the addon][addon] during fingerprinting.
 
 When compiling an Ember app named `"frontend"` from within Rails,
-[the addon] will prepend the generated asset paths with:
+the addon will prepend the generated asset paths with:
 
       ${ASSET_HOST}/assets/frontend/
-
-[the addon]: https://github.com/rondale-sc/ember-cli-rails-addon/
 
 ### `CDN_HOST`
 

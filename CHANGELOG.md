@@ -1,8 +1,9 @@
 master
 ------
 
+* Introduce `mount_ember_app` route helper [#262]
 * Remove support for viewing Ember tests through Rails. Instead, use `ember
-  test` or `ember test --serve` from within the Ember directory.
+  test` or `ember test --serve` from within the Ember directory. [#264]
 * Remove `build_timeout` configuration [#259]
 * Disable JS minification when generating Heroku setup [#238]
 * `BuildError#message` includes first line of backtrace. [#256]
@@ -11,6 +12,8 @@ master
 * `manifest.json`. Since we now defer to EmberCLI, we no longer need to
   manually resolve asset URLs. [#250]
 
+[#264]: https://github.com/thoughtbot/ember-cli-rails/pull/264
+[#262]: https://github.com/thoughtbot/ember-cli-rails/pull/262
 [#259]: https://github.com/thoughtbot/ember-cli-rails/pull/259
 [#238]: https://github.com/thoughtbot/ember-cli-rails/pull/238
 [#256]: https://github.com/thoughtbot/ember-cli-rails/pull/256
