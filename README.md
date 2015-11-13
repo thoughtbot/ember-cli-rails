@@ -39,7 +39,7 @@ rails generate ember-cli:init
 This will generate an initializer that looks like the following:
 
 ```ruby
-EmberCLI.configure do |c|
+EmberCli.configure do |c|
   c.app :frontend
 end
 ```
@@ -55,7 +55,7 @@ end
   lambda that returns `true`.
 
 ```ruby
-EmberCLI.configure do |c|
+EmberCli.configure do |c|
   c.app :adminpanel # path is "<your-rails-root>/adminpanel"
   c.app :frontend,
     path: "/path/to/your/ember-cli-app/on/disk",
@@ -84,7 +84,7 @@ In the initializer you may specify multiple Ember CLI apps, each of which can be
 referenced with the view helper independently. You'd accomplish this like so:
 
 ```ruby
-EmberCLI.configure do |c|
+EmberCli.configure do |c|
   c.app :frontend
   c.app :admin_panel, path: "/somewhere/else"
 end
@@ -232,13 +232,13 @@ export default DS.RESTAdapter.extend({
 
 ## Ember Test Suite
 
-To run an Ember app's tests in a browser, mount the `EmberCLI::Engine`:
+To run an Ember app's tests in a browser, mount the `EmberCli::Engine`:
 
 ```ruby
 # config/routes.rb
 
 Rails.application.routes.draw do
-  mount EmberCLI::Engine => "ember-tests" if Rails.env.development?
+  mount EmberCli::Engine => "ember-tests" if Rails.env.development?
 
   root "application#index"
 end
@@ -481,7 +481,7 @@ from the Ember distribution. You can do so by setting the `exclude_ember_deps`
 option like so:
 
 ```ruby
-EmberCLI.configure do |c|
+EmberCli.configure do |c|
   c.app :frontend, exclude_ember_deps: "jquery"
   c.app :admin_panel, exclude_ember_deps: ["jquery", "handlebars"]
 end
