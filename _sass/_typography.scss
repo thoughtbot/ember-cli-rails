@@ -1,11 +1,23 @@
 body {
+  font-size: $base-font-size;
   font-family: $base-font-family;
   font-weight: 300;
 }
 
-h2 {
+h1,
+h2,
+h4 {
+  color: $header-font-color;
   font-family: $header-font-family;
   font-weight: normal;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.125rem;
 }
 
 a {
@@ -19,4 +31,9 @@ a {
 
 .lime {
   color: $lime;
+}
+
+p,
+code {
+  line-height: 1.4;
 }

@@ -1,0 +1,282 @@
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: $mine-shaft;
+}
+
+.hljs-attribute {
+  color: $teal;
+}
+
+.hljs-addition {
+  background: $snowy-mint;
+}
+
+.hljs-comment {
+  color: $lemon-grass;
+  font-style: italic;
+}
+
+.hljs-chunk {
+  color: $silver-chalice;
+}
+
+.hljs-doctag {
+  color: $crimson;
+}
+
+.hljs-doctype {
+  color: $mountain-mist;
+  font-weight: bold;
+}
+
+.hljs-hexcolor {
+  color: $teal;
+}
+
+.hljs-id {
+  color: $red-berry;
+  font-weight: bold;
+}
+
+.hljs-inheritance {
+  color:$royal-blue;
+}
+
+.hljs-keyword {
+  color: $ember-orange;
+  font-weight: bold;
+
+  .hljs-list & {
+    font-weight: normal;
+  }
+}
+
+.hljs-number {
+  color: $teal;
+}
+
+.hljs-request {
+  color: $mine-shaft;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  color: $mine-shaft;
+  font-weight: bold;
+  font-weight: normal;
+}
+
+.hljs-status {
+  color: $mine-shaft;
+  font-weight: bold;
+}
+
+.hljs-string {
+  color: $crimson;
+}
+
+.hljs-winutils {
+  color: $mine-shaft;
+  font-weight: bold;
+}
+
+.hljs-tag {
+  color: $navy-blue;
+
+  font-weight: normal;
+
+  .hljs-value {
+    color: $crimson;
+  }
+
+  .hljs-title {
+    color: $royal-blue;
+    font-weight: normal;
+  }
+}
+
+.hljs-title {
+  color: $royal-blue;
+  font-weight: bold;
+
+  .hljs-class & {
+    font-weight: bold;
+  }
+}
+
+.hljs-type {
+  color: $east-bay;
+  font-weight: bold;
+}
+
+.hljs-variable {
+  color: $teal;
+}
+
+.hljs-name {
+  color: $teal;
+}
+
+.hljs-regexp {
+  color: $forest-green;
+}
+
+.hljs-symbol {
+  color: $navy-blue;
+}
+
+.hljs-prompt {
+  color: $flirt;
+}
+
+.hljs-built-in {
+  color: $bondi-blue;
+}
+
+.hljs-preprocessor {
+  color: $mountain-mist;
+  font-weight: bold;
+}
+
+.hljs-pragma {
+  color: $mountain-mist;
+  font-weight: bold;
+}
+
+.hljs-pi {
+  color: $mountain-mist;
+  font-weight: bold;
+}
+
+.hljs-cdata {
+  color: $mountain-mist;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: $pippin;
+}
+
+.hljs-rule {
+  .hljs-property {
+    color: $navy-blue;
+    font-weight: normal;
+  }
+}
+
+.hljs-shebang {
+  color: $mountain-mist;
+  font-weight: bold;
+}
+
+.tex {
+  .hljs-formula {
+    color: $crimson;
+  }
+
+  .hljs-command {
+    color: $east-bay;
+    font-weight: bold;
+  }
+
+  .hljs-special {
+    color: $flirt;
+  }
+}
+
+.lisp {
+  .hljs-body {
+    color: $teal;
+  }
+
+  .hljs-keyword {
+    color: $flirt;
+  }
+}
+
+.clojure {
+  .hljs-keyword {
+    color: $flirt;
+  }
+}
+
+.css {
+  .rule {
+    .hljs-keyword {
+      color: $mine-shaft;
+      font-weight: bold;
+    }
+  }
+}
+
+.diff {
+  .hljs-header {
+    color: $lemon-grass;
+    font-style: italic;
+  }
+
+  .hljs-change {
+    background: $bondi-blue;
+  }
+}
+
+.django {
+  .hljs-tag {
+    .hljs-keyword {
+      color: $navy-blue;
+      font-weight: normal;
+    }
+  }
+}
+
+.nginx {
+  .hljs-title {
+    color: $mine-shaft;
+    font-weight: bold;
+  }
+}
+
+.ruby {
+  .tag {
+    color: $ember-orange;
+  }
+
+  .hljs-constant {
+    color: $teal;
+  }
+
+  .hljs-symbol {
+    .hljs-string {
+      color: $flirt;
+    }
+  }
+}
+
+.ERB {
+  .hljs-keyword {
+    color: $gold;
+  }
+}
+
+
+.scss {
+  .hljs-preprocessor {
+    color: $red-berry;
+    font-weight: bold;
+  }
+}
+
+.scheme {
+  .hljs-keyword {
+    color: $flirt;
+  }
+}
+
+.vhdl {
+  .hljs-literal {
+    color: $east-bay;
+    font-weight: bold;
+  }
+}

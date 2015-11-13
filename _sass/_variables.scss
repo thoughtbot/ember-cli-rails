@@ -3,11 +3,15 @@ $base-font-family: "Lato", Helvetica, sans-serif;
 $code-font-family: "Inconsolata", serif;
 $header-font-family: "Lato", Helvetica, sans-serif;
 
+// Fonts in action
+$base-font-size: 1.1rem;
+
 // Colors
 $alabaster: #fcfcfc;
 $aqua: #61e5ea;
 $celeste: #ccc;
 $ember-orange: #e14a30;
+$dark-gray: #5f5f5f;
 $lime: #d2f8ad;
 $navy: #1f202a;
 $outer-space: #2d383a;
@@ -19,10 +23,36 @@ $base-button-background-color: $ember-orange;
 $base-button-hover-background-color: $ruby-red;
 $base-button-color: $white;
 
+// Colors in action
+$header-font-color: $dark-gray;
+$code-background-color: $white;
+$code-border-color: darken($alabaster, 5%);
+$code-header-background-color: darken($alabaster, 2%);
+
+// Code highlighting colors
+$bondi-blue: #0086b3;
+$crimson: #d14;
+$desert-storm: #f8f8f8;
+$east-bay: #458;
+$flirt: #990073;
+$forest-green: #009926;
+$gold: #cfc136;
+$lemon-grass: #998;
+$mine-shaft: #333;
+$mountain-mist: #999;
+$navy-blue: #0086B3;
+$royal-blue: #719ED1;
+$pippin: #fdd;
+$red-berry: #900;
+$silver-chalice: #aaa;
+$snowy-mint: #dfd;
+$teal: #008080;
+
 // Layout
 $base-layout-vertical-padding: 4rem;
+$base-border-radius: 2px;
 
 // Screen Sizes
-$small-screen: 420px;
+$small-screen: 520px;
 $medium-screen: 640px;
 $large-screen: 880px;

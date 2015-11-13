@@ -1,0 +1,63 @@
+<section class="layout layout--light">
+  <section class="content content--small">
+    <h1>Example Usage</h1>
+
+    <p>
+      First, specify in your controller that you don't want to render the layout
+      (since EmberCLI's index.html is a fully-formed HTML document):
+    </p>
+
+    <div class="code">
+      <div class="code__header">
+        app/controllers/application.rb
+      </div>
+      <pre class="code__body">
+        <code>
+class ApplicationController < ActionController::Base
+  def index
+    render layout: false
+  end
+end</code>
+      </pre>
+    </div>
+
+    <p>
+      To render the EmberCLI generated index.html into the view, use the
+      include_ember_index_html helper:
+    </p>
+
+    <div class="code ERB">
+      <div class="code__header">
+        app/views/application/index.html.erb
+      </div>
+      <pre class="code__body">
+        <code class="ERB">
+<span class="tag"><%=</span> include_ember_index_html :frontend <span class="tag">%></span></code>
+      </pre>
+    </div>
+
+    <p>
+      To inject markup into page, pass in a block that accepts the head, and
+      (optionally) the body:
+    </p>
+
+    <div class="code ERB">
+      <div class="code__header">
+        app/views/application/index.html.erb
+      </div>
+      <pre class="code__body">
+        <code>
+<span class="tag"><%=</span> include_ember_index_html :frontend do |head| <span class="tag">%></span>
+  <span class="tag"><%</span> head.append do <span class="tag">%></span>
+    <span class="tag"><%=</span> csrf_meta_tags <span class="tag">%></span>
+  <span class="tag"><%</span> end <span class="tag">%></span>
+<span class="tag"><%</span> end <span class="tag">%></span></code>
+      </pre>
+    </div>
+    <footer class="content__footer">
+      <a class="button" href="https://github.com/thoughtbot/ember-cli-rails">
+        Full Documentation
+      </a>
+    </footer>
+  </section>
+</section>

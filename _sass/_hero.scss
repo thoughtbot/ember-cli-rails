@@ -1,11 +1,12 @@
 .hero {
-  @include size(100vw 100vh);
+  @include size(100vw 50vh);
   align-items: center;
   background-position: center center;
   background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-height: 320px;
   position: relative;
 
   &::after {
