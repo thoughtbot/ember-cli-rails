@@ -1,6 +1,7 @@
 master
 ------
 
+* Remove `enable` configuration in favor of using `mount_ember_app`.  [#261]
 * Introduce `mount_ember_app` route helper [#262]
 * Remove support for viewing Ember tests through Rails. Instead, use `ember
   test` or `ember test --serve` from within the Ember directory. [#264]
@@ -18,6 +19,7 @@ master
 [#238]: https://github.com/thoughtbot/ember-cli-rails/pull/238
 [#256]: https://github.com/thoughtbot/ember-cli-rails/pull/256
 [#250]: https://github.com/thoughtbot/ember-cli-rails/pull/250
+[#261]: https://github.com/thoughtbot/ember-cli-rails/pull/261
 
 0.4.3
 -----

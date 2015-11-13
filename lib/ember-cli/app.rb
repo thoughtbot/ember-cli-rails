@@ -207,12 +207,11 @@ module EmberCli
     def check_dependencies!
       unless node_modules_present?
         fail <<-MSG.strip_heredoc
-          EmberCLI app dependencies are not installed. From your Rails application root please run:
+          EmberCLI app dependencies are not installed.
+          From your Rails application root please run:
 
             $ bundle exec rake ember:install
 
-          If you do not require Ember at this URL, you can restrict this check using the `enable`
-          option in the EmberCLI initializer.
         MSG
       end
     end

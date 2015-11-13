@@ -253,6 +253,7 @@ Without it you'll receive a `422 Unprocessable Entity` error, specifically: `Act
 
 In order to add that token to your requests, you need to add into your template:
 
+```erb
 <!-- app/views/application/index.html.erb -->
 <%= include_ember_index_html :frontend do |head| %>
   <% head.append do %>

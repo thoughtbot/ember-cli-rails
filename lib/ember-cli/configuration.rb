@@ -9,6 +9,10 @@ module EmberCli
         deprecate_timeout
       end
 
+      if options.has_key? :enable
+        deprecate_enable
+      end
+
       apps.store name, App.new(name, options)
     end
 
@@ -40,6 +44,17 @@ module EmberCli
     attr_accessor :watcher
 
     private
+
+    def deprecate_enable
+      warn <<-WARN.strip_heredoc
+
+      The `enable` lambda configuration has been removed.
+
+      Please read https://github.com/thoughtbot/ember-cli-rails/pull/261 for
+      details.
+
+      WARN
+    end
 
     def deprecate_timeout
       warn <<-WARN.strip_heredoc

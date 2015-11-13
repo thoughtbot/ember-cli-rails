@@ -1,7 +1,5 @@
 module EmberCli
   class Runner
-    TRUE_PROC = ->(*){ true }
-
     attr_reader :app, :path
 
     def initialize(app, path)
@@ -9,8 +7,6 @@ module EmberCli
     end
 
     def process
-      return if skip?
-
       if EmberCli.env.development?
         start_or_restart!
       else
@@ -21,11 +17,6 @@ module EmberCli
     end
 
     private
-
-    def skip?
-      invoker = app.options.fetch(:enable, TRUE_PROC)
-      !invoker.call(path)
-    end
 
     def start_or_restart!
       run! unless app.pid && still_running?
