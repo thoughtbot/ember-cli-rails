@@ -53,10 +53,6 @@ module EmberCli
       root.join("Gemfile")
     end
 
-    define_path :tests do
-      dist.join("tests")
-    end
-
     define_path :node_modules do
       root.join("node_modules")
     end

@@ -80,14 +80,6 @@ describe EmberCli::PathSet do
     end
   end
 
-  describe "#tests" do
-    it "is a child of #dist" do
-      path_set = build_path_set
-
-      expect(path_set.tests).to eq path_set.dist.join("tests")
-    end
-  end
-
   describe "#node_modules" do
     it "is a child of #root" do
       path_set = build_path_set

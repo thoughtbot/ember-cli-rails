@@ -230,26 +230,6 @@ export default DS.RESTAdapter.extend({
 });
 ```
 
-## Ember Test Suite
-
-To run an Ember app's tests in a browser, mount the `EmberCli::Engine`:
-
-```ruby
-# config/routes.rb
-
-Rails.application.routes.draw do
-  mount EmberCli::Engine => "ember-tests" if Rails.env.development?
-
-  root "application#index"
-end
-```
-
-Ember tests are served based on the route you mount the Engine on (in this
-example, `/ember-tests`) and the name of the Ember app.
-
-For example, to view tests of the `frontend` app, visit
-`http://localhost:3000/ember-tests/frontend`.
-
 ### Integrating with Rake
 
 EmberCLI Rails exposes the `ember:test` Rake task to execute Ember's test suite.

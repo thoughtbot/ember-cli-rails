@@ -1,6 +1,8 @@
 master
 ------
 
+* Remove support for viewing Ember tests through Rails. Instead, use `ember
+  test` or `ember test --serve` from within the Ember directory.
 * Remove `build_timeout` configuration [#259]
 * Disable JS minification when generating Heroku setup [#238]
 * `BuildError#message` includes first line of backtrace. [#256]
