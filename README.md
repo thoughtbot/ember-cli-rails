@@ -21,6 +21,8 @@ You should still be able leverage the asset pipeline, and all the conveniences
 that Rails offers. And you should get all the new goodies like ES6 modules and
 Ember CLI addons too! Without further ado, let's get in there!
 
+**EmberCLI-Rails Supports EmberCLI 1.13.x and later.**
+
 ## Installation
 
 Add the following to your `Gemfile`:
@@ -94,7 +96,22 @@ $ cd path/to/frontend
 $ npm install --save-dev ember-cli-rails-addon
 ```
 
+Be sure that the addon's [`MAJOR` and `MINOR` version][semver] matches the gem's
+`MAJOR` and `MINOR` versions.
+
+For instance, if you're using the `0.5.x` version of the gem, specify
+`~> 0.5.0` ion in your Ember app's `package.json`:
+
+```json
+{
+  "devDependencies": {
+    "ember-cli-rails-addon": "~> 0.5.0"
+  }
+}
+```
+
 [addon]: https://github.com/rondale-sc/ember-cli-rails-addon/
+[semver]: http://semver.org/
 
 Next, configure Rails to route requests to the `frontend` Ember application:
 
@@ -261,6 +278,12 @@ In order to add that token to your requests, you need to add into your template:
   <% end %>
 <% end %>
 ```
+
+The default `EmberCli::EmberController` and its accompanying view handle this
+for you by default.
+
+However, if you specify your own controller, make sure to append CSRF tags to
+your view's `<head>`.
 
 The [ember-cli-rails-addon][addon] addon will inject an initializer into your
 app to set outgoing requests' `X-CSRF-TOKEN` header to the value injected by

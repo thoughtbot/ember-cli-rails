@@ -3,9 +3,6 @@ require "ember-cli/html_page"
 
 module EmberCli
   class App
-    ADDON_VERSION = "0.0.13"
-    EMBER_CLI_VERSIONS = [ "~> 0.1.5", "~> 0.2.0", "~> 1.13" ]
-
     class BuildError < StandardError; end
 
     attr_reader :name, :options, :paths, :pid
@@ -151,55 +148,10 @@ module EmberCli
 
     def prepare
       @prepared ||= begin
-        check_dependencies!
-        check_addon!
-        check_ember_cli_version!
         reset_build_error!
         symlink_to_assets_root
         add_assets_to_precompile_list
         true
-      end
-    end
-
-    def check_ember_cli_version!
-      version = dev_dependencies.fetch("ember-cli").split(?-).first
-
-      unless Helpers.match_version?(version, EMBER_CLI_VERSIONS)
-        fail <<-MSG.strip_heredoc
-          EmberCLI Rails require ember-cli NPM package version to be
-          #{EMBER_CLI_VERSIONS.last} to work properly (you have #{version}).
-          From within your EmberCLI directory please update your package.json
-          accordingly and run:
-
-            $ npm install
-
-        MSG
-      end
-    end
-
-    def check_addon!
-      unless addon_present?
-        fail <<-MSG.strip_heredoc
-          EmberCLI Rails requires your Ember app to have an addon.
-
-          From within your EmberCLI directory please run:
-
-            $ npm install --save-dev ember-cli-rails-addon@#{ADDON_VERSION}
-
-          in your Ember application root: #{root}
-        MSG
-      end
-    end
-
-    def check_dependencies!
-      unless node_modules_present?
-        fail <<-MSG.strip_heredoc
-          EmberCLI app dependencies are not installed.
-          From your Rails application root please run:
-
-            $ bundle exec rake ember:install
-
-        MSG
       end
     end
 
@@ -266,28 +218,6 @@ module EmberCli
     def package_json
       @package_json ||=
         JSON.parse(paths.package_json_file.read).with_indifferent_access
-    end
-
-    def addon_package_json
-      @addon_package_json ||=
-        JSON.parse(paths.addon_package_json_file.read).with_indifferent_access
-    end
-
-    def addon_version
-      addon_package_json.fetch("version")
-    end
-
-    def dev_dependencies
-      package_json.fetch("devDependencies", {})
-    end
-
-    def addon_present?
-      paths.addon_package_json_file.exist? &&
-        addon_version == ADDON_VERSION
-    end
-
-    def node_modules_present?
-      paths.node_modules.exist?
     end
 
     def excluded_ember_deps

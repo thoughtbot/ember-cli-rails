@@ -57,16 +57,8 @@ module EmberCli
       root.join("Gemfile")
     end
 
-    define_path :node_modules do
-      root.join("node_modules")
-    end
-
     define_path :package_json_file do
       root.join("package.json")
-    end
-
-    define_path :addon_package_json_file do
-      node_modules.join("ember-cli-rails-addon", "package.json")
     end
 
     define_path :ember do

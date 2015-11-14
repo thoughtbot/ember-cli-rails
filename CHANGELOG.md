@@ -1,8 +1,10 @@
 master
 ------
 
+* No longer check dependencies within the app. Defer to EmberCLI's `stderr`
+  streaming. [#267]
 * Remove `enable` configuration in favor of using `mount_ember_app`.  [#261]
-* Introduce `mount_ember_app` route helper [#262]
+* Introduce `mount_ember_app` route helper [#263]
 * Remove support for viewing Ember tests through Rails. Instead, use `ember
   test` or `ember test --serve` from within the Ember directory. [#264]
 * Remove `build_timeout` configuration [#259]
@@ -13,8 +15,9 @@ master
 * `manifest.json`. Since we now defer to EmberCLI, we no longer need to
   manually resolve asset URLs. [#250]
 
+[#267]: https://github.com/thoughtbot/ember-cli-rails/pull/267
 [#264]: https://github.com/thoughtbot/ember-cli-rails/pull/264
-[#262]: https://github.com/thoughtbot/ember-cli-rails/pull/262
+[#263]: https://github.com/thoughtbot/ember-cli-rails/pull/263
 [#259]: https://github.com/thoughtbot/ember-cli-rails/pull/259
 [#238]: https://github.com/thoughtbot/ember-cli-rails/pull/238
 [#256]: https://github.com/thoughtbot/ember-cli-rails/pull/256

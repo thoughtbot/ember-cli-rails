@@ -90,29 +90,12 @@ describe EmberCli::PathSet do
     end
   end
 
-  describe "#node_modules" do
-    it "is a child of #root" do
-      path_set = build_path_set
-
-      expect(path_set.node_modules).to eq path_set.root.join("node_modules")
-    end
-  end
-
   describe "#package_json_file" do
     it "is a child of #root" do
       path_set = build_path_set
 
       expect(path_set.package_json_file)
         .to eq path_set.root.join("package.json")
-    end
-  end
-
-  describe "#addon_package_json_file" do
-    it "is a child of #root" do
-      path_set = build_path_set
-      path = path_set.node_modules.join("ember-cli-rails-addon", "package.json")
-
-      expect(path_set.addon_package_json_file).to eq(path)
     end
   end
 
