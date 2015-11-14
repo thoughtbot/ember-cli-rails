@@ -2,15 +2,6 @@ module EmberCli
   module Helpers
     extend self
 
-    def match_version?(version, requirements)
-      version = Gem::Version.new(version)
-
-      Array.wrap(requirements).any? do |requirement|
-        requirement = Gem::Requirement.new(requirement)
-        requirement.satisfied_by?(version)
-      end
-    end
-
     def which(cmd)
       exts = ENV.fetch("PATHEXT", ?;).split(?;, -1).uniq
 
@@ -41,8 +32,11 @@ module EmberCli
     end
 
     def rails_config_for(key)
-      config = Rails.configuration
-      config.respond_to?(key) ? config.public_send(key) : yield
+      if Rails.configuration.respond_to?(key)
+        Rails.configuration.public_send(key)
+      else
+        yield
+      end
     end
   end
 end
