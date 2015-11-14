@@ -16,10 +16,12 @@ module EmberCli
       silence_build { exec ember.build }
     end
 
-    def run
-      lock_buildfile
-      self.pid = spawn ember.build(watch: true)
-      detach
+    def build_and_watch
+      unless running?
+        lock_buildfile
+        self.pid = spawn ember.build(watch: true)
+        detach
+      end
     end
 
     def stop
@@ -27,12 +29,6 @@ module EmberCli
         Process.kill(:INT, pid)
         self.pid = nil
       end
-    end
-
-    def running?
-      pid.present? && Process.getpgid(pid)
-    rescue Errno::ESRCH
-      false
     end
 
     def install
@@ -61,6 +57,12 @@ module EmberCli
       Dir.chdir paths.root do
         Kernel.public_send(method, env, command, err: :out) || exit(1)
       end
+    end
+
+    def running?
+      pid.present? && Process.getpgid(pid)
+    rescue Errno::ESRCH
+      false
     end
 
     def lock_buildfile

@@ -17,9 +17,21 @@ module EmberCli
       end
     end
 
+    def wait!
+      loop do
+        check!
+        break if complete?
+        sleep 0.1
+      end
+    end
+
     private
 
     attr_reader :name, :paths
+
+    def complete?
+      !paths.lockfile.exist?
+    end
 
     def build_error?
       error_file.exist? && error_file.size?

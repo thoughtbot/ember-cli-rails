@@ -1,16 +1,13 @@
 require "ember-cli/engine" if defined?(Rails)
+require "ember-cli/errors"
 
 module EmberCli
-  class BuildError < StandardError; end
-  class DependencyError < BuildError; end
-
   extend self
 
   autoload :App,           "ember-cli/app"
   autoload :Configuration, "ember-cli/configuration"
   autoload :Helpers,       "ember-cli/helpers"
   autoload :PathSet,       "ember-cli/path_set"
-  autoload :Runner,        "ember-cli/runner"
 
   def configure
     yield configuration
@@ -42,21 +39,17 @@ module EmberCli
 
   def install_dependencies!
     enable!
-    each_app &:install_dependencies
+    each_app(&:install_dependencies)
   end
 
-  def run_tests!
+  def test!
     enable!
-    each_app &:run_tests
+    each_app(&:test)
   end
 
   def compile!
     enable!
-    each_app &:compile
-  end
-
-  def run!
-    each_app { |app| Runner.new(app).run! }
+    each_app(&:compile)
   end
 
   def root
@@ -80,7 +73,7 @@ module EmberCli
   end
 
   def each_app
-    apps.each{ |name, app| yield app }
+    apps.each { |_, app| yield app }
   end
 end
 

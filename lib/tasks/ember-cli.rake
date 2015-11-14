@@ -6,7 +6,7 @@ namespace :ember do
 
   desc "Runs `ember test` for each App"
   task test: :environment do
-    EmberCli.run_tests!
+    EmberCli.test!
   end
 
   desc "Installs each EmberCLI app's dependencies"

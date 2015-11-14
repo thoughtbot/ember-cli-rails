@@ -34,21 +34,21 @@ module EmberCli
       end
     end
 
+    def build
+      if EmberCli.env.development?
+        build_and_watch
+      else
+        compile
+      end
+
+      @build.wait!
+    end
+
     def install_dependencies
       @shell.install
     end
 
-    def run
-      prepare
-      @shell.run
-      copy_index_html_file
-    end
-
-    def running?
-      @shell.running?
-    end
-
-    def run_tests
+    def test
       prepare
 
       @shell.test
@@ -66,11 +66,13 @@ module EmberCli
       end
     end
 
-    def wait
-      wait_for_build_complete_or_error
-    end
-
     private
+
+    def build_and_watch
+      prepare
+      @shell.build_and_watch
+      copy_index_html_file
+    end
 
     def prepare
       @prepared ||= begin
@@ -103,18 +105,6 @@ module EmberCli
         vars["RAILS_ENV"] = Rails.env
         vars["EXCLUDE_EMBER_ASSETS"] = excluded_ember_deps
         vars["BUNDLE_GEMFILE"] = paths.gemfile.to_s if paths.gemfile.exist?
-      end
-    end
-
-    def build_complete?
-      !paths.lockfile.exist?
-    end
-
-    def wait_for_build_complete_or_error
-      loop do
-        @build.check!
-        break if build_complete?
-        sleep 0.1
       end
     end
   end
