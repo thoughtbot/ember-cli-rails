@@ -61,6 +61,16 @@ describe EmberCli::PathSet do
     end
   end
 
+  describe "#app_assets" do
+    it "is a child of #assets" do
+      app = double(name: "bar")
+      path_set = build_path_set(app: app)
+
+      expect(path_set.app_assets).
+        to eq ember_cli_root.join("assets").join("bar")
+    end
+  end
+
   describe "#applications" do
     it "is a child of #rails_root" do
       path_set = build_path_set

@@ -45,6 +45,10 @@ module EmberCli
       ember_cli_root.join("assets").tap(&:mkpath)
     end
 
+    define_path :app_assets do
+      assets.join(app_name)
+    end
+
     define_path :applications do
       rails_root.join("public", "_apps").tap(&:mkpath)
     end

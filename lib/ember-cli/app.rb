@@ -34,13 +34,13 @@ module EmberCli
     end
 
     def install_dependencies
-      if gemfile_path.exist?
-        exec "#{bundler_path} install"
+      if paths.gemfile.exist?
+        exec "#{paths.bundler} install"
       end
 
-      exec "#{npm_path} prune && #{npm_path} install"
+      exec "#{paths.npm} prune && #{paths.npm} install"
 
-      if bower_path.nil?
+      if paths.bower.nil?
         fail <<-FAIL
           Bower is required by EmberCLI
 
@@ -49,13 +49,13 @@ module EmberCli
               $ npm install -g bower
         FAIL
       else
-        exec "#{bower_path} prune && #{bower_path} install"
+        exec "#{paths.bower} prune && #{paths.bower} install"
       end
     end
 
     def run
       prepare
-      FileUtils.touch lockfile_path
+      FileUtils.touch paths.lockfile
       cmd = command(watch: true)
       @pid = exec(cmd, method: :spawn)
       Process.detach pid
@@ -66,7 +66,7 @@ module EmberCli
     def run_tests
       prepare
 
-      exec("#{ember_path} test")
+      exec("#{paths.ember} test")
     end
 
     def stop
@@ -101,31 +101,10 @@ module EmberCli
       wait_for_build_complete_or_error
     end
 
-    def method_missing(method_name, *)
-      if path_method = supported_path_method(method_name)
-        paths.public_send(path_method)
-      else
-        super
-      end
-    end
-
-    def respond_to_missing?(method_name, *)
-      if supported_path_method(method_name)
-        true
-      else
-        super
-      end
-    end
-
     private
 
     def set_on_exit_callback
       @on_exit_callback ||= at_exit{ stop }
-    end
-
-    def supported_path_method(original)
-      path_method = original.to_s[/\A(.+)_path\z/, 1]
-      path_method if path_method && paths.respond_to?(path_method)
     end
 
     def silence_build(&block)
@@ -145,15 +124,17 @@ module EmberCli
     end
 
     def reset_build_error!
-      build_error_file_path.delete if build_error?
+      if build_error?
+        paths.build_error_file.delete
+      end
     end
 
     def build_error?
-      build_error_file_path.exist? && build_error_file_path.size?
+      paths.build_error_file.exist? && paths.build_error_file.size?
     end
 
     def raise_build_error!
-      backtrace = build_error_file_path.readlines.reject(&:blank?)
+      backtrace = paths.build_error_file.readlines.reject(&:blank?)
       message = "#{name.inspect} has failed to build: #{backtrace.first}"
 
       error = BuildError.new(message)
@@ -216,26 +197,22 @@ module EmberCli
       end
     end
 
-    def assets_path
-      paths.assets.join(name)
-    end
-
     def copy_index_html_file
       if environment == "production"
-        FileUtils.cp(assets_path.join("index.html"), index_file)
+        FileUtils.cp(paths.app_assets.join("index.html"), index_file)
       end
     end
 
     def index_file
       if environment == "production"
-        applications_path.join("#{name}.html")
+        paths.applications.join("#{name}.html")
       else
-        dist_path.join("index.html")
+        paths.dist.join("index.html")
       end
     end
 
     def symlink_to_assets_root
-      assets_path.make_symlink dist_path
+      paths.app_assets.make_symlink paths.dist
     rescue Errno::EEXIST
       # Sometimes happens when starting multiple Unicorn workers.
       # Ignoring...
@@ -259,15 +236,17 @@ module EmberCli
         end
       end
 
-      "#{ember_path} build #{watch_flag} --environment #{environment} --output-path #{dist_path} #{redirect_errors} #{log_pipe}"
+      "#{paths.ember} build #{watch_flag} --environment #{environment} --output-path #{paths.dist} #{redirect_errors} #{log_pipe}"
     end
 
     def redirect_errors
-      "2> #{build_error_file_path}"
+      "2> #{paths.build_error_file}"
     end
 
     def log_pipe
-      "| #{tee_path} -a #{log_path}" if tee_path
+      if paths.tee
+        "| #{paths.tee} -a #{paths.log}"
+      end
     end
 
     def ember_app_name
@@ -280,12 +259,12 @@ module EmberCli
 
     def package_json
       @package_json ||=
-        JSON.parse(package_json_file_path.read).with_indifferent_access
+        JSON.parse(paths.package_json_file.read).with_indifferent_access
     end
 
     def addon_package_json
       @addon_package_json ||=
-        JSON.parse(addon_package_json_file_path.read).with_indifferent_access
+        JSON.parse(paths.addon_package_json_file.read).with_indifferent_access
     end
 
     def addon_version
@@ -297,12 +276,12 @@ module EmberCli
     end
 
     def addon_present?
-      addon_package_json_file_path.exist? &&
+      paths.addon_package_json_file.exist? &&
         addon_version == ADDON_VERSION
     end
 
     def node_modules_present?
-      node_modules_path.exist?
+      paths.node_modules.exist?
     end
 
     def excluded_ember_deps
@@ -313,7 +292,7 @@ module EmberCli
       ENV.to_h.tap do |vars|
         vars["RAILS_ENV"] = Rails.env
         vars["EXCLUDE_EMBER_ASSETS"] = excluded_ember_deps
-        vars["BUNDLE_GEMFILE"] = gemfile_path.to_s if gemfile_path.exist?
+        vars["BUNDLE_GEMFILE"] = paths.gemfile.to_s if paths.gemfile.exist?
       end
     end
 
@@ -326,7 +305,7 @@ module EmberCli
     def wait_for_build_complete_or_error
       loop do
         check_for_build_error!
-        break unless lockfile_path.exist?
+        break unless paths.lockfile.exist?
         sleep 0.1
       end
     end
