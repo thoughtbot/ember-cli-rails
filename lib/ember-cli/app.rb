@@ -1,14 +1,11 @@
 require "non-stupid-digest-assets"
 require "ember-cli/html_page"
 require "ember-cli/shell"
+require "ember-cli/build_monitor"
 
 module EmberCli
   class App
-    class BuildError < StandardError; end
-
     attr_reader :name, :options, :paths
-
-    delegate :root, to: :paths
 
     def initialize(name, **options)
       @name, @options = name.to_s, options
@@ -24,13 +21,14 @@ module EmberCli
         env: env_hash,
         options: options,
       )
+      @build = BuildMonitor.new(name, @paths)
     end
 
     def compile
       @compiled ||= begin
         prepare
         @shell.compile
-        check_for_build_error!
+        @build.check!
         copy_index_html_file
         true
       end
@@ -85,33 +83,9 @@ module EmberCli
 
     private
 
-    def check_for_build_error!
-      raise_build_error! if build_error?
-    end
-
-    def reset_build_error!
-      if build_error?
-        paths.build_error_file.delete
-      end
-    end
-
-    def build_error?
-      paths.build_error_file.exist? && paths.build_error_file.size?
-    end
-
-    def raise_build_error!
-      backtrace = paths.build_error_file.readlines.reject(&:blank?)
-      message = "#{name.inspect} has failed to build: #{backtrace.first}"
-
-      error = BuildError.new(message)
-      error.set_backtrace(backtrace)
-
-      fail error
-    end
-
     def prepare
       @prepared ||= begin
-        reset_build_error!
+        @build.reset
         symlink_to_assets_root
         add_assets_to_precompile_list
         true
@@ -167,10 +141,14 @@ module EmberCli
       end
     end
 
+    def build_complete?
+      !paths.lockfile.exist?
+    end
+
     def wait_for_build_complete_or_error
       loop do
-        check_for_build_error!
-        break unless paths.lockfile.exist?
+        @build.check!
+        break if build_complete?
         sleep 0.1
       end
     end

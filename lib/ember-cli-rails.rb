@@ -1,7 +1,8 @@
 require "ember-cli/engine" if defined?(Rails)
 
 module EmberCli
-  class DependencyError < StandardError; end
+  class BuildError < StandardError; end
+  class DependencyError < BuildError; end
 
   extend self
 
