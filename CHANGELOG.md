@@ -1,6 +1,8 @@
 master
 ------
 
+* Always pass `--environment test` to Rails-generated `ember test` commands.
+  [#277]
 * No longer check dependencies within the app. Defer to EmberCLI's `stderr`
   streaming. [#267]
 * Remove `enable` configuration in favor of using `mount_ember_app`.  [#261]
@@ -15,6 +17,7 @@ master
 * `manifest.json`. Since we now defer to EmberCLI, we no longer need to
   manually resolve asset URLs. [#250]
 
+[#277]: https://github.com/thoughtbot/ember-cli-rails/pull/277
 [#267]: https://github.com/thoughtbot/ember-cli-rails/pull/267
 [#264]: https://github.com/thoughtbot/ember-cli-rails/pull/264
 [#263]: https://github.com/thoughtbot/ember-cli-rails/pull/263

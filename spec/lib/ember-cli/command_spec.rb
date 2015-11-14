@@ -6,7 +6,7 @@ describe EmberCli::Command do
       paths = build_paths(ember: "path/to/ember")
       command = build_command(paths: paths)
 
-      expect(command.test).to eq("path/to/ember test")
+      expect(command.test).to eq("path/to/ember test --environment test")
     end
   end
 

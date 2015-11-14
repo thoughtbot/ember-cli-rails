@@ -6,7 +6,7 @@ module EmberCli
     end
 
     def test
-      "#{paths.ember} test"
+      "#{paths.ember} test --environment test"
     end
 
     def build(watch: false)
