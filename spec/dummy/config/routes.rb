@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
   mount_ember_app(
     "my-app",
+    to: "/no-block",
+    controller: "high_voltage/pages",
+    action: "show",
+    id: "include_index",
+    as: "include_index",
+  )
+
+  mount_ember_app(
+    "my-app",
     to: "/empty-block",
     controller: "high_voltage/pages",
     action: "show",

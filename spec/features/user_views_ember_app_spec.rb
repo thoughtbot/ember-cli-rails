@@ -13,9 +13,15 @@ feature "User views ember app", :js do
 
       expect(page).to have_client_side_asset
       expect(page).to have_javascript_rendered_text
+      expect(page).to have_no_csrf_tags
     end
 
     scenario "rendering with index helper" do
+      visit include_index_path
+
+      expect(page).to have_javascript_rendered_text
+      expect(page).to have_no_csrf_tags
+
       visit include_index_empty_block_path
 
       expect(page).to have_javascript_rendered_text

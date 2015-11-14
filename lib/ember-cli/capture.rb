@@ -1,31 +1,21 @@
 module EmberCli
-  SKIP_CAPTURE = ["", ""].freeze
-
   class Capture
     def initialize(sprockets:, &block)
       @sprockets = sprockets
-      @block = block
+      @block = block || NullBlock.new
     end
 
     def capture
-      if block.present?
-        capture_content
-      else
-        SKIP_CAPTURE
-      end
-    end
-
-    private
-
-    attr_reader :block, :sprockets
-
-    def capture_content
       if block.arity > 0
         block.call(*block_arguments)
       end
 
       [head.content, body.content]
     end
+
+    private
+
+    attr_reader :block, :sprockets
 
     def block_arguments
       [head, body].first(block.arity)
@@ -73,5 +63,15 @@ module EmberCli
       end
     end
     private_constant :Block
+
+    class NullBlock
+      def arity
+        1
+      end
+
+      def call(*)
+      end
+    end
+    private_constant :NullBlock
   end
 end
