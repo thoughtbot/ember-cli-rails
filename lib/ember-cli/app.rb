@@ -1,11 +1,12 @@
 require "non-stupid-digest-assets"
 require "ember-cli/html_page"
+require "ember-cli/shell"
 
 module EmberCli
   class App
     class BuildError < StandardError; end
 
-    attr_reader :name, :options, :paths, :pid
+    attr_reader :name, :options, :paths
 
     delegate :root, to: :paths
 
@@ -18,12 +19,17 @@ module EmberCli
         rails_root: Rails.root,
         ember_cli_root: EmberCli.root,
       )
+      @shell = Shell.new(
+        paths: @paths,
+        env: env_hash,
+        options: options,
+      )
     end
 
     def compile
       @compiled ||= begin
         prepare
-        silence_build{ exec command }
+        @shell.compile
         check_for_build_error!
         copy_index_html_file
         true
@@ -31,40 +37,23 @@ module EmberCli
     end
 
     def install_dependencies
-      if paths.gemfile.exist?
-        exec "#{paths.bundler} install"
-      end
-
-      exec "#{paths.npm} prune && #{paths.npm} install"
-
-      exec "#{paths.bower} prune && #{paths.bower} install"
+      @shell.install
     end
 
     def run
       prepare
-      FileUtils.touch paths.lockfile
-      cmd = command(watch: true)
-      @pid = exec(cmd, method: :spawn)
-      Process.detach pid
+      @shell.run
       copy_index_html_file
-      set_on_exit_callback
     end
 
     def running?
-      pid.present? && Process.getpgid(pid)
-    rescue Errno::ESRCH
-      false
+      @shell.running?
     end
 
     def run_tests
       prepare
 
-      exec("#{paths.ember} test")
-    end
-
-    def stop
-      Process.kill :INT, pid if pid
-      @pid = nil
+      @shell.test
     end
 
     def index_html(sprockets:, head:, body:)
@@ -95,22 +84,6 @@ module EmberCli
     end
 
     private
-
-    def set_on_exit_callback
-      @on_exit_callback ||= at_exit{ stop }
-    end
-
-    def silence_build(&block)
-      if ENV.fetch("EMBER_CLI_RAILS_VERBOSE") { EmberCli.env.production? }
-        yield
-      else
-        silence_stream STDOUT, &block
-      end
-    end
-
-    def watcher
-      options.fetch(:watcher) { EmberCli.configuration.watcher }
-    end
 
     def check_for_build_error!
       raise_build_error! if build_error?
@@ -146,13 +119,13 @@ module EmberCli
     end
 
     def copy_index_html_file
-      if environment == "production"
+      if EmberCli.env.production?
         FileUtils.cp(paths.app_assets.join("index.html"), index_file)
       end
     end
 
     def index_file
-      if environment == "production"
+      if EmberCli.env.production?
         paths.applications.join("#{name}.html")
       else
         paths.dist.join("index.html")
@@ -173,36 +146,8 @@ module EmberCli
       NonStupidDigestAssets.whitelist << assets
     end
 
-    def command(watch: false)
-      watch_flag = ""
-
-      if watch
-        watch_flag = "--watch"
-
-        if watcher
-          watch_flag += " --watcher #{watcher}"
-        end
-      end
-
-      "#{paths.ember} build #{watch_flag} --environment #{environment} --output-path #{paths.dist} #{redirect_errors} #{log_pipe}"
-    end
-
-    def redirect_errors
-      "2> #{paths.build_error_file}"
-    end
-
-    def log_pipe
-      if paths.tee
-        "| #{paths.tee} -a #{paths.log}"
-      end
-    end
-
     def ember_app_name
       @ember_app_name ||= options.fetch(:name){ package_json.fetch(:name) }
-    end
-
-    def environment
-      EmberCli.env.production? ? "production" : "development"
     end
 
     def package_json
@@ -219,12 +164,6 @@ module EmberCli
         vars["RAILS_ENV"] = Rails.env
         vars["EXCLUDE_EMBER_ASSETS"] = excluded_ember_deps
         vars["BUNDLE_GEMFILE"] = paths.gemfile.to_s if paths.gemfile.exist?
-      end
-    end
-
-    def exec(cmd, method: :system)
-      Dir.chdir root do
-        Kernel.public_send(method, env_hash, cmd, err: :out) || exit(1)
       end
     end
 
