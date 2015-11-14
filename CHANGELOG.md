@@ -1,6 +1,8 @@
 master
 ------
 
+* Deprecate `include_ember_index_html` in favor of the renamed
+  `render_ember_app`.
 * Always pass `--environment test` to Rails-generated `ember test` commands.
   [#277]
 * No longer check dependencies within the app. Defer to EmberCLI's `stderr`

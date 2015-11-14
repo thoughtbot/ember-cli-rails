@@ -155,12 +155,12 @@ Rails.application.routes.draw do
 end
 ```
 
-To serve the EmberCLI generated `index.html`, use the `include_ember_index_html`
+To serve the EmberCLI generated `index.html`, use the `render_ember_app`
 helper in your view:
 
 ```erb
 <!-- app/views/application/index.html.erb -->
-<%= include_ember_index_html :frontend %>
+<%= render_ember_app :frontend %>
 ```
 
 To inject markup into page, pass in a block that accepts the `head`, and
@@ -168,7 +168,7 @@ To inject markup into page, pass in a block that accepts the `head`, and
 
 ```erb
 <!-- app/views/application/index.html.erb -->
-<%= include_ember_index_html :frontend do |head| %>
+<%= render_ember_app :frontend do |head| %>
   <% head.append do %>
     <%= csrf_meta_tags %>
   <% end %>
@@ -272,7 +272,7 @@ In order to add that token to your requests, you need to add into your template:
 
 ```erb
 <!-- app/views/application/index.html.erb -->
-<%= include_ember_index_html :frontend do |head| %>
+<%= render_ember_app :frontend do |head| %>
   <% head.append do %>
     <%= csrf_meta_tags %>
   <% end %>

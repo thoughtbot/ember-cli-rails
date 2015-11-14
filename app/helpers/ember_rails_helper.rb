@@ -2,6 +2,16 @@ require "ember-cli/capture"
 
 module EmberRailsHelper
   def include_ember_index_html(name, &block)
+    warn <<-MSG.strip_heredoc
+      The `include_ember_index_html` helper has been deprecated.
+
+      Rename all invocations to `render_ember_app`
+    MSG
+
+    render_ember_app(name, &block)
+  end
+
+  def render_ember_app(name, &block)
     markup_capturer = EmberCli::Capture.new(sprockets: self, &block)
 
     head, body = markup_capturer.capture

@@ -1,4 +1,4 @@
-<%= include_ember_index_html "my-app" do |head, body| %>
+<%= render_ember_app "my-app" do |head, body| %>
   <% head.append do %>
     <%= csrf_meta_tags %>
   <% end %>
