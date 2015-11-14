@@ -1,19 +1,19 @@
 language: ruby
 sudo: false
 cache: bundler
-
 notifications:
   email: false
-
 rvm:
 - 2.2
 - 2.1
-
 before_install:
-  - qmake -version
-  - "echo '--colour' > ~/.rspec"
-  - "echo 'gem: --no-document' > ~/.gemrc"
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+- qmake -version
+- echo '--colour' > ~/.rspec
+- 'echo ''gem: --no-document'' > ~/.gemrc'
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
 before_script: bin/setup
 script: xvfb-run -a bin/rspec
+env:
+  global:
+    secure: RbWKxwfpzyQ5uv/jYH68/0J3Y9xe7rQbGULsWZT98FxZcVWLoOFlPPITmnmEK32CjQUww8iMz50FRLxFNmXg8prt1KzpzikVdIZLmYg1NFShI8+JOFhJzwCuk/LLybNUmydejR58FJvV9gS8NYqMh5leFkDM3OwLxhWdcE8hDDQ=
