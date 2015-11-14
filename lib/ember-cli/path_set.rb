@@ -65,8 +65,12 @@ module EmberCli
       root.join("node_modules", ".bin", "ember").tap do |path|
         unless path.executable?
           fail DependencyError.new <<-MSG.strip_heredoc
-            No local ember executable found. You should run `npm install`
-            inside the #{app_name} app located at #{root}
+            No `ember-cli` executable found for `#{app_name}`.
+
+            Install it:
+
+                $ cd #{root}
+                $ npm install
           MSG
         end
       end
@@ -85,7 +89,17 @@ module EmberCli
     end
 
     define_path :bower do
-      app_options.fetch(:bower_path) { configuration.bower_path }
+      app_options.fetch(:bower_path) { configuration.bower_path }.tap do |path|
+        unless Pathname(path).executable?
+          fail DependencyError.new <<-MSG.strip_heredoc
+          Bower is required by EmberCLI
+
+          Install it with:
+
+              $ npm install -g bower
+          MSG
+        end
+      end
     end
 
     define_path :npm do

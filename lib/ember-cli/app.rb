@@ -37,17 +37,7 @@ module EmberCli
 
       exec "#{paths.npm} prune && #{paths.npm} install"
 
-      if paths.bower.nil?
-        fail <<-FAIL
-          Bower is required by EmberCLI
-
-          Install it with:
-
-              $ npm install -g bower
-        FAIL
-      else
-        exec "#{paths.bower} prune && #{paths.bower} install"
-      end
+      exec "#{paths.bower} prune && #{paths.bower} install"
     end
 
     def run

@@ -153,19 +153,21 @@ describe EmberCli::PathSet do
 
   describe "#bower" do
     it "can be overridden" do
-      app = build_app(options: { bower_path: "bower-path" })
+      fake_bower = create_executable(ember_cli_root.join("bower"))
+      app = build_app(options: { bower_path: fake_bower })
 
       path_set = build_path_set(app: app)
 
-      expect(path_set.bower).to eq "bower-path"
+      expect(path_set.bower).to eq fake_bower
     end
 
     it "can be configured" do
-      configuration = double(bower_path: "bower-path")
+      fake_bower = create_executable(ember_cli_root.join("bower"))
+      configuration = double(bower_path: fake_bower)
 
       path_set = build_path_set(configuration: configuration)
 
-      expect(path_set.bower).to eq "bower-path"
+      expect(path_set.bower).to eq fake_bower
     end
   end
 
