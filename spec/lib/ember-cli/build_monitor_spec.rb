@@ -47,7 +47,7 @@ describe EmberCli::BuildMonitor do
         paths = build_paths(blank_error_file)
         monitor = EmberCli::BuildMonitor.new(nil, paths)
 
-        expect { monitor.check! }.not_to raise_error(EmberCli::BuildError)
+        expect(monitor.check!).to be true
       end
     end
 
@@ -56,7 +56,7 @@ describe EmberCli::BuildMonitor do
         paths = build_paths(missing_error_file)
         monitor = EmberCli::BuildMonitor.new(nil, paths)
 
-        expect { monitor.check! }.not_to raise_error(EmberCli::BuildError)
+        expect(monitor.check!).to be true
       end
     end
   end

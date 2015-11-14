@@ -9,6 +9,8 @@ module EmberCli
       if build_error?
         raise_build_error!
       end
+
+      true
     end
 
     def reset
