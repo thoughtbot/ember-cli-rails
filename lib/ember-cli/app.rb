@@ -63,6 +63,12 @@ module EmberCli
       set_on_exit_callback
     end
 
+    def running?
+      pid.present? && Process.getpgid(pid)
+    rescue Errno::ESRCH
+      false
+    end
+
     def run_tests
       prepare
 

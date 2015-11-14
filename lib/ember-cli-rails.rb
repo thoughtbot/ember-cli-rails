@@ -60,8 +60,8 @@ module EmberCli
     each_app &:compile
   end
 
-  def process_path(path)
-    each_app{ |app| Runner.new(app, path).process }
+  def run!
+    each_app { |app| Runner.new(app).run! }
   end
 
   def root

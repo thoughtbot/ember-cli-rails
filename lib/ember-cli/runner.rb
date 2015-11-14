@@ -1,44 +1,27 @@
 module EmberCli
   class Runner
-    attr_reader :app, :path
+    attr_reader :app
 
-    def initialize(app, path)
-      @app, @path = app, path
+    def initialize(app)
+      @app = app
     end
 
-    def process
+    def run!
       if EmberCli.env.development?
         start_or_restart!
       else
-        compile!
+        app.compile
       end
 
-      wait!
+      app.wait
     end
 
     private
 
     def start_or_restart!
-      run! unless app.pid && still_running?
-    end
-
-    def still_running?
-      Process.getpgid app.pid
-      true
-    rescue Errno::ESRCH # no such process
-      false
-    end
-
-    def wait!
-      app.wait
-    end
-
-    def compile!
-      app.compile
-    end
-
-    def run!
-      app.run
+      unless app.running?
+        app.run
+      end
     end
   end
 end
