@@ -8,7 +8,6 @@ module EmberCli
   autoload :App,           "ember-cli/app"
   autoload :Configuration, "ember-cli/configuration"
   autoload :Helpers,       "ember-cli/helpers"
-  autoload :Middleware,    "ember-cli/middleware"
   autoload :PathSet,       "ember-cli/path_set"
   autoload :Runner,        "ember-cli/runner"
 
@@ -32,31 +31,26 @@ module EmberCli
     ENV["SKIP_EMBER"].present?
   end
 
-  def prepare!
-    @prepared ||= begin
+  def enable!
+    @enabled ||= begin
       Rails.configuration.assets.paths << root.join("assets").to_s
       at_exit{ cleanup }
       true
     end
   end
 
-  def enable!
-    prepare!
-    append_middleware unless env.production?
-  end
-
   def install_dependencies!
-    prepare!
+    enable!
     each_app &:install_dependencies
   end
 
   def run_tests!
-    prepare!
+    enable!
     each_app &:run_tests
   end
 
   def compile!
-    prepare!
+    enable!
     each_app &:compile
   end
 
@@ -86,10 +80,6 @@ module EmberCli
 
   def each_app
     apps.each{ |name, app| yield app }
-  end
-
-  def append_middleware
-    Rails.configuration.middleware.use Middleware
   end
 end
 
