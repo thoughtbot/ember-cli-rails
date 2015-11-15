@@ -1,6 +1,9 @@
 master
 ------
 
+0.5.0
+-----
+
 * Deprecate `include_ember_index_html` in favor of the renamed
   `render_ember_app`.
 * Always pass `--environment test` to Rails-generated `ember test` commands.
