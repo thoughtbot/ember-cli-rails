@@ -1,6 +1,9 @@
 master
 ------
 
+0.5.2
+-----
+
 * Register EmberCLI app with Sprockets on application initialization
 * Rename `ember-cli` to `ember_cli` in Ruby.
 
