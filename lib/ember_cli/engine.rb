@@ -1,8 +1,8 @@
 module EmberCli
   class Engine < Rails::Engine
     initializer "ember-cli-rails.rendering" do
-      require "ember-cli/ember_controller"
-      require "ember-cli/route_helpers"
+      require "ember_cli/ember_controller"
+      require "ember_cli/route_helpers"
     end
 
     initializer "ember-cli-rails.enable" do
@@ -15,7 +15,7 @@ module EmberCli
 
     config.after_initialize do
       if defined?(ApplicationController)
-        require "ember-cli/controller_extension"
+        require "ember_cli/controller_extension"
 
         ApplicationController.include(EmberCli::ControllerExtension)
       end

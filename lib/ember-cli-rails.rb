@@ -1,13 +1,13 @@
-require "ember-cli/engine" if defined?(Rails)
-require "ember-cli/errors"
+require "ember_cli/engine" if defined?(Rails)
+require "ember_cli/errors"
 
 module EmberCli
   extend self
 
-  autoload :App,           "ember-cli/app"
-  autoload :Configuration, "ember-cli/configuration"
-  autoload :Helpers,       "ember-cli/helpers"
-  autoload :PathSet,       "ember-cli/path_set"
+  autoload :App,           "ember_cli/app"
+  autoload :Configuration, "ember_cli/configuration"
+  autoload :Helpers,       "ember_cli/helpers"
+  autoload :PathSet,       "ember_cli/path_set"
 
   def configure
     yield configuration

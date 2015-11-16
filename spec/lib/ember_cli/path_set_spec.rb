@@ -1,5 +1,5 @@
 require "fileutils"
-require "ember-cli/path_set"
+require "ember_cli/path_set"
 
 describe EmberCli::PathSet do
   describe "#root" do

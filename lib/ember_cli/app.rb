@@ -1,6 +1,6 @@
-require "ember-cli/shell"
-require "ember-cli/sprockets"
-require "ember-cli/build_monitor"
+require "ember_cli/shell"
+require "ember_cli/sprockets"
+require "ember_cli/build_monitor"
 
 module EmberCli
   class App

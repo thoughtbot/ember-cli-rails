@@ -1,5 +1,5 @@
 require "non-stupid-digest-assets"
-require "ember-cli/html_page"
+require "ember_cli/html_page"
 
 module EmberCli
   class Sprockets

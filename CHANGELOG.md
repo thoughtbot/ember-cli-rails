@@ -1,6 +1,8 @@
 master
 ------
 
+* Rename `ember-cli` to `ember_cli` in Ruby.
+
 0.5.1
 -----
 

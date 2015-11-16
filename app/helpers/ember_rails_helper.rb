@@ -1,4 +1,4 @@
-require "ember-cli/capture"
+require "ember_cli/capture"
 
 module EmberRailsHelper
   def include_ember_index_html(name, &block)

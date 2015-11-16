@@ -1,5 +1,5 @@
-require "ember-cli/errors"
-require "ember-cli/build_monitor"
+require "ember_cli/errors"
+require "ember_cli/build_monitor"
 
 describe EmberCli::BuildMonitor do
   describe "#reset" do

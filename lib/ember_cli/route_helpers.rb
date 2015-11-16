@@ -1,4 +1,4 @@
-require "ember-cli/constraint"
+require "ember_cli/constraint"
 
 module ActionDispatch
   module Routing

@@ -1,4 +1,4 @@
-require File.expand_path("../lib/ember-cli/version", __FILE__)
+require File.expand_path("../lib/ember_cli/version", __FILE__)
 
 Gem::Specification.new do |spec|
   spec.name     = "ember-cli-rails"

@@ -1,4 +1,4 @@
-require "ember-cli/command"
+require "ember_cli/command"
 
 module EmberCli
   class Shell
