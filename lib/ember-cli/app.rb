@@ -35,9 +35,9 @@ module EmberCli
     end
 
     def build
-      if EmberCli.env.development?
+      if development?
         build_and_watch
-      else
+      elsif test?
         compile
       end
 
@@ -59,7 +59,7 @@ module EmberCli
     end
 
     def index_file
-      if EmberCli.env.production?
+      if production?
         paths.applications.join("#{name}.html")
       else
         paths.dist.join("index.html")
@@ -67,6 +67,12 @@ module EmberCli
     end
 
     private
+
+    delegate :development?, :production?, :test?, to: :env
+
+    def env
+      EmberCli.env
+    end
 
     def build_and_watch
       prepare
@@ -84,7 +90,7 @@ module EmberCli
     end
 
     def copy_index_html_file
-      if EmberCli.env.production?
+      if production?
         FileUtils.cp(paths.app_assets.join("index.html"), index_file)
       end
     end

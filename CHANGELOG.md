@@ -1,6 +1,13 @@
 master
 ------
 
+0.5.1
+-----
+
+* Invoke `EmberCli::App#compile` in `test` environment, spawn `build` process in
+  development, rely on `rake assets:precompile` in `production`-like
+  environments.
+
 0.5.0
 -----
 
