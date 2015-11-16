@@ -13,7 +13,9 @@ module EmberCli
         deprecate_enable
       end
 
-      apps.store name, App.new(name, options)
+      app = App.new(name, options)
+      app.sprockets.register!
+      apps.store(name, app)
     end
 
     def apps

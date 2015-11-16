@@ -84,7 +84,6 @@ module EmberCli
       @prepared ||= begin
         @build.reset
         symlink_to_assets_root
-        sprockets.register!
         true
       end
     end
