@@ -1,6 +1,13 @@
 master
 ------
 
+* No longer redirect `STDERR` to `STDOUT` when executing `ember` commands. This
+  fixes some JRuby bugs. [#288]
+* Don't `prune` in generated Heroku setup script. [#286]
+
+[#288]: https://github.com/thoughtbot/ember-cli-rails/pull/288
+[#286]: https://github.com/thoughtbot/ember-cli-rails/pull/286
+
 0.5.2
 -----
 

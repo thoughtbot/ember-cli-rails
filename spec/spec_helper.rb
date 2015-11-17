@@ -6,6 +6,7 @@ ENV["RAILS_ENV"] = "test"
 require "dummy/application"
 
 require "rspec/rails"
+require "capybara/poltergeist"
 
 Dummy::Application.initialize!
 
@@ -26,8 +27,4 @@ RSpec.configure do |config|
   config.order = :random
 end
 
-Capybara::Webkit.configure do |config|
-  config.block_unknown_urls = true
-end
-
-Capybara.javascript_driver = :webkit
+Capybara.javascript_driver = :poltergeist

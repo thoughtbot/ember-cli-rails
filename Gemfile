@@ -11,6 +11,6 @@ group :development, :test do
 end
 
 group :test do
-  gem "capybara-webkit", "~> 1.7.0"
+  gem "poltergeist", "~> 1.8.0"
   gem "codeclimate-test-reporter", require: nil
 end

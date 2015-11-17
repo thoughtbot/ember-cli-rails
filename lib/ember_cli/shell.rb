@@ -55,7 +55,7 @@ module EmberCli
 
     def exec(command, method: :system)
       Dir.chdir paths.root do
-        Kernel.public_send(method, env, command, err: :out) || exit(1)
+        Kernel.public_send(method, env, command) || exit(1)
       end
     end
 
