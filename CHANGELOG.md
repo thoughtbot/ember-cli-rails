@@ -1,6 +1,9 @@
 master
 ------
 
+0.5.3
+-----
+
 * No longer redirect `STDERR` to `STDOUT` when executing `ember` commands. This
   fixes some JRuby bugs. [#288]
 * Don't `prune` in generated Heroku setup script. [#286]
