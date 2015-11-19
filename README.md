@@ -1,25 +1,17 @@
 # Ember CLI Rails
 
-Ember CLI Rails is an integration story between (surprise surprise) Ember CLI and
-Rails 3.1 and up. It is designed to provide an easy way to organize your Rails backed
-Ember CLI application with a specific focus on upgradeability. Rails and Ember
-[slash Ember CLI] are maintained by different teams with different goals. As
-such, we believe that it is important to ensure smooth upgrading of both
-aspects of your application.
+Unify your EmberCLI and Rails Workflows!
 
-A large contingent of Ember developers use Rails. And Rails is awesome. With
-the upcoming changes to Ember 2.0 and the Ember community's desire to unify
-around Ember CLI it is now more important than ever to ensure that Rails and
-Ember CLI can coexist and development still be fun!
+EmberCLI-Rails is designed to give you the best of both worlds:
 
-To this end we have created a minimum set of features (which we will outline
-below) to allow you keep your Rails workflow while minimizing the risk of
-upgrade pain with your Ember build tools.
-
-For example, end-to-end tests with frameworks like Cucumber should just work.
-You should still be able leverage the asset pipeline, and all the conveniences
-that Rails offers. And you should get all the new goodies like ES6 modules and
-Ember CLI addons too! Without further ado, let's get in there!
+* Stay up to date with the latest JavaScript technology and EmberCLI addons
+* Develop your Rails API and Ember front-ends from within a single process
+* Inject Rails-generated content into your EmberCLI application
+* Avoid Cross-Origin Resource Sharing gotchas by serving your EmberCLI
+  applications and your API from a single domain
+* Write truly end-to-end integration tests, exercising your application's entire
+  stack through JavaScript-enabled Capybara tests
+* Deploy your entire suite of applications with a single `git push`
 
 **EmberCLI-Rails Supports EmberCLI 1.13.x and later.**
 
