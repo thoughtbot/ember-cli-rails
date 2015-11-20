@@ -1,0 +1,18 @@
+version: '{build}'
+
+skip_tags: true
+
+environment:
+  matrix:
+    - ruby_version: "21"
+    - ruby_version: "21-x64"
+
+install:
+  - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
+  - gem install bundler --no-document
+  - bundle install --retry=3
+
+test_script:
+  - bundle exec rspec
+
+build: off
