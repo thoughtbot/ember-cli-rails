@@ -1,6 +1,9 @@
 master
 ------
 
+0.5.4
+-----
+
 * Escape generated CLI strings. Adds support for paths with spaces.
 
 0.5.3
