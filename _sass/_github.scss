@@ -1,8 +1,8 @@
 .hljs {
+  color: $mine-shaft;
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  color: $mine-shaft;
 }
 
 .hljs-attribute {
@@ -41,7 +41,7 @@
 }
 
 .hljs-inheritance {
-  color:$royal-blue;
+  color: $royal-blue;
 }
 
 .hljs-keyword {
@@ -64,7 +64,6 @@
 
 .hljs-subst {
   color: $mine-shaft;
-  font-weight: bold;
   font-weight: normal;
 }
 
