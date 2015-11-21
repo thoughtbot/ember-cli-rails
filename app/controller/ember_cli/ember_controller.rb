@@ -1,5 +1,5 @@
 module EmberCli
-  class EmberController < ::ApplicationController
+  class EmberController < ::ActionController::Base
     def index
       @app = params[:ember_app]
 
