@@ -24,6 +24,10 @@ module EmberCli
       @build = BuildMonitor.new(name, @paths)
     end
 
+    def root
+      paths.root
+    end
+
     def compile
       @compiled ||= begin
         prepare
