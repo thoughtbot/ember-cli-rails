@@ -6,7 +6,7 @@ notifications:
 rvm:
 - 2.2
 - 2.1
-- jruby-9000
+- jruby-9.0.3.0
 before_install:
 - echo '--colour' > ~/.rspec
 - 'echo ''gem: --no-document'' > ~/.gemrc'

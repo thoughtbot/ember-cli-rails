@@ -52,57 +52,39 @@ describe EmberCli::Command do
       expect(command.build).to match(%r{2> 'path/to/errors\.txt'})
     end
 
-    context "when `tee` command exists" do
-      it "uses `tee` to pipe to log files" do
-        paths = build_paths(tee: "path/to/tee", log: "path/to/logs")
+    context "when configured not to watch" do
+      it "excludes the `--watch` flag" do
+        paths = build_paths
         command = build_command(paths: paths)
 
-        expect(command.build).to match(%r{\| path/to/tee -a 'path/to/logs'})
+        expect(command.build).not_to match(/--watch/)
       end
     end
 
-    context "when `tee` command is missing" do
-      it "does not pipe `tee` to log files" do
-        paths = build_paths(tee: nil)
+    context "when configured to watch" do
+      it "includes the `--watch` flag" do
+        paths = build_paths
         command = build_command(paths: paths)
 
-        expect(command.build).not_to match(%r{\|})
+        expect(command.build(watch: true)).to match(/--watch/)
       end
 
-      context "when configured not to watch" do
-        it "excludes the `--watch` flag" do
-          paths = build_paths
-          command = build_command(paths: paths)
+      it "defaults to configuration for the `--watcher` flag" do
+        paths = build_paths
+        command = build_command(paths: paths)
+        allow(EmberCli).
+          to receive(:configuration).
+          and_return(build_paths(watcher: "bar"))
 
-          expect(command.build).not_to match(/--watch/)
-        end
+        expect(command.build(watch: true)).to match(/--watcher 'bar'/)
       end
 
-      context "when configured to watch" do
-        it "includes the `--watch` flag" do
+      context "when a watcher is configured" do
+        it "configures the build with the value" do
           paths = build_paths
-          command = build_command(paths: paths)
+          command = build_command(paths: paths, options: { watcher: "foo" })
 
-          expect(command.build(watch: true)).to match(/--watch/)
-        end
-
-        it "defaults to configuration for the `--watcher` flag" do
-          paths = build_paths
-          command = build_command(paths: paths)
-          allow(EmberCli).
-            to receive(:configuration).
-            and_return(build_paths(watcher: "bar"))
-
-          expect(command.build(watch: true)).to match(/--watcher 'bar'/)
-        end
-
-        context "when a watcher is configured" do
-          it "configures the build with the value" do
-            paths = build_paths
-            command = build_command(paths: paths, options: { watcher: "foo" })
-
-            expect(command.build(watch: true)).to match(/--watcher 'foo'/)
-          end
+          expect(command.build(watch: true)).to match(/--watcher 'foo'/)
         end
       end
     end

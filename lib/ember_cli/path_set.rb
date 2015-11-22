@@ -84,10 +84,6 @@ module EmberCli
       tmp.join("error.txt")
     end
 
-    define_path :tee do
-      app_options.fetch(:tee_path) { configuration.tee_path }
-    end
-
     define_path :bower do
       app_options.fetch(:bower_path) { configuration.bower_path }.tap do |path|
         unless Pathname(path).executable?

@@ -133,24 +133,6 @@ describe EmberCli::PathSet do
     end
   end
 
-  describe "#tee" do
-    it "can be overridden" do
-      app = build_app(options: { tee_path: "tee-path" })
-
-      path_set = build_path_set(app: app)
-
-      expect(path_set.tee).to eq "tee-path"
-    end
-
-    it "can be configured" do
-      configuration = double(tee_path: "tee-path")
-
-      path_set = build_path_set(configuration: configuration)
-
-      expect(path_set.tee).to eq "tee-path"
-    end
-  end
-
   describe "#bower" do
     it "can be overridden" do
       fake_bower = create_executable(ember_cli_root.join("bower"))

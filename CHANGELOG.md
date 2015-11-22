@@ -1,6 +1,11 @@
 master
 ------
 
+* No longer depend on `tee` executable. Use `Kernel#{spawn,system}` with
+  redirection options. [#299]
+
+[#299]: https://github.com/thoughtbot/ember-cli-rails/pull/299
+
 0.5.5
 -----
 

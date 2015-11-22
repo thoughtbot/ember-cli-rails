@@ -14,25 +14,6 @@ module EmberCli
     end
 
     def build(watch: false)
-      [
-        build_command(watch: watch),
-        pipe_to_logs_command,
-      ].compact.join(" | ")
-    end
-
-    private
-
-    attr_reader :options, :paths
-
-    def pipe_to_logs_command
-      unless paths.tee.nil?
-        line = Cocaine::CommandLine.new(paths.tee, "-a :log_file")
-
-        line.command(log_file: paths.log)
-      end
-    end
-
-    def build_command(watch: false)
       line = Cocaine::CommandLine.new(paths.ember, [
         "build",
         ("--watch" if watch),
@@ -49,6 +30,10 @@ module EmberCli
         error_file: paths.build_error_file,
       )
     end
+
+    private
+
+    attr_reader :options, :paths
 
     def process_watcher
       options.fetch(:watcher) { EmberCli.configuration.watcher }

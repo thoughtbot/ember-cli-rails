@@ -50,13 +50,18 @@ module EmberCli
     attr_reader :ember, :env, :options, :paths
 
     def spawn(command)
-      exec(command, method: :spawn)
+      Kernel.spawn(env, command, process_options) || exit(1)
     end
 
-    def exec(command, method: :system)
-      Dir.chdir paths.root do
-        Kernel.public_send(method, env, command) || exit(1)
-      end
+    def exec(command)
+      Kernel.system(env, command, process_options) || exit(1)
+    end
+
+    def process_options
+      {
+        chdir: paths.root.to_s,
+        out: paths.log.to_s,
+      }
     end
 
     def running?
