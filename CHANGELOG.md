@@ -1,6 +1,9 @@
 master
 ------
 
+0.5.5
+-----
+
 * Expose `EmberCli::App#root` for Heroku generator. Fixes [#295]. [#296]
 
 [#295]: https://github.com/thoughtbot/ember-cli-rails/issues/295
