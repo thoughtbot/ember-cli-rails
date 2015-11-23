@@ -1,3 +1,4 @@
+require "posix/spawn"
 require "ember_cli/command"
 
 module EmberCli
@@ -50,11 +51,11 @@ module EmberCli
     attr_reader :ember, :env, :options, :paths
 
     def spawn(command)
-      Kernel.spawn(env, command, process_options) || exit(1)
+      POSIX::Spawn::spawn(env, command, process_options) || exit(1)
     end
 
     def exec(command)
-      Kernel.system(env, command, process_options) || exit(1)
+      POSIX::Spawn::system(env, command, process_options) || exit(1)
     end
 
     def process_options
