@@ -1,6 +1,7 @@
 master
 ------
 
+* Use `POSIX::Spawn::{spawn,system}`.
 * No longer depend on `tee` executable. Use `Kernel#{spawn,system}` with
   redirection options. [#299]
 

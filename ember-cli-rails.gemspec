@@ -16,4 +16,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "non-stupid-digest-assets", "~> 1.0.0"
   spec.add_dependency "sprockets", ">= 2.0"
   spec.add_dependency "cocaine", "~> 0.5.0"
+  spec.add_dependency "posix-spawn", "~> 0.3.0"
 end
