@@ -198,6 +198,10 @@ In addition to rendering the EmberCLI generated `index.html`, you can inject the
 <%= include_ember_stylesheet_tags :frontend %>
 ```
 
+**NOTE**
+
+These helpers are only available for Rails versions `>= 4.0`.
+
 ### Multiple Ember CLI apps
 
 In the initializer you may specify multiple Ember CLI apps, each of which can be
@@ -519,10 +523,14 @@ jQuery and Handlebars are the main use cases for this flag.
 This project supports:
 
 * Ruby versions `>= 2.1.0`
-* Rails `3.2.x` and `>=4.1.x`.
+* Rails versions `3.2.x` and `>=4.1.x`.
+
+[Rendering EmberCLI-generated assets through Sprockets](asset-helpers) is
+**NOT** supported for Rails `3.2.x`.
 
 To learn more about supported versions and upgrades, read the [upgrading guide].
 
+[asset-helpers]: #rendering-the-embercli-generated-js-and-css
 [upgrading guide]: /UPGRADING.md
 
 ## Contributing

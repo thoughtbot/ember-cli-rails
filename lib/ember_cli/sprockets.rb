@@ -1,10 +1,14 @@
+require "sprockets"
 require "ember_cli/errors"
 require "non-stupid-digest-assets"
 require "ember_cli/html_page"
+require "ember_cli/missing_manifest"
+require "ember_cli/assets"
 
 module EmberCli
   class Sprockets
     class AssetPipelineError < BuildError; end
+
     def initialize(app)
       @app = app
     end
@@ -24,13 +28,25 @@ module EmberCli
       html_page.render
     end
 
-    def assets
-      ["#{app.name}/assets/vendor", "#{app.name}/assets/#{ember_app_name}"]
+    def javascript_assets
+      assets.javascripts
+    end
+
+    def stylesheet_assets
+      assets.stylesheets
     end
 
     private
 
     attr_reader :app
+
+    def assets
+      Assets.new(
+        app_name: app.name,
+        ember_app_name: ember_app_name,
+        manifest: rails_manifest,
+      )
+    end
 
     def ember_app_name
       @ember_app_name ||= app.options.fetch(:name) { package_json.fetch(:name) }
@@ -39,6 +55,14 @@ module EmberCli
     def package_json
       @package_json ||=
         JSON.parse(app.paths.package_json_file.read).with_indifferent_access
+    end
+
+    def rails_manifest
+      if Rails.application.respond_to?(:assets_manifest)
+        Rails.application.assets_manifest
+      else
+        MissingManifest.new
+      end
     end
 
     def asset_matcher

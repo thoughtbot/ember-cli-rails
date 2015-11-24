@@ -1,9 +1,17 @@
 require "ember-cli-rails"
 
 describe EmberCli::App do
+  describe "#compile" do
+    it "exits with exit status of 0" do
+      passed = EmberCli["my-app"].compile
+
+      expect(passed).to be true
+    end
+  end
+
   describe "#test" do
     it "exits with exit status of 0" do
-      passed = silence_stream(STDOUT) { EmberCli["my-app"].test }
+      passed = EmberCli["my-app"].test
 
       expect(passed).to be true
     end

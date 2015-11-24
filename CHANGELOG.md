@@ -1,9 +1,11 @@
 master
 ------
 
+* Use latest EmberCLI-generated asset files. [#316]
 * Delete previous build output on application boot instead of on process exit.
   [#308]
 
+[#316]: https://github.com/thoughtbot/ember-cli-rails/pull/316
 [#308]: https://github.com/thoughtbot/ember-cli-rails/pull/308
 
 0.5.6
