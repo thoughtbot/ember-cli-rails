@@ -26,3 +26,8 @@ cd ${root}/spec/dummy/my-app &&
   bower install
 
 cd ${root}/spec/dummy && bundle exec rake ember:install
+
+# Only if this isn't CI
+if [ -z "$CI" ]; then
+  bin/appraisal install
+fi
