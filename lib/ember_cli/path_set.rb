@@ -1,16 +1,5 @@
 module EmberCli
   class PathSet
-    def self.define_path(name, &definition)
-      define_method name do
-        ivar = "@_#{name}_path"
-        if instance_variable_defined?(ivar)
-          instance_variable_get(ivar)
-        else
-          instance_exec(&definition).tap{ |value| instance_variable_set ivar, value }
-        end
-      end
-    end
-
     def initialize(app:, rails_root:, ember_cli_root:, environment:, configuration:)
       @app = app
       @configuration = configuration
@@ -19,7 +8,7 @@ module EmberCli
       @ember_cli_root = ember_cli_root
     end
 
-    define_path :root do
+    def root
       path = app_options.fetch(:path){ default_root }
       pathname = Pathname.new(path)
       if pathname.absolute?
@@ -29,81 +18,89 @@ module EmberCli
       end
     end
 
-    define_path :tmp do
-      root.join("tmp").tap(&:mkpath)
+    def tmp
+      @tmp ||= root.join("tmp").tap(&:mkpath)
     end
 
-    define_path :log do
-      rails_root.join("log", "ember-#{app_name}.#{environment}.log")
+    def log
+      @log ||= rails_root.join("log", "ember-#{app_name}.#{environment}.log")
     end
 
-    define_path :dist do
-      ember_cli_root.join("apps", app_name).tap(&:mkpath)
+    def dist
+      @dist ||= ember_cli_root.join("apps", app_name).tap(&:mkpath)
     end
 
-    define_path :assets do
-      ember_cli_root.join("assets").tap(&:mkpath)
+    def assets
+      @assets ||= ember_cli_root.join("assets").tap(&:mkpath)
     end
 
-    define_path :app_assets do
-      assets.join(app_name)
+    def app_assets
+      @app_assets ||= assets.join(app_name)
     end
 
-    define_path :applications do
-      rails_root.join("public", "_apps").tap(&:mkpath)
+    def applications
+      @applications ||= rails_root.join("public", "_apps").tap(&:mkpath)
     end
 
-    define_path :gemfile do
-      root.join("Gemfile")
+    def gemfile
+      @gemfile ||= root.join("Gemfile")
     end
 
-    define_path :package_json_file do
-      root.join("package.json")
+    def package_json_file
+      @package_json_file ||= root.join("package.json")
     end
 
-    define_path :ember do
-      root.join("node_modules", ".bin", "ember").tap do |path|
-        unless path.executable?
-          fail DependencyError.new <<-MSG.strip_heredoc
-            No `ember-cli` executable found for `#{app_name}`.
+    def ember
+      @ember ||= begin
+        root.join("node_modules", ".bin", "ember").tap do |path|
+          unless path.executable?
+            fail DependencyError.new <<-MSG.strip_heredoc
+              No `ember-cli` executable found for `#{app_name}`.
 
-            Install it:
+              Install it:
 
-                $ cd #{root}
-                $ npm install
-          MSG
+                  $ cd #{root}
+                  $ npm install
+            MSG
+          end
         end
       end
     end
 
-    define_path :lockfile do
-      tmp.join("build.lock")
+    def lockfile
+      @lockfile ||= tmp.join("build.lock")
     end
 
-    define_path :build_error_file do
-      tmp.join("error.txt")
+    def build_error_file
+      @build_error_file ||= tmp.join("error.txt")
     end
 
-    define_path :bower do
-      app_options.fetch(:bower_path) { configuration.bower_path }.tap do |path|
-        unless Pathname(path).executable?
-          fail DependencyError.new <<-MSG.strip_heredoc
-          Bower is required by EmberCLI
+    def bower
+      @bower ||= begin
+        bower_path = app_options.fetch(:bower_path) { configuration.bower_path }
 
-          Install it with:
+        bower_path.tap do |path|
+          unless Pathname(path).executable?
+            fail DependencyError.new <<-MSG.strip_heredoc
+            Bower is required by EmberCLI
 
-              $ npm install -g bower
-          MSG
+            Install it with:
+
+                $ npm install -g bower
+            MSG
+          end
         end
       end
     end
 
-    define_path :npm do
-      app_options.fetch(:npm_path) { configuration.npm_path }
+    def npm
+      @npm ||= app_options.fetch(:npm_path) { configuration.npm_path }
     end
 
-    define_path :bundler do
-      app_options.fetch(:bundler_path) { configuration.bundler_path }
+    def bundler
+      @bundler ||= app_options.fetch(:bundler_path) do
+        configuration.bundler_path
+      end
     end
 
     private
