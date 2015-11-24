@@ -1,6 +1,11 @@
 master
 ------
 
+* Delete previous build output on application boot instead of on process exit.
+  [#308]
+
+[#308]: https://github.com/thoughtbot/ember-cli-rails/pull/308
+
 0.5.6
 -----
 

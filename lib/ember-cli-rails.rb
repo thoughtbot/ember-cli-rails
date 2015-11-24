@@ -32,7 +32,7 @@ module EmberCli
   def enable!
     @enabled ||= begin
       Rails.configuration.assets.paths << root.join("assets").to_s
-      at_exit{ cleanup }
+      cleanup
       true
     end
   end
@@ -53,7 +53,7 @@ module EmberCli
   end
 
   def root
-    @root ||= Rails.root.join("tmp", "ember-cli-#{uid}")
+    @root ||= tmp.join("ember-cli-#{uid}")
   end
 
   def env
@@ -64,12 +64,20 @@ module EmberCli
 
   private
 
-  def uid
-    @uid ||= SecureRandom.uuid
+  def cleanup
+    previous_builds.each(&:rmtree)
   end
 
-  def cleanup
-    root.rmtree if root.exist?
+  def previous_builds
+    Pathname.glob(tmp.join("ember-cli-*"))
+  end
+
+  def tmp
+    Rails.root.join("tmp")
+  end
+
+  def uid
+    @uid ||= SecureRandom.uuid
   end
 
   def each_app
