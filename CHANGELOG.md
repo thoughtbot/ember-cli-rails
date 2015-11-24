@@ -1,9 +1,14 @@
 master
 ------
 
+0.5.6
+-----
+
+* Fallback to `before_filter` for Rails 3.2. [#306]
 * No longer depend on `tee` executable. Use `Kernel#{spawn,system}` with
   redirection options. [#299]
 
+[#306]: https://github.com/thoughtbot/ember-cli-rails/pull/306
 [#299]: https://github.com/thoughtbot/ember-cli-rails/pull/299
 
 0.5.5
