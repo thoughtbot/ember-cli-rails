@@ -92,7 +92,7 @@ Be sure that the addon's [`MAJOR` and `MINOR` version][semver] matches the gem's
 `MAJOR` and `MINOR` versions.
 
 For instance, if you're using the `0.5.x` version of the gem, specify
-`~> 0.5.0` ion in your Ember app's `package.json`:
+`~> 0.5.0` in your Ember app's `package.json`:
 
 ```json
 {
