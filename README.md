@@ -242,19 +242,6 @@ module.exports = function(environment) {
 }
 ```
 
-Finally, configure each app's `router.js` file so that `rootURL` refers to the
-new `baseURL`:
-
-```javascript
-/* app/frontend/app/router.js */
-var Router = Ember.Router.extend({
-  rootURL:  config.baseURL, // add this line
-  location: config.locationType
-});
-```
-
-Repeat the process for `admin_panel/app/router.js`.
-
 ## CSRF Tokens
 
 Your Rails controllers, by default, are expecting a valid authenticity token to be submitted with non-`GET` requests.
