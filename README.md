@@ -63,7 +63,7 @@ c.app :frontend, path: "~/projects/my-ember-app"
 * generate a new Ember project:
 
 ```bash
-$ ember new frontend
+$ ember new frontend --skip-git
 ```
 
 **Initializer options**
