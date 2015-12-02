@@ -1,10 +1,12 @@
 master
 ------
 
+* Improve command failure reporting. [#324]
 * Use latest EmberCLI-generated asset files. [#316]
 * Delete previous build output on application boot instead of on process exit.
   [#308]
 
+[#324]: https://github.com/thoughtbot/ember-cli-rails/pull/324
 [#316]: https://github.com/thoughtbot/ember-cli-rails/pull/316
 [#308]: https://github.com/thoughtbot/ember-cli-rails/pull/308
 

@@ -1,4 +1,5 @@
 require "ember_cli/command"
+require "ember_cli/runner"
 
 module EmberCli
   class Shell
@@ -13,7 +14,7 @@ module EmberCli
     end
 
     def compile
-      silence_build { exec ember.build }
+      exec ember.build
     end
 
     def build_and_watch
@@ -50,18 +51,17 @@ module EmberCli
     attr_reader :ember, :env, :options, :paths
 
     def spawn(command)
-      Kernel.spawn(env, command, process_options) || exit(1)
+      Kernel.spawn(env, command, chdir: paths.root.to_s, out: paths.log.to_s) ||
+        exit(1)
     end
 
     def exec(command)
-      Kernel.system(env, command, process_options) || exit(1)
-    end
-
-    def process_options
-      {
-        chdir: paths.root.to_s,
-        out: paths.log.to_s,
-      }
+      Runner.new(
+        options: { chdir: paths.root.to_s },
+        out: paths.log,
+        err: $stderr,
+        env: env,
+      ).run!(command)
     end
 
     def running?
@@ -76,14 +76,6 @@ module EmberCli
 
     def detach
       Process.detach pid
-    end
-
-    def silence_build(&block)
-      if ENV.fetch("EMBER_CLI_RAILS_VERBOSE") { EmberCli.env.production? }
-        yield
-      else
-        silence_stream(STDOUT, &block)
-      end
     end
   end
 end
