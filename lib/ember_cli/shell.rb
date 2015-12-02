@@ -54,7 +54,15 @@ module EmberCli
     end
 
     def exec(command)
-      Kernel.system(env, command, process_options) || exit(1)
+      Kernel.system(env, command, process_options) ||
+        exit_with_debug_info(command)
+    end
+
+    def exit_with_debug_info(command)
+      STDERR.puts "command has failed: #{command}"
+      STDERR.puts "command output:"
+      STDERR.puts File.read(paths.log)
+      exit 1
     end
 
     def process_options
