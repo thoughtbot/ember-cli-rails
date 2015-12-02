@@ -13,7 +13,7 @@ module EmberCli
     end
 
     def compile
-      silence_build { exec ember.build }
+      exec ember.build
     end
 
     def build_and_watch
@@ -76,14 +76,6 @@ module EmberCli
 
     def detach
       Process.detach pid
-    end
-
-    def silence_build(&block)
-      if ENV.fetch("EMBER_CLI_RAILS_VERBOSE") { EmberCli.env.production? }
-        yield
-      else
-        silence_stream(STDOUT, &block)
-      end
     end
   end
 end
