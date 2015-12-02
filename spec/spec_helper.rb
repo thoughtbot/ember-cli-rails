@@ -10,7 +10,7 @@ require "capybara/poltergeist"
 
 Dummy::Application.initialize!
 
-Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |file| require file }
+Dir["./spec/support/**/*.rb"].sort.each { |file| require file }
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
