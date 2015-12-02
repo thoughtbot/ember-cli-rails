@@ -1,4 +1,5 @@
 require "ember_cli/command"
+require "open3"
 
 module EmberCli
   class Shell
@@ -54,14 +55,18 @@ module EmberCli
     end
 
     def exec(command)
-      Kernel.system(env, command, process_options) ||
-        exit_with_debug_info(command)
+      options = process_options.dup
+      out = options.delete(:out)
+      combined_output, exit_status = Open3.capture2e(env, command, options)
+      File.write out, combined_output
+      exit_with_debug_info(command, combined_output) unless exit_status.success?
+      true
     end
 
-    def exit_with_debug_info(command)
+    def exit_with_debug_info(command, combined_output)
       STDERR.puts "command has failed: #{command}"
       STDERR.puts "command output:"
-      STDERR.puts File.read(paths.log)
+      STDERR.puts combined_output
       exit 1
     end
 
