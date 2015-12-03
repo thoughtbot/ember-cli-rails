@@ -180,7 +180,7 @@ end
 
 **NOTE**
 
-When specifying a controller of your own, make sure [the is a descendant of
+When specifying a controller of your own, make sure [the controller is a descendant of
 `ApplicationController`][#321], and [`ApplicationController` is a
 descendant of `ActionController::Base`][#320].
 
