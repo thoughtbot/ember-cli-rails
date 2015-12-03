@@ -1,7 +1,6 @@
 require "sprockets"
 require "ember_cli/errors"
 require "non-stupid-digest-assets"
-require "ember_cli/html_page"
 require "ember_cli/missing_manifest"
 require "ember_cli/assets"
 
@@ -16,16 +15,6 @@ module EmberCli
     def register!
       register_or_raise!(Rails.configuration.assets.precompile)
       register_or_raise!(NonStupidDigestAssets.whitelist)
-    end
-
-    def index_html(head:, body:)
-      html_page = HtmlPage.new(
-        content: app.index_file.read,
-        head: head,
-        body: body,
-      )
-
-      html_page.render
     end
 
     def javascript_assets

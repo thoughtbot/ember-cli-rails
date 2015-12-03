@@ -1,6 +1,8 @@
 master
 ------
 
+* Raise build errors for `render_ember_app` failures. [#325]
+
 0.5.8
 -----
 
@@ -16,6 +18,7 @@ master
 * Delete previous build output on application boot instead of on process exit.
   [#308]
 
+[#325]: https://github.com/thoughtbot/ember-cli-rails/pull/325
 [#324]: https://github.com/thoughtbot/ember-cli-rails/pull/324
 [#316]: https://github.com/thoughtbot/ember-cli-rails/pull/316
 [#308]: https://github.com/thoughtbot/ember-cli-rails/pull/308

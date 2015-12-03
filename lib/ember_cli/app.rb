@@ -1,4 +1,5 @@
 require "ember_cli/shell"
+require "ember_cli/html_page"
 require "ember_cli/sprockets"
 require "ember_cli/build_monitor"
 
@@ -46,6 +47,24 @@ module EmberCli
       end
 
       @build.wait!
+    end
+
+    def index_html(head:, body:)
+      if index_file.exist?
+        html = HtmlPage.new(
+          head: head,
+          body: body,
+          content: index_file.read,
+        )
+
+        html.render
+      else
+        @build.check!
+
+        raise BuildError.new <<-MSG
+          EmberCLI failed to generate an `index.html` file.
+        MSG
+      end
     end
 
     def install_dependencies

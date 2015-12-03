@@ -12,7 +12,7 @@ module EmberRailsHelper
 
     head, body = markup_capturer.capture
 
-    render inline: EmberCli[name].sprockets.index_html(head: head, body: body)
+    render inline: EmberCli[name].index_html(head: head, body: body)
   end
 
   def include_ember_script_tags(name, **options)
