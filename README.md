@@ -178,6 +178,15 @@ class ApplicationController < ActionController::Base
 end
 ```
 
+**NOTE**
+
+When specifying a controller of your own, make sure [the controller is a
+descendant of `ApplicationController`][#321], and [`ApplicationController` is a
+descendant of `ActionController::Base`][#320].
+
+[#320]: https://github.com/thoughtbot/ember-cli-rails/issues/320
+[#321]: https://github.com/thoughtbot/ember-cli-rails/issues/321
+
 ### Rendering the EmberCLI generated JS and CSS
 
 In addition to rendering the EmberCLI generated `index.html`, you can inject the
