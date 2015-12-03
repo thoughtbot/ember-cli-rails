@@ -1,4 +1,5 @@
 require "ember_cli/command"
+require "open3"
 
 module EmberCli
   class Shell
@@ -13,7 +14,7 @@ module EmberCli
     end
 
     def compile
-      silence_build { exec ember.build }
+      exec ember.build
     end
 
     def build_and_watch
@@ -54,7 +55,19 @@ module EmberCli
     end
 
     def exec(command)
-      Kernel.system(env, command, process_options) || exit(1)
+      options = process_options.dup
+      out = options.delete(:out)
+      combined_output, exit_status = Open3.capture2e(env, command, options)
+      File.write out, combined_output
+      exit_with_debug_info(command, combined_output) unless exit_status.success?
+      true
+    end
+
+    def exit_with_debug_info(command, combined_output)
+      STDERR.puts "command has failed: #{command}"
+      STDERR.puts "command output:"
+      STDERR.puts combined_output
+      exit 1
     end
 
     def process_options
@@ -76,14 +89,6 @@ module EmberCli
 
     def detach
       Process.detach pid
-    end
-
-    def silence_build(&block)
-      if ENV.fetch("EMBER_CLI_RAILS_VERBOSE") { EmberCli.env.production? }
-        yield
-      else
-        silence_stream(STDOUT, &block)
-      end
     end
   end
 end
