@@ -12,13 +12,5 @@ module EmberCli
     config.to_prepare do
       ActionController::Base.helper EmberRailsHelper
     end
-
-    config.after_initialize do
-      if defined?(ApplicationController)
-        require "ember_cli/controller_extension"
-
-        ApplicationController.include(EmberCli::ControllerExtension)
-      end
-    end
   end
 end

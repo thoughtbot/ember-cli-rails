@@ -24,6 +24,10 @@ module EmberCli
     end
   end
 
+  def build(name)
+    app(name).build
+  end
+
   alias_method :[], :app
 
   def skip?

@@ -173,19 +173,12 @@ When serving the EmberCLI generated `index.html`, don't use Rails' layout HTML:
 # app/controllers/application.rb
 class ApplicationController < ActionController::Base
   def index
+    EmberCli.build("my-app")
+
     render layout: false
   end
 end
 ```
-
-**NOTE**
-
-When specifying a controller of your own, make sure [the controller is a
-descendant of `ApplicationController`][#321], and [`ApplicationController` is a
-descendant of `ActionController::Base`][#320].
-
-[#320]: https://github.com/thoughtbot/ember-cli-rails/issues/320
-[#321]: https://github.com/thoughtbot/ember-cli-rails/issues/321
 
 ### Rendering the EmberCLI generated JS and CSS
 
