@@ -72,7 +72,7 @@ module EmberCli
     end
 
     def build_error_file
-      @build_error_file ||= tmp.join("error.txt")
+      @build_error_file ||= tmp.join("ember_cli_rails_error.txt")
     end
 
     def bower
