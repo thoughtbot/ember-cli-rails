@@ -1,6 +1,9 @@
 master
 ------
 
+0.5.7
+-----
+
 * Improve command failure reporting. [#324]
 * Use latest EmberCLI-generated asset files. [#316]
 * Delete previous build output on application boot instead of on process exit.
