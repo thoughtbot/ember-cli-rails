@@ -1,3 +1,4 @@
+require "fileutils"
 require "ember_cli/engine" if defined?(Rails)
 require "ember_cli/errors"
 
@@ -65,7 +66,9 @@ module EmberCli
   private
 
   def cleanup
-    previous_builds.each(&:rmtree)
+    previous_builds.each do |path|
+      FileUtils.rm_rf(path)
+    end
   end
 
   def previous_builds
