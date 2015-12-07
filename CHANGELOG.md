@@ -1,6 +1,10 @@
 master
 ------
 
+* Ensure cleanup method can destroy temporary folders. [#330]
+
+[#330]: https://github.com/thoughtbot/ember-cli-rails/pull/330
+
 0.5.7
 -----
 
