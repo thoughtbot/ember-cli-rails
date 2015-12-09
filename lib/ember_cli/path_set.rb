@@ -30,16 +30,12 @@ module EmberCli
       @dist ||= ember_cli_root.join("apps", app_name).tap(&:mkpath)
     end
 
+    def asset_map
+      @asset_map ||= Pathname.glob(assets.join("assetMap*.json")).first
+    end
+
     def assets
-      @assets ||= ember_cli_root.join("assets").tap(&:mkpath)
-    end
-
-    def app_assets
-      @app_assets ||= assets.join(app_name)
-    end
-
-    def applications
-      @applications ||= rails_root.join("public", "_apps").tap(&:mkpath)
+      @assets ||= dist.join("assets").tap(&:mkpath)
     end
 
     def gemfile
