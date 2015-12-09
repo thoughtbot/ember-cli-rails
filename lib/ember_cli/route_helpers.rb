@@ -1,4 +1,4 @@
-require "ember_cli/constraint"
+require "ember_cli/html_constraint"
 
 module ActionDispatch
   module Routing
@@ -15,7 +15,7 @@ module ActionDispatch
         )
 
         Rails.application.routes.draw do
-          scope constraints: EmberCli::Constraint.new do
+          scope constraints: EmberCli::HtmlConstraint.new do
             get("#{to}(*rest)", routing_options)
           end
         end

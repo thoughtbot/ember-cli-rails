@@ -1,10 +1,10 @@
-require "ember_cli/constraint"
+require "ember_cli/html_constraint"
 
-describe EmberCli::Constraint do
+describe EmberCli::HtmlConstraint do
   describe "#matches?" do
     context %{when the format is "html"} do
       it "return true" do
-        constraint = EmberCli::Constraint.new
+        constraint = EmberCli::HtmlConstraint.new
         request = double(format: :html)
 
         expect(constraint.matches?(request)).to be true
@@ -13,7 +13,7 @@ describe EmberCli::Constraint do
 
     context %{when the format isn't "html"} do
       it "return false" do
-        constraint = EmberCli::Constraint.new
+        constraint = EmberCli::HtmlConstraint.new
         request = double(format: :json)
 
         expect(constraint.matches?(request)).to be false
@@ -22,7 +22,7 @@ describe EmberCli::Constraint do
 
     context %"when the format is empty or nil" do
       it "return false" do
-        constraint = EmberCli::Constraint.new
+        constraint = EmberCli::HtmlConstraint.new
         nil_request = double(format: nil)
         empty_request = double(format: "")
 
