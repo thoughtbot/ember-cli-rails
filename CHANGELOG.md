@@ -1,6 +1,8 @@
 master
 ------
 
+* Remove dependency on `sprockets`. Serve generated files with `Rack::File`.
+  [#336]
 * Rename generator namespace from `ember-cli` to `ember`. [#344]
 * Ensure `Rails.root.join("log")` exists when writing to logs.
 * Remove deprecated `include_ember_index_html` helper and deprecated
@@ -9,6 +11,7 @@ master
 * Remove `before_{action,filter}` in favor of explicit `EmberCli.build(app)`
   call. [#327]
 
+[#336]: https://github.com/thoughtbot/ember-cli-rails/pull/336
 [#344]: https://github.com/thoughtbot/ember-cli-rails/pull/344
 [#334]: https://github.com/thoughtbot/ember-cli-rails/pull/334
 [#327]: https://github.com/thoughtbot/ember-cli-rails/pull/327

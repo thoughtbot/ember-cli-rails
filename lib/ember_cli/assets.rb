@@ -1,66 +1,51 @@
+require "ember_cli/errors"
+require "ember_cli/asset_map"
+require "ember_cli/directory_asset_map"
+
 module EmberCli
   class Assets
-    def initialize(app_name:, ember_app_name:, manifest:)
-      @app_name = app_name
-      @ember_app_name = ember_app_name
-      @manifest = manifest
+    def initialize(app)
+      @app = app
     end
 
-    def javascripts
-      if empty_manifest?
-        fallback_assets
-      else
-        [
-          latest_matching(%r{#{app_name}/assets/vendor(.*)\.js\z}),
-          latest_matching(%r{#{app_name}/assets/#{ember_app_name}(.*)\.js\z}),
-        ]
-      end
+    def javascript_assets
+      asset_map.javascripts
     end
 
-    def stylesheets
-      if empty_manifest?
-        fallback_assets
-      else
-        [
-          latest_matching(%r{#{app_name}/assets/vendor(.*)\.css\z}),
-          latest_matching(%r{#{app_name}/assets/#{ember_app_name}(.*)\.css\z}),
-        ]
-      end
+    def stylesheet_assets
+      asset_map.stylesheets
     end
 
     private
 
-    attr_reader :app_name, :ember_app_name, :manifest
+    attr_reader :app
 
-    def fallback_assets
-      ["#{app_name}/assets/vendor", "#{app_name}/assets/#{ember_app_name}"]
+    def asset_map
+      AssetMap.new(
+        ember_app_name: ember_app_name,
+        asset_map: asset_map_hash.to_h,
+      )
     end
 
-    def empty_manifest?
-      files.empty?
+    def asset_map_file
+      app.paths.asset_map
     end
 
-    def latest_matching(regex)
-      asset, = assets.detect { |(_, digest)| digest == latest_file_for(regex) }
-
-      asset
+    def asset_map_hash
+      if asset_map_file.present? && asset_map_file.exist?
+        JSON.parse(asset_map_file.read)
+      else
+        DirectoryAssetMap.new(app.paths.assets)
+      end
     end
 
-    def latest_file_for(regex)
-      file, = files.
-        select { |key, _| key =~ regex }.
-        sort_by { |_, data| data["mtime"] }.
-        last
-
-      file
+    def ember_app_name
+      @ember_app_name ||= app.options.fetch(:name) { package_json.fetch(:name) }
     end
 
-    def assets
-      manifest.assets
-    end
-
-    def files
-      manifest.files
+    def package_json
+      @package_json ||=
+        JSON.parse(app.paths.package_json_file.read).with_indifferent_access
     end
   end
 end
