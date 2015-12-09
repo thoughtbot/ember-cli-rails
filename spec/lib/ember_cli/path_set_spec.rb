@@ -31,13 +31,13 @@ describe EmberCli::PathSet do
     end
   end
 
-  describe "#tmp" do
+  describe "#log" do
     it "depends on the environment" do
       app = build_app(name: "foo")
-
       path_set = build_path_set(app: app, environment: "bar")
 
       expect(path_set.log).to eq rails_root.join("log", "ember-foo.bar.log")
+      expect(rails_root.join("log")).to exist
     end
   end
 

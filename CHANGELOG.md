@@ -1,6 +1,7 @@
 master
 ------
 
+* Ensure `Rails.root.join("log")` exists when writing to logs.
 * Remove deprecated `include_ember_index_html` helper and deprecated
   `build_timeout` and `enabled` configurations. [#334]
 * Raise build errors for `render_ember_app` failures. [#325]

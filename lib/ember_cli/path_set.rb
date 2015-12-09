@@ -23,7 +23,7 @@ module EmberCli
     end
 
     def log
-      @log ||= rails_root.join("log", "ember-#{app_name}.#{environment}.log")
+      @log ||= logs.join("ember-#{app_name}.#{environment}.log")
     end
 
     def dist
@@ -108,6 +108,10 @@ module EmberCli
     attr_reader :app, :configuration, :ember_cli_root, :environment, :rails_root
 
     delegate :name, :options, to: :app, prefix: true
+
+    def logs
+      rails_root.join("log").tap(&:mkpath)
+    end
 
     def default_root
       rails_root.join(app_name)
