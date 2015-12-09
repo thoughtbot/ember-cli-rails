@@ -439,11 +439,6 @@ without polluting your git history. Note that for this to work, you must have
 `config/environments/development.rb`, otherwise the middleware responsible for
 building Ember CLI will not be enabled.
 
-Alternatively, if you want to override the default behavior in any given Rails
-environment, you can manually set the `config.use_ember_middleware` and
-`config.use_ember_live_recompilation` flags in the environment-specific config
-file.
-
 ### `ASSET_HOST`
 
 Used by [the addon][addon] during fingerprinting.
