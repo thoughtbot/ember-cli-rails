@@ -1,10 +1,13 @@
 master
 ------
 
+* Remove deprecated `include_ember_index_html` helper and deprecated
+  `build_timeout` and `enabled` configurations. [#334]
 * Raise build errors for `render_ember_app` failures. [#325]
 * Remove `before_{action,filter}` in favor of explicit `EmberCli.build(app)`
   call. [#327]
 
+[#334]: https://github.com/thoughtbot/ember-cli-rails/pull/334
 [#327]: https://github.com/thoughtbot/ember-cli-rails/pull/327
 [#325]: https://github.com/thoughtbot/ember-cli-rails/pull/325
 
