@@ -52,31 +52,26 @@ describe EmberCli::PathSet do
     end
   end
 
-  describe "#assets" do
-    it "is a child of #ember_cli_root" do
-      path_set = build_path_set
+  describe "#asset_map" do
+    it "globs the dist directory for a asset_map.json" do
+      app = build_app(name: "foo")
+      path_set = build_path_set(app: app)
+      asset_map_file = path_set.dist.join("assets", "assetMap-abc123.json")
 
-      expect(path_set.assets).to exist
-      expect(path_set.assets).to eq ember_cli_root.join("assets")
+      create_file(asset_map_file)
+
+      expect(path_set.asset_map).to exist
+      expect(path_set.asset_map).to eq(asset_map_file)
     end
   end
 
-  describe "#app_assets" do
-    it "is a child of #assets" do
-      app = double(name: "bar")
+  describe "#assets" do
+    it "is a child of #dist" do
+      app = build_app(name: "foo")
       path_set = build_path_set(app: app)
 
-      expect(path_set.app_assets).
-        to eq ember_cli_root.join("assets").join("bar")
-    end
-  end
-
-  describe "#applications" do
-    it "is a child of #rails_root" do
-      path_set = build_path_set
-
-      expect(path_set.applications).to exist
-      expect(path_set.applications).to eq rails_root.join("public", "_apps")
+      expect(path_set.assets).to exist
+      expect(path_set.assets).to eq ember_cli_root.join("apps", "foo", "assets")
     end
   end
 
@@ -189,10 +184,14 @@ describe EmberCli::PathSet do
     end
   end
 
-  def create_executable(path)
+  def create_file(path)
     path.parent.mkpath
     FileUtils.touch(path)
-    file = File.new(path)
+    path
+  end
+
+  def create_executable(path)
+    file = File.new(create_file(path))
     file.chmod(0777)
     path
   end

@@ -6,7 +6,6 @@ module EmberCli
 
     def app(name, **options)
       app = App.new(name, options)
-      app.sprockets.register!
       apps.store(name, app)
     end
 

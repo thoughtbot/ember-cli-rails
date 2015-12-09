@@ -13,16 +13,6 @@ module EmberCli
       run "chmod a+x bin/heroku_install"
     end
 
-    def config_js_compressor
-      production_config = "config/environments/production.rb"
-
-      inject_into_file production_config, before: "end\n" do
-        <<-RUBY
-  config.assets.js_compressor = nil
-        RUBY
-      end
-    end
-
     def inject_12factor_gem
       gem "rails_12factor", group: [:staging, :production]
     end

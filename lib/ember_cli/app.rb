@@ -1,6 +1,5 @@
 require "ember_cli/shell"
 require "ember_cli/html_page"
-require "ember_cli/sprockets"
 require "ember_cli/build_monitor"
 
 module EmberCli
@@ -34,7 +33,6 @@ module EmberCli
         prepare
         @shell.compile
         @build.check!
-        copy_index_html_file
         true
       end
     end
@@ -77,21 +75,13 @@ module EmberCli
       @shell.test
     end
 
-    def sprockets
-      EmberCli::Sprockets.new(self)
-    end
-
     def index_file
-      if production?
-        paths.applications.join("#{name}.html")
-      else
-        paths.dist.join("index.html")
-      end
+      paths.dist.join("index.html")
     end
 
     private
 
-    delegate :development?, :production?, :test?, to: :env
+    delegate :development?, :test?, to: :env
 
     def env
       EmberCli.env
@@ -100,28 +90,13 @@ module EmberCli
     def build_and_watch
       prepare
       @shell.build_and_watch
-      copy_index_html_file
     end
 
     def prepare
       @prepared ||= begin
         @build.reset
-        symlink_to_assets_root
         true
       end
-    end
-
-    def copy_index_html_file
-      if production?
-        FileUtils.cp(paths.app_assets.join("index.html"), index_file)
-      end
-    end
-
-    def symlink_to_assets_root
-      paths.app_assets.make_symlink paths.dist
-    rescue Errno::EEXIST
-      # Sometimes happens when starting multiple Unicorn workers.
-      # Ignoring...
     end
 
     def excluded_ember_deps
