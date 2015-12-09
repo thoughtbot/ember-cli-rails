@@ -1,4 +1,5 @@
 require "ember_cli/capture"
+require "ember_cli/assets"
 
 module EmberRailsHelper
   def render_ember_app(name, &block)
@@ -10,36 +11,18 @@ module EmberRailsHelper
   end
 
   def include_ember_script_tags(name, **options)
-    Warnings.warn_asset_helper
+    assets = EmberCli::Assets.new(EmberCli[name])
 
-    javascript_include_tag(*EmberCli[name].sprockets.javascript_assets, options)
+    assets.javascript_assets.
+      map { |src| %{<script src="#{src}"></script>}.html_safe }.
+      reduce(&:+)
   end
 
   def include_ember_stylesheet_tags(name, **options)
-    Warnings.warn_asset_helper
+    assets = EmberCli::Assets.new(EmberCli[name])
 
-    stylesheet_link_tag(*EmberCli[name].sprockets.stylesheet_assets, options)
-  end
-
-  module Warnings
-    def self.warn_asset_helper
-      if Rails::VERSION::MAJOR < 4
-        warn <<-MSG.strip_heredoc
-          `ember-cli-rails` no longer supports Sprockets-based helpers for Rails
-          versions below 4.0.
-
-          Replace usage of
-            * `include_ember_script_tags`
-            * `include_ember_stylesheet_tags`
-
-          with `render_ember_app` invocations.
-
-          To learn more, please read:
-
-          * https://github.com/thoughtbot/ember-cli-rails#configuring-the-ember-controller
-          * https://github.com/thoughtbot/ember-cli-rails/pull/316
-        MSG
-      end
-    end
+    assets.stylesheet_assets.
+      map { |src| %{<link rel="stylesheet" href="#{src}">}.html_safe }.
+      reduce(&:+)
   end
 end

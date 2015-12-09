@@ -5,10 +5,6 @@ module EmberCli
       require "ember_cli/route_helpers"
     end
 
-    initializer "ember-cli-rails.enable" do
-      EmberCli.enable! unless EmberCli.skip?
-    end
-
     config.to_prepare do
       ActionController::Base.helper EmberRailsHelper
     end
