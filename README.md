@@ -336,7 +336,7 @@ module.exports = function(defaults) {
 ```
 
 When injecting the EmberCLI-generated assets with the
-`ember_include_script_tags` and `ember_include_stylesheet_tags` helpers, a
+`include_ember_script_tags` and `include_ember_stylesheet_tags` helpers, a
 `<base>` tag must also be injected with the proper corresponding `href` value:
 
 ```erb
@@ -345,8 +345,8 @@ When injecting the EmberCLI-generated assets with the
 <%= include_ember_stylesheet_tags :frontend %>
 
 <base href="/admin_panel/">
-<%= include_ember_script_tags :frontend %>
-<%= include_ember_stylesheet_tags :frontend %>
+<%= include_ember_script_tags :admin_panel %>
+<%= include_ember_stylesheet_tags :admin_panel %>
 ```
 
 ## CSRF Tokens
