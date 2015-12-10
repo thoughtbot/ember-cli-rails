@@ -238,10 +238,6 @@
 }
 
 .ruby {
-  .tag {
-    color: $ember-orange;
-  }
-
   .hljs-constant {
     color: $teal;
   }
@@ -253,7 +249,7 @@
   }
 }
 
-.ERB {
+.erb {
   .hljs-keyword {
     color: $gold;
   }

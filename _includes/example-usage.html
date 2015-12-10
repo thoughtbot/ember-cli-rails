@@ -26,13 +26,14 @@ end</code>
       include_ember_index_html helper:
     </p>
 
-    <div class="code ERB">
+    <div class="code erb">
       <div class="code__header">
         app/views/application/index.html.erb
       </div>
       <pre class="code__body">
-        <code class="ERB">
-<span class="tag"><%=</span> include_ember_index_html :frontend <span class="tag">%></span></code>
+        <code class="erb">
+<%= include_ember_index_html :frontend %>
+        </code>
       </pre>
     </div>
 
@@ -41,17 +42,18 @@ end</code>
       (optionally) the body:
     </p>
 
-    <div class="code ERB">
+    <div class="code erb">
       <div class="code__header">
         app/views/application/index.html.erb
       </div>
       <pre class="code__body">
         <code>
-<span class="tag"><%=</span> include_ember_index_html :frontend do |head| <span class="tag">%></span>
-  <span class="tag"><%</span> head.append do <span class="tag">%></span>
-    <span class="tag"><%=</span> csrf_meta_tags <span class="tag">%></span>
-  <span class="tag"><%</span> end <span class="tag">%></span>
-<span class="tag"><%</span> end <span class="tag">%></span></code>
+<%= include_ember_index_html :frontend do |head| %>
+  <% head.append do %>
+    <%= csrf_meta_tags %>
+  <% end %>
+<% end %>
+        </code>
       </pre>
     </div>
     <footer class="content__footer">
