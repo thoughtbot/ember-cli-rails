@@ -32,7 +32,7 @@ module EmberCli
     attr_reader :name, :paths
 
     def complete?
-      !paths.lockfile.exist?
+      !paths.lockfile.exist? && paths.dist.join("index.html").exist?
     end
 
     def build_error?
