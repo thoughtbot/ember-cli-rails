@@ -163,6 +163,19 @@ applications into the project.
 
 [buildpack]: https://devcenter.heroku.com/articles/using-multiple-buildpacks-for-an-app#adding-a-buildpack
 
+## Capistrano
+EmberCLI-Rails executes both `npm install` and `bower install` as part of the asset precompilation step of a Capistrano build. This requires that the correct version of these executables be found in the path of your deployment SSH session. Since Capistrano executes in a very basic shell, it is not sufficient to place the PATH in your `.bash_profile`. 
+
+Adding the bin directory of your node install to your capistrano deploy script will enable EmberCLI-Rails to find the correct bower and npm executables.
+
+```ruby
+#config/deploy/production.rb
+set :default_env, {
+  'PATH' => '/home/deploy/.nvm/versions/node/v4.2.1/bin:$PATH' #note: using NVM to set node version in this example. Replace with output of 'which npm' in your server environment.
+}
+```
+
+
 ## Overriding the defaults
 
 By default, routes defined by `ember_app` will be rendered with the internal
