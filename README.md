@@ -34,7 +34,7 @@ $ bundle install
 First, generate the gem's initializer:
 
 ```bash
-$ rails generate ember-cli:init
+$ rails generate ember:init
 ```
 
 This will create the following initializer:
@@ -354,9 +354,9 @@ directories %w[app config lib spec your-appname/app]
 
 To configure your Ember CLI Rails app to be ready to deploy on Heroku:
 
-1. Run `rails g ember-cli:heroku` generator
+1. Execute `rails generate ember:heroku`
 1. [Add the NodeJS buildpack][buildpack] and configure NPM to include the
-   `bower` dependency's executable file.
+   `bower` dependency's executable file:
 
 ```sh
 $ heroku buildpacks:clear

@@ -2,7 +2,7 @@ module EmberCli
   class HerokuGenerator < Rails::Generators::Base
     source_root File.expand_path("../templates", __FILE__)
 
-    namespace "ember-cli:heroku"
+    namespace "ember:heroku"
 
     def copy_package_json_file
       template "package.json.erb", "package.json"

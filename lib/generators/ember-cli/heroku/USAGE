@@ -10,7 +10,7 @@ Description:
         $ heroku config:unset SKIP_EMBER
 
 Example:
-    rails generate ember-cli:heroku
+    rails generate ember:heroku
 
     This will install the following gems:
         rails_12factor
