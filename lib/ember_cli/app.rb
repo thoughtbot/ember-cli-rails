@@ -75,13 +75,13 @@ module EmberCli
       @shell.test
     end
 
-    def index_file
-      paths.dist.join("index.html")
-    end
-
     private
 
     delegate :development?, :test?, to: :env
+
+    def index_file
+      paths.index_file
+    end
 
     def env
       EmberCli.env

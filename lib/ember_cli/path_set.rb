@@ -18,6 +18,10 @@ module EmberCli
       end
     end
 
+    def index_file
+      dist.join("index.html")
+    end
+
     def tmp
       @tmp ||= root.join("tmp").tap(&:mkpath)
     end

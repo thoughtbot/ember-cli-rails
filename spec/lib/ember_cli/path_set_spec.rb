@@ -52,6 +52,17 @@ describe EmberCli::PathSet do
     end
   end
 
+  describe "#index_file" do
+    it "depends on the app name" do
+      app = build_app(name: "foo")
+
+      path_set = build_path_set(app: app)
+
+      expect(path_set.index_file).
+        to eq ember_cli_root.join("apps", "foo", "index.html")
+    end
+  end
+
   describe "#asset_map" do
     it "globs the dist directory for a asset_map.json" do
       app = build_app(name: "foo")
