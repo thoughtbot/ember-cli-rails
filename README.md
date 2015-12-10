@@ -130,14 +130,51 @@ In the above example, `params[:ember_app] == :frontend`.
 You should now be able to boot your Rails application, navigate to the `root`
 route, and see your EmberCLI app!
 
-## Configuring the Ember controller
+## Overriding the defaults
 
 By default, routes defined by `ember_app` will be rendered with the internal
-`EmberCli::EmberController`. The `EmberCli::EmberController` renders the Ember
-application's `index.html` and injects the Rails-generated CSRF tags into the
-`<head>`.
+`EmberCli::EmberController`.
 
-To override this behavior, specify the `controller` and `action` options:
+### Overriding the view
+
+The `EmberCli::EmberController` renders the Ember application's `index.html` and
+injects the Rails-generated CSRF tags into the `<head>`.
+
+To customize the view, create `app/views/ember_cli/ember/index.html.erb`:
+
+```erb
+<%= render_ember_app ember_app do |head| %>
+  <% head.append do %>
+    <%= csrf_meta_tags %>
+  <% end %>
+<% end %>
+```
+
+The `ember_app` helper is available within the `EmberCli::EmberController`'s
+view, and refers to the name of the current EmberCLI application.
+
+To serve the EmberCLI generated `index.html`, use the `render_ember_app`
+helper in your view:
+
+To inject markup into page, pass in a block that accepts the `head`, and
+(optionally) the `body`:
+
+```erb
+<!-- app/views/application/index.html.erb -->
+<%= render_ember_app :frontend do |head, body| %>
+  <% head.append do %>
+    <%= csrf_meta_tags %>
+  <% end %>
+
+  <% body.append do %>
+    <%= render partial: "my-analytics" %>
+  <% end %>
+<% end %>
+```
+
+### Overriding the controller
+
+To override the controller, specify the `controller` and `action` options:
 
 ```rb
 # config/routes
@@ -145,26 +182,6 @@ To override this behavior, specify the `controller` and `action` options:
 Rails.application.routes.draw do
   mount_ember_app :frontend, to: "/", controller: "application", action: "index"
 end
-```
-
-To serve the EmberCLI generated `index.html`, use the `render_ember_app`
-helper in your view:
-
-```erb
-<!-- app/views/application/index.html.erb -->
-<%= render_ember_app :frontend %>
-```
-
-To inject markup into page, pass in a block that accepts the `head`, and
-(optionally) the `body`:
-
-```erb
-<!-- app/views/application/index.html.erb -->
-<%= render_ember_app :frontend do |head| %>
-  <% head.append do %>
-    <%= csrf_meta_tags %>
-  <% end %>
-<% end %>
 ```
 
 When serving the EmberCLI generated `index.html`, don't use Rails' layout HTML:

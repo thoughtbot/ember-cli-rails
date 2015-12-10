@@ -1,11 +1,14 @@
 module EmberCli
   class EmberController < ::ApplicationController
     def index
-      @app = params[:ember_app]
-
-      EmberCli.build(@app)
+      EmberCli.build(ember_app)
 
       render layout: false
     end
+
+    def ember_app
+      params[:ember_app]
+    end
+    helper_method :ember_app
   end
 end
