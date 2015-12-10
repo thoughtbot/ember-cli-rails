@@ -28,6 +28,7 @@ module Dummy
     config.assets.digest = true
     config.assets.raise_runtime_errors = true
     config.assets.version = "1.0"
+    config.assets.precompile += %w[ my-app/application ]
 
     config.secret_token = "SECRET_TOKEN_IS_MIN_30_CHARS_LONG"
     config.secret_key_base = "SECRET_KEY_BASE"
