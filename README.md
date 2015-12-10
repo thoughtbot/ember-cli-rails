@@ -163,6 +163,31 @@ applications into the project.
 
 [buildpack]: https://devcenter.heroku.com/articles/using-multiple-buildpacks-for-an-app#adding-a-buildpack
 
+## Capistrano
+
+EmberCLI-Rails executes both `npm install` and `bower install` during EmberCLI's
+compilation, triggered by the  `asset:precompilation` rake task.
+
+The `npm` and `bower` executables are required to be defined in the deployment
+SSH session's `$PATH`. It is not sufficient to modify the session's `$PATH` in
+a `.bash_profile`.
+
+To resolve this issue, prepend the Node installation's `bin` directory to the
+target system's `$PATH`:
+
+```ruby
+#config/deploy/production.rb
+
+set :default_env, {
+  "PATH" => "/home/deploy/.nvm/versions/node/v4.2.1/bin:$PATH"
+}
+```
+
+The system in this example is using `nvm` to configure the node version. If
+you're not using `nvm`, make sure the string you prepend to the `$PATH` variable
+contains the directory or directories that contain the `bower` and `npm`
+executables.
+
 ## Overriding the defaults
 
 By default, routes defined by `ember_app` will be rendered with the internal
