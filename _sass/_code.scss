@@ -1,0 +1,24 @@
+.code {
+  background-color: $code-background-color;
+  border: solid 1px $code-border-color;
+  border-radius: $base-border-radius;
+  font-size: $base-font-size * 1.1;
+  margin-bottom: 2.5rem;
+
+  @media (min-width: $medium-screen) {
+    margin-bottom: 4rem;
+  }
+}
+
+.code__header {
+  background-color: $code-header-background-color;
+  color: darken($code-header-background-color, 40%);
+  overflow-x: scroll;
+  padding: 0.75rem 1rem 1rem;
+}
+
+.code__body {
+  margin: 0;
+  overflow-x: scroll;
+  padding: 0 1rem;
+}
