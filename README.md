@@ -222,15 +222,14 @@ Rails.application.routes.draw do
 end
 ```
 
-When serving the EmberCLI generated `index.html`, make sure the controller's
-`layout` is disabled, as EmberCLI generates a fully-formed HTML document:
+When serving the EmberCLI generated `index.html` with the `render_ember_app`
+helper, make sure the controller's `layout` is disabled, as EmberCLI generates a
+fully-formed HTML document:
 
 ```rb
 # app/controllers/application.rb
 class ApplicationController < ActionController::Base
   def index
-    EmberCli.build("my-app")
-
     render layout: false
   end
 end

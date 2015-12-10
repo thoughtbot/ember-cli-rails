@@ -1,8 +1,6 @@
 module EmberCli
   class EmberController < ::ApplicationController
     def index
-      EmberCli.build(ember_app)
-
       render layout: false
     end
 

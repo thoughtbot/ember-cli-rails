@@ -1,6 +1,8 @@
 master
 ------
 
+* Invoke `EmberCli[ember_app].build` from helpers to ensure everything is built
+  before serving. [#347]
 * Remove dependency on `sprockets`. Serve generated files with `Rack::File`.
   [#336]
 * Rename generator namespace from `ember-cli` to `ember`. [#344]
@@ -11,6 +13,7 @@ master
 * Remove `before_{action,filter}` in favor of explicit `EmberCli.build(app)`
   call. [#327]
 
+[#347]: https://github.com/thoughtbot/ember-cli-rails/pull/347
 [#336]: https://github.com/thoughtbot/ember-cli-rails/pull/336
 [#344]: https://github.com/thoughtbot/ember-cli-rails/pull/344
 [#334]: https://github.com/thoughtbot/ember-cli-rails/pull/334

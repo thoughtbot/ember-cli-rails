@@ -3,6 +3,8 @@ require "ember_cli/assets"
 
 module EmberRailsHelper
   def render_ember_app(name, &block)
+    EmberCli[name].build
+
     markup_capturer = EmberCli::Capture.new(sprockets: self, &block)
 
     head, body = markup_capturer.capture
@@ -11,6 +13,8 @@ module EmberRailsHelper
   end
 
   def include_ember_script_tags(name, **options)
+    EmberCli[name].build
+
     assets = EmberCli::Assets.new(EmberCli[name])
 
     assets.javascript_assets.
@@ -19,6 +23,8 @@ module EmberRailsHelper
   end
 
   def include_ember_stylesheet_tags(name, **options)
+    EmberCli[name].build
+
     assets = EmberCli::Assets.new(EmberCli[name])
 
     assets.stylesheet_assets.
