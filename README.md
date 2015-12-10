@@ -345,7 +345,7 @@ In the corresponding view, use the asset helpers:
 
 ### Mounting multiple Ember applications
 
-Rendering Ember applications from routes other than `/` requires additional
+Rendering Ember applications to paths other than `/` requires additional
 configuration.
 
 Consider a scenario where you had Ember applications named `frontend` and
@@ -429,12 +429,25 @@ and `include_ember_stylesheet_tags` helpers to a path other than `"/"`, a
 `<base>` tag must also be injected with a corresponding `href` value:
 
 ```erb
+<base href="/">
 <%= include_ember_script_tags :frontend %>
 <%= include_ember_stylesheet_tags :frontend %>
 
 <base href="/admin_panel/">
 <%= include_ember_script_tags :admin_panel %>
 <%= include_ember_stylesheet_tags :admin_panel %>
+```
+
+If you're using the `include_ember` style helpers with a single-page Ember
+application that defers routing to the Rails application, insert a call to
+`mount_ember_assets` at the bottom of your routes file to serve the
+EmberCLI-generated assets:
+
+```rb
+# config/routes.rb
+Rails.application.routes.draw do
+  mount_ember_assets :frontend, to: "/"
+end
 ```
 
 ## CSRF Tokens

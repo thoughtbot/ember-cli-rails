@@ -1,6 +1,9 @@
 master
 ------
 
+* Introduce `mount_ember_assets` to serve Ember assets in asset-helper style
+  projects.
+
 0.6.0
 -----
 
