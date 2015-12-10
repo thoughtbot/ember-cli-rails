@@ -11,3 +11,5 @@ exclude:
   - Gemfile.lock
 
 markdown: kramdown
+kramdown:
+  input: GFM

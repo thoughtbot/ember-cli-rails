@@ -1,61 +1,7 @@
 <section class="layout layout--light">
   <section class="content content--small">
     <h1>Example Usage</h1>
-
-    <p>
-      First, specify in your controller that you don't want to render the layout
-      (since EmberCLI's index.html is a fully-formed HTML document):
-    </p>
-
-    <div class="code">
-      <div class="code__header">
-        app/controllers/application.rb
-      </div>
-      <pre class="code__body">
-        <code>
-class ApplicationController < ActionController::Base
-  def index
-    render layout: false
-  end
-end</code>
-      </pre>
-    </div>
-
-    <p>
-      To render the EmberCLI generated index.html into the view, use the
-      include_ember_index_html helper:
-    </p>
-
-    <div class="code erb">
-      <div class="code__header">
-        app/views/application/index.html.erb
-      </div>
-      <pre class="code__body">
-        <code class="erb">
-<%= include_ember_index_html :frontend %>
-        </code>
-      </pre>
-    </div>
-
-    <p>
-      To inject markup into page, pass in a block that accepts the head, and
-      (optionally) the body:
-    </p>
-
-    <div class="code erb">
-      <div class="code__header">
-        app/views/application/index.html.erb
-      </div>
-      <pre class="code__body">
-        <code>
-<%= include_ember_index_html :frontend do |head| %>
-  <% head.append do %>
-    <%= csrf_meta_tags %>
-  <% end %>
-<% end %>
-        </code>
-      </pre>
-    </div>
+    {% render_markdown example.md %}
     <footer class="content__footer">
       <a class="button" href="https://github.com/thoughtbot/ember-cli-rails">
         Full Documentation
