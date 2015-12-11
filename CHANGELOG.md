@@ -1,6 +1,9 @@
 master
 ------
 
+0.6.0
+-----
+
 * Use system-level `tee` to pipe `STDOUT` to both `STDOUT` and the logs. [#351]
 * Invoke `EmberCli[ember_app].build` from helpers to ensure everything is built
   before serving. [#347]
