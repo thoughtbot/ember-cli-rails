@@ -240,8 +240,8 @@ end
 Rendering EmberCLI applications with `render_ember_app` is the recommended,
 actively supported method of serving EmberCLI applications.
 
-However, `ember-cli-rails` supports injecting the EmberCLI-generated assets
-into an existing Rails layout.
+However, for the sake of backwards compatibility, `ember-cli-rails` supports
+injecting the EmberCLI-generated assets into an existing Rails layout.
 
 Following the example above, configure the mounted EmberCLI application to be
 served by a custom controller (`ApplicationController`, in this case).
@@ -334,9 +334,9 @@ module.exports = function(defaults) {
 };
 ```
 
-When injecting the EmberCLI-generated assets with the
-`include_ember_script_tags` and `include_ember_stylesheet_tags` helpers, a
-`<base>` tag must also be injected with the proper corresponding `href` value:
+When injecting the EmberCLI-generated assets with the `include_ember_script_tags`
+and `include_ember_stylesheet_tags` helpers to a path other than `"/"`, a
+`<base>` tag must also be injected with a corresponding `href` value:
 
 ```erb
 <%= include_ember_script_tags :frontend %>
