@@ -14,21 +14,7 @@ module EmberCli
     end
 
     def build(watch: false)
-      line = Cocaine::CommandLine.new(paths.ember, [
-        "build",
-        ("--watch" if watch),
-        ("--watcher :watcher" if process_watcher),
-        "--environment :environment",
-        "--output-path :output_path",
-        "2> :error_file",
-      ].compact.join(" "))
-
-      line.command(
-        environment: build_environment,
-        output_path: paths.dist,
-        watcher: process_watcher,
-        error_file: paths.build_error_file,
-      )
+      "#{ember_build(watch: watch)} | #{tee}"
     end
 
     private
@@ -37,6 +23,28 @@ module EmberCli
 
     def process_watcher
       options.fetch(:watcher) { EmberCli.configuration.watcher }
+    end
+
+    def tee
+      Cocaine::CommandLine.
+        new(paths.tee, "-a :log").
+        command(log: paths.log)
+    end
+
+    def ember_build(watch: false)
+      line = Cocaine::CommandLine.new(paths.ember, [
+        "build",
+        ("--watch" if watch),
+        ("--watcher :watcher" if process_watcher),
+        "--environment :environment",
+        "--output-path :output_path",
+      ].compact.join(" "))
+
+      line.command(
+        environment: build_environment,
+        output_path: paths.dist,
+        watcher: process_watcher,
+      )
     end
 
     def build_environment

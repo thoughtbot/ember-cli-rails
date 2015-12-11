@@ -97,6 +97,10 @@ module EmberCli
       @npm ||= app_options.fetch(:npm_path) { configuration.npm_path }
     end
 
+    def tee
+      @tee ||= app_options.fetch(:tee_path) { configuration.tee_path }
+    end
+
     def bundler
       @bundler ||= app_options.fetch(:bundler_path) do
         configuration.bundler_path

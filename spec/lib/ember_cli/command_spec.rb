@@ -15,7 +15,14 @@ describe EmberCli::Command do
       paths = build_paths(ember: "path/to/ember")
       command = build_command(paths: paths)
 
-      expect(command.build).to match(%{path\/to\/ember build})
+      expect(command.build).to match(%r{path\/to\/ember build})
+    end
+
+    it "pipes to `tee`" do
+      paths = build_paths(tee: "path/to/tee", log: "path/to/log")
+      command = build_command(paths: paths)
+
+      expect(command.build).to match(%r{\| path/to/tee -a 'path/to/log'})
     end
 
     context "when building in production" do
@@ -43,13 +50,6 @@ describe EmberCli::Command do
       command = build_command(paths: paths)
 
       expect(command.build).to match(%r{--output-path 'path\/to\/dist'})
-    end
-
-    it "redirects STDERR to the build error file" do
-      paths = build_paths(build_error_file: "path/to/errors.txt")
-      command = build_command(paths: paths)
-
-      expect(command.build).to match(%r{2> 'path/to/errors\.txt'})
     end
 
     context "when configured not to watch" do

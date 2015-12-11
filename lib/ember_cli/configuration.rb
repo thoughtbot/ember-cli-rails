@@ -21,6 +21,10 @@ module EmberCli
       @npm_path ||= Helpers.which("npm")
     end
 
+    def tee_path
+      @tee_path ||= Helpers.which("tee")
+    end
+
     def bundler_path
       @bundler_path ||= Helpers.which("bundler")
     end

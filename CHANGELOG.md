@@ -1,6 +1,7 @@
 master
 ------
 
+* Use system-level `tee` to pipe `STDOUT` to both `STDOUT` and the logs. [#351]
 * Invoke `EmberCli[ember_app].build` from helpers to ensure everything is built
   before serving. [#347]
 * Remove dependency on `sprockets`. Serve generated files with `Rack::File`.
@@ -13,6 +14,7 @@ master
 * Remove `before_{action,filter}` in favor of explicit `EmberCli.build(app)`
   call. [#327]
 
+[#351]: https://github.com/thoughtbot/ember-cli-rails/pull/351
 [#347]: https://github.com/thoughtbot/ember-cli-rails/pull/347
 [#336]: https://github.com/thoughtbot/ember-cli-rails/pull/336
 [#344]: https://github.com/thoughtbot/ember-cli-rails/pull/344

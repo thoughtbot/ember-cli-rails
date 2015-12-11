@@ -51,8 +51,12 @@ module EmberCli
     attr_reader :ember, :env, :options, :paths
 
     def spawn(command)
-      Kernel.spawn(env, command, chdir: paths.root.to_s, out: paths.log.to_s) ||
-        exit(1)
+      Kernel.spawn(
+        env,
+        command,
+        chdir: paths.root.to_s,
+        err: paths.build_error_file.to_s,
+      ) || exit(1)
     end
 
     def exec(command)
