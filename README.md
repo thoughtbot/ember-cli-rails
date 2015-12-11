@@ -13,9 +13,13 @@ EmberCLI-Rails is designed to give you the best of both worlds:
   stack through JavaScript-enabled Capybara tests
 * Deploy your entire suite of applications to Heroku with a single `git push`
 
+If you're having trouble, checkout the [example project]!
+
 **EmberCLI-Rails Supports EmberCLI 1.13.x and later.**
 
-## Installation
+[example project]: https://github.com/seanpdoyle/ember-cli-rails-heroku-example
+
+## Install
 
 Add the following to your `Gemfile`:
 
@@ -29,7 +33,13 @@ Then run `bundle install`:
 $ bundle install
 ```
 
-## Usage
+If you haven't created an Ember application yet, generate a new one:
+
+```bash
+$ ember new frontend --skip-git
+```
+
+## Setup
 
 First, generate the gem's initializer:
 
@@ -47,23 +57,17 @@ EmberCli.configure do |c|
 end
 ```
 
-The initializer assumes that your Ember application exists in
+This initializer assumes that your Ember application exists in
 `Rails.root.join("frontend")`.
 
 If this is not the case, you could
 
 * move your existing Ember application into `Rails.root.join("frontend")`
-* configure `frontend` to look for the Ember application in its current
+* configure `frontend` to reference the Ember application in its current
   directory:
 
 ```rb
 c.app :frontend, path: "~/projects/my-ember-app"
-```
-
-* generate a new Ember project:
-
-```bash
-$ ember new frontend --skip-git
 ```
 
 **Initializer options**
@@ -105,7 +109,9 @@ For instance, if you're using the `0.6.x` version of the gem, specify
 [addon]: https://github.com/rondale-sc/ember-cli-rails-addon/
 [semver]: http://semver.org/
 
-Next, configure Rails to route requests to the `frontend` Ember application:
+## Mount
+
+Configure Rails to route requests to the `frontend` Ember application:
 
 ```rb
 # config/routes.rb
@@ -114,9 +120,6 @@ Rails.application.routes.draw do
   mount_ember_app :frontend, to: "/"
 end
 ```
-
-Ember requests will be set `params[:ember_app]` to the name of the application.
-In the above example, `params[:ember_app] == :frontend`.
 
 **Routing options**
 
@@ -136,7 +139,69 @@ $ rake ember:install
 Boot your Rails application, navigate to `"/"`, and view your EmberCLI
 application!
 
-## Heroku
+## Develop
+
+EmberCLI Rails exposes several useful rake tasks.
+
+**`ember:install`**
+
+Install the Ember applications' dependencies.
+
+**`ember:compile`**
+
+Compile the Ember applications.
+
+**`ember:test`**
+
+Execute Ember's test suite.
+
+If you're using Rake to run the test suite, make sure to configure your test
+task to depend on `ember:test`.
+
+For example, to configure a bare `rake` command to run both RSpec and Ember test
+suites, configure the `default` task to depend on both `spec` and `ember:test`.
+
+```rb
+task default: [:spec, "ember:test"]
+```
+
+## Deploy
+
+In production environments, assets should be served over a
+Content Delivery Network.
+
+Configuring an `ember-cli-rails` application to serve Ember's assets over a CDN
+is very similar to [configuring an EmberCLI application to serve assets over a
+CDN][ember-cli-cdn]:
+
+[ember-cli-cdn]: http://ember-cli.com/user-guide/#fingerprinting-and-cdn-urls
+
+```js
+var app = new EmberApp({
+  fingerprint: {
+    prepend: 'https://cdn.example.com/'
+  }
+});
+```
+
+If you're serving the Ember application from a path other than `"/"`, the
+`prepend` URL must end with the mounted path:
+
+```js
+var app = new EmberApp({
+  fingerprint: {
+    // for an Ember application mounted to `/admin_panel/`
+    prepend: 'https://cdn.example.com/admin_panel/',
+  }
+});
+```
+
+As long as your [CDN is configured to pull from your Rails application][dns-cdn]
+, your assets will be served over the CDN.
+
+[dns-cdn]: https://robots.thoughtbot.com/dns-cdn-origin
+
+### Heroku
 
 To configure your EmberCLI-Rails applications for Heroku:
 
@@ -163,7 +228,7 @@ applications into the project.
 
 [buildpack]: https://devcenter.heroku.com/articles/using-multiple-buildpacks-for-an-app#adding-a-buildpack
 
-## Capistrano
+### Capistrano
 
 EmberCLI-Rails executes both `npm install` and `bower install` during EmberCLI's
 compilation, triggered by the  `asset:precompilation` rake task.
@@ -188,7 +253,7 @@ you're not using `nvm`, make sure the string you prepend to the `$PATH` variable
 contains the directory or directories that contain the `bower` and `npm`
 executables.
 
-## Overriding the defaults
+## Override
 
 By default, routes defined by `ember_app` will be rendered with the internal
 `EmberCli::EmberController`.
@@ -260,7 +325,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-#### Rendering the EmberCLI generated JS and CSS
+### Rendering the EmberCLI generated JS and CSS
 
 Rendering EmberCLI applications with `render_ember_app` is the recommended,
 actively supported method of serving EmberCLI applications.
@@ -278,7 +343,7 @@ In the corresponding view, use the asset helpers:
 <%= include_ember_stylesheet_tags :frontend %>
 ```
 
-### Mounting the Ember applications
+### Mounting multiple Ember applications
 
 Rendering Ember applications from routes other than `/` requires additional
 configuration.
@@ -402,32 +467,6 @@ the CSRF tags to its view's `<head>`.
 [ember-cli-rails-addon][addon] configures your Ember application to make HTTP
 requests with the injected CSRF tokens in the `X-CSRF-TOKEN` header.
 
-### Integrating with Rake
-
-EmberCLI Rails exposes several useful rake tasks.
-
-**`ember:install`**
-
-Install the Ember applications' dependencies.
-
-**`ember:compile`**
-
-Compile the Ember applications.
-
-**`ember:test`**
-
-Execute Ember's test suite.
-
-If you're using Rake to run the test suite, make sure to configure your test
-task to depend on `ember:test`.
-
-For example, to configure a bare `rake` command to run both RSpec and Ember test
-suites, configure the `default` task to depend on both `spec` and `ember:test`.
-
-```rb
-task default: [:spec, "ember:test"]
-```
-
 ## Serving from multi-process servers in development
 
 If you're using a multi-process server ([Puma], [Unicorn], etc.) in development,
@@ -440,7 +479,7 @@ EmberCLI runners to clobber each others' work][#94].
 [Unicorn]: https://rubygems.org/gems/unicorn
 [#94]: https://github.com/thoughtbot/ember-cli-rails/issues/94#issuecomment-77627453
 
-### `RAILS_ENV`
+## `RAILS_ENV`
 
 While being managed by EmberCLI Rails, EmberCLI process will have
 access to the `RAILS_ENV` environment variable. This can be helpful to detect
