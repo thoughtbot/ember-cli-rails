@@ -29,6 +29,6 @@ describe EmberCli::DirectoryAssetMap do
   end
 
   def directory
-    @directory ||= Pathname(Dir.tmpdir)
+    @directory ||= Pathname(Dir.mktmpdir)
   end
 end

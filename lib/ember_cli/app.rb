@@ -1,5 +1,5 @@
 require "ember_cli/shell"
-require "ember_cli/html_page"
+require "html_page/renderer"
 require "ember_cli/build_monitor"
 
 module EmberCli
@@ -49,7 +49,7 @@ module EmberCli
 
     def index_html(head:, body:)
       if index_file.exist?
-        html = HtmlPage.new(
+        html = HtmlPage::Renderer.new(
           head: head,
           body: body,
           content: index_file.read,

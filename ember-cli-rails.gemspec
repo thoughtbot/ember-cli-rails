@@ -1,4 +1,7 @@
-require File.expand_path("../lib/ember_cli/version", __FILE__)
+# coding: utf-8
+lib = File.expand_path("../lib", __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require "ember_cli/version"
 
 Gem::Specification.new do |spec|
   spec.name     = "ember-cli-rails"
@@ -14,4 +17,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "railties", ">= 3.2", "< 5"
   spec.add_dependency "cocaine", "~> 0.5.8"
+  spec.add_dependency "html_page", "~> 0.1.0"
 end
