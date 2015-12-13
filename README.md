@@ -201,6 +201,38 @@ As long as your [CDN is configured to pull from your Rails application][dns-cdn]
 
 [dns-cdn]: https://robots.thoughtbot.com/dns-cdn-origin
 
+### Deployment Strategies
+
+By default, EmberCLI-Rails will serve the `index.html` file that `ember build`
+produces.
+
+If you need to override this behavior (for instance, if you're using
+[`ember-cli-deploy`'s "Lightning Fast Deployment"][lightning] strategy in
+`production`), you can specify the strategy's class in the initializer:
+
+```rb
+EmberCli.configure do |config|
+  config.app :frontend, deploy: { production: EmberCli::Deploy::Redis }
+end
+```
+
+This example configures the `frontend` Ember application to retrieve the
+index's HTML from an [`ember-cli-deploy-redis`][ember-cli-deploy-redis]
+-populated Redis entry using the
+[`ember-cli-rails-deploy-redis`][ember-cli-rails-deploy-redis] gem.
+
+If you're deploying HTML with a custom strategy in `development` or `test`,
+disable EmberCLI-Rails' build step by setting `ENV["SKIP_EMBER"] = true`.
+
+**NOTE:**
+
+Specifying a deployment strategy is only supported for applications that use the
+`mount_ember_app` and `render_ember_app` helpers.
+
+[ember-cli-deploy-redis]: https://github.com/ember-cli-deploy/ember-cli-deploy-redis
+[ember-cli-rails-deploy-redis]: https://github.com/seanpdoyle/ember-cli-rails-deploy-redis
+[lightning]: https://github.com/ember-cli-deploy/ember-cli-deploy-lightning-pack
+
 ### Heroku
 
 To configure your EmberCLI-Rails applications for Heroku:
@@ -491,6 +523,13 @@ EmberCLI runners to clobber each others' work][#94].
 [Puma]: https://github.com/puma/puma
 [Unicorn]: https://rubygems.org/gems/unicorn
 [#94]: https://github.com/thoughtbot/ember-cli-rails/issues/94#issuecomment-77627453
+
+## `SKIP_EMBER`
+
+If set on the environment, `SKIP_EMBER` will configure `ember-cli-rails` to skip
+the build step entirely. This is useful if you're using an alternative
+deployment strategy in the `test` or `development` environment. By default,
+`ember-cli-rails` will skip the build step in `production`-like environments.
 
 ## `EMBER_ENV`
 

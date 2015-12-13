@@ -1,6 +1,7 @@
 master
 ------
 
+* Introduce the `deploy` configuration option.
 * Translate Rails environments other than `test` or `development` to
   `production`, unless an `EMBER_ENV` is specified. [#366]
 

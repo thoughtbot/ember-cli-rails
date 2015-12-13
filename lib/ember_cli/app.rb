@@ -2,6 +2,7 @@ require "html_page/renderer"
 require "ember_cli/path_set"
 require "ember_cli/shell"
 require "ember_cli/build_monitor"
+require "ember_cli/deploy/file"
 
 module EmberCli
   class App
@@ -42,31 +43,25 @@ module EmberCli
     end
 
     def build
-      if development?
-        build_and_watch
-      elsif test?
-        compile
-      end
+      unless EmberCli.skip?
+        if development?
+          build_and_watch
+        elsif test?
+          compile
+        end
 
-      @build.wait!
+        @build.wait!
+      end
     end
 
     def index_html(head:, body:)
-      if index_file.exist?
-        html = HtmlPage::Renderer.new(
-          head: head,
-          body: body,
-          content: index_file.read,
-        )
+      html = HtmlPage::Renderer.new(
+        head: head,
+        body: body,
+        content: deploy.index_html,
+      )
 
-        html.render
-      else
-        @build.check!
-
-        raise BuildError.new <<-MSG
-          EmberCLI failed to generate an `index.html` file.
-        MSG
-      end
+      html.render
     end
 
     def install_dependencies
@@ -79,6 +74,10 @@ module EmberCli
       @shell.test
     end
 
+    def check_for_errors!
+      @build.check!
+    end
+
     private
 
     def development?
@@ -89,8 +88,22 @@ module EmberCli
       env.to_s == "test"
     end
 
-    def index_file
-      paths.index_file
+    def deploy
+      deploy_strategy.new(self)
+    end
+
+    def deploy_strategy
+      strategy = options.fetch(:deploy, {})
+
+      if strategy.respond_to?(:fetch)
+        strategy.fetch(rails_env, EmberCli::Deploy::File)
+      else
+        strategy
+      end
+    end
+
+    def rails_env
+      Rails.env.to_s.to_sym
     end
 
     def env
