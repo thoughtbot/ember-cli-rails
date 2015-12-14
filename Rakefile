@@ -11,6 +11,10 @@ if defined? RSpec
   task(:spec).clear
   RSpec::Core::RakeTask.new(:spec) do |t|
     t.verbose = false
+
+    if defined?(JRUBY_VERSION)
+      t.ruby_opts = ["--dev", "--debug"]
+    end
   end
 end
 
