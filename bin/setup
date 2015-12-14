@@ -27,7 +27,6 @@ fi
 root="$(pwd)"
 
 cd ${root}/spec/dummy/my-app &&
-  npm install --save-dev ember-cli-rails-addon@rondale-sc/ember-cli-rails-addon
+  npm install --save-dev ember-cli-rails-addon@rondale-sc/ember-cli-rails-addon &&
+  npm install &&
   bower install
-
-cd ${root}/spec/dummy && bundle exec rake ember:install
