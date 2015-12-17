@@ -15,7 +15,7 @@ EmberCLI-Rails is designed to give you the best of both worlds:
 
 If you're having trouble, checkout the [example project]!
 
-**EmberCLI-Rails Supports EmberCLI 1.13.x and later.**
+**EmberCLI-Rails Supports EmberCLI 1.13.13 and later.**
 
 [example project]: https://github.com/seanpdoyle/ember-cli-rails-heroku-example
 
@@ -517,6 +517,12 @@ if (environment === 'development') {
 `RAILS_ENV` will be absent in production builds.
 
 [ember-cli-mirage]: http://ember-cli-mirage.com/docs/latest/
+
+## EmberCLI support
+
+This project supports:
+
+* EmberCLI versions `>= 1.13.13`
 
 ## Ruby and Rails support
 
