@@ -1,8 +1,13 @@
 master
 ------
 
+* Extract `include_ember_*_tags` and the associated code to the
+  `ember-cli-rails-assets` gem. Add `ember-cli-rails-assets` as a dependency.
+  [#363]
 * Introduce `mount_ember_assets` to serve Ember assets in asset-helper style
   projects.
+
+[#363]: https://github.com/thoughtbot/ember-cli-rails/pull/363
 
 0.6.0
 -----

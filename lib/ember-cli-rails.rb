@@ -1,5 +1,6 @@
 require "fileutils"
-require "ember_cli/engine" if defined?(Rails)
+require "ember_cli/engine"
+require "ember-cli-rails-assets"
 require "ember_cli/errors"
 
 module EmberCli

@@ -19,7 +19,7 @@ module EmberCli
 
     def app_paths
       EmberCli.apps.values.map do |app|
-        app.root.relative_path_from(Rails.root)
+        app.root_path.relative_path_from(Rails.root)
       end
     end
   end

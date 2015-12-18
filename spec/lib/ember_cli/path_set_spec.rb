@@ -63,29 +63,6 @@ describe EmberCli::PathSet do
     end
   end
 
-  describe "#asset_map" do
-    it "globs the dist directory for a asset_map.json" do
-      app = build_app(name: "foo")
-      path_set = build_path_set(app: app)
-      asset_map_file = path_set.dist.join("assets", "assetMap-abc123.json")
-
-      create_file(asset_map_file)
-
-      expect(path_set.asset_map).to exist
-      expect(path_set.asset_map).to eq(asset_map_file)
-    end
-  end
-
-  describe "#assets" do
-    it "is a child of #dist" do
-      app = build_app(name: "foo")
-      path_set = build_path_set(app: app)
-
-      expect(path_set.assets).to exist
-      expect(path_set.assets).to eq ember_cli_root.join("apps", "foo", "assets")
-    end
-  end
-
   describe "#gemfile" do
     it "is a child of #root" do
       app = build_app(name: "foo")
@@ -93,15 +70,6 @@ describe EmberCli::PathSet do
       path_set = build_path_set(app: app)
 
       expect(path_set.gemfile).to eq rails_root.join("foo", "Gemfile")
-    end
-  end
-
-  describe "#package_json_file" do
-    it "is a child of #root" do
-      path_set = build_path_set
-
-      expect(path_set.package_json_file)
-        .to eq path_set.root.join("package.json")
     end
   end
 
