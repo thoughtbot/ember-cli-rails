@@ -1,6 +1,9 @@
 master
 ------
 
+0.6.1
+-----
+
 * Extract `include_ember_*_tags` and the associated code to the
   `ember-cli-rails-assets` gem. Add `ember-cli-rails-assets` as a dependency.
   [#363]
