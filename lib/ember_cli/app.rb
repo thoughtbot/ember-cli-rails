@@ -104,7 +104,7 @@ module EmberCli
     end
 
     def excluded_ember_deps
-      Array.wrap(options[:exclude_ember_deps]).join(?,)
+      Array.wrap(options[:exclude_ember_deps]).join("?")
     end
 
     def env_hash
