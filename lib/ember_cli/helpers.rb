@@ -16,26 +16,16 @@ module EmberCli
     end
 
     def current_environment
-      rails_config_for(:ember_cli_rails_mode){ default_environment }.to_s
+      ENV.fetch("EMBER_ENV") { default_environment }
     end
 
     private
 
     def default_environment
-      if Rails.env.test?
-        "test"
-      elsif Rails.env.production? || !rails_config_for(:consider_all_requests_local)
+      if Rails.env.match(/test|development/)
+        Rails.env
+      else
         "production"
-      else
-        "development"
-      end
-    end
-
-    def rails_config_for(key)
-      if Rails.configuration.respond_to?(key)
-        Rails.configuration.public_send(key)
-      else
-        yield
       end
     end
   end

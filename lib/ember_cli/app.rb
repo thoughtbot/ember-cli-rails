@@ -82,7 +82,13 @@ module EmberCli
 
     private
 
-    delegate :development?, :test?, to: :env
+    def development?
+      env.to_s == "development"
+    end
+
+    def test?
+      env.to_s == "test"
+    end
 
     def index_file
       paths.index_file

@@ -1,6 +1,11 @@
 master
 ------
 
+* Translate Rails environments other than `test` or `development` to
+  `production`, unless an `EMBER_ENV` is specified. [#366]
+
+[#366]: https://github.com/thoughtbot/ember-cli-rails/pull/366
+
 0.6.1
 -----
 

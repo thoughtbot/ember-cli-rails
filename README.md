@@ -492,6 +492,15 @@ EmberCLI runners to clobber each others' work][#94].
 [Unicorn]: https://rubygems.org/gems/unicorn
 [#94]: https://github.com/thoughtbot/ember-cli-rails/issues/94#issuecomment-77627453
 
+## `EMBER_ENV`
+
+If set on the environment, the value of `EMBER_ENV` will be passed to the
+`ember` process as the value of the `--environment` flag.
+
+If `EMBER_ENV` is unspecified, the current Rails environment will be passed to
+the `ember` process, with the exception of non-standard Rails environments,
+which will be replaced with `production`.
+
 ## `RAILS_ENV`
 
 While being managed by EmberCLI Rails, EmberCLI process will have

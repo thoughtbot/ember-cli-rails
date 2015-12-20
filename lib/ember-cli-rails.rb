@@ -50,7 +50,7 @@ module EmberCli
   end
 
   def env
-    @env ||= Helpers.current_environment.inquiry
+    @env ||= Helpers.current_environment
   end
 
   delegate :apps, to: :configuration
