@@ -3,7 +3,7 @@ module EmberCli
     extend self
 
     def which(cmd)
-      exts = ENV.fetch("PATHEXT", ?;).split(?;, -1).uniq
+      exts = ENV.fetch("PATHEXT", ";").split(";", -1).uniq
 
       ENV.fetch("PATH").split(File::PATH_SEPARATOR).each do |path|
         exts.each do |ext|
