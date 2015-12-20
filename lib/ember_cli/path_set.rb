@@ -1,8 +1,9 @@
+require "ember_cli/helpers"
+
 module EmberCli
   class PathSet
-    def initialize(app:, rails_root:, ember_cli_root:, environment:, configuration:)
+    def initialize(app:, rails_root:, ember_cli_root:, environment:)
       @app = app
-      @configuration = configuration
       @rails_root = rails_root
       @environment = environment
       @ember_cli_root = ember_cli_root
@@ -65,7 +66,7 @@ module EmberCli
 
     def bower
       @bower ||= begin
-        bower_path = app_options.fetch(:bower_path) { configuration.bower_path }
+        bower_path = app_options.fetch(:bower_path) { which("bower") }
 
         bower_path.tap do |path|
           unless Pathname(path).executable?
@@ -82,24 +83,32 @@ module EmberCli
     end
 
     def npm
-      @npm ||= app_options.fetch(:npm_path) { configuration.npm_path }
+      @npm ||= app_options.fetch(:npm_path) { which("npm") }
     end
 
     def tee
-      @tee ||= app_options.fetch(:tee_path) { configuration.tee_path }
+      @tee ||= app_options.fetch(:tee_path) { which("tee") }
     end
 
     def bundler
-      @bundler ||= app_options.fetch(:bundler_path) do
-        configuration.bundler_path
-      end
+      @bundler ||= app_options.fetch(:bundler_path) { which("bundler") }
     end
 
     private
 
-    attr_reader :app, :configuration, :ember_cli_root, :environment, :rails_root
+    attr_reader :app, :ember_cli_root, :environment, :rails_root
 
-    delegate :name, :options, to: :app, prefix: true
+    def app_name
+      app.name
+    end
+
+    def app_options
+      app.options
+    end
+
+    def which(executable)
+      Helpers.which(executable)
+    end
 
     def logs
       rails_root.join("log").tap(&:mkpath)

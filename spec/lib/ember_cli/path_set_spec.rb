@@ -117,11 +117,11 @@ describe EmberCli::PathSet do
       expect(path_set.bower).to eq fake_bower
     end
 
-    it "can be configured" do
+    it "can be inferred from the $PATH" do
       fake_bower = create_executable(ember_cli_root.join("bower"))
-      configuration = double(bower_path: fake_bower)
+      stub_which(bower: fake_bower)
 
-      path_set = build_path_set(configuration: configuration)
+      path_set = build_path_set
 
       expect(path_set.bower).to eq fake_bower
     end
@@ -136,10 +136,10 @@ describe EmberCli::PathSet do
       expect(path_set.npm).to eq "npm-path"
     end
 
-    it "can be configured" do
-      configuration = double(npm_path: "npm-path")
+    it "can be inferred from the $PATH" do
+      stub_which(npm: "npm-path")
 
-      path_set = build_path_set(configuration: configuration)
+      path_set = build_path_set
 
       expect(path_set.npm).to eq "npm-path"
     end
@@ -154,10 +154,10 @@ describe EmberCli::PathSet do
       expect(path_set.tee).to eq "tee-path"
     end
 
-    it "can be configured" do
-      configuration = double(tee_path: "tee-path")
+    it "can be inferred from the $PATH" do
+      stub_which(tee: "tee-path")
 
-      path_set = build_path_set(configuration: configuration)
+      path_set = build_path_set
 
       expect(path_set.tee).to eq "tee-path"
     end
@@ -172,10 +172,10 @@ describe EmberCli::PathSet do
       expect(path_set.bundler).to eq "bundler-path"
     end
 
-    it "can be configured" do
-      configuration = double(bundler_path: "bundler-path")
+    it "can be inferred from the $PATH" do
+      stub_which(bundler: "bundler-path")
 
-      path_set = build_path_set(configuration: configuration)
+      path_set = build_path_set
 
       expect(path_set.bundler).to eq "bundler-path"
     end
@@ -202,11 +202,17 @@ describe EmberCli::PathSet do
     )
   end
 
+  def stub_which(program_to_path)
+    allow(EmberCli::Helpers).
+      to receive(:which).
+      with(program_to_path.keys.first.to_s).
+      and_return(program_to_path.values.last)
+  end
+
   def build_path_set(**options)
     EmberCli::PathSet.new(
       options.reverse_merge(
         app: build_app,
-        configuration: nil,
         rails_root: rails_root,
         ember_cli_root: ember_cli_root,
         environment: "test",

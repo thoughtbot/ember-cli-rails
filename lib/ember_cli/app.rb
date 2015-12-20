@@ -12,7 +12,6 @@ module EmberCli
       @options = options
       @paths = PathSet.new(
         app: self,
-        configuration: EmberCli.configuration,
         environment: Rails.env,
         rails_root: Rails.root,
         ember_cli_root: EmberCli.root,
