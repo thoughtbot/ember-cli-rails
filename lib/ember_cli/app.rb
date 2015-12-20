@@ -1,5 +1,6 @@
-require "ember_cli/shell"
 require "html_page/renderer"
+require "ember_cli/path_set"
+require "ember_cli/shell"
 require "ember_cli/build_monitor"
 
 module EmberCli

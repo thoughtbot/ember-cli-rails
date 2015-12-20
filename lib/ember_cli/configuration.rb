@@ -1,4 +1,5 @@
 require "singleton"
+require "ember_cli/app"
 
 module EmberCli
   class Configuration

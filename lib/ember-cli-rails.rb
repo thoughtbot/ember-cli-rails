@@ -1,15 +1,12 @@
 require "fileutils"
-require "ember_cli/engine"
 require "ember-cli-rails-assets"
+require "ember_cli/engine"
+require "ember_cli/configuration"
+require "ember_cli/helpers"
 require "ember_cli/errors"
 
 module EmberCli
   extend self
-
-  autoload :App,           "ember_cli/app"
-  autoload :Configuration, "ember_cli/configuration"
-  autoload :Helpers,       "ember_cli/helpers"
-  autoload :PathSet,       "ember_cli/path_set"
 
   def configure
     yield configuration
