@@ -43,15 +43,13 @@ module EmberCli
     end
 
     def build
-      unless EmberCli.skip?
-        if development?
-          build_and_watch
-        elsif test?
-          compile
-        end
-
-        @build.wait!
+      if development?
+        build_and_watch
+      elsif test?
+        compile
       end
+
+      @build.wait!
     end
 
     def index_html(head:, body:)
