@@ -22,10 +22,6 @@ module EmberCli
     end
   end
 
-  def build(name)
-    app(name).build
-  end
-
   alias_method :[], :app
 
   def skip?
@@ -34,6 +30,10 @@ module EmberCli
 
   def install_dependencies!
     each_app(&:install_dependencies)
+  end
+
+  def build!
+    each_app(&:build)
   end
 
   def test!

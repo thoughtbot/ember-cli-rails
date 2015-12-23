@@ -1,6 +1,11 @@
 master
 ------
 
+* Avoid delay for first page load by starting Ember builds during server
+  startup. [#371]
+
+[#371]: https://github.com/thoughtbot/ember-cli-rails/pull/371
+
 0.7.0
 -----
 
