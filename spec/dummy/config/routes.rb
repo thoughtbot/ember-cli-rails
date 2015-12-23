@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  with_options controller: "pages", action: "show" do |app|
+  with_options controller: "high_voltage/pages", action: "show" do |app|
     app.mount_ember_app(
       "my-app",
       to: "/no-block",
