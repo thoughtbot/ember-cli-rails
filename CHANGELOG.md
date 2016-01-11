@@ -1,6 +1,9 @@
 master
 ------
 
+* Fix bug with generated `bin/heroku_install` script iterating through multiple
+  Ember application's directories.
+
 0.7.0
 -----
 
