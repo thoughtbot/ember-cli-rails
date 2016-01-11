@@ -14,15 +14,13 @@ module ActionDispatch
           format: :html,
         )
 
-        Rails.application.routes.draw do
-          scope constraints: EmberCli::HtmlConstraint.new do
-            get("#{to}(*rest)", routing_options)
-          end
-
-          dist_directory = EmberCli[app_name].paths.dist
-
-          mount Rack::File.new(dist_directory.to_s) => to
+        scope constraints: ::EmberCli::HtmlConstraint.new do
+          get("#{to}(*rest)", routing_options)
         end
+
+        dist_directory = ::EmberCli[app_name].paths.dist
+
+        mount Rack::File.new(dist_directory.to_s) => to
       end
     end
   end

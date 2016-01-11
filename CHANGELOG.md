@@ -2,7 +2,10 @@ master
 ------
 
 * Fix bug with generated `bin/heroku_install` script iterating through multiple
-  Ember application's directories.
+* Don't mount route helpers at top-level. Instead, mount within the surrounding
+  context with which they're invoked. [#381]
+
+[#381]: https://github.com/thoughtbot/ember-cli-rails/pull/381
 
 0.7.0
 -----
