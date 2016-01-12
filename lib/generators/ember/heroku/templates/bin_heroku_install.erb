@@ -3,11 +3,10 @@
 set -e
 
 bower="$(pwd)/node_modules/.bin/bower"
-project_root="$(pwd)"
 
 for app in <%= app_paths.map { |app_path| %{"#{app_path}"} }.join(" ") -%>; do
   cd $app &&
     npm install &&
-    $bower install &&
-    cd $project_root
+    $bower install
+  cd -
 done
