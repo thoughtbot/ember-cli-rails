@@ -8,4 +8,5 @@ for app in <%= app_paths.map { |app_path| %{"#{app_path}"} }.join(" ") -%>; do
   cd $app &&
     npm install &&
     $bower install
+  cd -
 done
