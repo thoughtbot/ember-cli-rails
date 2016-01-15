@@ -22,6 +22,26 @@ describe EmberCli::Deploy::File do
     end
   end
 
+  describe "#mountable?" do
+    it "returns true" do
+      deploy = EmberCli::Deploy::File.new(build_app)
+
+      mountable = deploy.mountable?
+
+      expect(mountable).to be true
+    end
+  end
+
+  describe "#to_rack" do
+    it "creates a Rack::File instance" do
+      deploy = EmberCli::Deploy::File.new(build_app)
+
+      rack_app = deploy.to_rack
+
+      expect(rack_app).to respond_to(:call)
+    end
+  end
+
   def create_index(directory, contents)
     directory.join("index.html").write(contents)
   end

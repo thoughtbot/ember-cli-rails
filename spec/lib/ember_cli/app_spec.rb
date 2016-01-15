@@ -1,6 +1,30 @@
 require "ember-cli-rails"
 
 describe EmberCli::App do
+  describe "#to_rack" do
+    it "delegates to `#deploy`" do
+      deploy = double(to_rack: :delegated)
+      app = EmberCli["my-app"]
+      allow(app).to receive(:deploy).and_return(deploy)
+
+      to_rack = app.to_rack
+
+      expect(to_rack).to be :delegated
+    end
+  end
+
+  describe "#mountable?" do
+    it "delegates to `#deploy`" do
+      deploy = double(mountable?: :delegated)
+      app = EmberCli["my-app"]
+      allow(app).to receive(:deploy).and_return(deploy)
+
+      mountable = app.mountable?
+
+      expect(mountable).to be :delegated
+    end
+  end
+
   describe "#compile" do
     it "exits with exit status of 0" do
       passed = EmberCli["my-app"].compile

@@ -18,9 +18,15 @@ module ActionDispatch
           get("#{to}(*rest)", routing_options)
         end
 
-        dist_directory = ::EmberCli[app_name].paths.dist
+        mount_ember_assets(app_name, to: to)
+      end
 
-        mount Rack::File.new(dist_directory.to_s) => to
+      def mount_ember_assets(app_name, to: "/")
+        app = ::EmberCli[app_name]
+
+        if app.mountable?
+          mount app.to_rack => to
+        end
       end
     end
   end

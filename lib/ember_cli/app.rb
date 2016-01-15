@@ -78,6 +78,14 @@ module EmberCli
       @build.check!
     end
 
+    def mountable?
+      deploy.mountable?
+    end
+
+    def to_rack
+      deploy.to_rack
+    end
+
     private
 
     def development?

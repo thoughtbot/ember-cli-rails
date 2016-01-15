@@ -1,6 +1,8 @@
 master
 ------
 
+* Introduce the idea of `App#mountable?` and `App#to_rack` for handling deploys
+  that don't serve assets from the file system (Redis, for example).
 * Fix bug with generated `bin/heroku_install` script iterating through multiple
 * Don't mount route helpers at top-level. Instead, mount within the surrounding
   context with which they're invoked. [#381]

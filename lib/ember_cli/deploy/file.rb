@@ -1,3 +1,4 @@
+require "rack"
 require "ember_cli/errors"
 
 module EmberCli
@@ -5,6 +6,14 @@ module EmberCli
     class File
       def initialize(app)
         @app = app
+      end
+
+      def mountable?
+        true
+      end
+
+      def to_rack
+        Rack::File.new(app.dist_path.to_s)
       end
 
       def index_html
