@@ -4,6 +4,7 @@ cache: bundler
 notifications:
   email: false
 rvm:
+- 2.3.0
 - 2.2
 - 2.1
 - jruby-9.0.3.0
