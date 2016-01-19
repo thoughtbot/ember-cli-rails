@@ -357,6 +357,21 @@ class ApplicationController < ActionController::Base
 end
 ```
 
+#### Adding before-filters
+
+To simply add before-filters to the default controller, you can subclass the `EmberCli::EmberController`. This alone won't secure your system, but gives a quick way to hook up things like rollout, flipper, or authentication checks if you need to.
+
+```rb
+# routes, assuming authentication already set up
+mount_ember_app :admin_panel, to: "/admin", controller: 'admin_frontend'
+
+# app/controllers/authenticated_controller.rb
+class AdminFrontendController < EmberCli::EmberController
+  before_action :authenticate_admin_user!
+end
+```
+
+
 ### Rendering the EmberCLI generated JS and CSS
 
 Rendering EmberCLI applications with `render_ember_app` is the recommended,
