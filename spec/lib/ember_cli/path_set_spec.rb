@@ -114,6 +114,17 @@ describe EmberCli::PathSet do
 
       expect(path_set.bower).to eq fake_bower
     end
+
+    context "when it is missing from the $PATH" do
+      it "raises a helpful exception" do
+        stub_which(bower: nil)
+
+        path_set = build_path_set
+
+        expect { path_set.bower }.
+          to raise_error(EmberCli::DependencyError, /bower is required/i)
+      end
+    end
   end
 
   describe "#npm" do
