@@ -127,13 +127,14 @@ describe EmberCli::PathSet do
     end
   end
 
-  describe "#bower_deps" do
+  describe "#bower_components" do
     it "is a child of #root" do
       app = build_app(name: "foo")
 
       path_set = build_path_set(app: app)
 
-      expect(path_set.bower_deps).to eq rails_root.join("foo", "bower_components")
+      expect(path_set.bower_components).
+        to eq rails_root.join("foo", "bower_components")
     end
   end
 
@@ -155,13 +156,13 @@ describe EmberCli::PathSet do
     end
   end
 
-  describe "#npm_deps" do
+  describe "#node_modules" do
     it "is a child of #root" do
       app = build_app(name: "foo")
 
       path_set = build_path_set(app: app)
 
-      expect(path_set.npm_deps).to eq rails_root.join("foo", "node_modules")
+      expect(path_set.node_modules).to eq rails_root.join("foo", "node_modules")
     end
   end
 

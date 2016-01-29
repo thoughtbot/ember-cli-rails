@@ -37,7 +37,7 @@ module EmberCli
         run! "#{paths.bundler} install"
       end
 
-      run! "#{paths.ember} version || rm -rf #{paths.npm_deps} #{paths.bower_deps}"
+      run! "#{paths.ember} version || rm -rf #{paths.node_modules} #{paths.bower_components}"
       run! "#{paths.npm} prune && #{paths.npm} install"
       run! "#{paths.bower} prune && #{paths.bower} install"
     end
