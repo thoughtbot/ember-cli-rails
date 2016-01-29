@@ -37,7 +37,8 @@ module EmberCli
         run! "#{paths.bundler} install"
       end
 
-      run! "#{paths.ember} version || rm -rf #{paths.node_modules} #{paths.bower_components}"
+      clean_ember_dependencies! if invalid_ember_dependencies?
+
       run! "#{paths.npm} prune && #{paths.npm} install"
       run! "#{paths.bower} prune && #{paths.bower} install"
     end
@@ -50,6 +51,21 @@ module EmberCli
 
     attr_accessor :pid
     attr_reader :ember, :env, :options, :paths
+
+    def invalid_ember_dependencies?
+      ! run("#{paths.ember} version")
+    end
+
+    def clean_ember_dependencies!
+      ember_dependency_directories.select(&:exist?).each(&:rmtree)
+    end
+
+    def ember_dependency_directories
+      [
+        paths.node_modules,
+        paths.bower_components,
+      ]
+    end
 
     def spawn(command)
       Kernel.spawn(
