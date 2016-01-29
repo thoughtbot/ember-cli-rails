@@ -37,7 +37,9 @@ module EmberCli
         run! "#{paths.bundler} install"
       end
 
-      clean_ember_dependencies! if invalid_ember_dependencies?
+      if invalid_ember_dependencies?
+        clean_ember_dependencies!
+      end
 
       run! "#{paths.npm} prune && #{paths.npm} install"
       run! "#{paths.bower} prune && #{paths.bower} install"
@@ -52,8 +54,10 @@ module EmberCli
     attr_accessor :pid
     attr_reader :ember, :env, :options, :paths
 
+    delegate :run, :run!, to: :runner
+
     def invalid_ember_dependencies?
-      ! run("#{paths.ember} version")
+      !run("#{paths.ember} version")
     rescue DependencyError
       false
     end
@@ -77,8 +81,6 @@ module EmberCli
         err: paths.build_error_file.to_s,
       ) || exit(1)
     end
-
-    delegate :run, :run!, to: :runner
 
     def runner
       Runner.new(
