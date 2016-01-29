@@ -14,7 +14,7 @@ module EmberCli
     end
 
     def compile
-      exec ember.build
+      run! ember.build
     end
 
     def build_and_watch
@@ -34,16 +34,16 @@ module EmberCli
 
     def install
       if paths.gemfile.exist?
-        exec "#{paths.bundler} install"
+        run! "#{paths.bundler} install"
       end
 
-      exec "#{paths.ember} version || rm -rf #{paths.npm_deps} #{paths.bower_deps}"
-      exec "#{paths.npm} prune && #{paths.npm} install"
-      exec "#{paths.bower} prune && #{paths.bower} install"
+      run! "#{paths.ember} version || rm -rf #{paths.npm_deps} #{paths.bower_deps}"
+      run! "#{paths.npm} prune && #{paths.npm} install"
+      run! "#{paths.bower} prune && #{paths.bower} install"
     end
 
     def test
-      exec ember.test
+      run! ember.test
     end
 
     private
@@ -60,7 +60,7 @@ module EmberCli
       ) || exit(1)
     end
 
-    def exec(command)
+    def run!(command)
       Runner.new(
         options: { chdir: paths.root.to_s },
         out: paths.log,
