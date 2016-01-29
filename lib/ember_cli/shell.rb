@@ -54,6 +54,8 @@ module EmberCli
 
     def invalid_ember_dependencies?
       ! run("#{paths.ember} version")
+    rescue DependencyError
+      false
     end
 
     def clean_ember_dependencies!
