@@ -4,13 +4,12 @@ cache: bundler
 notifications:
   email: false
 rvm:
-- 2.3.0
-- 2.2
-- 2.1
-- jruby-9.0.3.0
+  - 2.3.0
+  - 2.2.2
+  - jruby-9.0.3.0
 before_install:
-- echo '--colour' > ~/.rspec
-- 'echo ''gem: --no-document'' > ~/.gemrc'
+  - echo '--colour' > ~/.rspec
+  - 'echo ''gem: --no-document'' > ~/.gemrc'
 before_script: bin/setup
 script: bin/rake
 env:
@@ -19,3 +18,8 @@ env:
 gemfile:
   - gemfiles/4.1.gemfile
   - gemfiles/4.2.gemfile
+  - gemfiles/5.0.0.gemfile
+  - gemfiles/master.gemfile
+matrix:
+  allow_failures:
+    - rvm: jruby-9.0.3.0
