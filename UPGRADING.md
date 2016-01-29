@@ -8,6 +8,12 @@ Additionally, this codebase makes use of [(required) keyword arguments][kwargs].
 From `ember-cli-rails@0.4.0` and on, we will no longer support versions of Ruby
 prior to `2.1.0`.
 
+`ember-cli-rails@0.8.0` adds support for Rails 5, which depends on `rack@2.0.x`,
+which **requires** Ruby `2.2.2` or greater.
+
+From `ember-cli-rails@0.8.0` and on, we will no longer support versions of Ruby
+prior to `2.2.2`.
+
 To use `ember-cli-rails` with older versions of Ruby, try the `0.3.x` series.
 
 [kwargs]: https://robots.thoughtbot.com/ruby-2-keyword-arguments
