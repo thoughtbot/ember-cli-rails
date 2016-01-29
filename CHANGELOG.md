@@ -1,12 +1,15 @@
 master
 ------
 
+* Resolve `ember` executable with full path within `node_modules`, instead of
+  depending on the presence of `node_modules/.bin`. [#395]
 * Introduce the idea of `App#mountable?` and `App#to_rack` for handling deploys
   that don't serve assets from the file system (Redis, for example).
 * Fix bug with generated `bin/heroku_install` script iterating through multiple
 * Don't mount route helpers at top-level. Instead, mount within the surrounding
   context with which they're invoked. [#381]
 
+[#395]: https://github.com/thoughtbot/ember-cli-rails/pull/395
 [#381]: https://github.com/thoughtbot/ember-cli-rails/pull/381
 
 0.7.0

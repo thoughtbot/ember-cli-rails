@@ -37,7 +37,7 @@ module EmberCli
 
     def ember
       @ember ||= begin
-        root.join("node_modules", ".bin", "ember").tap do |path|
+        root.join("node_modules", "ember-cli", "bin", "ember").tap do |path|
           unless path.executable?
             fail DependencyError.new <<-MSG.strip_heredoc
               No `ember-cli` executable found for `#{app_name}`.

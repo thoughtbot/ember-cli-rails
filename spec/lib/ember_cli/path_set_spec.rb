@@ -81,7 +81,7 @@ describe EmberCli::PathSet do
   describe "#ember" do
     it "is an executable child of #node_modules" do
       app = build_app
-      ember_path = rails_root.join(app.name, "node_modules", ".bin", "ember")
+      ember_path = rails_root.join(app.name, "node_modules", "ember-cli", "bin", "ember")
       create_executable(ember_path)
 
       path_set = build_path_set(app: app)
