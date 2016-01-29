@@ -127,6 +127,16 @@ describe EmberCli::PathSet do
     end
   end
 
+  describe "#bower_deps" do
+    it "is a child of #root" do
+      app = build_app(name: "foo")
+
+      path_set = build_path_set(app: app)
+
+      expect(path_set.bower_deps).to eq rails_root.join("foo", "bower_components")
+    end
+  end
+
   describe "#npm" do
     it "can be overridden" do
       app = build_app(options: { npm_path: "npm-path" })
@@ -142,6 +152,16 @@ describe EmberCli::PathSet do
       path_set = build_path_set
 
       expect(path_set.npm).to eq "npm-path"
+    end
+  end
+
+  describe "#npm_deps" do
+    it "is a child of #root" do
+      app = build_app(name: "foo")
+
+      path_set = build_path_set(app: app)
+
+      expect(path_set.npm_deps).to eq rails_root.join("foo", "node_modules")
     end
   end
 
