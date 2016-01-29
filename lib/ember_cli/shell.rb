@@ -60,13 +60,15 @@ module EmberCli
       ) || exit(1)
     end
 
-    def run!(command)
+    delegate :run, :run!, to: :runner
+
+    def runner
       Runner.new(
         options: { chdir: paths.root.to_s },
         out: paths.log,
         err: $stderr,
         env: env,
-      ).run!(command)
+      )
     end
 
     def running?
