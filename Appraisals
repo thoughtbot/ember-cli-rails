@@ -9,3 +9,11 @@ end
 appraise "4.2" do
   gem "rails", "~> 4.2.1"
 end
+
+appraise "5.0.0.beta2" do
+  gem "rails", "5.0.0.beta2"
+end
+
+appraise "master" do
+  gem "rails", git: "https://github.com/rails/rails.git", branch: "master"
+end

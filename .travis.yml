@@ -5,8 +5,7 @@ notifications:
   email: false
 rvm:
 - 2.3.0
-- 2.2
-- 2.1
+- 2.2.2
 - jruby-9.0.3.0
 before_install:
 - echo '--colour' > ~/.rspec
@@ -20,3 +19,5 @@ gemfile:
   - gemfiles/3.2.gemfile
   - gemfiles/4.1.gemfile
   - gemfiles/4.2.gemfile
+  - gemfiles/5.0.0.beta2.gemfile
+  - gemfiles/master.gemfile

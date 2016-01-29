@@ -1,6 +1,8 @@
 master
 ------
 
+* Remove support for Ruby 2.1.x. [#400]
+
 0.7.3
 -----
 
@@ -22,6 +24,7 @@ master
 * `EmberCli::Deploy::File` serves assets with Rails' `static_cache_control`
   value. [#403]
 
+[#400]: https://github.com/thoughtbot/ember-cli-rails/pull/400
 [#396]: https://github.com/thoughtbot/ember-cli-rails/pull/396
 [#403]: https://github.com/thoughtbot/ember-cli-rails/pull/403
 
