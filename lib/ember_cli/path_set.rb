@@ -78,8 +78,16 @@ module EmberCli
       end
     end
 
+    def bower_components
+      @bower_components ||= root.join("bower_components")
+    end
+
     def npm
       @npm ||= app_options.fetch(:npm_path) { which("npm") }
+    end
+
+    def node_modules
+      @node_modules ||= root.join("node_modules")
     end
 
     def tee

@@ -9,10 +9,16 @@ module EmberCli
       @options = options
     end
 
-    def run!(command)
+    def run(command)
       output, status = Open3.capture2e(@env, command, @options)
 
       @out.write(output)
+
+      [output, status]
+    end
+
+    def run!(command)
+      output, status = run(command)
 
       unless status.success?
         @err.write <<-MSG.strip_heredoc
@@ -21,7 +27,7 @@ module EmberCli
             #{output}
         MSG
 
-        exit 1
+        exit status.exitstatus
       end
 
       true

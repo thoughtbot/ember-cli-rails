@@ -1,9 +1,11 @@
 master
 ------
 
+* Enhance `rake ember:install` to fully reinstall if necessary. [#396]
 * `EmberCli::Deploy::File` serves assets with Rails' `static_cache_control`
   value. [#403]
 
+[#396]: https://github.com/thoughtbot/ember-cli-rails/pull/396
 [#403]: https://github.com/thoughtbot/ember-cli-rails/pull/403
 
 0.7.1

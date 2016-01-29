@@ -14,7 +14,7 @@ module EmberCli
     end
 
     def compile
-      exec ember.build
+      run! ember.build
     end
 
     def build_and_watch
@@ -34,21 +34,44 @@ module EmberCli
 
     def install
       if paths.gemfile.exist?
-        exec "#{paths.bundler} install"
+        run! "#{paths.bundler} install"
       end
 
-      exec "#{paths.npm} prune && #{paths.npm} install"
-      exec "#{paths.bower} prune && #{paths.bower} install"
+      if invalid_ember_dependencies?
+        clean_ember_dependencies!
+      end
+
+      run! "#{paths.npm} prune && #{paths.npm} install"
+      run! "#{paths.bower} prune && #{paths.bower} install"
     end
 
     def test
-      exec ember.test
+      run! ember.test
     end
 
     private
 
     attr_accessor :pid
     attr_reader :ember, :env, :options, :paths
+
+    delegate :run, :run!, to: :runner
+
+    def invalid_ember_dependencies?
+      !run("#{paths.ember} version")
+    rescue DependencyError
+      false
+    end
+
+    def clean_ember_dependencies!
+      ember_dependency_directories.select(&:exist?).each(&:rmtree)
+    end
+
+    def ember_dependency_directories
+      [
+        paths.node_modules,
+        paths.bower_components,
+      ]
+    end
 
     def spawn(command)
       Kernel.spawn(
@@ -59,13 +82,13 @@ module EmberCli
       ) || exit(1)
     end
 
-    def exec(command)
+    def runner
       Runner.new(
         options: { chdir: paths.root.to_s },
         out: paths.log,
         err: $stderr,
         env: env,
-      ).run!(command)
+      )
     end
 
     def running?
