@@ -1,6 +1,9 @@
 master
 ------
 
+0.7.1
+-----
+
 * Resolve `ember` executable with full path within `node_modules`, instead of
   depending on the presence of `node_modules/.bin`. [#395]
 * Introduce the idea of `App#mountable?` and `App#to_rack` for handling deploys
