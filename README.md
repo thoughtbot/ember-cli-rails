@@ -237,17 +237,18 @@ Specifying a deployment strategy is only supported for applications that use the
 
 To configure your EmberCLI-Rails applications for Heroku:
 
-1. Execute `rails generate ember:heroku`
+1. Execute `rails generate ember:heroku` (run "$git add ." and commit to include the generated files)
 1. [Add the NodeJS buildpack][buildpack] and configure NPM to include the
    `bower` dependency's executable file.
 
 ```sh
 $ heroku buildpacks:clear
-$ heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-nodejs
-$ heroku buildpacks:add --index 2 https://github.com/heroku/heroku-buildpack-ruby
+$ heroku buildpacks:add --index 1 heroku/nodejs
+$ heroku buildpacks:add --index 2 heroku/ruby
 $ heroku config:set NPM_CONFIG_PRODUCTION=false
 $ heroku config:unset SKIP_EMBER
 ```
+Important: verify if your Gemfile is written with a capital G, your build will fail otherwise 
 
 You are ready to deploy:
 
