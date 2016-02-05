@@ -1,6 +1,11 @@
 master
 ------
 
+* `EmberCli::Deploy::File` serves assets with Rails' `static_cache_control`
+  value. [#403]
+
+[#403]: https://github.com/thoughtbot/ember-cli-rails/pull/403
+
 0.7.1
 -----
 

@@ -7,6 +7,8 @@ Bundler.require(*Rails.groups)
 
 module Dummy
   class Application < Rails::Application
+    CACHE_CONTROL_FIVE_MINUTES = "public, max-age=300".freeze
+
     config.root = File.expand_path("..", __FILE__).freeze
     config.eager_load = false
 
@@ -22,6 +24,8 @@ module Dummy
 
     # Print deprecation notices to the stderr.
     config.active_support.deprecation = :stderr
+
+    config.static_cache_control = CACHE_CONTROL_FIVE_MINUTES
 
     config.secret_token = "SECRET_TOKEN_IS_MIN_30_CHARS_LONG"
     config.secret_key_base = "SECRET_KEY_BASE"

@@ -203,8 +203,22 @@ As long as your [CDN is configured to pull from your Rails application][dns-cdn]
 
 ### Deployment Strategies
 
-By default, EmberCLI-Rails will serve the `index.html` file that `ember build`
-produces.
+By default, EmberCLI-Rails uses a file-based deployment strategy that depends on
+the output of `ember build`.
+
+Using this deployment strategy, Rails will serve the `index.html` file and other
+assets that `ember build` produces.
+
+These EmberCLI-generated assets are served with the same `Cache-Control` headers
+as Rails' other static files:
+
+```rb
+# config/environments/production.rb
+Rails.application.configure do
+  # serve static files with cache headers set to expire in 1 year
+  config.static_cache_control = "public, max-age=31622400"
+end
+```
 
 If you need to override this behavior (for instance, if you're using
 [`ember-cli-deploy`'s "Lightning Fast Deployment"][lightning] strategy in

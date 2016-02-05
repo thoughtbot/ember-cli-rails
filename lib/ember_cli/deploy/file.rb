@@ -13,7 +13,7 @@ module EmberCli
       end
 
       def to_rack
-        Rack::File.new(app.dist_path.to_s)
+        Rack::File.new(app.dist_path.to_s, rack_headers)
       end
 
       def index_html
@@ -27,6 +27,12 @@ module EmberCli
       private
 
       attr_reader :app
+
+      def rack_headers
+        {
+          "Cache-Control" => Rails.configuration.static_cache_control,
+        }
+      end
 
       def check_for_error_and_raise!
         app.check_for_errors!
