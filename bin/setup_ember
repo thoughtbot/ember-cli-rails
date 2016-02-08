@@ -2,10 +2,24 @@
 
 set -e
 
-# make router catchall routes
-sed -i -e 's/auto/hash/' spec/dummy/my-app/config/environment.js
+setup_ember() {
+  local target="${1-spec/dummy/my-app}"
 
-# add an image to a template
-echo '<img src="assets/logo.png">' >> spec/dummy/my-app/app/templates/application.hbs
-mkdir -p spec/dummy/my-app/public/assets
-cp spec/fixtures/logo.png spec/dummy/my-app/public/assets
+  if ! [ -d $target ]; then
+    git clone https://github.com/kellyselden/ember-cli-output.git $target
+
+    # make router catchall routes
+    sed -i -e 's/auto/hash/' $target/config/environment.js
+
+    # add an image to a template
+    echo '<img src="assets/logo.png">' >> $target/app/templates/application.hbs
+    mkdir -p $target/public/assets
+    cp spec/fixtures/logo.png $target/public/assets
+
+    cd $target &&
+      npm install --save-dev ember-cli-rails-addon@rondale-sc/ember-cli-rails-addon
+      bower install
+  fi
+}
+
+setup_ember

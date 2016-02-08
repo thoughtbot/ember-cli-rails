@@ -13,21 +13,6 @@ if ! command -v bower > /dev/null; then
   npm install -g bower
 fi
 
-if ! [ -d spec/dummy/my-app ]; then
-  git clone https://github.com/kellyselden/ember-cli-output.git spec/dummy/my-app
+bin/setup_ember spec/dummy/my-app
 
-  bin/setup_ember
-fi
-
-# Only if this isn't CI
-if [ -z "$CI" ]; then
-  bin/appraisal install
-fi
-
-root="$(pwd)"
-
-cd ${root}/spec/dummy/my-app &&
-  npm install --save-dev ember-cli-rails-addon@rondale-sc/ember-cli-rails-addon
-  bower install
-
-cd ${root}/spec/dummy && bundle exec rake ember:install
+cd spec/dummy && bundle exec rake ember:install
