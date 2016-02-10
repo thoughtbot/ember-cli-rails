@@ -1,6 +1,8 @@
 master
 ------
 
+* `EmberCli::EmberController` now inherits from `ActionController::Base` instead
+  of `ApplicationController`. [#400]
 * Remove support for Ruby 2.1.x. [#400]
 * Don't route requests to `/rails/info` through the mounted Ember application.
 
