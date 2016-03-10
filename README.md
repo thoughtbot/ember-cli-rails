@@ -172,6 +172,16 @@ task default: [:spec, "ember:test"]
 
 ## Deploy
 
+When Rails is running in production mode, EmberCLI-Rails stops doing runtime
+compilation. Instead, configured apps are built during `rake assets:precompile`.
+This keeps things quick for end users, and extends the normal Rails asset
+building process.
+
+Configuration information, including instructions for Heroku and Capistrano,
+can be found below.
+
+### CDN
+
 In production environments, assets should be served over a
 Content Delivery Network.
 
