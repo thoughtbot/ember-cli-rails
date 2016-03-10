@@ -274,6 +274,8 @@ You are ready to deploy:
 $ git push heroku master
 ```
 
+EmberCLI compilation happens at deploy-time, triggered by the `asset:precompilation` rake task.
+
 **NOTE** Run the generator each time you introduce additional EmberCLI
 applications into the project.
 
