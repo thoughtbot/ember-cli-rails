@@ -14,7 +14,7 @@ module EmberCli
     end
 
     def build(watch: false)
-      "#{ember_build(watch: watch)} | #{tee}"
+      "set -e; #{ember_build(watch: watch)} | #{tee}"
     end
 
     private
