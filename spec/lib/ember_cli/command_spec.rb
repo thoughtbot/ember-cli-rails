@@ -29,7 +29,7 @@ describe EmberCli::Command do
       paths = build_paths(tee: "path/to/tee", log: "path/to/log")
       command = build_command(paths: paths)
 
-      expect(command.build).to start_with("set -o pipefail;")
+      expect(command.build).to start_with("set -e;")
     end
 
     context "when building in production" do
