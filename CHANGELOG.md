@@ -1,9 +1,11 @@
 master
 ------
 
+* Update `ember-cli-rails-assets` dependency. [#422]
 * Only write errors to `STDERR`. [#421]
 * Remove dependency on `tee`. Fixes bug [#417][#417]. [#420]
 
+[#422]: https://github.com/thoughtbot/ember-cli-rails/pull/422
 [#421]: https://github.com/thoughtbot/ember-cli-rails/issues/421
 [#420]: https://github.com/thoughtbot/ember-cli-rails/issues/420
 [#417]: https://github.com/thoughtbot/ember-cli-rails/issues/417
