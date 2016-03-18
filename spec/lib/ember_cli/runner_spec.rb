@@ -3,25 +3,28 @@ require "ember_cli/runner"
 describe EmberCli::Runner do
   describe "#run!" do
     context "when the command fails" do
-      it "writes STDERR and STDOUT to `err`" do
-        out = StringIO.new
-        err = StringIO.new
-        runner = EmberCli::Runner.new(err: err, out: out)
+      it "writes to all `err` and `out` streams" do
+        output_streams = Array.new(4) { StringIO.new }
+        runner = EmberCli::Runner.new(
+          err: output_streams.first(2),
+          out: output_streams.last(2),
+        )
 
         expect { runner.run!("echo 'out'; echo 'err' > /dev/stderr; exit 1") }.
           to raise_error(SystemExit)
 
-        [err, out].each(&:rewind)
+        output_streams.each(&:rewind)
 
-        expect(err.read).to match(/out\nerr/)
-        expect(out.read).to eq("out\nerr\n")
+        output_streams.each do |stream|
+          expect(stream.read).to match(/out\nerr/)
+        end
       end
     end
 
     it "executes the command" do
       out = StringIO.new
       err = StringIO.new
-      runner = EmberCli::Runner.new(err: err, out: out)
+      runner = EmberCli::Runner.new(err: [err], out: [out])
 
       runner.run!("echo 'out'")
 

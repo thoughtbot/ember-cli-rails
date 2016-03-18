@@ -1,6 +1,10 @@
 master
 ------
 
+* Remove dependency on `tee`. Fixes bug [#417][#417].
+
+[#417]: https://github.com/thoughtbot/ember-cli-rails/issues/417
+
 0.7.2
 -----
 

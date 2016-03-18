@@ -18,13 +18,6 @@ describe EmberCli::Command do
       expect(command.build).to match(%r{path\/to\/ember build})
     end
 
-    it "pipes to `tee`" do
-      paths = build_paths(tee: "path/to/tee", log: "path/to/log")
-      command = build_command(paths: paths)
-
-      expect(command.build).to match(%r{\| path/to/tee -a 'path/to/log'})
-    end
-
     context "when building in production" do
       it "includes the `--environment production` flag" do
         paths = build_paths

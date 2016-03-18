@@ -85,8 +85,8 @@ module EmberCli
     def runner
       Runner.new(
         options: { chdir: paths.root.to_s },
-        out: paths.log,
-        err: $stderr,
+        out: [$stdout, paths.log],
+        err: [$stderr],
         env: env,
       )
     end
