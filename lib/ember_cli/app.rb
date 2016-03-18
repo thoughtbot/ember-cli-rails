@@ -36,9 +36,10 @@ module EmberCli
     def compile
       @compiled ||= begin
         prepare
-        @shell.compile
+        exit_status = @shell.compile
         @build.check!
-        true
+
+        exit_status.success?
       end
     end
 
@@ -71,7 +72,7 @@ module EmberCli
     def test
       prepare
 
-      @shell.test
+      @shell.test.success?
     end
 
     def check_for_errors!

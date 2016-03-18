@@ -10,27 +10,20 @@ module EmberCli
     end
 
     def run(command)
-      output, status = Open3.capture2e(env, command, options)
+      output, error, status = Open3.capture3(env, command, options)
 
-      write_to_out(output)
+      write(output, streams: out_streams)
+      write(error, streams: err_streams)
 
-      [output, status]
+      status
     end
 
     def run!(command)
-      output, status = run(command)
-
-      unless status.success?
-        write_to_err <<-MSG.strip_heredoc
-          ERROR: Failed command: `#{command}`
-          OUTPUT:
-            #{output}
-        MSG
-
-        exit status.exitstatus
+      run(command).tap do |status|
+        unless status.success?
+          exit status.exitstatus
+        end
       end
-
-      true
     end
 
     protected
@@ -39,15 +32,7 @@ module EmberCli
 
     private
 
-    def write_to_out(output)
-      write(out_streams, output)
-    end
-
-    def write_to_err(output)
-      write(out_streams + err_streams, output)
-    end
-
-    def write(streams, output)
+    def write(output, streams:)
       streams.each do |stream|
         stream.write(output)
       end

@@ -1,8 +1,11 @@
 master
 ------
 
-* Remove dependency on `tee`. Fixes bug [#417][#417].
+* Only write errors to `STDERR`. [#421]
+* Remove dependency on `tee`. Fixes bug [#417][#417]. [#420]
 
+[#421]: https://github.com/thoughtbot/ember-cli-rails/issues/421
+[#420]: https://github.com/thoughtbot/ember-cli-rails/issues/420
 [#417]: https://github.com/thoughtbot/ember-cli-rails/issues/417
 
 0.7.2
