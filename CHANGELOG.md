@@ -1,6 +1,9 @@
 master
 ------
 
+0.7.3
+-----
+
 * Stream output instead of waiting until subprocesses finish. [#423]
 * Update `ember-cli-rails-assets` dependency. [#422]
 * Only write errors to `STDERR`. [#421]
