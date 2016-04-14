@@ -342,6 +342,35 @@ helper in your view:
 The `body` block argument and the corresponding call to `body.append` in the
 example are both optional, and can be omitted.
 
+### Serving Rails-generated CSS
+
+For more information on how to work with EmberCLI-generated stylesheets, refer
+to the [Stylesheets section][ember-cli-css]. EmberCLI-generated CSS  will be
+embedded in the response's HTML document by default.
+
+To serve assets generated and served by Rails, inject them into the document's
+`<head>`:
+
+```erb
+<%= render_ember_app :frontend do |head| %>
+  <% head.append do %>
+    <%= stylesheet_link_tag "application" %>
+    <%= csrf_meta_tags %>
+  <% end %>
+<% end %>
+```
+
+There are no technical limitations to sharing assets between the Ember client
+and the Rails server, but picking one or the other might simplify the project's
+organization.
+
+Sharing code during asset compilation is __not__ possible.
+
+For example, Ember's SCSS files __cannot__ use `@import` directives referencing
+Rails' SCSS modules.
+
+[ember-cli-css]: http://ember-cli.com/user-guide/#stylesheets
+
 ### Overriding the controller
 
 To override this behavior, you can specify [any of Rails' routing options]
