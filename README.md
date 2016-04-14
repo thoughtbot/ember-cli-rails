@@ -19,6 +19,31 @@ If you're having trouble, checkout the [example project]!
 
 [example project]: https://github.com/seanpdoyle/ember-cli-rails-heroku-example
 
+## Table of Contents:
+* [Install](#install)
+* [Setup](#setup)
+* [Mount](#mount)
+* [Develop](#develop)
+* [Deploy](#deploy)
+  * [Deployment Strategies](#deployment-strategies)
+  * [Heroku](#heroku)
+  * [Capistrano](#capistrano)
+* [Override](#override)
+  * [Overriding the View](#overriding-the-view)
+  * [Overriding the Controller](#overriding-the-controller)
+  * [Rendering the EmberCLI generated JS and CSS](#rendering-the-embercli-generated-js-and-css)
+  * [Mounting multiple Ember applications](#mounting-multiple-ember-applications)
+* [CSRF Tokens](#csrf-tokens)
+* [Serving from multi-process servers in development](#serving-from-multi-process-servers-in-development)
+* [SKIP_EMBER](#skip_ember)
+* [EMBER_ENV](#ember_env)
+* [RAILS_ENV](#rails_env)
+* [EmberCLI Support](#embercli-support)
+* [Ruby and Rails Support](#ruby-and-rails-support)
+* [Contributing](#contributing)
+* [License](#license)
+* [About](#about)
+
 ## Install
 
 Add the following to your `Gemfile`:
