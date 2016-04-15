@@ -1,3 +1,16 @@
+# Reporting an Issue
+
+When reporting an issue, please fill out the provided
+[GitHub issue template][template] to the best of your ability.
+
+This template helps this project's maintainers understand and respond to issues
+in a timely manner.
+
+Issues that don't attempt to answer the questions asked in the issue template
+will likely be closed until additional information is provided.
+
+[template]: .github/ISSUE_TEMPLATE.md
+
 # Contributing
 
 We love pull requests from everyone.
