@@ -12,6 +12,9 @@
 
 **What is the [`ember-cli-rails-addon`][addon] version (from `package.json`)?**
 
+**Is your application server [multi-threaded][] (such as `puma` and `unicorn`) or is
+it multi-process (such as thin and webrick)?**
+
 **What are the contents of `config/initializers/ember.rb`?**
 
 **What are the contents of the Rails' view that renders the Ember application?**
@@ -27,3 +30,4 @@
 [rails]: https://github.com/rails/rails
 [gem]: https://github.com/thoughtbot/ember-cli-rails
 [addon]: https://github.com/rondale-sc/ember-cli-rails-addon/
+[multi-threaded]: https://github.com/thoughtbot/ember-cli-rails/commit/ef0a49546a8c2e5fb0a298ba455fba97289065a1
