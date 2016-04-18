@@ -12,6 +12,11 @@
 
 **What is the [`ember-cli-rails-addon`][addon] version (from `package.json`)?**
 
+**What is your application server (e.g. `puma`, `unicorn`, `thin`, `webrick`,
+etc.)?**
+
+**Is your application server multi-threaded or multi-process?**
+
 **What are the contents of `config/initializers/ember.rb`?**
 
 **What are the contents of the Rails' view that renders the Ember application?**
