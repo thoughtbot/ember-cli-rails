@@ -1,6 +1,6 @@
 # Ruby support
 
-According to [these release notes][1.9.3-eol], Ruby versions prior to `2.0.x`
+According to [these release notes][latest-eol], Ruby versions prior to `2.1.x`
 has been end-of-lifed.
 
 Additionally, this codebase makes use of [(required) keyword arguments][kwargs].
@@ -11,7 +11,7 @@ prior to `2.1.0`.
 To use `ember-cli-rails` with older versions of Ruby, try the `0.3.x` series.
 
 [kwargs]: https://robots.thoughtbot.com/ruby-2-keyword-arguments
-[1.9.3-eol]: https://www.ruby-lang.org/en/news/2015/02/23/support-for-ruby-1-9-3-has-ended/
+[latest-eol]: https://www.ruby-lang.org/en/news/2016/02/24/support-plan-of-ruby-2-0-0-and-2-1/
 
 # Rails support
 
