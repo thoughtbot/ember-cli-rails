@@ -14,7 +14,7 @@ if ! command -v bower > /dev/null; then
 fi
 
 if ! [ -d spec/dummy/my-app ]; then
-  git clone https://github.com/kellyselden/ember-cli-output.git spec/dummy/my-app
+  git clone https://github.com/ember-cli/ember-new-output.git spec/dummy/my-app
 
   bin/setup_ember
 fi
