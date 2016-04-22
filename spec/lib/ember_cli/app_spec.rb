@@ -27,7 +27,7 @@ describe EmberCli::App do
 
   describe "#compile" do
     it "exits with exit status of 0" do
-      passed = silence_stdout { EmberCli["my-app"].compile }
+      passed = EmberCli["my-app"].compile
 
       expect(passed).to be true
     end
@@ -35,7 +35,7 @@ describe EmberCli::App do
 
   describe "#test" do
     it "exits with exit status of 0" do
-      passed = silence_stdout { EmberCli["my-app"].test }
+      passed = EmberCli["my-app"].test
 
       expect(passed).to be true
     end
@@ -62,12 +62,6 @@ describe EmberCli::App do
       dist_path = app.dist_path
 
       expect(dist_path).to eq dist_path
-    end
-  end
-
-  def silence_stdout
-    silence_stream($stdout) do
-      yield
     end
   end
 
