@@ -54,6 +54,24 @@ describe EmberCli::Command do
       end
     end
 
+    context 'when configured not to be silent' do
+      it 'exludes the `--silent` flag' do
+        paths = build_paths
+        command = build_command(paths: paths, options: { silent: false })
+
+        expect(command.build).not_to match(/--silent/)
+      end
+    end
+
+    context 'when configured to be silent' do
+      it 'includes includes `--silent` flag' do
+        paths = build_paths
+        command = build_command(paths: paths, options: { silent: true })
+
+        expect(command.build).to match(/--silent/)
+      end
+    end
+
     context "when configured to watch" do
       it "includes the `--watch` flag" do
         paths = build_paths
