@@ -25,11 +25,16 @@ module EmberCli
       options.fetch(:watcher) { EmberCli.configuration.watcher }
     end
 
+    def silent?
+      options.fetch(:silent) { false }
+    end
+
     def ember_build(watch: false)
       line = Cocaine::CommandLine.new(paths.ember, [
         "build",
         ("--watch" if watch),
         ("--watcher :watcher" if process_watcher),
+        ("--silent" if silent?),
         "--environment :environment",
         "--output-path :output_path",
       ].compact.join(" "))

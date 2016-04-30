@@ -1,6 +1,10 @@
 master
 ------
 
+* Introduce the `silent` configuration value. [#445]
+
+[#445]: https://github.com/thoughtbot/ember-cli-rails/pull/445
+
 0.7.3
 -----
 
