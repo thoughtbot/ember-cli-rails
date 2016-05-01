@@ -84,6 +84,7 @@ EmberCli.configure do |c|
   c.app :adminpanel # path defaults to `Rails.root.join("adminpanel")`
   c.app :frontend,
     path: "/path/to/your/ember-cli-app/on/disk"
+  c.app :payments, silent: true # by default it's false
 end
 ```
 
