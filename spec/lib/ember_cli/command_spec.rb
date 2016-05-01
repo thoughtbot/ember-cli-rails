@@ -69,7 +69,7 @@ describe EmberCli::Command do
     end
 
     context "when configured to be silent" do
-      it "includes includes `--silent` flag" do
+      it "includes `--silent` flag" do
         paths = build_paths
         command = build_command(paths: paths, options: { silent: true })
 
