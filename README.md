@@ -77,6 +77,8 @@ c.app :frontend, path: "~/projects/my-ember-app"
 - `path` - the path where your Ember CLI application is located. The default
   value is the name of your app in the Rails root.
 
+- `silent` - this provides `--silent` option for Ember CLI commands to control verbosity of their output.
+
 ```ruby
 EmberCli.configure do |c|
   c.app :adminpanel # path defaults to `Rails.root.join("adminpanel")`
