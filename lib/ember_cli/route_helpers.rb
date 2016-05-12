@@ -1,8 +1,14 @@
 require "ember_cli/html_constraint"
+require "ember_cli/rails_info_constraint"
 
 module ActionDispatch
   module Routing
     class Mapper
+      MULTI_CONSTRAINT = -> (req) {
+        [::EmberCli::HtmlConstraint.new,
+         ::EmberCli::RailsInfoConstraint.new].all? { |c| c.matches?(req) }
+      }
+
       def mount_ember_app(app_name, to:, **options)
         routing_options = options.deep_merge(
           defaults: { ember_app: app_name },
@@ -14,7 +20,7 @@ module ActionDispatch
           format: :html,
         )
 
-        scope constraints: ::EmberCli::HtmlConstraint.new do
+        scope constraints: MULTI_CONSTRAINT do
           get("#{to}(*rest)", routing_options)
         end
 
