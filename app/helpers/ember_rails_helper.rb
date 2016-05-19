@@ -8,6 +8,6 @@ module EmberRailsHelper
 
     head, body = markup_capturer.capture
 
-    render inline: EmberCli[name].index_html(head: head, body: body)
+    render html: EmberCli[name].index_html(head: head, body: body).html_safe
   end
 end
