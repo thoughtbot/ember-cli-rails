@@ -1,6 +1,9 @@
 master
 ------
 
+0.7.4
+-----
+
 * Fix dependencies check for compile command. [#455]
 * Introduce the `silent` configuration value. [#445]
 
