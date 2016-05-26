@@ -57,7 +57,7 @@ module EmberCli
     delegate :run, :run!, to: :runner
 
     def invalid_ember_dependencies?
-      !run("#{paths.ember} version")
+      !run("#{paths.ember} version").success?
     rescue DependencyError
       false
     end
