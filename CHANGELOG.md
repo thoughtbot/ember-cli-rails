@@ -1,8 +1,10 @@
 master
 ------
 
+* Fix dependencies check for compile command. [#455]
 * Introduce the `silent` configuration value. [#445]
 
+[#455]: https://github.com/thoughtbot/ember-cli-rails/pull/455
 [#445]: https://github.com/thoughtbot/ember-cli-rails/pull/445
 
 0.7.3

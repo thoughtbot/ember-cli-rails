@@ -63,14 +63,14 @@ module EmberCli
     end
 
     def clean_ember_dependencies!
-      ember_dependency_directories.select(&:exist?).each(&:rmtree)
+      ember_dependency_directories.flat_map(&:children).each(&:rmtree)
     end
 
     def ember_dependency_directories
       [
         paths.node_modules,
         paths.bower_components,
-      ]
+      ].select(&:exist?)
     end
 
     def spawn(command)
