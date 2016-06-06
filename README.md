@@ -303,6 +303,13 @@ you're not using `nvm`, make sure the string you prepend to the `$PATH` variable
 contains the directory or directories that contain the `bower` and `npm`
 executables.
 
+#### For faster deployments
+Place the following in your deploy/<environment>.rb 
+```ruby
+set :linked_dirs, %w{frontend/node_modules frontend/bower_components}
+```
+to avoid rebuilding all the node modules and bower components with every deploy
+
 ## Override
 
 By default, routes defined by `ember_app` will be rendered with the internal
