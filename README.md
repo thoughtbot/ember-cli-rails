@@ -308,7 +308,7 @@ Place the following in your deploy/<environment>.rb
 ```ruby
 set :linked_dirs, %w{<ember-app-name>/node_modules <ember-app-name>/bower_components}
 ```
-to avoid rebuilding all the node modules and bower components with every deploy. Replace `<ember-app-name>` with the name of your ember app (default is frontend).
+to avoid rebuilding all the node modules and bower components with every deploy. Replace `<ember-app-name>` with the name of your ember app (default is `frontend`).
 
 ## Override
 
