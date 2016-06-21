@@ -51,6 +51,15 @@ describe EmberCli::BuildMonitor do
       end
     end
 
+    context "when the error file has deprecations warnings" do
+      it "does not raise a BuildError" do
+        paths = build_paths(error_file_with_contents(['DEPRECATION:']))
+        monitor = EmberCli::BuildMonitor.new(nil, paths)
+
+        expect(monitor.check!).to be true
+      end
+    end
+
     context "when the error file is missing" do
       it "does not raise a BuildError" do
         paths = build_paths(missing_error_file)

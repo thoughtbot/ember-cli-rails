@@ -36,7 +36,11 @@ module EmberCli
     end
 
     def build_error?
-      error_file.exist? && error_file.size?
+      error_file.exist? && error_file.size? && not(has_deprecation_warnings?)
+    end
+
+    def has_deprecation_warnings?
+      error_file.readlines.first.start_with?('DEPRECATION:')
     end
 
     def error_file
