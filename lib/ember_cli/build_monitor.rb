@@ -40,7 +40,7 @@ module EmberCli
     end
 
     def has_deprecation_warnings?
-      error_file.readlines.first.start_with?('DEPRECATION:')
+      error_file.readlines.first.include?('DEPRECATION:')
     end
 
     def error_file
