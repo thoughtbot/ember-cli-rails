@@ -1,6 +1,6 @@
 module EmberCli
   class EmberController < ::ApplicationController
-    unless self.ancestors.include? ActionController::Base
+    unless ancestors.include? ActionController::Base
       (
         ::ActionController::Base::MODULES -
         ::ActionController::API::MODULES
