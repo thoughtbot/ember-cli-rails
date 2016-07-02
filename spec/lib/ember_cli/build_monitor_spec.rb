@@ -15,6 +15,18 @@ describe EmberCli::BuildMonitor do
       end
     end
 
+    context "when there are only deprecation warnings" do
+      it "deletes the build file" do
+        error_file = error_file_with_contents(["DEPRECATION: A warning"])
+        paths = build_paths(error_file)
+        monitor = EmberCli::BuildMonitor.new(nil, paths)
+
+        monitor.reset
+
+        expect(error_file).to have_received(:delete)
+      end
+    end
+
     context "when there is not a build error" do
       it "does nothing" do
         error_file = missing_error_file
@@ -38,6 +50,54 @@ describe EmberCli::BuildMonitor do
           to raise_error(
             EmberCli::BuildError,
             %{"app-name" has failed to build: first-line},
+          )
+      end
+    end
+
+    context "when the error file only contains deprecation warnings" do
+      it "does not raise a BuildError" do
+        error_file = error_file_with_contents([
+          "", # Blank line
+          "DEPRECATION: A warning",
+          "    at AStackTrace"
+        ])
+        paths = build_paths(error_file)
+        monitor = EmberCli::BuildMonitor.new(nil, paths)
+
+        expect(monitor.check!).to be true
+      end
+    end
+
+    context "when the error file contains a ASCII colored deprecation" do
+      it "does not raise a BuildError" do
+        error_file = error_file_with_contents([
+          "", # Blank line
+          "\e[33mDEPRECATION: A warning",
+          "    at AStackTrace\e[39m"
+        ])
+        paths = build_paths(error_file)
+        monitor = EmberCli::BuildMonitor.new(nil, paths)
+
+        expect(monitor.check!).to be true
+      end
+    end
+
+    context "when the error file contains both errors & deprecation warnings" do
+      it "raises a BuildError" do
+        error_file = error_file_with_contents([
+          "", # Blank line
+          "DEPRECATION: A warning",
+          "    at AStackTrace",
+          "", # Blank line
+          "SyntaxError: things went wrong"
+        ])
+        paths = build_paths(error_file)
+        monitor = EmberCli::BuildMonitor.new("app-name", paths)
+
+        expect { monitor.check! }.
+          to raise_error(
+            EmberCli::BuildError,
+            %{"app-name" has failed to build: SyntaxError: things went wrong},
           )
       end
     end

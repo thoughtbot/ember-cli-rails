@@ -14,7 +14,7 @@ module EmberCli
     end
 
     def reset
-      if build_error?
+      if build_error_output?
         error_file.delete
       end
     end
@@ -35,8 +35,21 @@ module EmberCli
       !paths.lockfile.exist?
     end
 
-    def build_error?
+    def build_error_output?
       error_file.exist? && error_file.size?
+    end
+
+    def build_error?
+      return false unless build_error_output?
+      lines = error_file.readlines
+      # Filter out blank and backtrace lines (leaving just messages):
+      lines.reject! { |line| line =~ /(^\s*$|^\s{4}at .+$)/ }
+      # Filter out any deprecation warnings (allowing for ASCII color escape
+      # codes at the start of the line):
+      lines.reject! { |line| line =~ /^(\e[^\s]+)?DEPRECATION:/ }
+
+      # There was a build error if any lines remain:
+      lines.any?
     end
 
     def error_file
