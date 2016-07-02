@@ -6,7 +6,7 @@ module EmberCli
     end
 
     def check!
-      if build_error?
+      if has_build_errors?
         raise_build_error!
       end
 
@@ -14,7 +14,7 @@ module EmberCli
     end
 
     def reset
-      if build_error?
+      if error_file_exists?
         error_file.delete
       end
     end
@@ -35,8 +35,34 @@ module EmberCli
       !paths.lockfile.exist?
     end
 
-    def build_error?
+    def error_file_exists?
       error_file.exist? && error_file.size?
+    end
+
+    def build_errors
+      error_lines.
+        reject { |line| is_blank_or_backtrace?(line) }.
+        reject { |line| is_deprecation_warning?(line) }
+    end
+
+    def has_build_errors?
+      build_errors.any?
+    end
+
+    def is_blank_or_backtrace?(line)
+      line =~ /(^\s*$|^\s{4}at .+$)/
+    end
+
+    def is_deprecation_warning?(line)
+      line =~ /^(\e[^\s]+)?DEPRECATION:/
+    end
+
+    def error_lines
+      if error_file_exists?
+        error_file.readlines
+      else
+        [""]
+      end
     end
 
     def error_file
@@ -44,8 +70,8 @@ module EmberCli
     end
 
     def raise_build_error!
-      backtrace = error_file.readlines.reject(&:blank?)
-      message = "#{name.inspect} has failed to build: #{backtrace.first}"
+      backtrace = build_errors.first
+      message = "#{name.inspect} has failed to build: #{backtrace}"
 
       error = BuildError.new(message)
       error.set_backtrace(backtrace)
