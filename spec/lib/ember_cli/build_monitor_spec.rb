@@ -56,11 +56,12 @@ describe EmberCli::BuildMonitor do
 
     context "when the error file only contains deprecation warnings" do
       it "does not raise a BuildError" do
-        error_file = error_file_with_contents([
-          "", # Blank line
-          "DEPRECATION: A warning",
-          "    at AStackTrace"
-        ])
+        error_file = error_file_with_contents(
+          [
+            "", # Blank line
+            "DEPRECATION: A warning",
+            "    at AStackTrace",
+          ])
         paths = build_paths(error_file)
         monitor = EmberCli::BuildMonitor.new(nil, paths)
 
@@ -70,11 +71,12 @@ describe EmberCli::BuildMonitor do
 
     context "when the error file contains a ASCII colored deprecation" do
       it "does not raise a BuildError" do
-        error_file = error_file_with_contents([
-          "", # Blank line
-          "\e[33mDEPRECATION: A warning",
-          "    at AStackTrace\e[39m"
-        ])
+        error_file = error_file_with_contents(
+          [
+            "", # Blank line
+            "\e[33mDEPRECATION: A warning",
+            "    at AStackTrace\e[39m",
+          ])
         paths = build_paths(error_file)
         monitor = EmberCli::BuildMonitor.new(nil, paths)
 
@@ -84,13 +86,14 @@ describe EmberCli::BuildMonitor do
 
     context "when the error file contains both errors & deprecation warnings" do
       it "raises a BuildError" do
-        error_file = error_file_with_contents([
-          "", # Blank line
-          "DEPRECATION: A warning",
-          "    at AStackTrace",
-          "", # Blank line
-          "SyntaxError: things went wrong"
-        ])
+        error_file = error_file_with_contents(
+          [
+            "", # Blank line
+            "DEPRECATION: A warning",
+            "    at AStackTrace",
+            "", # Blank line
+            "SyntaxError: things went wrong",
+          ])
         paths = build_paths(error_file)
         monitor = EmberCli::BuildMonitor.new("app-name", paths)
 
