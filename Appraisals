@@ -10,8 +10,8 @@ appraise "4.2" do
   gem "rails", "~> 4.2.1"
 end
 
-appraise "5.0.0.beta3" do
-  gem "rails", "5.0.0.beta3"
+appraise "5.0.0" do
+  gem "rails", "5.0.0"
 end
 
 appraise "master" do
