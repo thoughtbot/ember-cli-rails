@@ -1,6 +1,8 @@
 master
 ------
 
+* Don't route requests to `/rails/info` through the mounted Ember application.
+
 0.7.4
 -----
 

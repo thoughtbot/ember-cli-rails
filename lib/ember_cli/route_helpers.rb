@@ -1,4 +1,4 @@
-require "ember_cli/html_constraint"
+require "ember_cli/ember_constraint"
 
 module ActionDispatch
   module Routing
@@ -14,7 +14,7 @@ module ActionDispatch
           format: :html,
         )
 
-        scope constraints: ::EmberCli::HtmlConstraint.new do
+        scope constraints: ::EmberCli::EmberConstraint.new do
           get("#{to}(*rest)", routing_options)
         end
 
