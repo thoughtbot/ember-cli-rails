@@ -14,5 +14,4 @@ end
 group :test do
   gem "poltergeist", "~> 1.8.0"
   gem "codeclimate-test-reporter", require: nil
-  gem "test-unit", "~> 3.0"
 end
