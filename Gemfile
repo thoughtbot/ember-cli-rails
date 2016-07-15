@@ -7,7 +7,7 @@ gem "rails", "4.2.4"
 gem "pry"
 
 if RUBY_ENGINE == "jruby"
-  gem "jrjackson"
+  gem "json-jruby"
 end
 
 group :development, :test do
