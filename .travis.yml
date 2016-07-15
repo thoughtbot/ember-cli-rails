@@ -16,7 +16,6 @@ env:
   global:
     secure: RbWKxwfpzyQ5uv/jYH68/0J3Y9xe7rQbGULsWZT98FxZcVWLoOFlPPITmnmEK32CjQUww8iMz50FRLxFNmXg8prt1KzpzikVdIZLmYg1NFShI8+JOFhJzwCuk/LLybNUmydejR58FJvV9gS8NYqMh5leFkDM3OwLxhWdcE8hDDQ=
 gemfile:
-  - gemfiles/3.2.gemfile
   - gemfiles/4.1.gemfile
   - gemfiles/4.2.gemfile
   - gemfiles/5.0.0.gemfile
