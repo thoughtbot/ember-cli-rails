@@ -6,6 +6,10 @@ gem "appraisal"
 gem "rails", "4.2.4"
 gem "pry"
 
+if RUBY_ENGINE == "jruby"
+  gem "jrjackson"
+end
+
 group :development, :test do
   gem "high_voltage", "~> 3.0.0"
   gem "rspec-rails", "~> 3.5.0"
