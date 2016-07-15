@@ -12,6 +12,7 @@ setup_ember() {
     sed -i -e 's/auto/hash/' $target/config/environment.js
 
     # add an image to a template
+    echo '<p>Welcome to Ember</p>' >> $target/app/templates/application.hbs
     echo '<img src="assets/logo.png">' >> $target/app/templates/application.hbs
     mkdir -p $target/public/assets
     cp spec/fixtures/logo.png $target/public/assets
