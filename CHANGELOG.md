@@ -1,6 +1,9 @@
 master
 ------
 
+0.8.0
+-----
+
 * `EmberCli::EmberController` now inherits from `ActionController::Base` instead
   of `ApplicationController`. [#400]
 * Remove support for Ruby 2.1.x. [#400]
