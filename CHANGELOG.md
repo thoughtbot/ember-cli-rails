@@ -1,6 +1,13 @@
 master
 ------
 
+0.8.1
+-----
+
+* Resolve issues inheriting from `ActionController::API`. [#481]
+
+[#481]: https://github.com/thoughtbot/ember-cli-rails/pull/481
+
 0.8.0
 -----
 
@@ -8,6 +15,8 @@ master
   of `ApplicationController`. [#400]
 * Remove support for Ruby 2.1.x. [#400]
 * Don't route requests to `/rails/info` through the mounted Ember application.
+
+[#400]: https://github.com/thoughtbot/ember-cli-rails/pull/400
 
 0.7.4
 -----
