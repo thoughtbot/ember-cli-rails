@@ -8,9 +8,7 @@ module EmberCli
     end
 
     def test
-      line = Cocaine::CommandLine.new(paths.ember, "test --environment test")
-
-      line.command
+      ember_test
     end
 
     def build(watch: false)
@@ -27,6 +25,16 @@ module EmberCli
 
     def silent?
       options.fetch(:silent) { false }
+    end
+
+    def ember_test
+      line = Cocaine::CommandLine.new(paths.ember, [
+        "test",
+        ("--silent" if silent?),
+        "--environment test",
+      ].compact.join(" "))
+
+      line.command
     end
 
     def ember_build(watch: false)
