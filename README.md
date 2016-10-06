@@ -278,6 +278,11 @@ applications into the project.
 
 [buildpack]: https://devcenter.heroku.com/articles/using-multiple-buildpacks-for-an-app#adding-a-buildpack
 
+#### Slug size
+
+[Heroku slug size is limited](https://devcenter.heroku.com/articles/slug-compiler#slug-size). We leave behind some assets after the Rails precompile task, and these are included in the Heroku slug.
+Erasing them can prune 10s to 100s of MB from your compiled slug, depending on your project and number of Ember-CLI apps. A build-pack solution for this is discussed in [issue 491](https://github.com/thoughtbot/ember-cli-rails/issues/491).
+
 ### Capistrano
 
 EmberCLI-Rails executes both `npm install` and `bower install` during EmberCLI's
@@ -304,7 +309,7 @@ contains the directory or directories that contain the `bower` and `npm`
 executables.
 
 #### For faster deployments
-Place the following in your deploy/<environment>.rb 
+Place the following in your deploy/<environment>.rb
 ```ruby
 set :linked_dirs, %w{<ember-app-name>/node_modules <ember-app-name>/bower_components}
 ```
