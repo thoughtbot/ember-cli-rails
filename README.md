@@ -79,6 +79,8 @@ c.app :frontend, path: "~/projects/my-ember-app"
 
 - `silent` - this provides `--silent` option for Ember CLI commands to control verbosity of their output.
 
+- `yarn` - enables the [yarn](https://github.com/yarnpkg/yarn) package manager when installing dependencies
+
 ```ruby
 EmberCli.configure do |c|
   c.app :adminpanel # path defaults to `Rails.root.join("adminpanel")`
@@ -304,7 +306,7 @@ contains the directory or directories that contain the `bower` and `npm`
 executables.
 
 #### For faster deployments
-Place the following in your deploy/<environment>.rb 
+Place the following in your deploy/<environment>.rb
 ```ruby
 set :linked_dirs, %w{<ember-app-name>/node_modules <ember-app-name>/bower_components}
 ```
