@@ -109,8 +109,11 @@ module EmberCli
     attr_reader :app, :ember_cli_root, :environment, :rails_root
 
     def package_manager
-      return "yarn" if yarn?
-      "npm"
+      if yarn?
+        "yarn"
+      else
+        "npm"
+      end
     end
 
     def yarn?
