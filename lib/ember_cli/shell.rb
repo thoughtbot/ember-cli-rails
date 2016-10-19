@@ -41,7 +41,11 @@ module EmberCli
         clean_ember_dependencies!
       end
 
-      run! "#{paths.npm} prune && #{paths.npm} install"
+      if paths.yarn
+        run! "#{paths.yarn} install"
+      else
+        run! "#{paths.npm} prune && #{paths.npm} install"
+      end
       run! "#{paths.bower} prune && #{paths.bower} install"
     end
 

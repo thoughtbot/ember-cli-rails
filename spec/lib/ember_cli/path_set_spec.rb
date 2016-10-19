@@ -156,6 +156,32 @@ describe EmberCli::PathSet do
     end
   end
 
+  describe "#yarn" do
+    it "is not enabled by default" do
+      path_set = build_path_set
+
+      expect(path_set.yarn).to be nil
+    end
+
+    it "can be overridden" do
+      app = build_app(options: { yarn_path: "yarn-path" })
+
+      path_set = build_path_set(app: app)
+
+      expect(path_set.yarn).to eq "yarn-path"
+    end
+
+    it "can be inferred from the $PATH" do
+      stub_which(yarn: "yarn-path")
+
+      app = build_app(options: { yarn: true })
+
+      path_set = build_path_set(app: app)
+
+      expect(path_set.yarn).to eq "yarn-path"
+    end
+  end
+
   describe "#node_modules" do
     it "is a child of #root" do
       app = build_app(name: "foo")
