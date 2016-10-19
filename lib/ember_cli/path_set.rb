@@ -45,7 +45,7 @@ module EmberCli
               Install it:
 
                   $ cd #{root}
-                  $ npm install
+                  $ #{package_manager} install
             MSG
           end
         end
@@ -86,6 +86,12 @@ module EmberCli
       @npm ||= app_options.fetch(:npm_path) { which("npm") }
     end
 
+    def yarn
+      if yarn?
+        @yarn ||= app_options.fetch(:yarn_path) { which("yarn") }
+      end
+    end
+
     def node_modules
       @node_modules ||= root.join("node_modules")
     end
@@ -101,6 +107,18 @@ module EmberCli
     private
 
     attr_reader :app, :ember_cli_root, :environment, :rails_root
+
+    def package_manager
+      if yarn?
+        "yarn"
+      else
+        "npm"
+      end
+    end
+
+    def yarn?
+      app_options[:yarn] || app_options[:yarn_path]
+    end
 
     def app_name
       app.name

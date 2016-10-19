@@ -79,6 +79,8 @@ c.app :frontend, path: "~/projects/my-ember-app"
 
 - `silent` - this provides `--silent` option for Ember CLI commands to control verbosity of their output.
 
+- `yarn` - enables the [yarn](https://github.com/yarnpkg/yarn) package manager when installing dependencies
+
 ```ruby
 EmberCli.configure do |c|
   c.app :adminpanel # path defaults to `Rails.root.join("adminpanel")`
