@@ -19,7 +19,7 @@ gemfile:
   - gemfiles/4.1.gemfile
   - gemfiles/4.2.gemfile
   - gemfiles/5.0.0.gemfile
-  - gemfiles/master.gemfile
 matrix:
   allow_failures:
     - rvm: jruby-9.0.3.0
+    - gemfile: gemfiles/master.gemfile
