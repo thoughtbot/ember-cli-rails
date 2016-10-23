@@ -29,9 +29,21 @@ module EmberCli
       attr_reader :app
 
       def rack_headers
-        {
-          "Cache-Control" => Rails.configuration.static_cache_control,
-        }
+        config = Rails.configuration
+
+        if config.respond_to?(:public_file_server) &&
+            config.public_file_server && config.public_file_server.headers
+          # Rails 5.
+          config.public_file_server.headers
+        elsif config.respond_to?(:static_cache_control)
+          # Rails 4.2 and below.
+          {
+            "Cache-Control" => Rails.configuration.static_cache_control,
+          }
+        else
+          # No specification.
+          {}
+        end
       end
 
       def check_for_error_and_raise!
