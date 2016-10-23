@@ -1,6 +1,10 @@
 master
 ------
 
+* Support Rails 5 static file serving configuration. [#499]
+
+[#499]: https://github.com/thoughtbot/ember-cli-rails/pull/499
+
 0.8.1
 -----
 

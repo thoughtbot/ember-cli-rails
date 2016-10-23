@@ -25,7 +25,13 @@ module Dummy
     # Print deprecation notices to the stderr.
     config.active_support.deprecation = :stderr
 
-    config.static_cache_control = CACHE_CONTROL_FIVE_MINUTES
+    if Rails.version >= "5"
+      config.public_file_server.headers = {
+        "Cache-Control" => CACHE_CONTROL_FIVE_MINUTES
+      }
+    else
+      config.static_cache_control = CACHE_CONTROL_FIVE_MINUTES
+    end
 
     config.secret_token = "SECRET_TOKEN_IS_MIN_30_CHARS_LONG"
     config.secret_key_base = "SECRET_KEY_BASE"
