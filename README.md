@@ -466,7 +466,7 @@ Rails.application.routes.draw do
 end
 ```
 
-Then set each Ember application's `baseURL` to the mount point:
+Then set each Ember application's `rootURL` to the mount point:
 
 ```javascript
 // frontend/config/environment.js
@@ -475,7 +475,7 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'frontend',
     environment: environment,
-    baseURL: '/',
+    rootURL: '/',
     // ...
   }
 };
@@ -486,7 +486,7 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'admin_panel',
     environment: environment,
-    baseURL: '/admin_panel',  // originally '/'
+    rootURL: '/admin_panel',  // originally '/'
     // ...
   }
 };
