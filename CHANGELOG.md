@@ -1,6 +1,9 @@
 master
 ------
 
+0.8.3
+-----
+
 * Add support for integrating with `yarn`. [#496]
 
 [#496]: https://github.com/thoughtbot/ember-cli-rails/pull/496
