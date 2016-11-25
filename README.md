@@ -132,6 +132,7 @@ end
   `format: :html` requests. Additionally, this will handle child routes as well.
   For instance, mounting `mount_ember_app :frontend, to: "/frontend"` will handle a
   `format: :html` request to `/frontend/posts`.
+  *Note:* If you specify a custom path, you must also update the `rootURL` in `frontend/config/environment.js`. See [Mounting multiple Ember applications](#mounting-multiple-ember-applications) for more information.
 * `controller` - Defaults to `"ember_cli/ember"`
 * `action` - Defaults to `"index"`
 
