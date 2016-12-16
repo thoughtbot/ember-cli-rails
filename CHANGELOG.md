@@ -1,6 +1,8 @@
 master
 ------
 
+* Generate `package.json` with `bower` as a `dependencies` value.
+
 0.8.3
 -----
 

@@ -265,7 +265,6 @@ To configure your EmberCLI-Rails applications for Heroku:
 $ heroku buildpacks:clear
 $ heroku buildpacks:add --index 1 heroku/nodejs
 $ heroku buildpacks:add --index 2 heroku/ruby
-$ heroku config:set NPM_CONFIG_PRODUCTION=false
 $ heroku config:unset SKIP_EMBER
 ```
 
