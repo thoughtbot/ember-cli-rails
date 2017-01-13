@@ -173,6 +173,16 @@ task default: [:spec, "ember:test"]
 
 ## Deploy
 
+When Rails is running in production mode, EmberCLI-Rails stops doing runtime
+compilation. Instead, configured apps are built during `rake assets:precompile`.
+This keeps things quick for end users, and extends the normal Rails asset
+building process.
+
+Configuration information, including instructions for Heroku and Capistrano,
+can be found below.
+
+### CDN
+
 In production environments, assets should be served over a
 Content Delivery Network.
 
@@ -275,6 +285,8 @@ You are ready to deploy:
 $ git push heroku master
 ```
 
+EmberCLI compilation happens at deploy-time, triggered by the `asset:precompile` rake task.
+
 **NOTE** Run the generator each time you introduce additional EmberCLI
 applications into the project.
 
@@ -293,7 +305,7 @@ A build-pack solution for this is discussed in [Issue #491][#491].
 ### Capistrano
 
 EmberCLI-Rails executes both `npm install` and `bower install` during EmberCLI's
-compilation, triggered by the  `asset:precompilation` rake task.
+compilation, triggered by the  `asset:precompile` rake task.
 
 The `npm` and `bower` executables are required to be defined in the deployment
 SSH session's `$PATH`. It is not sufficient to modify the session's `$PATH` in
