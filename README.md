@@ -76,7 +76,7 @@ c.app :frontend, path: "~/projects/my-ember-app"
 
 - `path` - the path where your Ember CLI application is located. The default
   value is the name of your app in the Rails root.
-
+- `bower_path` - the path to the bower executable. The default is the result of: \`which bower\`
 - `silent` - this provides `--silent` option for Ember CLI commands to control verbosity of their output.
 
 - `yarn` - enables the [yarn](https://github.com/yarnpkg/yarn) package manager when installing dependencies
