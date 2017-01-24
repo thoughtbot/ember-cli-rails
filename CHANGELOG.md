@@ -1,7 +1,10 @@
 master
 ------
 
+* Execute `bin/heroku_install` through `sh` [#512]
 * Generate `package.json` with `bower` as a `dependencies` value.
+
+[#512]: https://github.com/thoughtbot/ember-cli-rails/pull/512
 
 0.8.3
 -----
