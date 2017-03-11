@@ -1,8 +1,10 @@
 master
 ------
 
-* Use `Mime::Type.html?`
+* Call `render` with `html:` instead of `text:`. [#519]
+* Use `Mime::Type.html?` [#523]
 
+[#519]: https://github.com/thoughtbot/ember-cli-rails/pull/519
 [#523]: https://github.com/thoughtbot/ember-cli-rails/pull/523
 
 0.8.4
