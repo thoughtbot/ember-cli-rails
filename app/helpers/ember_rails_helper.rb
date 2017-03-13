@@ -8,11 +8,6 @@ module EmberRailsHelper
 
     head, body = markup_capturer.capture
 
-    template = EmberCli[name].index_html(head: head, body: body).html_safe
-    begin
-      render text: template
-    rescue ArgumentError
-      render body: template
-    end
+    render body: EmberCli[name].index_html(head: head, body: body).html_safe
   end
 end
