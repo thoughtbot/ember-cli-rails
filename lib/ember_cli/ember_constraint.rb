@@ -7,7 +7,7 @@ module EmberCli
     private
 
     def rails_info_request?(request)
-      request.fullpath.start_with?("/rails/info")
+      request.fullpath.start_with?("/rails/info", "/rails/mailers")
     end
 
     def html_request?(request)
