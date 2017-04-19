@@ -11,9 +11,7 @@ module EmberCli
     end
 
     def html_request?(request)
-      index = request.format.to_s =~ /html/ || -1
-
-      index > -1
+      request.format.html?
     end
   end
 end
