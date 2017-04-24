@@ -1,20 +1,21 @@
 language: ruby
 sudo: false
-cache: bundler
+cache:
+  - bundler
 notifications:
   email: false
 rvm:
   - 2.3.0
   - 2.2.2
   - jruby-9.0.3.0
-before_install:
-  - echo '--colour' > ~/.rspec
-  - 'echo ''gem: --no-document'' > ~/.gemrc'
-before_script: bin/setup
+install: bin/setup_ci
+before_script:
+  - export PATH="$HOME/.nvm/versions/node/v${NODE_JS_VERSION}/bin:$PATH"
 script: bin/rake
 env:
   global:
-    secure: RbWKxwfpzyQ5uv/jYH68/0J3Y9xe7rQbGULsWZT98FxZcVWLoOFlPPITmnmEK32CjQUww8iMz50FRLxFNmXg8prt1KzpzikVdIZLmYg1NFShI8+JOFhJzwCuk/LLybNUmydejR58FJvV9gS8NYqMh5leFkDM3OwLxhWdcE8hDDQ=
+    - secure: RbWKxwfpzyQ5uv/jYH68/0J3Y9xe7rQbGULsWZT98FxZcVWLoOFlPPITmnmEK32CjQUww8iMz50FRLxFNmXg8prt1KzpzikVdIZLmYg1NFShI8+JOFhJzwCuk/LLybNUmydejR58FJvV9gS8NYqMh5leFkDM3OwLxhWdcE8hDDQ=
+    - NODE_JS_VERSION=7.10.0
 gemfile:
   - gemfiles/4.1.gemfile
   - gemfiles/4.2.gemfile

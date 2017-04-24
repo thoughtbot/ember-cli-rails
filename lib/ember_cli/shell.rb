@@ -47,7 +47,7 @@ module EmberCli
         run! "#{paths.npm} prune && #{paths.npm} install"
       end
 
-      run! "#{paths.bower} prune && #{paths.bower} install"
+      run! "[ -f bower.json ] && #{paths.bower} prune && #{paths.bower} install"
     end
 
     def test

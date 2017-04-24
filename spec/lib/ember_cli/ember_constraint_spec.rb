@@ -4,20 +4,20 @@ describe EmberCli::EmberConstraint do
   describe "#matches?" do
     context %{when the format is "html"} do
       context "when the request path is for a Rails info page" do
-        it "returns false" do
+        it "returns a falsey value" do
           constraint = EmberCli::EmberConstraint.new
           request = build_html_request("/rails/info")
 
-          expect(constraint.matches?(request)).to be false
+          expect(constraint.matches?(request)).to be_falsey
         end
       end
 
       context "when the request path is not for a Rails info page" do
-        it "returns true" do
+        it "returns a truthy value" do
           constraint = EmberCli::EmberConstraint.new
           request = build_html_request("/foo")
 
-          expect(constraint.matches?(request)).to be true
+          expect(constraint.matches?(request)).to be_truthy
         end
       end
     end
@@ -27,24 +27,13 @@ describe EmberCli::EmberConstraint do
         constraint = EmberCli::EmberConstraint.new
         request = build_json_request
 
-        expect(constraint.matches?(request)).to be false
-      end
-    end
-
-    context %"when the format is empty or nil" do
-      it "return false" do
-        constraint = EmberCli::EmberConstraint.new
-        nil_request = build_request(format: nil)
-        empty_request = build_request(format: "")
-
-        expect(constraint.matches?(nil_request)).to be false
-        expect(constraint.matches?(empty_request)).to be false
+        expect(constraint.matches?(request)).to be_falsey
       end
     end
   end
 
   def build_request(format:, fullpath: :ignored)
-    double(format: format, fullpath: fullpath)
+    double(format: format ? Mime::Type.new(format) : nil, fullpath: fullpath)
   end
 
   def build_html_request(fullpath)
