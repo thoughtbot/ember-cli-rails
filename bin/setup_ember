@@ -8,18 +8,25 @@ setup_ember() {
   if ! [ -d $target ]; then
     git clone -b stable https://github.com/ember-cli/ember-new-output.git $target
 
-    # make router catchall routes
+    echo '-- Make router catchall routes'
     sed -i -e 's/auto/hash/' $target/config/environment.js
 
-    # add an image to a template
-    echo '<p>Welcome to Ember</p>' >> $target/app/templates/application.hbs
-    echo '<img src="assets/logo.png">' >> $target/app/templates/application.hbs
+    echo '-- Add an image to a template'
+    cp spec/fixtures/application.hbs $target/app/templates/application.hbs
+
     mkdir -p $target/public/assets
     cp spec/fixtures/logo.png $target/public/assets
 
+    echo '-- Install ember-cli-rails-addon'
     cd $target &&
       npm install --save-dev ember-cli-rails-addon@rondale-sc/ember-cli-rails-addon
-      bower install
+
+    if [ -f "$target/bower.json" ]; then
+      echo '-- Install Bower dependencies'
+      cd $target && bower install
+    fi
+
+    echo '-- Successfully setup Ember'
   fi
 }
 

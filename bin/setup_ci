@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+
+rm -rf ~/.nvm
+
+git clone https://github.com/creationix/nvm.git ~/.nvm
+
+source ~/.nvm/nvm.sh
+
+echo "$NODE_JS_VERSION" > .nvmrc
+
+nvm install "$NODE_JS_VERSION"
+
+nvm use "$NODE_JS_VERSION" || true
+
+nvm alias default "$NODE_JS_VERSION" || true
+
+node --version
+
+source bin/setup

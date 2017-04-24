@@ -2,7 +2,7 @@
 
 set -e
 
-# Set up Ruby dependencies via Bundler
+echo '-- Set up Ruby dependencies via Bundler'
 gem install bundler --conservative
 bundle check || bundle install
 
@@ -15,4 +15,5 @@ fi
 
 bin/setup_ember spec/dummy/my-app
 
-cd spec/dummy && bundle exec rake ember:install
+echo '-- Install Ember dependencies'
+cd spec/dummy && bundle exec rake ember:install || true
