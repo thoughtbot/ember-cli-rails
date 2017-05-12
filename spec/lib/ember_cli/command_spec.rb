@@ -8,6 +8,29 @@ describe EmberCli::Command do
 
       expect(command.test).to eq("path\/to\/ember test --environment test")
     end
+
+    context "when configured not to be silent" do
+      it "excludes the `--silent` flag" do
+        paths = build_paths
+        command = build_command(paths: paths)
+
+        expect(command.test).not_to match(/--silent/)
+
+        paths = build_paths
+        command = build_command(paths: paths, options: { silent: false })
+
+        expect(command.test).not_to match(/--silent/)
+      end
+    end
+
+    context "when configured to be silent" do
+      it "includes `--silent` flag" do
+        paths = build_paths
+        command = build_command(paths: paths, options: { silent: true })
+
+        expect(command.test).to match(/--silent/)
+      end
+    end
   end
 
   describe "#build" do
@@ -55,7 +78,7 @@ describe EmberCli::Command do
     end
 
     context "when configured not to be silent" do
-      it "exludes the `--silent` flag" do
+      it "excludes the `--silent` flag" do
         paths = build_paths
         command = build_command(paths: paths)
 
