@@ -1,6 +1,9 @@
 master
 ------
 
+0.8.5
+-----
+
 * Ignore calls to `/rails/mailers`. [#520]
 * Call `render` with `html:` instead of `text:`. [#519]
 * Use `Mime::Type.html?` [#523]
