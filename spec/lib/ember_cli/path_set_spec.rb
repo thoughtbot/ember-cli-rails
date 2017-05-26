@@ -74,7 +74,8 @@ describe EmberCli::PathSet do
     it "is a child of #tmp" do
       path_set = build_path_set
 
-      expect(path_set.build_error_file).to eq path_set.tmp.join("error.txt")
+      filename = "ember_cli_rails_error.txt"
+      expect(path_set.build_error_file).to eq(path_set.tmp.join(filename))
     end
   end
 
