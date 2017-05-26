@@ -44,7 +44,7 @@ $ ember new frontend --skip-git
 First, generate the gem's initializer:
 
 ```bash
-$ rails generate ember:init
+$ rails generate ember-cli:init
 ```
 
 This will create the following initializer:
