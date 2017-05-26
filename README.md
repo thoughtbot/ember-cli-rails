@@ -171,6 +171,27 @@ suites, configure the `default` task to depend on both `spec` and `ember:test`.
 task default: [:spec, "ember:test"]
 ```
 
+### Working with CSS and SCSS/SASS
+
+You are free to add your styles to the Ember app or keep them in your Rails app and continue to use the asset pipeline. For more information on how to work with stylesheets in an EmberCLI application, refer to the [Stylesheets section of the documentation](http://ember-cli.com/user-guide/#stylesheets).
+
+It's also possible to use styles from both Rails and Ember apps (see [Override the View](#override-the-view) section for more information):
+
+```erb
+<%= render_ember_app :frontend do |head| %>
+  <% head.append do %>
+    <%= stylesheet_link_tag "my-rails-generated-styles" %>
+    <%= csrf_meta_tags %>
+  <% end %>
+<% end %>
+```
+
+This snippet demonstrates injecting a `<link>` tag from your server into your Ember CLI-generated `index.html`.
+
+There are no technical limitations on sharing CSS code between your client and your server, although picking one or the other might make sense from an organizational perspective.
+
+The only thing that isn't currently possible is sharing SCSS code. Serving the already compiled CSS is no issue, but you can't share and precompile SCSS code that is split between repositories.
+
 ## Deploy
 
 When Rails is running in production mode, EmberCLI-Rails stops doing runtime
