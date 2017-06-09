@@ -43,7 +43,7 @@ describe EmberCli::App do
 
   describe "#root_path" do
     it "delegates to PathSet" do
-      root_path = Pathname(".")
+      root_path = Pathname.new(".")
       stub_paths(root: root_path)
       app = EmberCli::App.new("foo")
 
@@ -55,7 +55,7 @@ describe EmberCli::App do
 
   describe "#dist_path" do
     it "delegates to PathSet" do
-      dist_path = Pathname(".")
+      dist_path = Pathname.new(".")
       stub_paths(dist: dist_path)
       app = EmberCli::App.new("foo")
 
