@@ -63,16 +63,15 @@ module EmberCli
 
     def bower
       @bower ||= begin
-        bower_path = app_options.fetch(:bower_path) { which("bower") }
-
-        bower_path.tap do |path|
-          unless Pathname.new(path.to_s).executable?
+        path_for_executable("bower").tap do |bower_path|
+          if bower_path.blank? || !bower_path.executable?
             fail DependencyError.new <<-MSG.strip_heredoc
-            Bower is required by EmberCLI
+                Bower is required by EmberCLI
 
-            Install it with:
+                Install it with:
 
-                $ npm install -g bower
+                    $ npm install -g bower
+
             MSG
           end
         end
@@ -84,12 +83,12 @@ module EmberCli
     end
 
     def npm
-      @npm ||= app_options.fetch(:npm_path) { which("npm") }
+      @npm ||= path_for_executable("npm")
     end
 
     def yarn
       if yarn?
-        @yarn ||= app_options.fetch(:yarn_path) { which("yarn") }
+        @yarn ||= path_for_executable("yarn")
       end
     end
 
@@ -98,16 +97,24 @@ module EmberCli
     end
 
     def tee
-      @tee ||= app_options.fetch(:tee_path) { which("tee") }
+      @tee ||= path_for_executable("tee")
     end
 
     def bundler
-      @bundler ||= app_options.fetch(:bundler_path) { which("bundler") }
+      @bundler ||= path_for_executable("bundler")
     end
 
     private
 
     attr_reader :app, :ember_cli_root, :environment, :rails_root
+
+    def path_for_executable(command)
+      path = app_options.fetch("#{command}_path") { which(command) }
+
+      if path.present?
+        Pathname.new(path)
+      end
+    end
 
     def package_manager
       if yarn?
@@ -126,7 +133,7 @@ module EmberCli
     end
 
     def app_options
-      app.options
+      app.options.with_indifferent_access
     end
 
     def which(executable)
