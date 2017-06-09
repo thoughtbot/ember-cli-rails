@@ -1,6 +1,10 @@
 master
 ------
 
+* Don't require `bower` installation if `bower.json` is missing [#532]
+
+[#532]: https://github.com/thoughtbot/ember-cli-rails/pull/532
+
 0.8.5
 -----
 

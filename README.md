@@ -270,7 +270,8 @@ To configure your EmberCLI-Rails applications for Heroku:
 1. Execute `rails generate ember:heroku`.
 1. Commit the newly generated files.
 1. [Add the NodeJS buildpack][buildpack] and configure NPM to include the
-   `bower` dependency's executable file.
+   `bower` dependency's executable file (if your build process requires
+   `bower`).
 
 ```sh
 $ heroku buildpacks:clear
@@ -328,11 +329,16 @@ contains the directory or directories that contain the `bower` and `npm`
 executables.
 
 #### For faster deployments
-Place the following in your deploy/<environment>.rb
+
+Place the following in your `deploy/<environment>.rb`
+
 ```ruby
 set :linked_dirs, %w{<ember-app-name>/node_modules <ember-app-name>/bower_components}
 ```
-to avoid rebuilding all the node modules and bower components with every deploy. Replace `<ember-app-name>` with the name of your ember app (default is `frontend`).
+
+to avoid rebuilding all the node modules and bower components with every deploy.
+Replace `<ember-app-name>` with the name of your ember app (default is
+`frontend`).
 
 ## Override
 
