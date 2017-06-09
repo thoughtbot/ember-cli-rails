@@ -46,6 +46,7 @@ module EmberCli
 
                   $ cd #{root}
                   $ #{package_manager} install
+
             MSG
           end
         end
@@ -65,7 +66,7 @@ module EmberCli
         bower_path = app_options.fetch(:bower_path) { which("bower") }
 
         bower_path.tap do |path|
-          unless Pathname(path.to_s).executable?
+          unless Pathname.new(path.to_s).executable?
             fail DependencyError.new <<-MSG.strip_heredoc
             Bower is required by EmberCLI
 
