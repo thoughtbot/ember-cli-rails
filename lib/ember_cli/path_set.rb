@@ -35,10 +35,6 @@ module EmberCli
       @gemfile ||= root.join("Gemfile")
     end
 
-    def bower_json
-      ember_cli_root.join("bower.json")
-    end
-
     def ember
       @ember ||= begin
         root.join("node_modules", "ember-cli", "bin", "ember").tap do |path|
@@ -68,7 +64,7 @@ module EmberCli
     def bower
       @bower ||= begin
         path_for_executable("bower").tap do |bower_path|
-          if bower_json.exist? && (bower_path.blank? || !bower_path.executable?)
+          if bower_path.blank? || !bower_path.executable?
             fail DependencyError.new <<-MSG.strip_heredoc
                 Bower is required by EmberCLI
 

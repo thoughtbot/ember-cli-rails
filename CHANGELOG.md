@@ -1,6 +1,12 @@
 master
 ------
 
+* Revert [`34ff6dd`][reverted-commit] so that it can be reintroduced as a
+  breaking change, [requiring a major version bump][#532-comment]
+
+[reverted-commit]: https://github.com/thoughtbot/ember-cli-rails/commit/34ff6dd
+[#532-comment]: https://github.com/thoughtbot/ember-cli-rails/pull/532#issuecomment-308141408
+
 0.8.6
 -----
 

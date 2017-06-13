@@ -119,38 +119,14 @@ describe EmberCli::PathSet do
     end
 
     context "when it is missing from the $PATH" do
-      context "bower.json exists" do
-        it "raises a helpful exception" do
-          create_file(ember_cli_root.join("bower.json"))
-          stub_which(bower: nil)
-          path_set = build_path_set
+      it "raises a helpful exception" do
+        stub_which(bower: nil)
 
-          expect { path_set.bower }.
-            to raise_error(EmberCli::DependencyError, /bower is required/i)
-        end
+        path_set = build_path_set
 
-        context "bower.json is missing" do
-          it "returns nil" do
-            stub_which(bower: nil)
-            path_set = build_path_set
-
-            bower = path_set.bower
-
-            expect(bower).to be_nil
-          end
-        end
+        expect { path_set.bower }.
+          to raise_error(EmberCli::DependencyError, /bower is required/i)
       end
-    end
-  end
-
-  describe "#bower_json" do
-    it "is a child of #root" do
-      app = build_app(name: "foo")
-      path_set = build_path_set(app: app)
-
-      bower_json = path_set.bower_json
-
-      expect(bower_json).to eq ember_cli_root.join("bower.json")
     end
   end
 
@@ -188,6 +164,12 @@ describe EmberCli::PathSet do
   end
 
   describe "#yarn" do
+    it "is not enabled by default" do
+      path_set = build_path_set
+
+      expect(path_set.yarn).to be nil
+    end
+
     it "can be overridden" do
       fake_yarn = create_executable(ember_cli_root.join("yarn"))
       app = build_app(options: { yarn_path: fake_yarn.to_s })
@@ -203,22 +185,10 @@ describe EmberCli::PathSet do
       stub_which(yarn: fake_yarn.to_s)
       app = build_app(options: { yarn: true })
       path_set = build_path_set(app: app)
-      create_executable(fake_yarn)
 
       yarn = path_set.yarn
 
       expect(yarn).to eq(fake_yarn).and(be_executable)
-    end
-
-    context "when the executable isn't installed on the system" do
-      it "returns nil" do
-        stub_which(yarn: nil)
-        path_set = build_path_set
-
-        yarn = path_set.yarn
-
-        expect(yarn).to be_nil
-      end
     end
   end
 
