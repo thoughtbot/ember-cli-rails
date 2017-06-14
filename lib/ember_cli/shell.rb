@@ -41,13 +41,15 @@ module EmberCli
         clean_ember_dependencies!
       end
 
-      if paths.yarn
+      if paths.yarn.present? && Pathname.new(paths.yarn).executable?
         run! "#{paths.yarn} install"
       else
         run! "#{paths.npm} prune && #{paths.npm} install"
       end
 
-      run! "[ -f bower.json ] && #{paths.bower} prune && #{paths.bower} install"
+      if paths.bower_json.exist?
+        run! "#{paths.bower} prune && #{paths.bower} install"
+      end
     end
 
     def test
