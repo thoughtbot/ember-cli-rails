@@ -1,6 +1,9 @@
 master
 ------
 
+0.8.7
+-----
+
 * Revert [`34ff6dd`][reverted-commit] so that it can be reintroduced as a
   breaking change, [requiring a major version bump][#532-comment]
 
