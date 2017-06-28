@@ -476,13 +476,13 @@ EmberCli.configure do |c|
 end
 ```
 
-Next, mount the applications alongside the rest of Rails' routes:
+Next, mount the applications alongside the rest of Rails' routes. Note that `admin_panel` route is added before the `frontend` route because it's more specific:
 
 ```rb
 # /config/routes.rb
 Rails.application.routes.draw do
-  mount_ember_app :frontend, to: "/"
   mount_ember_app :admin_panel, to: "/admin_panel"
+  mount_ember_app :frontend, to: "/"
 end
 ```
 
