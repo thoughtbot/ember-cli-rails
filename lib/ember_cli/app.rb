@@ -83,6 +83,10 @@ module EmberCli
       deploy.mountable?
     end
 
+    def yarn_enabled?
+      options.fetch(:yarn, false)
+    end
+
     def to_rack
       deploy.to_rack
     end

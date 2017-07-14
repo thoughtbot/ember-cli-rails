@@ -25,6 +25,28 @@ describe EmberCli::App do
     end
   end
 
+  describe "yarn_enabled?" do
+    context "when configured with yarn: true" do
+      it "returns true" do
+        app = EmberCli::App.new("with-yarn", yarn: true)
+
+        yarn_enabled = app.yarn_enabled?
+
+        expect(yarn_enabled).to be true
+      end
+    end
+
+    context "when configured with yarn: false" do
+      it "returns false" do
+        app = EmberCli::App.new("without-yarn", yarn: false)
+
+        yarn_enabled = app.yarn_enabled?
+
+        expect(yarn_enabled).to be false
+      end
+    end
+  end
+
   describe "#compile" do
     it "exits with exit status of 0" do
       passed = EmberCli["my-app"].compile

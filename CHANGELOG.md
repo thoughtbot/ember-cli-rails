@@ -1,6 +1,12 @@
 master
 ------
 
+* Generate an empty `yarn.lock` so that Heroku understands that the
+  application's deployment target requires `yarn`. Closes [#538]. [#540]
+
+[#538]: https://github.com/thoughtbot/ember-cli-rails/issues/538
+[#540]: https://github.com/thoughtbot/ember-cli-rails/pull/540
+
 0.9.0
 -----
 

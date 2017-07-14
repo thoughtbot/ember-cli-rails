@@ -21,12 +21,19 @@ module EmberCli
       fail KeyError, "#{name.inspect} app is not defined"
     end
   end
+  alias_method :[], :app
+
+  def apps
+    configuration.apps
+  end
 
   def build(name)
     app(name).build
   end
 
-  alias_method :[], :app
+  def any?(*arguments, &block)
+    apps.values.any?(*arguments, &block)
+  end
 
   def skip?
     ENV["SKIP_EMBER"].present?
@@ -52,8 +59,6 @@ module EmberCli
   def env
     @env ||= Helpers.current_environment
   end
-
-  delegate :apps, to: :configuration
 
   private
 

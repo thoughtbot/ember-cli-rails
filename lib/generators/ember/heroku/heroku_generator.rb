@@ -13,6 +13,12 @@ module EmberCli
       run "chmod a+x bin/heroku_install"
     end
 
+    def identify_as_yarn_project
+      if EmberCli.any?(&:yarn_enabled?)
+        template "yarn.lock.erb", "yarn.lock"
+      end
+    end
+
     def inject_12factor_gem
       gem "rails_12factor", group: [:staging, :production]
     end
