@@ -33,6 +33,10 @@ module EmberCli
       paths.dist
     end
 
+    def cached_directories
+      paths.cached_directories
+    end
+
     def compile
       @compiled ||= begin
         prepare
@@ -85,6 +89,10 @@ module EmberCli
 
     def yarn_enabled?
       options.fetch(:yarn, false)
+    end
+
+    def bower?
+      paths.bower_json.exist?
     end
 
     def to_rack

@@ -15,5 +15,4 @@ Example:
         rails_12factor
 
     This will create:
-        bin/heroku_install
         package.json

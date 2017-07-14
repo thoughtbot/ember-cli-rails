@@ -277,6 +277,51 @@ describe EmberCli::PathSet do
     end
   end
 
+  describe "#cached_directories" do
+    it "includes the full path to the application's node_modules" do
+      app_name = "foo"
+      app = build_app(name: app_name)
+      path_set = build_path_set(app: app)
+
+      cached_directories = path_set.cached_directories
+
+      expect(cached_directories).to include(
+        rails_root.join(app_name, "node_modules"),
+      )
+    end
+
+    context "when bower.json exists" do
+      it "includes the full path to bower_components" do
+        app_name = "foo"
+        app = build_app(name: app_name)
+        app_root = rails_root.join(app_name)
+        path_set = build_path_set(app: app)
+        create_file(app_root.join("bower.json"))
+
+        cached_directories = path_set.cached_directories
+
+        expect(cached_directories).to include(
+          rails_root.join(app_name, "bower_components"),
+        )
+      end
+    end
+
+    context "when bower.json does not exist" do
+      it "does not include the path to bower_components" do
+        app_name = "foo"
+        app = build_app(name: app_name)
+        path_set = build_path_set(app: app)
+
+        cached_directories = path_set.cached_directories
+
+        expect(cached_directories).not_to include(nil)
+        expect(cached_directories).not_to include(
+          rails_root.join(app_name, "bower_components"),
+        )
+      end
+    end
+  end
+
   def create_file(path)
     path.parent.mkpath
     FileUtils.touch(path)

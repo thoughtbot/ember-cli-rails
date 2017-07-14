@@ -1,15 +1,8 @@
 {
-  "scripts": {
-    "postinstall": "sh bin/heroku_install"
-  },
+  <% if EmberCli.any?(&:bower?) %>
   "dependencies": {
     "bower": "*"
   },
-  "cacheDirectories": [
-    <%- app_paths.each do |app_path| -%>
-    "<%= app_path %>/node_modules",
-    "<%= app_path %>/bower_components",
-    <%- end -%>
-    "node_modules"
-  ]
+  <% end %>
+  "cacheDirectories": <%= cache_directories.to_json %>
 }

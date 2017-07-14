@@ -47,6 +47,32 @@ describe EmberCli::App do
     end
   end
 
+  describe "#bower?" do
+    context "when bower.json exists" do
+      it "returns true" do
+        bower_json_path = double("Pathname", exist?: true)
+        stub_paths(bower_json: bower_json_path)
+        app = EmberCli::App.new("with bower json")
+
+        bower_required = app.bower?
+
+        expect(bower_required).to be true
+      end
+    end
+
+    context "when bower.json is absent" do
+      it "returns false" do
+        bower_json_path = double("Pathname", exist?: false)
+        stub_paths(bower_json: bower_json_path)
+        app = EmberCli::App.new("without bower json")
+
+        bower_required = app.bower?
+
+        expect(bower_required).to be false
+      end
+    end
+  end
+
   describe "#compile" do
     it "exits with exit status of 0" do
       passed = EmberCli["my-app"].compile

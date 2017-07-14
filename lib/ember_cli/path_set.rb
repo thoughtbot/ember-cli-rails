@@ -108,6 +108,13 @@ module EmberCli
       @bundler ||= path_for_executable("bundler")
     end
 
+    def cached_directories
+      [
+        node_modules,
+        (bower_components if bower_json.exist?),
+      ].compact
+    end
+
     private
 
     attr_reader :app, :ember_cli_root, :environment, :rails_root
