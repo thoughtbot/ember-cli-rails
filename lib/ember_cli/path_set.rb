@@ -36,7 +36,7 @@ module EmberCli
     end
 
     def bower_json
-      ember_cli_root.join("bower.json")
+      root.join("bower.json")
     end
 
     def ember

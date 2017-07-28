@@ -121,7 +121,8 @@ describe EmberCli::PathSet do
     context "when it is missing from the $PATH" do
       context "bower.json exists" do
         it "raises a helpful exception" do
-          create_file(ember_cli_root.join("bower.json"))
+          app = build_app
+          create_file(app_root_for(app).join("bower.json"))
           stub_which(bower: nil)
           path_set = build_path_set
 
@@ -145,12 +146,12 @@ describe EmberCli::PathSet do
 
   describe "#bower_json" do
     it "is a child of #root" do
-      app = build_app(name: "foo")
+      app = build_app
       path_set = build_path_set(app: app)
 
       bower_json = path_set.bower_json
 
-      expect(bower_json).to eq ember_cli_root.join("bower.json")
+      expect(bower_json).to eq app_root_for(app).join("bower.json")
     end
   end
 
@@ -315,6 +316,10 @@ describe EmberCli::PathSet do
     )
   end
 
+  def app_root_for(app)
+    rails_root.join(app.name)
+  end
+
   def ember_cli_root
     Rails.root.join("tmp", "ember_cli").tap(&:mkpath)
   end
@@ -323,13 +328,15 @@ describe EmberCli::PathSet do
     Rails.root.join("tmp", "rails").tap(&:mkpath)
   end
 
-  around do |example|
+  def remove_temporary_directories
     [rails_root, ember_cli_root].each do |dir|
       if dir.exist?
         FileUtils.rm_rf(dir)
       end
     end
+  end
 
-    example.run
+  before do
+    remove_temporary_directories
   end
 end
