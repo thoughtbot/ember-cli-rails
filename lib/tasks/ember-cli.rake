@@ -16,10 +16,5 @@ namespace :ember do
 end
 
 unless EmberCli.skip?
-  # Hook into assets:precompile:all for Rails 3.1+
-  if Rails::VERSION::MAJOR < 4
-    task "assets:precompile:all" => "ember:compile"
-  else
-    task "assets:precompile" => "ember:compile"
-  end
+  task "assets:precompile" => "ember:compile"
 end
