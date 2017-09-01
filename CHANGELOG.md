@@ -1,6 +1,9 @@
 master
 ------
 
+0.10.0
+------
+
 * Remove `bin/heroku_install` to simplify Heroku setup.
   To upgrade, remove your project's generated `bin/heroku_install`.
   Next, execute `rake ember:heroku`. [#544]
