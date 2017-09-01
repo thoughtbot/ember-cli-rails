@@ -97,16 +97,10 @@ $ cd path/to/frontend
 $ ember install ember-cli-rails-addon
 ```
 
-Be sure that the addon's [`MAJOR` and `MINOR` version][semver] matches the gem's
-`MAJOR` and `MINOR` versions.
-
-For instance, if you're using the `0.6.x` version of the gem, specify
-`~> 0.6.0` in your Ember app's `package.json`:
-
 ```json
 {
   "devDependencies": {
-    "ember-cli-rails-addon": "~> 0.6.0"
+    "ember-cli-rails-addon": "~> 0.8.0"
   }
 }
 ```
