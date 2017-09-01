@@ -97,6 +97,8 @@ $ cd path/to/frontend
 $ ember install ember-cli-rails-addon
 ```
 
+In your Ember app's `package.json`:
+
 ```json
 {
   "devDependencies": {
