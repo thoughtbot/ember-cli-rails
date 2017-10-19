@@ -13,6 +13,11 @@ namespace :ember do
   task install: :environment do
     EmberCli.install_dependencies!
   end
+
+  desc "Updates Ember tests environment conditional to support ember test env in feature tests"
+  task update_test_environment: :environment do
+    EmberCli.update_test_env_configurations!
+  end
 end
 
 unless EmberCli.skip?

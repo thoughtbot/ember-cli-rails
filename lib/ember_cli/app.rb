@@ -99,6 +99,10 @@ module EmberCli
       deploy.to_rack
     end
 
+    def update_test_env_configuration
+      @shell.update_test_env_configuration!
+    end
+
     private
 
     def development?

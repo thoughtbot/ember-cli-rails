@@ -60,6 +60,10 @@ module EmberCli
     @env ||= Helpers.current_environment
   end
 
+  def update_test_env_configurations!
+    each_app(&:update_test_env_configuration)
+  end
+
   private
 
   def cleanup!
