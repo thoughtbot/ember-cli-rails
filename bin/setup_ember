@@ -11,6 +11,9 @@ setup_ember() {
     echo '-- Make router catchall routes'
     sed -i -e 's/auto/hash/' $target/config/environment.js
 
+    echo '-- Prevent tests setup when RAILS_ENV is present'
+    sed -i -e  "s/environment === 'test'/\(environment === 'test'\) \&\& \(typeof process.env.RAILS_ENV === 'undefined'\)/" $target/config/environment.js
+
     echo '-- Add an image to a template'
     cp spec/fixtures/application.hbs $target/app/templates/application.hbs
 

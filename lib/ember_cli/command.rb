@@ -47,11 +47,7 @@ module EmberCli
     end
 
     def build_environment
-      if EmberCli.env == "production"
-        "production"
-      else
-        "development"
-      end
+      EmberCli.env
     end
   end
 end
