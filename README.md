@@ -114,6 +114,42 @@ For instance, if you're using the `0.6.x` version of the gem, specify
 [addon]: https://github.com/rondale-sc/ember-cli-rails-addon/
 [semver]: http://semver.org/
 
+**Ember app environment configuration**
+
+Updates your `config/environment.js` in order to prevent test variables configurations when building the
+application from Ruby on Rails to run feature/system tests.
+
+You can to do the following:
+
+* Add an extra conditional to prevent test configurations when building the app in test env.
+
+Replace:
+
+```
+  ...
+
+   if (environment === 'test') {
+
+  ...
+
+```
+
+with:
+
+
+```
+  ...
+
+   if ((environment === 'test') && (typeof process.env.RAILS_ENV === 'undefined')) {
+
+  ...
+
+```
+
+You can do that using the following rake task: `bundle exec rake ember:update_test_environment`. This task is going
+to go through your apps `config/environment.js` files replace the conditional. If your app has a custom condition to
+build the step environment, it is recomended to to that change manually.
+
 ## Mount
 
 Configure Rails to route requests to the `frontend` Ember application:
