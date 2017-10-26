@@ -125,25 +125,15 @@ You can to do the following:
 
 Replace:
 
-```
-  ...
-
+```javascript
    if (environment === 'test') {
-
-  ...
-
 ```
 
 with:
 
 
-```
-  ...
-
+```javascript
    if ((environment === 'test') && (typeof process.env.RAILS_ENV === 'undefined')) {
-
-  ...
-
 ```
 
 You can do that using the following rake task: `bundle exec rake ember:update_test_environment`. This task is going
