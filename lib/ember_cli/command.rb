@@ -47,7 +47,11 @@ module EmberCli
     end
 
     def build_environment
-      EmberCli.env
+      if EmberCli.env.match(/test|production/)
+        EmberCli.env
+      else
+        "development"
+      end
     end
   end
 end

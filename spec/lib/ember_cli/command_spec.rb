@@ -19,14 +19,24 @@ describe EmberCli::Command do
     end
 
     %w(development production test).each do |environment|
-      context "when building in production" do
-        it "includes the `--environment production` flag" do
+      context "when building in #{environment}" do
+        it "includes the `--environment #{environment}` flag" do
           paths = build_paths
           command = build_command(paths: paths)
           allow(EmberCli).to receive(:env).and_return(environment)
 
           expect(command.build).to match(/--environment '#{environment}'/)
         end
+      end
+    end
+
+    context "when building in any other environment" do
+      it "includes the `--environment staging` flag" do
+        paths = build_paths
+        command = build_command(paths: paths)
+        allow(EmberCli).to receive(:env).and_return('staging')
+
+        expect(command.build).to match(/--environment 'development'/)
       end
     end
 

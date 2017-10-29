@@ -104,7 +104,7 @@ module EmberCli
     end
 
     def update_test_env_configuration(mirage: false)
-      mirage.present? ? update_with_mirage: update_without_mirage
+      mirage.present? ? update_with_mirage : update_without_mirage
     end
 
     private
