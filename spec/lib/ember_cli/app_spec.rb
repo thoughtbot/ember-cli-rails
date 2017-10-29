@@ -113,10 +113,10 @@ describe EmberCli::App do
     end
   end
 
-  describe '#update_test_env_configuration' do
+  describe "#update_test_env_configuration" do
     let(:app) { EmberCli::App.new("foo") }
     let(:mock_env_file_path) do
-      app.root_path.join('../../fixtures/environment_mock.js')
+      app.root_path.join("../../fixtures/environment_mock.js")
     end
     let!(:initial_content) { IO.read(mock_env_file_path) }
     let(:update_config_file_content) do
@@ -135,13 +135,13 @@ describe EmberCli::App do
       app.send(:write_config_file, StringIO.new(initial_content))
     end
 
-    it 'updates locationType' do
+    it "updates locationType" do
       expect(update_config_file_content.call).to match(
         /typeof process.env.RAILS_ENV === 'undefined' \? 'none' : ENV.locationType;/
       )
     end
 
-    it 'updates rootElement' do
+    it "updates rootElement" do
       expect(update_config_file_content.call).to match(
         /typeof process.env.RAILS_ENV === 'undefined' \? '#ember-testing' : ENV.rootElement;/
       )

@@ -34,7 +34,7 @@ module EmberCli
     end
 
     def config_environment_path
-      root_path.join('config','environment.js')
+      root_path.join("config", "environment.js")
     end
 
     def cached_directories
@@ -111,7 +111,7 @@ module EmberCli
 
     def update_without_mirage
       tmp = StringIO.open
-      File.open(config_environment_path, 'r') do |f|
+      File.open(config_environment_path, "r") do |f|
         f.each_line { |line| tmp = replace_common_config(line, tmp) }
       end
       write_config_file(tmp)
@@ -119,7 +119,7 @@ module EmberCli
 
     def update_with_mirage
       tmp = StringIO.open
-      File.open(config_environment_path, 'r') do |f|
+      File.open(config_environment_path, "r") do |f|
         f.each_line.with_index do |line, index|
           if line["if (environment === 'test') {"]
             tmp.puts("  if (environment === 'test') {")
@@ -147,7 +147,7 @@ module EmberCli
 
     def write_config_file(stream)
       stream.seek(0)
-      File.open(config_environment_path, 'w') { |f| f.puts(stream.read) }
+      File.open(config_environment_path, "w") { |f| f.puts(stream.read) }
     end
 
     def development?

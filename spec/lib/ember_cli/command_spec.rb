@@ -34,7 +34,7 @@ describe EmberCli::Command do
       it "includes the `--environment staging` flag" do
         paths = build_paths
         command = build_command(paths: paths)
-        allow(EmberCli).to receive(:env).and_return('staging')
+        allow(EmberCli).to receive(:env).and_return("staging")
 
         expect(command.build).to match(/--environment 'development'/)
       end
