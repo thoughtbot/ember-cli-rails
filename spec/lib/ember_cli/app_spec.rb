@@ -138,13 +138,13 @@ describe EmberCli::App do
     it 'updates locationType' do
       expect(update_config_file_content.call).to match(
         /typeof process.env.RAILS_ENV === 'undefined' \? 'none' : ENV.locationType;/
-      );
+      )
     end
 
     it 'updates rootElement' do
       expect(update_config_file_content.call).to match(
         /typeof process.env.RAILS_ENV === 'undefined' \? '#ember-testing' : ENV.rootElement;/
-      );
+      )
     end
   end
 
