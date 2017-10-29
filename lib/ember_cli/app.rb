@@ -123,8 +123,13 @@ module EmberCli
         f.each_line.with_index do |line, index|
           if line["if (environment === 'test') {"]
             tmp.puts("  if (environment === 'test') {")
-            unless IO.read(config_environment_path)["if (environment === 'test') {\n    ENV['ember-cli-mirage'] ="]
-              tmp.puts("    ENV['ember-cli-mirage'] = { enabled: typeof process.env.RAILS_ENV === 'undefined' };")
+            mirage_condition_already_added = IO.read(config_environment_path)[
+              "if (environment === 'test') {\n    ENV['ember-cli-mirage'] ="
+            ]
+            unless mirage_condition_already_added
+              tmp.puts("    ENV['ember-cli-mirage'] = { enabled: typeof "\
+                "process.env.RAILS_ENV === 'undefined' };"
+              )
             end
           else
             tmp = replace_common_config(line, tmp)
@@ -136,9 +141,13 @@ module EmberCli
 
     def replace_common_config(line, tmp)
       if line["ENV.locationType = 'none'"]
-        tmp.puts("    ENV.locationType = typeof process.env.RAILS_ENV === 'undefined' ? 'none' : ENV.locationType;")
+        tmp.puts("    ENV.locationType = typeof process.env.RAILS_ENV"\
+          " === 'undefined' ? 'none' : ENV.locationType;"
+        )
       elsif line["ENV.APP.rootElement = '#ember-testing'"]
-        tmp.puts("    ENV.APP.rootElement = typeof process.env.RAILS_ENV === 'undefined' ? '#ember-testing' : ENV.rootElement;")
+        tmp.puts("    ENV.APP.rootElement = typeof process.env.RAILS_ENV"\
+          " === 'undefined' ? '#ember-testing' : ENV.rootElement;"
+        )
       else
         tmp.puts(line)
       end
