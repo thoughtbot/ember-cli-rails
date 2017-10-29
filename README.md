@@ -116,29 +116,82 @@ For instance, if you're using the `0.6.x` version of the gem, specify
 
 **Ember app environment configuration**
 
-Updates your `config/environment.js` in order to prevent test variables configurations when building the
+Update your `config/environment.js` in order to prevent test variables configurations when building the
 application from Ruby on Rails to run feature/system tests.
 
 You can to do the following:
 
-* Add an extra conditional to prevent test configurations when building the app in test env.
+***Without Mirage***
 
 Replace:
 
 ```javascript
    if (environment === 'test') {
+    // Testem prefers this...
+    ENV.locationType = 'none';
+
+    // keep test console output quieter
+    ENV.APP.LOG_ACTIVE_GENERATION = false;
+    ENV.APP.LOG_VIEW_LOOKUPS = false;
+
+    ENV.APP.rootElement = '#ember-testing';
+  }
 ```
 
 with:
 
 
 ```javascript
-   if ((environment === 'test') && (typeof process.env.RAILS_ENV === 'undefined')) {
+  if (environment === 'test') {
+    // Testem prefers this...
+    ENV.locationType = typeof process.env.RAILS_ENV === 'undefined' ? 'none' : ENV.locationType;
+
+    // keep test console output quieter
+    ENV.APP.LOG_ACTIVE_GENERATION = false;
+    ENV.APP.LOG_VIEW_LOOKUPS = false;
+
+    ENV.APP.rootElement = typeof process.env.RAILS_ENV === 'undefined' ? '#ember-testing' : ENV.rootElement;
+  }
 ```
 
 You can do that using the following rake task: `bundle exec rake ember:update_test_environment`. This task is going
-to go through your apps `config/environment.js` files replace the conditional. If your app has a custom condition to
-build the step environment, it is recomended to to that change manually.
+to go through your apps `config/environment.js` files and replace the lines. If your app has a custom condition to
+build the test environment, it is better to do changes manually.
+
+***With Mirage***
+
+You can use the `bundle exec rake ember:update_test_environment_with_mirage`
+
+Replace:
+
+```javascript
+   if (environment === 'test') {
+    // Testem prefers this...
+    ENV.locationType = 'none';
+
+    // keep test console output quieter
+    ENV.APP.LOG_ACTIVE_GENERATION = false;
+    ENV.APP.LOG_VIEW_LOOKUPS = false;
+
+    ENV.APP.rootElement = '#ember-testing';
+  }
+```
+
+with:
+
+```javascript
+  if (environment === 'test') {
+    ENV['ember-cli-mirage'] = { enabled: typeof process.env.RAILS_ENV === 'undefined' };
+    // Testem prefers this...
+    ENV.locationType = typeof process.env.RAILS_ENV === 'undefined' ? 'none' : ENV.locationType;
+
+    // keep test console output quieter
+    ENV.APP.LOG_ACTIVE_GENERATION = false;
+    ENV.APP.LOG_VIEW_LOOKUPS = false;
+
+    ENV.APP.rootElement = typeof process.env.RAILS_ENV === 'undefined' ? '#ember-testing' : ENV.rootElement;
+  }
+```
 
 ## Mount
 

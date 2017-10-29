@@ -25,14 +25,6 @@ module EmberCli
       end
     end
 
-    def update_test_env_configuration!
-      environment_file_path = @paths.root.join('config','environment.js')
-      search_pattern = "if (environment === 'test') {"
-      replacement = 'if ((environment === \'test\') \&\& (typeof process.env.RAILS_ENV === \'undefined\')) {'
-      line = Cocaine::CommandLine.new('sed', "-i '' \"s:#{search_pattern}:#{replacement}:\" '#{environment_file_path}'")
-      run! line.command
-    end
-
     def stop
       if pid.present?
         Process.kill(:INT, pid)

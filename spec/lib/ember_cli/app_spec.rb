@@ -113,6 +113,41 @@ describe EmberCli::App do
     end
   end
 
+  describe '#update_test_env_configuration' do
+    let(:app) { EmberCli::App.new("foo") }
+    let(:mock_env_file_path) do
+      app.root_path.join('../../fixtures/environment_mock.js')
+    end
+    let!(:initial_content) { IO.read(mock_env_file_path) }
+    let(:update_config_file_content) do
+      lambda do
+        app.update_test_env_configuration
+        IO.read(app.config_environment_path)
+      end
+    end
+
+    before :each do
+      allow(app).to receive(:config_environment_path).
+        and_return(mock_env_file_path)
+    end
+
+    after :each do
+      app.send(:write_config_file, StringIO.new(initial_content))
+    end
+
+    it 'updates locationType' do
+      expect(update_config_file_content.call).to match(
+        /typeof process.env.RAILS_ENV === 'undefined' \? 'none' : ENV.locationType;/
+      );
+    end
+
+    it 'updates rootElement' do
+      expect(update_config_file_content.call).to match(
+        /typeof process.env.RAILS_ENV === 'undefined' \? '#ember-testing' : ENV.rootElement;/
+      );
+    end
+  end
+
   def stub_paths(method_to_value)
     allow_any_instance_of(EmberCli::PathSet).
       to receive(method_to_value.keys.first).

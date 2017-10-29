@@ -18,6 +18,10 @@ namespace :ember do
   task update_test_environment: :environment do
     EmberCli.update_test_env_configurations!
   end
+
+  task update_test_environment_with_mirage: :environment do
+    EmberCli.update_test_env_configurations!(mirage: true)
+  end
 end
 
 unless EmberCli.skip?

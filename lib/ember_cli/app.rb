@@ -33,6 +33,10 @@ module EmberCli
       paths.dist
     end
 
+    def config_environment_path
+      root_path.join('config','environment.js')
+    end
+
     def cached_directories
       paths.cached_directories
     end
@@ -99,11 +103,52 @@ module EmberCli
       deploy.to_rack
     end
 
-    def update_test_env_configuration
-      @shell.update_test_env_configuration!
+    def update_test_env_configuration(mirage: false)
+      mirage.present? ? update_with_mirage: update_without_mirage
     end
 
     private
+
+    def update_without_mirage
+      tmp = StringIO.open
+      File.open(config_environment_path, 'r') do |f|
+        f.each_line { |line| tmp = replace_common_config(line, tmp) }
+      end
+      write_config_file(tmp)
+    end
+
+    def update_with_mirage
+      tmp = StringIO.open
+      File.open(config_environment_path, 'r') do |f|
+        f.each_line.with_index do |line, index|
+          if line["if (environment === 'test') {"]
+            tmp.puts("  if (environment === 'test') {")
+            unless IO.read(config_environment_path)["if (environment === 'test') {\n    ENV['ember-cli-mirage'] ="]
+              tmp.puts("    ENV['ember-cli-mirage'] = { enabled: typeof process.env.RAILS_ENV === 'undefined' };")
+            end
+          else
+            tmp = replace_common_config(line, tmp)
+          end
+        end
+      end
+      write_config_file(tmp)
+    end
+
+    def replace_common_config(line, tmp)
+      if line["ENV.locationType = 'none'"]
+        tmp.puts("    ENV.locationType = typeof process.env.RAILS_ENV === 'undefined' ? 'none' : ENV.locationType;")
+      elsif line["ENV.APP.rootElement = '#ember-testing'"]
+        tmp.puts("    ENV.APP.rootElement = typeof process.env.RAILS_ENV === 'undefined' ? '#ember-testing' : ENV.rootElement;")
+      else
+        tmp.puts(line)
+      end
+      tmp
+    end
+
+    def write_config_file(stream)
+      stream.seek(0)
+      File.open(config_environment_path, 'w') { |f| f.puts(stream.read) }
+    end
 
     def development?
       env.to_s == "development"

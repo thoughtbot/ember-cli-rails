@@ -60,8 +60,10 @@ module EmberCli
     @env ||= Helpers.current_environment
   end
 
-  def update_test_env_configurations!
-    each_app(&:update_test_env_configuration)
+  def update_test_env_configurations!(mirage: false)
+    each_app do |app|
+      app.update_test_env_configuration(mirage: mirage)
+    end
   end
 
   private
