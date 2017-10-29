@@ -120,36 +120,38 @@ module EmberCli
     def update_with_mirage
       tmp = StringIO.open
       File.open(config_environment_path, "r") do |f|
-        f.each_line.with_index do |line, index|
-          if line["if (environment === 'test') {"]
-            tmp.puts("  if (environment === 'test') {")
-            mirage_condition_already_added = IO.read(config_environment_path)[
-              "if (environment === 'test') {\n    ENV['ember-cli-mirage'] ="
-            ]
-            unless mirage_condition_already_added
-              tmp.puts("    ENV['ember-cli-mirage'] = { enabled: typeof "\
-                "process.env.RAILS_ENV === 'undefined' };"
-              )
-            end
-          else
-            tmp = replace_common_config(line, tmp)
-          end
+        f.each_line do |line|
+          tmp = replace_common_config(line, tmp)
+          tmp = add_mirage_test_config_if_needed(line, tmp)
         end
       end
       write_config_file(tmp)
     end
 
     def replace_common_config(line, tmp)
-      if line["ENV.locationType = 'none'"]
-        tmp.puts("    ENV.locationType = typeof process.env.RAILS_ENV"\
-          " === 'undefined' ? 'none' : ENV.locationType;"
-        )
-      elsif line["ENV.APP.rootElement = '#ember-testing'"]
-        tmp.puts("    ENV.APP.rootElement = typeof process.env.RAILS_ENV"\
-          " === 'undefined' ? '#ember-testing' : ENV.rootElement;"
-        )
-      else
-        tmp.puts(line)
+      content = if line["ENV.locationType = 'none'"]
+                  "    ENV.locationType = typeof process.env.RAILS_ENV"\
+                  " === 'undefined' ? 'none' : ENV.locationType;"
+                elsif line["ENV.APP.rootElement = '#ember-testing'"]
+                  "    ENV.APP.rootElement = typeof process.env.RAILS_ENV"\
+                  " === 'undefined' ? '#ember-testing' : ENV.rootElement;"
+                else
+                  line
+                end
+      tmp.puts(content)
+      tmp
+    end
+
+    def add_mirage_test_config_if_needed(line, tmp)
+      if line["if (environment === 'test') {"]
+        mirage_condition_already_added = IO.read(config_environment_path)[
+          "if (environment === 'test') {\n    ENV['ember-cli-mirage'] ="
+        ]
+        unless mirage_condition_already_added
+          content = "    ENV['ember-cli-mirage'] = { enabled: typeof "\
+                    "process.env.RAILS_ENV === 'undefined' };"
+          tmp.puts(content)
+        end
       end
       tmp
     end
