@@ -21,9 +21,7 @@ module EmberCli
       def update_config_file(config_path)
         tmp = StringIO.open
         File.open(config_path, "r") do |f|
-          f.each_line do |line|
-            tmp = yield(tmp, line)
-          end
+          f.each_line { |line| tmp = yield(tmp, line) }
         end
         write_config_file(config_path, tmp)
       end

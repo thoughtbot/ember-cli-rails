@@ -120,11 +120,9 @@ describe EmberCli::App do
     end
     let!(:initial_content) { IO.read(mock_env_file_path) }
     let(:rails_env_check) { "typeof process.env.RAILS_ENV === 'undefined'" }
-    let(:update_config_file_content) do
-      lambda do
-        app.update_test_env_configuration(mirage: true)
-        IO.read(app.config_environment_path)
-      end
+    let(:config_content) do
+      app.update_test_env_configuration(mirage: true)
+      IO.read(app.config_environment_path)
     end
 
     before :each do
@@ -136,20 +134,18 @@ describe EmberCli::App do
       EmberCli::App::ConfigHelper.send(
         :write_config_file,
         mock_env_file_path,
-        StringIO.new(initial_content)
+        StringIO.new(initial_content),
       )
     end
 
     it "updates locationType" do
-      expect(update_config_file_content.call).to match(
-        /#{rails_env_check} \? 'none' : ENV.locationType;/
-      )
+      expect(config_content).
+        to match(/#{rails_env_check} \? 'none' : ENV.locationType;/)
     end
 
     it "updates rootElement" do
-      expect(update_config_file_content.call).to match(
-        /#{rails_env_check} \? '#ember-testing' : ENV.rootElement;/
-      )
+      expect(config_content).
+        to match(/#{rails_env_check} \? '#ember-testing' : ENV.rootElement;/)
     end
   end
 
