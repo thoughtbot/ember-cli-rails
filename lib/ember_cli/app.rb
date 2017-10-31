@@ -3,11 +3,11 @@ require "ember_cli/path_set"
 require "ember_cli/shell"
 require "ember_cli/build_monitor"
 require "ember_cli/deploy/file"
-require "ember_cli/app_config_helper"
+require "ember_cli/env_config"
 
 module EmberCli
   class App
-    attr_reader :name, :options, :paths
+    attr_reader :name, :options, :paths, :env_config
 
     def initialize(name, **options)
       @name = name.to_s
@@ -24,6 +24,7 @@ module EmberCli
         options: options,
       )
       @build = BuildMonitor.new(name, @paths)
+      @env_config = EmberCli::App::EnvConfig.new(config_environment_path)
     end
 
     def root_path
@@ -105,11 +106,8 @@ module EmberCli
     end
 
     def update_test_env_configuration(mirage: false)
-      if mirage.present?
-        ConfigHelper.update_with_mirage(config_environment_path)
-      else
-        ConfigHelper.update_without_mirage(config_environment_path)
-      end
+      strategy = mirage ? :update_with_mirage : :update_without_mirage
+      @env_config.send(strategy)
     end
 
     private

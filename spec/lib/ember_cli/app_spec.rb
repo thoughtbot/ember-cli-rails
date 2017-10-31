@@ -126,16 +126,15 @@ describe EmberCli::App do
     end
 
     before :each do
+      allow_any_instance_of(EmberCli::App::EnvConfig).
+        to receive(:env_file_path).
+        and_return(mock_env_file_path)
       allow(app).to receive(:config_environment_path).
         and_return(mock_env_file_path)
     end
 
     after :each do
-      EmberCli::App::ConfigHelper.send(
-        :write_config_file,
-        mock_env_file_path,
-        StringIO.new(initial_content),
-      )
+      app.env_config.send(:write_config_file, StringIO.new(initial_content))
     end
 
     it "updates locationType" do
