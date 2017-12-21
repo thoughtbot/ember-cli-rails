@@ -421,7 +421,7 @@ To override this behavior, you can specify [any of Rails' routing options]
 For the sake of this example, override the `controller` and `action` options:
 
 ```rb
-# config/routes
+# config/routes.rb
 
 Rails.application.routes.draw do
   mount_ember_app :frontend, to: "/", controller: "application", action: "index"
