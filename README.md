@@ -566,13 +566,13 @@ Rails.application.routes.draw do
 end
 ```
 
-### How to use EmberCli Inside a Mountable Rails Engine
+## How to use EmberCli Inside a Mountable Rails Engine ##
 
 Installing EmberCli in a mountable engine is nearly identical to installing
 EmberCli in an application. However, there are a few additional configuration
 options that need to be adjusted.
 
-## Install ##
+### Install ###
 
 Installing EmberCli in an engine follows the same steps as the
 [general installation instructions](https://github.com/thoughtbot/ember-cli-rails#install),
@@ -599,7 +599,7 @@ If you haven't created an Ember application yet, generate a new one:
 $ ember new frontend --skip-git
 ```
 
-## Setup ##
+### Setup ###
 
 Follow the same [steps](https://github.com/thoughtbot/ember-cli-rails#setup)
 but run the commands from your engine's directory with a few configuration
@@ -659,7 +659,7 @@ Finally we need to update our engine routes to point to our new controller in
 
 And that's pretty much it!
 
-## Deploy EmberCli in a mountable engine ##
+### Deploy EmberCli in a mountable engine ###
 
 If you deploy to Heroku - run the
 [commands](https://github.com/thoughtbot/ember-cli-rails#heroku)
