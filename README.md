@@ -659,7 +659,7 @@ Finally we need to update our engine routes to point to our new controller in
 
 And that's pretty much it!
 
-### Deploy EmberCli in a mountable engine ###
+### Deploy ###
 
 If you deploy to Heroku - run the
 [commands](https://github.com/thoughtbot/ember-cli-rails#heroku)
