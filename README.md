@@ -566,6 +566,105 @@ Rails.application.routes.draw do
 end
 ```
 
+### How to use EmberCli Inside a Mountable Rails Engine
+
+Installing EmberCli in a mountable engine is nearly identical to installing
+EmberCli in an application. However, there are a few additional configuration
+options that need to be adjusted.
+
+## Install ##
+
+Installing EmberCli in an engine follows the same steps as the
+[general installation instructions](https://github.com/thoughtbot/ember-cli-rails#install),
+but we'll be running the commands from our engine's directory and benefiting
+from the namespaced rails helper there.
+
+Add EmberCli to the engine's dependencies in your gemspec:
+
+```ruby
+Gem::Specification.new do |s|
+  s.add_dependency "ember-cli-rails"
+end
+```
+
+Then run `bundle install`:
+
+```bash
+$ bundle install
+```
+
+If you haven't created an Ember application yet, generate a new one:
+
+```bash
+$ ember new frontend --skip-git
+```
+
+## Setup ##
+
+Follow the same [steps](https://github.com/thoughtbot/ember-cli-rails#setup)
+but run the commands from your engine's directory with a few configuration
+changes described below.
+
+We need to load EmberCli when the engine starts, so let say if the name
+of your engine is `my_awesome_engine` - add next in
+`my_awesome_engine/lib/my_awesome_engine.rb`
+
+```ruby
+require 'ember_cli'
+```
+
+In the initializer we need to set the path where our engine is located. In our
+example the engine was created in `my_parent_rails_app/engines/my_awesome_engine/`
+
+```ruby
+EmberCli.configure do |c|
+  c.app :frontend, path: 'engines/my_awesome_engine/frontend'
+end
+```
+
+Let say you've mounted you Rails engine in the parent Rails app like:
+
+```ruby
+  mount MyAwesomeEngine::Engine, at: '/my-awesome-engine'
+```
+
+In this case we need to update Ember's config with the new path in
+`frontend/config/environment.js`
+
+```
+rootURL: '/my-awesome-engine',
+
+```
+
+Assuming you've generated your engine with `--mountable` option which means your
+Engine is namespace-isolated and have `isolate_namespace MyAwesomeEngine` we
+need to create a custom controller in your engine and namespace it.
+
+For example here I've created `FrontendController` but you are free to name it
+like you want.
+
+```ruby
+module MyAwesomeEngine
+  class FrontendController < EmberCli::EmberController
+  end
+end
+```
+
+Finally we need to update our engine routes to point to our new controller in
+`my_awesome_engine/config/routes.rb`
+
+```ruby
+  mount_ember_app :frontend, to: '/', controller: :frontend
+```
+
+And that's pretty much it!
+
+## Deploy EmberCli in a mountable engine ##
+
+If you deploy to Heroku - run the
+[commands](https://github.com/thoughtbot/ember-cli-rails#heroku)
+from your parent Rails application.
+
 ## CSRF Tokens
 
 Your Rails controllers, by default, expect a valid authenticity token to
