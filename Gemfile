@@ -5,6 +5,7 @@ gemspec
 gem "appraisal"
 gem "rails", "4.2.4"
 gem "pry"
+gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw]
 
 group :development, :test do
   gem "high_voltage", "~> 3.0.0"
