@@ -1,4 +1,4 @@
-require "cocaine"
+require "terrapin"
 
 module EmberCli
   class Command
@@ -8,7 +8,7 @@ module EmberCli
     end
 
     def test
-      line = Cocaine::CommandLine.new(paths.ember, "test --environment test")
+      line = Terrapin::CommandLine.new(paths.ember, "test --environment test")
 
       line.command
     end
@@ -30,7 +30,7 @@ module EmberCli
     end
 
     def ember_build(watch: false)
-      line = Cocaine::CommandLine.new(paths.ember, [
+      line = Terrapin::CommandLine.new(paths.ember, [
         "build",
         ("--watch" if watch),
         ("--watcher :watcher" if process_watcher),
