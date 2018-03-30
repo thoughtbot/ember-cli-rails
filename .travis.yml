@@ -1,5 +1,7 @@
 language: ruby
-sudo: false
+sudo: required
+addons:
+  chrome: stable
 cache:
   - bundler
 notifications:
