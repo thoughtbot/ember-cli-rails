@@ -16,8 +16,13 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 2.2.0"
 
   spec.add_dependency "ember-cli-rails-assets", "~> 0.6.2"
-  spec.add_dependency "railties", ">= 3.2"
+  spec.add_dependency "railties", ">= 4.2"
   spec.add_dependency "cocaine", "~> 0.5.8"
   spec.add_dependency "html_page", "~> 0.1.0"
+
+  spec.add_development_dependency "appraisal"
   spec.add_development_dependency "generator_spec", "~> 0.9.0"
+  spec.add_development_dependency "rspec-rails", "~> 3.6.0"
+
+  spec.add_development_dependency "codeclimate-test-reporter", "~> 0.6.0"
 end
