@@ -18,4 +18,6 @@ nvm alias default "$NODE_JS_VERSION" || true
 
 node --version
 
+gem update --system
+
 source bin/setup

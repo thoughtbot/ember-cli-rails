@@ -5,8 +5,9 @@ cache:
 notifications:
   email: false
 rvm:
-  - 2.3.0
-  - 2.2.2
+  - 2.4.4
+  - 2.3.7
+  - 2.2.10
   - jruby-9.0.3.0
 install: bin/setup_ci
 before_script:
