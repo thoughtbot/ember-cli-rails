@@ -1,4 +1,5 @@
 require "ember_cli/ember_constraint"
+require "ember_cli/trailing_slash_constraint"
 
 module ActionDispatch
   module Routing
@@ -15,7 +16,15 @@ module ActionDispatch
         )
 
         scope constraints: ::EmberCli::EmberConstraint.new do
-          get("#{to}(*rest)", routing_options)
+          redirect_if_missing_trailing_slash = {
+            constraints: EmberCli::TrailingSlashConstraint.new,
+            to: redirect(-> (_, request) {
+              File.join(request.original_fullpath, "")
+            }),
+          }
+
+          get(to, redirect_if_missing_trailing_slash)
+          get(File.join(to, "(*rest)"), routing_options)
         end
 
         mount_ember_assets(app_name, to: to)

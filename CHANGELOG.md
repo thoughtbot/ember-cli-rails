@@ -1,6 +1,9 @@
 master
 ------
 
+* Redirect Ember routes with paths that don't end in `/` to corresponding paths
+  that end in `/`.
+
 0.10.0
 ------
 

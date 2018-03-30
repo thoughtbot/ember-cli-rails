@@ -35,6 +35,14 @@ feature "User views ember app", :js do
     end
   end
 
+  scenario "is redirected with trailing slash", js: false do
+    expect(embedded_path).to eq("/asset-helpers")
+
+    visit embedded_path
+
+    expect(current_path).to eq("/asset-helpers/")
+  end
+
   def have_client_side_asset
     have_css %{img[src*="logo.png"]}
   end
