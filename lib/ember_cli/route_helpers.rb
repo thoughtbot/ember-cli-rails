@@ -15,7 +15,16 @@ module ActionDispatch
         )
 
         scope constraints: ::EmberCli::EmberConstraint.new do
-          get("#{to}(*rest)", routing_options)
+          # Redirect if at the root and missing a trailing slash
+          get(to,
+            to: redirect(Proc.new do |_, request|
+              File.join(request.original_fullpath, "")
+            end),
+            constraints: Proc.new do |request|
+              request.original_fullpath &&
+                !request.original_fullpath.ends_with?("/")
+            end)
+          get(File.join(to, "(*rest)"), routing_options)
         end
 
         mount_ember_assets(app_name, to: to)
