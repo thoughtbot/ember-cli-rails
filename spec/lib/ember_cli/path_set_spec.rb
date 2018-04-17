@@ -212,13 +212,25 @@ describe EmberCli::PathSet do
     end
 
     context "when the executable isn't installed on the system" do
-      it "returns nil" do
-        stub_which(yarn: nil)
-        path_set = build_path_set
+      context "and yarn is requested" do
+        it "raises a DependencyError" do
+          stub_which(yarn: nil)
+          app = build_app(options: { yarn: true })
+          path_set = build_path_set(app: app)
 
-        yarn = path_set.yarn
+          expect { path_set.yarn }.to raise_error(EmberCli::DependencyError)
+        end
+      end
 
-        expect(yarn).to be_nil
+      context "and yarn is not requested" do
+        it "returns nil" do
+          stub_which(yarn: nil)
+          path_set = build_path_set
+
+          yarn = path_set.yarn
+
+          expect(yarn).to be_nil
+        end
       end
     end
   end
