@@ -92,7 +92,15 @@ module EmberCli
 
     def yarn
       if yarn?
-        @yarn ||= path_for_executable("yarn")
+        @yarn ||= path_for_executable("yarn").tap do |yarn_path|
+          unless yarn_path&.executable?
+            fail DependencyError.new <<-MSG.strip_heredoc
+                Yarn usage is requested but the executable is missing
+
+                Install it by following the instructions at https://yarnpkg.com/lang/en/docs/install/
+            MSG
+          end
+        end
       end
     end
 
