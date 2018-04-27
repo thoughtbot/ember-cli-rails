@@ -16,4 +16,5 @@ Capybara.register_driver :headless_chrome do |app|
   )
 end
 
+Capybara.server = :webrick
 Capybara.javascript_driver = :headless_chrome
