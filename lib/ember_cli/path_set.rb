@@ -11,11 +11,11 @@ module EmberCli
 
     def root
       path = app_options.fetch(:path){ default_root }
-      pathname = Pathname.new(path)
+      pathname = Pathname.new(Shellwords.shellescape(path))
       if pathname.absolute?
         pathname
       else
-        rails_root.join(path)
+        rails_root.join(pathname)
       end
     end
 
