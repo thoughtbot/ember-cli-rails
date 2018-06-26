@@ -113,6 +113,19 @@ describe EmberCli::App do
     end
   end
 
+  describe "#install_dependencies" do
+    it "delegates to Shell" do
+      expected_install_result = "dummy-value"
+      allow_any_instance_of(EmberCli::Shell).
+        to receive(:install).
+        and_return(expected_install_result)
+      app = EmberCli::App.new("foo")
+
+      install_result = app.install_dependencies
+      expect(install_result).to eq expected_install_result
+    end
+  end
+
   def stub_paths(method_to_value)
     allow_any_instance_of(EmberCli::PathSet).
       to receive(method_to_value.keys.first).

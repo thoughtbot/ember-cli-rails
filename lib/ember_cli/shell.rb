@@ -11,6 +11,7 @@ module EmberCli
         options: options,
       )
       @on_exit ||= at_exit { stop }
+      @options = options
     end
 
     def compile
@@ -42,9 +43,10 @@ module EmberCli
       end
 
       if paths.yarn
-        run! "#{paths.yarn} install"
+        run! "#{paths.yarn} install #{install_command_line_arguments}"
       else
-        run! "#{paths.npm} prune && #{paths.npm} install"
+        run! "#{paths.npm} prune && #{paths.npm} install " \
+          "#{install_command_line_arguments}"
       end
 
       if paths.bower_json.exist?
@@ -110,6 +112,10 @@ module EmberCli
 
     def detach
       Process.detach pid
+    end
+
+    def install_command_line_arguments
+      options.fetch(:install_command_line_arguments, "")
     end
   end
 end
