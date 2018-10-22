@@ -1,5 +1,7 @@
 # Ember CLI Rails
 
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
+
 Unify your EmberCLI and Rails Workflows!
 
 EmberCLI-Rails is designed to give you the best of both worlds:
