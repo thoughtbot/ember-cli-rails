@@ -21,11 +21,6 @@ setup_ember() {
     cd $target &&
       npm install --save-dev ember-cli-rails-addon@rondale-sc/ember-cli-rails-addon
 
-    if [ -f "$target/bower.json" ]; then
-      echo '-- Install Bower dependencies'
-      cd $target && bower install
-    fi
-
     echo '-- Successfully setup Ember'
   fi
 }
