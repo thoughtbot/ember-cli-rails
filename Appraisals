@@ -1,4 +1,5 @@
 appraise "4.2" do
+  gem "bundler", [">= 1.3.0", "< 2.0"]
   gem "rails", "~> 4.2.0"
 end
 
