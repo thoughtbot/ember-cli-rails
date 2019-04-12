@@ -7,10 +7,10 @@ cache:
 notifications:
   email: false
 rvm:
-  - 2.4.4
-  - 2.3.7
-  - 2.2.10
-  - jruby-9.1.16.0
+  - "2.6"
+  - "2.5"
+  - "2.4"
+  - "jruby-9.1.16.0"
 install: bin/setup_ci
 before_script:
   - export PATH="$HOME/.nvm/versions/node/v${NODE_JS_VERSION}/bin:$PATH"
