@@ -8,7 +8,7 @@ master
 * Redirect Ember routes with paths that don't end in `/` to corresponding paths
   that end in `/`.
 * Don't route requests to `/rails/active_storage` through the mounted Ember application.
-
+* Only support for Ruby versions >= 2.5
 
 0.10.0
 ------
