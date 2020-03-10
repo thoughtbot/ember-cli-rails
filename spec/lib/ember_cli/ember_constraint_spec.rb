@@ -3,6 +3,15 @@ require "ember_cli/ember_constraint"
 describe EmberCli::EmberConstraint do
   describe "#matches?" do
     context %{when the format is "html"} do
+      context "when the request path is for a Rails active storage file" do
+        it "returns a falsey value" do
+          constraint = EmberCli::EmberConstraint.new
+          request = build_html_request("/rails/active_storage")
+
+          expect(constraint.matches?(request)).to be_falsey
+        end
+      end
+
       context "when the request path is for a Rails info page" do
         it "returns a falsey value" do
           constraint = EmberCli::EmberConstraint.new

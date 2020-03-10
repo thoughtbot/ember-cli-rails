@@ -4,6 +4,8 @@ master
 * Switch from TravisCI to GitHub Actions for Continuous Integration
 * Redirect Ember routes with paths that don't end in `/` to corresponding paths
   that end in `/`.
+* Don't route requests to `/rails/active_storage` through the mounted Ember application.
+
 
 0.10.0
 ------
