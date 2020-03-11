@@ -27,3 +27,5 @@ gemfile:
 matrix:
   allow_failures:
     - gemfile: gemfiles/master.gemfile
+    - gemfile: gemfiles/4.2.gemfile
+    - rvm: jruby-9.1.16.0
