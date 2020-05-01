@@ -20,7 +20,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "terrapin", "~> 0.6.0"
   spec.add_dependency "html_page", "~> 0.1.0"
 
-  spec.add_development_dependency "appraisal"
   spec.add_development_dependency "generator_spec", "~> 0.9.0"
   spec.add_development_dependency "rspec-rails", "~> 3.6.0"
 

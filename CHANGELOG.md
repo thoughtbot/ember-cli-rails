@@ -1,6 +1,7 @@
 master
 ------
 
+* Switch from TravisCI to GitHub Actions for Continuous Integration
 * Redirect Ember routes with paths that don't end in `/` to corresponding paths
   that end in `/`.
 

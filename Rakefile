@@ -1,8 +1,10 @@
 require "rubygems"
 require "bundler/setup"
 require "bundler/gem_tasks"
-require "appraisal"
 require "rspec/core/rake_task"
+
+require "webdrivers"
+load "webdrivers/Rakefile"
 
 task(:default).clear
 task default: :spec
@@ -12,8 +14,4 @@ if defined? RSpec
   RSpec::Core::RakeTask.new(:spec) do |t|
     t.verbose = false
   end
-end
-
-if !ENV["APPRAISAL_INITIALIZED"] && !ENV["TRAVIS"]
-  task default: :appraisal
 end
