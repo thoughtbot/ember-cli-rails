@@ -31,6 +31,9 @@ longer receives bug fixes of any sort.
 From `ember-cli-rails@0.4.0` and on, we will no longer support versions of Rails
 prior to `3.2.0`, nor will we support the `4.0.x` series of releases.
 
+From `ember-cli-rails@0.12.0` and on, we will no longer support versions of
+Rails prior to `5.2.0`.
+
 To use `ember-cli-rails` with older versions of Rails, try the `0.3.x` series.
 
 [version-policy]: http://guides.rubyonrails.org/maintenance_policy.html

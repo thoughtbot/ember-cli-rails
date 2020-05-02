@@ -9,6 +9,7 @@ master
   that end in `/`.
 * Don't route requests to `/rails/active_storage` through the mounted Ember application.
 * Only support for Ruby versions >= 2.5
+* Only support for Rails versions >= 5.2
 
 0.10.0
 ------

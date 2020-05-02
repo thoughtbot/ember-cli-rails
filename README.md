@@ -661,7 +661,7 @@ This project supports:
 This project supports:
 
 * Ruby versions `>= 2.5.0`
-* Rails versions `>=4.2.x`.
+* Rails versions `>=5.2.x`.
 
 To learn more about supported versions and upgrades, read the [upgrading guide].
 

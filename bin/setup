@@ -3,7 +3,7 @@
 set -e
 
 echo '-- Set up Ruby dependencies via Bundler'
-gem install bundler -v "${BUNDLER_VERSION-1.17.0}" --conservative
+gem install bundler --conservative
 bundle check || bundle install
 
 bin/rake webdrivers:chromedriver:update

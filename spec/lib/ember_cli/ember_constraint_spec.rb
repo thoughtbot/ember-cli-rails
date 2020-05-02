@@ -46,10 +46,10 @@ describe EmberCli::EmberConstraint do
   end
 
   def build_html_request(fullpath)
-    build_request(format: :html, fullpath: fullpath)
+    build_request(format: "text/html", fullpath: fullpath)
   end
 
   def build_json_request
-    build_request(format: :json)
+    build_request(format: "application/json")
   end
 end
