@@ -86,6 +86,19 @@ describe EmberCli::BuildMonitor do
       end
     end
 
+    context "when the error file contains an ASCII colored Building notice" do
+      it "does not raise a BuildError" do
+        error_file = error_file_with_contents(
+          [
+            "- \e[32mBuilding\e[39m"
+          ])
+        paths = build_paths(error_file)
+        monitor = EmberCli::BuildMonitor.new(nil, paths)
+
+        expect(monitor.check!).to be true
+      end
+    end
+
     context "when the error file contains both errors & deprecation warnings" do
       it "raises a BuildError" do
         error_file = error_file_with_contents(
