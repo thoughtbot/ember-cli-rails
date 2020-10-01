@@ -50,7 +50,7 @@ module EmberCli
     end
 
     def is_blank_or_backtrace?(line)
-      line =~ /(^\s*$|^\s{4}at .+$)/
+      line =~ /(^\s*$|^\s+at .+$)/
     end
 
     def is_deprecation_warning?(line)
