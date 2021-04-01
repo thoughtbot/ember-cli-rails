@@ -106,8 +106,8 @@ describe EmberCli::HerokuGenerator, type: :generator do
     end
   end
 
-  def configure_application(options = {})
-    EmberCli.configure { |c| c.app("my-app", options) }
+  def configure_application(**options)
+    EmberCli.configure { |c| c.app("my-app", **options) }
   end
 
   def setup_destination
