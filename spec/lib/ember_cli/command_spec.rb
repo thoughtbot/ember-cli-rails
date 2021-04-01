@@ -111,6 +111,6 @@ describe EmberCli::Command do
   end
 
   def build_command(**options)
-    EmberCli::Command.new(options)
+    EmberCli::Command.new(**options)
   end
 end
