@@ -364,7 +364,7 @@ describe EmberCli::PathSet do
 
   def build_path_set(**options)
     EmberCli::PathSet.new(
-      options.reverse_merge(
+      **options.reverse_merge(
         app: build_app,
         rails_root: rails_root,
         ember_cli_root: ember_cli_root,

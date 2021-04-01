@@ -8,7 +8,7 @@ module EmberCli
     attr_accessor :watcher
 
     def app(name, **options)
-      app = App.new(name, options)
+      app = App.new(name, **options)
       apps.store(name, app)
     end
 
