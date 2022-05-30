@@ -35,12 +35,20 @@ feature "User views ember app", :js do
     end
   end
 
-  scenario "is redirected with trailing slash", js: false do
+  scenario "is redirected with trailing slash", js: false, focus: true do
     expect(embedded_path).to eq("/asset-helpers")
 
     visit embedded_path
 
     expect(current_path).to eq("/asset-helpers/")
+  end
+
+  scenario "is redirected without trailing slash when it has query params", js: false, focus: true do
+    expect(embedded_path(query: 'foo')).to eq("/asset-helpers?query=foo")
+
+    visit embedded_path(query: 'foo')
+
+    expect(page).to have_current_path("/asset-helpers/?query=foo")
   end
 
   def have_client_side_asset
