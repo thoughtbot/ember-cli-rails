@@ -6,7 +6,7 @@ setup_ember() {
   local target="${1-spec/dummy/my-app}"
 
   if ! [ -d $target ]; then
-    git clone -b stable https://github.com/ember-cli/ember-new-output.git $target
+    git clone -b 'v4.0.0' https://github.com/ember-cli/ember-new-output.git $target
 
     echo '-- Make router catchall routes'
     sed -i -e 's/auto/hash/' $target/config/environment.js

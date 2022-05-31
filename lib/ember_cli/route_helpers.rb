@@ -19,7 +19,7 @@ module ActionDispatch
           redirect_if_missing_trailing_slash = {
             constraints: EmberCli::TrailingSlashConstraint.new,
             to: redirect(-> (_, request) {
-              File.join(request.original_fullpath, "")
+              File.join(request.path, "/?#{request.query_parameters.to_query}")
             }),
           }
 
