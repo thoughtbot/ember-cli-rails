@@ -1,6 +1,18 @@
 master
 ------
 
+0.12.0
+------
+
+* Redirecting with trailing slash with query parameters
+* Recognize Building notice as not an error
+* Use keyword argument for options
+* Add Ruby 2.7 & 3.0 into CI matrix
+* Add missing gems that removed from stdlibs in Ruby 3.0.0
+* Fix autoload deprecation in Rails 6
+* Drop support for Rails versions 4.2, 5.0, 5.1, and 5.2
+* Drop support for End-of-Lifed Ruby versions 2.3 and 2.4
+
 0.11.0
 ------
 
