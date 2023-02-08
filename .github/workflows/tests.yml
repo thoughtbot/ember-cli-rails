@@ -20,6 +20,8 @@ jobs:
             rails: "5.2"
           - ruby: "3.2"
             rails: "7.0"
+          - ruby: "3.2"
+            rails: "main"
 
     env:
       RAILS_ENV: "test"
