@@ -28,10 +28,10 @@ jobs:
     steps:
     - uses: "actions/checkout@v1"
 
-    - name: "Install NodeJS 12.x"
+    - name: "Install NodeJS 18.x"
       uses: "actions/setup-node@v1"
       with:
-        node-version: "12.x"
+        node-version: "18.x"
 
     - name: "Install Ruby ${{ matrix.ruby }}"
       uses: "ruby/setup-ruby@v1"
