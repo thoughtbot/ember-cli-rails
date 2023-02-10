@@ -1,6 +1,16 @@
 master
 ------
 
+0.12.1
+------
+
+* Drop explicit dependency to rexml (#602)
+* Remove note for PhantomJS (#604)
+* Allow rspec-rails 6.x (#603)
+* Allow ember-cli-rails-assets < 1.0 (#599)
+* Update webdrivers gem (#600)
+* Disallow rack 3 to be compatible with capybara (#601)
+
 0.12.0
 ------
 
