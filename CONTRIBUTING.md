@@ -25,8 +25,7 @@ issue trackers, chatrooms, and mailing lists.
 
 ## Setup
 
-After cloning the repository, install [PhantomJS](http://phantomjs.org/)
-if you don't already have it, and execute the setup script:
+After cloning the repository, execute the setup script:
 
     $ bin/setup
 
