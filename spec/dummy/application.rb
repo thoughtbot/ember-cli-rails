@@ -27,7 +27,7 @@ module Dummy
 
     config.public_file_server.enabled = true
     config.public_file_server.headers = {
-      "Cache-Control" => CACHE_CONTROL_FIVE_MINUTES
+      "cache-control" => CACHE_CONTROL_FIVE_MINUTES
     }
 
     config.secret_token = "SECRET_TOKEN_IS_MIN_30_CHARS_LONG"
