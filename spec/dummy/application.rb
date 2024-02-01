@@ -26,6 +26,7 @@ module Dummy
     config.active_support.deprecation = :stderr
 
     if Rails.version >= "5"
+      config.public_file_server.enabled = true
       config.public_file_server.headers = {
         "Cache-Control" => CACHE_CONTROL_FIVE_MINUTES
       }
