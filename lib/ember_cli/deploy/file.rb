@@ -13,7 +13,7 @@ module EmberCli
       end
 
       def to_rack
-        Rack::File.new(app.dist_path.to_s, rack_headers)
+        Rack::Files.new(app.dist_path.to_s, rack_headers)
       end
 
       def index_html
