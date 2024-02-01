@@ -33,7 +33,7 @@ describe EmberCli::Deploy::File do
   end
 
   describe "#to_rack" do
-    it "creates a Rack::File instance" do
+    it "creates a Rack::Files instance" do
       deploy = EmberCli::Deploy::File.new(build_app)
 
       rack_app = deploy.to_rack
