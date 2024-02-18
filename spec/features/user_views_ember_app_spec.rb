@@ -8,7 +8,7 @@ feature "User views ember app", :js do
   end
 
   context "using custom controller" do
-    skip "rendering with asset helpers" do
+    scenario "rendering with asset helpers" do
       visit embedded_path
 
       expect(page).to have_client_side_asset
