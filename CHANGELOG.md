@@ -1,6 +1,11 @@
 main
 ------
 
+0.12.2
+------
+
+* Support Rack 3 and depend on Rack explicitly (#607)
+
 0.12.1
 ------
 
