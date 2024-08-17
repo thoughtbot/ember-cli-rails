@@ -34,7 +34,7 @@ module ActionDispatch
         app = ::EmberCli[app_name]
 
         if app.mountable?
-          mount app.to_rack => to
+          mount app.to_rack, at: to
         end
       end
     end
