@@ -23,8 +23,8 @@ module ActionDispatch
             }),
           }
 
-          get(to, redirect_if_missing_trailing_slash)
-          get(File.join(to, "(*rest)"), routing_options)
+          get(to, **redirect_if_missing_trailing_slash)
+          get(File.join(to, "(*rest)"), **routing_options)
         end
 
         mount_ember_assets(app_name, to: to)
