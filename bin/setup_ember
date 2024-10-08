@@ -9,7 +9,7 @@ setup_ember() {
     git clone -b 'v4.0.0' https://github.com/ember-cli/ember-new-output.git $target
 
     echo '-- Make router catchall routes'
-    sed -i -e 's/auto/hash/' $target/config/environment.js
+    sed -i -e "s/'auto'/'hash'/" $target/config/environment.js
 
     echo '-- Add an image to a template'
     cp spec/fixtures/application.hbs $target/app/templates/application.hbs
