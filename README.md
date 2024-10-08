@@ -301,7 +301,7 @@ Omitting these build assets can dramatically reduce slug size.
 
 A build-pack solution for this is discussed in [Issue #491][#491].
 
-[#491]: https://github.com/thoughtbot/ember-cli-rails/issues/491
+[#491]: https://github.com/tricknotes/ember-cli-rails/issues/491
 
 ### Capistrano
 
@@ -606,7 +606,7 @@ EmberCLI runners to clobber each others' work][#94].
 
 [Puma]: https://github.com/puma/puma
 [Unicorn]: https://rubygems.org/gems/unicorn
-[#94]: https://github.com/thoughtbot/ember-cli-rails/issues/94#issuecomment-77627453
+[#94]: https://github.com/tricknotes/ember-cli-rails/issues/94#issuecomment-77627453
 
 ## `SKIP_EMBER`
 
@@ -673,7 +673,7 @@ See the [CONTRIBUTING] document.
 Thank you, [contributors]!
 
   [CONTRIBUTING]: CONTRIBUTING.md
-  [contributors]: https://github.com/thoughtbot/ember-cli-rails/graphs/contributors
+  [contributors]: https://github.com/tricknotes/ember-cli-rails/graphs/contributors
 
 ## License
 
@@ -689,27 +689,10 @@ ember-cli-rails was originally created by
 [Pavel Pravosud][rwz] and
 [Jonathan Jackson][rondale-sc].
 
-ember-cli-rails is maintained by [Sean Doyle][seanpdoyle] and [Jonathan
-Jackson][rondale-sc].
+ember-cli-rails is maintained by [Sean Doyle][seanpdoyle], [Jonathan
+Jackson][rondale-sc] and [Ryunosuke Sato][tricknotes].
 
 [rwz]: https://github.com/rwz
 [rondale-sc]: https://github.com/rondale-sc
 [seanpdoyle]: https://github.com/seanpdoyle
-
-<!-- START /templates/footer.md -->
-## About thoughtbot
-
-![thoughtbot](https://thoughtbot.com/thoughtbot-logo-for-readmes.svg)
-
-This repo is maintained and funded by thoughtbot, inc.
-The names and logos for thoughtbot are trademarks of thoughtbot, inc.
-
-We love open source software!
-See [our other projects][community].
-We are [available for hire][hire].
-
-[community]: https://thoughtbot.com/community?utm_source=github
-[hire]: https://thoughtbot.com/hire-us?utm_source=github
-
-
-<!-- END /templates/footer.md -->
+[tricknotes]: https://github.com/tricknotes

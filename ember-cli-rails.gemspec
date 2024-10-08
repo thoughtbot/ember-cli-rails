@@ -6,10 +6,10 @@ require "ember_cli/version"
 Gem::Specification.new do |spec|
   spec.name     = "ember-cli-rails"
   spec.version  = EmberCli::VERSION.dup
-  spec.authors  = ["Pavel Pravosud", "Jonathan Jackson", "Sean Doyle"]
-  spec.email    = ["pavel@pravosud.com", "jonathan.jackson1@me.com", "sean.p.doyle24@gmail.com"]
+  spec.authors  = ["Pavel Pravosud", "Jonathan Jackson", "Sean Doyle", "Ryunosuke Sato"]
+  spec.email    = ["pavel@pravosud.com", "jonathan.jackson1@me.com", "sean.p.doyle24@gmail.com", "tricknotes.rs@gmail.com"]
   spec.summary  = "Integration between Ember CLI and Rails"
-  spec.homepage = "https://github.com/thoughtbot/ember-cli-rails"
+  spec.homepage = "https://github.com/tricknotes/ember-cli-rails"
   spec.license  = "MIT"
   spec.files    = Dir["README.md", "CHANGELOG.md", "LICENSE.txt", "{lib,app,config}/**/*"]
 

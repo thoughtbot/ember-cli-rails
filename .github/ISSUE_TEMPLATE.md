@@ -8,11 +8,11 @@
 
 **What is the [`rails`](https://github.com/rails/rails) version?**
 
-**What is the [`ember-cli-rails`](https://github.com/thoughtbot/ember-cli-rails) version (from `Gemfile`)?**
+**What is the [`ember-cli-rails`](https://github.com/tricknotes/ember-cli-rails) version (from `Gemfile`)?**
 
 **What is the [`ember-cli-rails-addon`](https://github.com/rondale-sc/ember-cli-rails-addon/) version (from `package.json`)?**
 
-**Is your application server [multi-threaded](https://github.com/thoughtbot/ember-cli-rails/commit/ef0a49546a8c2e5fb0a298ba455fba97289065a1) 
+**Is your application server [multi-threaded](https://github.com/tricknotes/ember-cli-rails/commit/ef0a49546a8c2e5fb0a298ba455fba97289065a1) 
 (such as `puma` and `unicorn`) or is it multi-process (such as thin and webrick)?**
 
 **What are the contents of `config/initializers/ember.rb`?**

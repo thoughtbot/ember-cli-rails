@@ -12,9 +12,5 @@ your reasons so that we can have a better understanding of your situation.
 
 ## Reporting a Vulnerability
 
-For security inquiries or vulnerability reports, visit
-<https://thoughtbot.com/security>.
-
-If you have any suggestions to improve this policy, visit <https://thoughtbot.com/security>.
-
-<!-- END /templates/security.md -->
+For security inquiries or vulnerability reports, send email to
+<tricknotes.rs+security@gmail.com>.
